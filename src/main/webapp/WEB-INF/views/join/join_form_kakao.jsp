@@ -122,7 +122,7 @@
 					<th> 전 화 번 호 </th>
 					<td>
 						<div class="input-group">
-							<input type="text" id="member_phone" name="member_phone" maxlength="11" class="form-control" value="" placeholder=" 전화번호를 입력 후 중복체크를 해 주세요 " >
+							<input type="text" id="member_phone" name="member_phone" maxlength="11" class="form-control" value="" placeholder=" '-'를 제외한 숫자만 입력해주세요. " >
 							<div class="input-group-append">
 								<button id="phone_btn" class="btn btn-primary"> 전 화 번 호 중 복 체 크 </button>
 							</div>
@@ -247,7 +247,7 @@
 		$("#phone_btn").click(function() {	
 			
 			if( $.trim( $("#member_phone").val() ).length != 11 ){ 
-				alert("아이디는 11자 이상이어야 합니다.");
+				alert("전화번호는 11자 이어야 합니다.");
 				$("#member_phone_label").text("전화번호를 11자리 모두 입력해주세요.");
 				$("#member_phone_label").css("color", "blue");
 				
