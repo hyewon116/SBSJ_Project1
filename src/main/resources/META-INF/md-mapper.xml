@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MdMapper">
+
+	<select id="detail" parameterType="java.lang.String" resultType="kr.co.sbsj.md.MdDTO">
+		select md_id, md_name, md_oneline, md_price, md_category, md_abv, md_discount
+		, truncate( md_price - (md_price / 100 * md_discount), 0 ) sale_price
+		, md_content, md_thumbnail_name, md_thumbnail_path, md_detail_name,
+		md_detail_path, md_content, md_standard_stock, md_sales_rate, md_stock
+		, md_sweet, md_sour, md_sparkling, md_use, md_ratingAvg
+    	from md
+		where md_id = #{md_id}
+	</select>
+
+	<select id="selectList" parameterType="kr.co.sbsj.util.dto.SearchDTO"
+			resultType="kr.co.sbsj.md.MdDTO">
+		select md_id, md_name, md_oneline, md_price, md_category, md_abv, md_discount
+		, truncate( md_price - (md_price / 100 * md_discount), 0 ) sale_price
+		, md_content, md_thumbnail_name, md_thumbnail_path, md_detail_name,
+		md_detail_path, md_content, md_standard_stock, md_sales_rate, md_stock
+		, md_sweet, md_sour, md_sparkling, md_use, md_ratingAvg
+    	from md
+		order by md_id desc
+		limit #{limitNum}, 4
+	</select>
+
+	<select id="searchListCount" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="int">
+		select count(md_id) cnt
+		from md
+	</select>
+
+	<insert id="insert" parameterType="kr.co.sbsj.md.MdDTO">
+	INSERT INTO md (md_name, md_oneline, md_price, md_category, md_abv
+						, md_thumbnail_name, md_thumbnail_path, md_detail_name, md_detail_path
+						, md_content, md_standard_stock, md_sales_rate, md_stock, md_sweet, md_sour, md_sparkling
+						, md_use, md_discount)
+	VALUES( #{md_name}, #{md_oneline} , #{md_price}, #{md_category}, #{md_abv}
+			, #{md_thumbnail_name}, #{md_thumbnail_path}, #{md_detail_name}, #{md_detail_path}, 
+			#{md_content}, #{md_standard_stock}, 0, #{md_standard_stock}, 
+			#{md_sweet}, #{md_sour}, #{md_sparkling}, #{md_use}, #{md_discount})
+	</insert>
+
+</mapper>
