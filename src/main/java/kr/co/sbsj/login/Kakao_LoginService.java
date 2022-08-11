@@ -26,11 +26,11 @@ public class Kakao_LoginService {
 	@Autowired
 	Kakao_LoginDAO dao;
 
-	public String getAccessToken (String authorize_code) {
+	public String getAccessToken (String authorize_code) throws IOException{
 		String access_Token = "";
 		String refresh_Token = "";
 		String reqURL = "https://kauth.kakao.com/oauth/token";
-		try {
+		//try {
 			URL url = new URL(reqURL);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("POST");
@@ -60,9 +60,9 @@ public class Kakao_LoginService {
 			System.out.println("refresh_token : " + refresh_Token);
 			br.close();
 			bw.close();
-		} catch (IOException e) {
+		/*} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
 		return access_Token;
 	}
     
