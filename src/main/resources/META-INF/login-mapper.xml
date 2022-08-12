@@ -18,5 +18,4 @@
 	where member_name = #{nickname} and member_email = #{email} and join_kakao = #{join_kakao}
 	</select>
 	
-
 </mapper>
