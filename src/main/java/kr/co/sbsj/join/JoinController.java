@@ -28,6 +28,12 @@ public class JoinController {
 		out.print(successCount);
 		out.close();
 	}//join
+	
+	
+	@RequestMapping( value = "/join", method = RequestMethod.GET )
+	public String join() {
+		return "/join/join";//jsp file name
+	}//joinForm
 
 	@RequestMapping( value = "/nick_chk", method = RequestMethod.GET )
 	public void nickCheck( String member_nick, PrintWriter out ) {
@@ -56,10 +62,6 @@ public class JoinController {
 		out.close();
 	}//phone_chk
 
-	@RequestMapping( value = "/form", method = RequestMethod.GET )
-	public String joinForm() {
-		return "/join/join_form";//jsp file name
-	}//joinForm
 
 }//class
 

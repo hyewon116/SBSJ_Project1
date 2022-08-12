@@ -194,7 +194,7 @@ public class LoginController {
 			System.out.println(e);
 	}
 		
-		return "/login/loginSuccess";//jsp file name
+		return "/home";//jsp file name
 	}//callback_naver
 
 
@@ -309,7 +309,7 @@ public class LoginController {
 			
 			
 			
-			return "/login/loginSuccess";
+			return "/home";
 			
 		} catch (Exception e) {
 			return "/login/login";
