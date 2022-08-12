@@ -23,8 +23,8 @@
 
 <div id="loginBar">
 
-	<a id="loginBarText" href="${pageContext.request.contextPath}/join/form"> 회원가입 </a>		
-	<a id="loginBarText" href="${pageContext.request.contextPath}/login_form"> 로그인 </a>
+	<a id="loginBarText" href="${pageContext.request.contextPath}/login/login"> 회원가입 </a>		
+	<a id="loginBarText" href="${pageContext.request.contextPath}/login/login"> 로그인 </a>
 	<a id="loginBarText" href="${pageContext.request.contextPath}/logout"> 로그아웃 </a>
 	<a id="loginBarText" href="${pageContext.request.contextPath}/member/mypage"> 마이페이지 </a>
 

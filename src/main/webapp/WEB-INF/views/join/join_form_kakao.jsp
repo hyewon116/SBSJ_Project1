@@ -394,8 +394,8 @@
 					}
 					, function(data, status) {
 						if(data == 1){
-							alert("회원 가입에 성공 하셨습니다.");
-							location.href="${pageContext.request.contextPath}/login/naver_callback";
+							alert("회원 가입에 성공 하셨습니다.	\n\n 로그인 페이지로 이동합니다.");
+							location.href="${pageContext.request.contextPath}/login/login";
 						} else {
 							alert("잠시 후 다시 시도해 주세요.");
 						}

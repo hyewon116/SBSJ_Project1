@@ -7,15 +7,16 @@
 <mapper namespace="LoginMapper">
 	
 	<select id="naver_login" parameterType="kr.co.sbsj.util.dto.Naver_MemberDTO" resultType="kr.co.sbsj.util.dto.MemberDTO">
-	select member_id, member_name, member_email, member_nick, member_phone, join_naver
+	select *
 	from member
 	where member_name = #{name} and member_phone = #{mobile} and member_email = #{email} and join_naver = #{join_naver}
 	</select>
 	
 	<select id="kakao_login" parameterType="kr.co.sbsj.util.dto.Kakao_MemberDTO" resultType="kr.co.sbsj.util.dto.MemberDTO">
-	select member_id, member_name, member_email, join_kakao
+	select *
 	from member
 	where member_name = #{nickname} and member_email = #{email} and join_kakao = #{join_kakao}
 	</select>
 	
+
 </mapper>
