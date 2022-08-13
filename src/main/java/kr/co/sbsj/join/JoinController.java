@@ -2,6 +2,9 @@ package kr.co.sbsj.join;
 
 import java.io.PrintWriter;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +38,15 @@ public class JoinController {
 		return "/join/join";//jsp file name
 	}//joinForm
 
+	@RequestMapping( value = "/pwd_chk", method = RequestMethod.GET )
+	public void passwordCheck( PrintWriter out, MemberDTO dto ) {
+		int isYN = 0;
+		isYN = service.passwordCheck( dto );
+		System.out.println(isYN);
+		out.print(isYN);
+		out.close();
+	}//passwordCheck
+	
 	@RequestMapping( value = "/nick_chk", method = RequestMethod.GET )
 	public void nickCheck( String member_nick, PrintWriter out ) {
 		int isYN = 0;
@@ -43,6 +55,7 @@ public class JoinController {
 		out.print(isYN);
 		out.close();
 	}//nickCheck
+	
 	
 	@RequestMapping( value = "/email_chk", method = RequestMethod.GET )
 	public void emailCheck( String member_email, PrintWriter out ) {

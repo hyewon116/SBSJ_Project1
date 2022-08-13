@@ -9,8 +9,9 @@
 
 <!DOCTYPE html>
 	<html>
+		<title>상부상酒  |  로그인</title>
 		<head>
-		
+		<!-- CDN -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 		<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
@@ -19,14 +20,17 @@
 		<script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
 		<link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
 		
+		<!-- CSS -->
+		<link  rel="stylesheet" href="${pageContext.request.contextPath}/resources/login/css/login.css">
+		
 		</head>
 		
 		<body>
-			<div class="v48_73">
+			<div class="total">
 				
 
 				<!-- 네이버 코드의 시작 -->
-				<div class="v342_41">
+				<div class="naver">
 					<%
 					    String clientId = "hM6sBK_JUV8WoxnMmHzF";//애플리케이션 클라이언트 아이디값";
 					    String redirectURI = URLEncoder.encode("http://localhost:8081/sbsj/login/naver_callback", "UTF-8");//CallBack URL";
@@ -38,32 +42,29 @@
 					    apiURL += "&state=" + state;
 					    session.setAttribute("state", state);
 					%>
-						<a href="<%=apiURL%>"><img height="80" width="600" src=${pageContext.request.contextPath}/resources/image/member/naver.png/></a>
+						<a href="<%=apiURL%>"><img height="80" width="600" src=${pageContext.request.contextPath}/resources/login/img/naver.png/></a>
 
 				</div>
 				<!-- 네이버 코드의 끝 -->
 
 
-
-
-
-
 				<!-- 카카오 코드의 시작 -->
 
-				<div class="v342_45">
+				<div class="kakao">
 					<a href="https://kauth.kakao.com/oauth/authorize?client_id=cf8c2b8f99409406ce4505e3f2eb3c58&redirect_uri=http://localhost:8081/sbsj/login/kakao_login&response_type=code">
-					<img height="80" width="600" src=${pageContext.request.contextPath}/resources/image/member/kakao.png /></a>
+					<img height="80" width="600" src=${pageContext.request.contextPath}/resources/login/img/kakao.png /></a>
 
 
 				</div>
-
 
 				<!-- 카카오 코드의 끝 -->
 
 
 
-				<span class="v342_54">SNS 간편 로그인</span>
-				<div class="v339_13"></div>
+				<span class="titleName">SNS 간편 로그인</span>
+				<div class="logo">
+					<img height="69" width="69" src=${pageContext.request.contextPath}/resources/login/img/logo.png />
+				</div>
 			</div>
 		</body>
 	</html>
@@ -76,72 +77,3 @@
 		<br/>
 		<br/>
 		
-		 <style>
-		 	* {
-			  box-sizing: border-box;
-			}
-			body {
-			  font-size: 14px;
-			}
-			.v48_73 {
-			  width: 100%;
-			  height: 1080px;
-			  background: rgba(255,255,255,1);
-			  opacity: 1;
-			  position: absolute;
-			  top: 0px;
-			  left: 0px;
-			  overflow: hidden;
-			}
-			.v342_41 {
-			  width: 600px;
-			  height: 80px;
-			  background: url("${pageContext.request.contextPath}/resources/image/member/naver.png");
-			  background-repeat: no-repeat;
-			  background-position: center center;
-			  background-size: cover;
-			  opacity: 1;
-			  position: absolute;
-			  top: 448px;
-			  left: 660px;
-			  overflow: hidden;
-			}
-			.v342_45 {
-			  width: 600px;
-			  height: 80px;
-			  background: url("${pageContext.request.contextPath}/resources/image/member/kakao.png");
-			  background-repeat: no-repeat;
-			  background-position: center center;
-			  background-size: cover;
-			  opacity: 1;
-			  position: absolute;
-			  top: 552px;
-			  left: 660px;
-			  overflow: hidden;
-			}
-			.v342_54 {
-			  width: 285px;
-			  color: rgba(0,0,0,1);
-			  position: absolute;
-			  top: 329px;
-			  left: 833px;
-			  font-family: Roboto;
-			  font-weight: Bold;
-			  font-size: 36px;
-			  opacity: 1;
-			  text-align: left;
-			}
-			.v339_13 {
-			  width: 69px;
-			  height: 69px;
-			  background: url("${pageContext.request.contextPath}/resources/image/member/logo.png");
-			  background-repeat: no-repeat;
-			  background-position: center center;
-			  background-size: cover;
-			  opacity: 1;
-			  position: absolute;
-			  top: 217px;
-			  left: 925px;
-			  overflow: hidden;
-			}
-		</style>

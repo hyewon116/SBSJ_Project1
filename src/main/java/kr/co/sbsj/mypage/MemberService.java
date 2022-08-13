@@ -1,23 +1,32 @@
-package kr.co.sbsj.join;
+package kr.co.sbsj.mypage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.sbsj.util.dto.MemberDTO;
+import kr.co.sbsj.util.dto.Naver_MemberDTO;
+import kr.co.sbsj.util.dto.UpdateDTO;
 
 @Service
-public class JoinService {
+public class MemberService {
 
 	@Autowired
-	private JoinDAO dao;
+	private MemberDAO dao;
 
-	public int join( MemberDTO dto ) {
+	
+	
+	public int update( MemberDTO dto ) {
 		int successCount = 0;
-
-		successCount = dao.join( dto );
+		successCount = dao.update( dto );
 		return successCount;
 	}//join
-
+	
+	public UpdateDTO udto ( MemberDTO dto ) {
+		UpdateDTO udto = null;
+		udto = dao.udto( dto );
+		return udto;
+	}//login
+	
 	
 	public int passwordCheck( MemberDTO dto ) {
 		int isYN = 0;
@@ -31,8 +40,6 @@ public class JoinService {
 		isYN = dao.nickCheck( member_nick );
 		return isYN;
 	}//idCheck
-	
-	
 	
 	public int emailCheck( String member_email ) {
 		int isYN = 0;

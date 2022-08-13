@@ -9,7 +9,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>23layout.html</title>
+		<title>상부상酒  |  회원가입</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -25,6 +25,7 @@
 		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 		<script type="text/javascript">
 		$(document).ready(function() {
+			window.alert("가입한 이력이 없습니다. \n 회원가입 해주세요.");
 			$("#addr_btn").click(function() {
 
 			    new daum.Postcode({
@@ -267,7 +268,7 @@
 							$("#member_email_label").text("kakao로 로그인해주세요.");
 							$("#member_email_label").css("color", "red");
 							emailcheckResult = 1;
-							alert(" 이미 가입한 회원입니다. ")
+							alert(" 이미 카카오로 가입하셨습니다. \n 카카오로 로그인해 주세요. ")
 							location.href="${pageContext.request.contextPath}/login/login"
 							return;
 						} else {

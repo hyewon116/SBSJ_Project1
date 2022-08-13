@@ -27,7 +27,7 @@
 	<c:choose>
 		<c:when test="${login_info != null && login_info.member_name != null}">
 		${login_info.member_nick}님
-	<a id="loginBarText" href="${pageContext.request.contextPath}/member/mypage"> 마이페이지 </a>
+	<a id="loginBarText" href="${pageContext.request.contextPath}/mypage/member"> 마이페이지 </a>
 	<a id="loginBarText" href="${pageContext.request.contextPath}/login/logout"> 로그아웃 </a>
 		</c:when>
 		<c:otherwise>

@@ -8,6 +8,7 @@
 	<mappers>
 		<mapper resource="META-INF/join-mapper.xml" />
 		<mapper resource="META-INF/login-mapper.xml" />
+		<mapper resource="META-INF/member-mapper.xml" />
 		<mapper resource="META-INF/md-mapper.xml" />
 		<mapper resource="META-INF/review-mapper.xml" />
 		<mapper resource="META-INF/question-mapper.xml" />

@@ -163,11 +163,6 @@ public class LoginController {
 				System.out.println("Naver_MemberDTO에 담긴 내용들");
 				logger.info(dto.toString());
 				
-				MemberDTO dtoFromDB = null;
-				dtoFromDB = n_service.login( dto ); // 네이버 로그인을 통해 들어온 유저가 그 전에 가입한 적이있는지 확인
-				System.out.println("가입한적이 있나요?" + dtoFromDB);
-				
-				
 				String age = dto.getBirthyear(); // 접속한 접속자의 나이가 20세 미만의 경우 return 페이지로 이동
 				System.out.println("나이가 몇인가요? : " + age);
 				if ( Integer.parseInt(age) > 2003 ) {
@@ -175,9 +170,17 @@ public class LoginController {
 				}//if
 				
 				
+				MemberDTO dtoFromDB = null;
+				dtoFromDB = n_service.login( dto ); // 네이버 로그인을 통해 들어온 유저가 그 전에 가입한 적이있는지 확인
+				System.out.println("가입한적이 있나요?" + dtoFromDB);
+				
+				
+				
+				
 				if( dtoFromDB == null ) {
 					//네이버 로그인을 통해 들어온 유저가 그 전에 가입한 적이 없을경우
 					session.setAttribute("naver_login_info", dto);// Naver_MemberDTO의 값을가지고 회원가입 페이지로 이동
+					
 					return "/join/join_form_naver";// 회원 가입 페이지로 이동
 					
 					
@@ -197,6 +200,8 @@ public class LoginController {
 		return "/home";//jsp file name
 	}//callback_naver
 
+
+	
 
 	private static HttpURLConnection connect(String apiUrl){
 		try {
