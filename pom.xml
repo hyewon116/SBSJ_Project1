@@ -153,11 +153,6 @@
 			<version>1.4</version>
 		</dependency>
 			
-		<dependency>
-         <groupId>commons-fileupload</groupId>
-         <artifactId>commons-fileupload</artifactId>
-         <version>1.4</version>
-    	</dependency>
     	<!-- 로그 -->
 		<dependency>
 			<groupId>org.bgee.log4jdbc-log4j2</groupId>

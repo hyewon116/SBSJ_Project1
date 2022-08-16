@@ -42,5 +42,12 @@
 			#{md_content}, #{md_standard_stock}, 0, #{md_standard_stock}, 
 			#{md_sweet}, #{md_sour}, #{md_sparkling}, #{md_use}, #{md_discount})
 	</insert>
+	
+	<insert id="wish_insert" parameterType="java.lang.String">
+	INSERT INTO wish (md_id, wish_item, wish_price, wish_date) 
+		select #{md_id}, md_name, md_price, now()
+		from md
+		where md_id = #{md_id}
+	</insert>
 
 </mapper>

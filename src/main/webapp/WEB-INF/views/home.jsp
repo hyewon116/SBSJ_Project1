@@ -9,9 +9,9 @@
 	<title>상부상酒</title>
 	
 	<!-- CSS 파일 -->	
-	<link  rel="stylesheet" href="resources/home/css/home.css">
-	<link  rel="stylesheet" href="resources/home/css/headerMain.css">
-	<link  rel="stylesheet" href="resources/home/css/homeFooter.css">
+	<link  rel="stylesheet" href="${pageContext.request.contextPath}/resources/home/css/home.css">
+	<link  rel="stylesheet" href="${pageContext.request.contextPath}/resources/home/css/headerMain.css">
+	<link  rel="stylesheet" href="${pageContext.request.contextPath}/resources/home/css/homeFooter.css">
 	
 	<!-- CDN -->
 	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -102,7 +102,7 @@
 		<div class="col-2">
 		</div>
 		<div class="col">
-		상부상酒의 이 달의 추천 상품
+			상부상酒의 이 달의 추천 상품
 		</div>
 		<div class="col-2">
 		</div>

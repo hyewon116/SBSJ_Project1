@@ -18,7 +18,7 @@ public class MdReviewDAO {
 	
 	public int delete( MdReviewDTO dto ) {
 		int successCount = 0;
-		successCount = sqlSession.update("ReviewMapper.delete", dto);
+		successCount = sqlSession.delete("ReviewMapper.delete", dto);
 		return successCount;
 	}//delete
 	

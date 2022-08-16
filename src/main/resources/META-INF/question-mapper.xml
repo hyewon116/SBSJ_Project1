@@ -5,6 +5,24 @@
 
 <mapper namespace="QuestionMapper">
 	
+	<delete id="delete" parameterType="kr.co.sbsj.mdquestion.MdQuestionDTO">
+	delete from md_question where md_question_id = #{md_question_id}
+	</delete>
+
+	<update id="update" parameterType="kr.co.sbsj.mdquestion.MdQuestionDTO">
+	update md_question
+	set md_question_title = #{md_question_title}
+		, md_question_content = #{md_question_content}
+		, md_question_type = #{md_question_type}
+	where md_question_id = #{md_question_id}
+	</update>
+	
+	<select id="detail" parameterType="java.lang.String" resultType="kr.co.sbsj.mdquestion.MdQuestionDTO">
+	select md_question_id, md_id, member_id, md_question_title, md_question_content, md_question_date, md_question_type
+    from md_question
+	where md_question_id = #{md_question_id}
+	</select>
+	
 	<insert id="insert" parameterType="kr.co.sbsj.mdquestion.MdQuestionDTO">
 	INSERT INTO md_question (md_id, md_question_title, md_question_content, md_question_date, md_question_type)
 	VALUES(#{md_id}, #{md_question_title}, #{md_question_content}, now(), #{md_question_type})
