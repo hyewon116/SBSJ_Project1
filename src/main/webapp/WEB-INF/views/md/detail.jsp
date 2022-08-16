@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<jsp:include page="/WEB-INF/views/headerMain.jsp"></jsp:include>
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -11,12 +12,23 @@
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 		<script src="https://kit.fontawesome.com/def66b134a.js" crossorigin="anonymous"></script>
+		
 		<style type="text/css">
+		
 		#table1 img{ 
 			height:450px; !important
 		}
 		#table2 img{ 
 			height:500px; !important
+		}
+		#table1 {
+			margin-top: 20px;
+		}
+		#table2 {
+			margin-left: auto; 
+  			margin-right: auto;
+  			border-spacing: 2px;
+  			text-align: center;
 		}
 		#review {
 			margin-right : 30px;
@@ -33,21 +45,22 @@
 	</head>
 	<body>
 		<div class="container">
-		<hr>
-		<h3> 상품 상세 보기 </h3>
-		<hr>
+		
+		<!-- 상품 정보 + 구매 버튼 -->		
 		<table class="table" id="table1">
 			<col class="w-25">
 			<tbody>
 				<tr>
 					<td rowspan="5"><img src="${detail_dto.md_thumbnail_path}"></td>
 					<td colspan="2"> 
-						<p style="font-size:27px;"> 
+						<p style="font-size:27px; color:dimgray;"> 
 						<b>${detail_dto.md_name}</b>
 						</p>  
 					</td>
+					
+					<!-- 찜 버튼 -->
 					<td colspan="2">
-						<button type="button" id="wish_btn" class="btn btn-danger btn-sm">
+						<button type="button" id="wish_btn" class="btn btn-danger btn-sm"> 
 						♡
 						</button>
 					</td>
@@ -67,9 +80,13 @@
 					</td>
 				</tr>
 				<tr>
+					<th> 도 수 </th>
+					<td> <b> <span> ${detail_dto.md_abv}</span> % </b></td>
+				</tr>
+				<tr>
 					<th> 구 매 수 량 </th>
 					<td>
-						<select id="cart_item_count" name="cart_item_count">
+						<select id="buy_qty" name="buy_qty">
 							<option value="0"> 선 택 </option>
 							<c:forEach var="tmp_qty" begin="1" end="10">
 								<option value="${tmp_qty}"> ${tmp_qty} </option>
@@ -82,20 +99,26 @@
 				<tr>
 					<td colspan="4" class="text-right">
 						<button type="button" id="jang_btn" class="btn btn-primary btn-lg"> 장바구니 담기 </button>
-						<button type="button" id="buy_btn" class="btn btn-primary btn-lg"> 바로 구매 하기 </button>
+						<button type="button" id="buy_btn" class="btn btn-primary btn-lg"> 바로 구매하기 </button>
 					</td>
 				</tr>
 			</tbody>
 		</table>
-		<table class="table" id="table2">
+		
+		<!-- 상품 상세 설명 -->
+		<br>
+		<div style="text-align:center">
+			<h6 style="color:dimgray;"><b>상품 상세 설명</b></h6> <br><br>
+		</div>
+		<table id="table2">
 			<tbody>
 				<tr>
-					<th> 상 품 상 세 이 미 지 </th>
+					<th> </th>
 					<td colspan="2"><img src="${detail_dto.md_detail_path}"></td>
 				</tr>
 				<tr>
-					<th> 상 품 설 명 </th>
-					<td colspan="2">${detail_dto.md_content}</td>
+					<th> </th>
+					<td colspan="2"><br><br>${detail_dto.md_content}</td>
 				</tr>
 			</tbody>
 		</table>
@@ -134,6 +157,7 @@
 		
 	<script type="text/javascript">
 	
+	//찜 목록 추가하기 
 	$(document).ready(function() {
 		$("#wish_btn").click(function() {
 			
@@ -160,6 +184,44 @@
 	</script>
 	
 	<script type="text/javascript">
+	
+	//장바구니 담기 
+	$(document).ready(function() {
+		$("#jang_btn").click(function() {
+
+			if("${login_info.member_id}" == ""){
+				alert("로그인 해주세요.");
+				return;
+			}
+
+			if( $("#buy_qty").val() == 0 ){
+				alert("구매 수량을 선택 하세요.");
+				return;
+			}
+
+			$.post(
+					"${pageContext.request.contextPath}/cart/insert"
+					, {
+						md_id : ${detail_dto.md_id}
+						, buy_qty : $("#buy_qty").val()
+					}
+					, function(data, status) {
+						if(data >= 1){
+							let tmp_bool = confirm("장바구니에 추가 하였습니다.\n장바구니로 이동 하시겠습니까?");
+							if( tmp_bool == true ) location.href="${pageContext.request.contextPath}/cart/list";
+						} else {
+							alert("장바구니 추가를 실패 하였습니다.");
+						}
+					}//call back function
+			);//post
+
+		});//click
+	});//ready
+	</script>
+	
+	<script type="text/javascript">
+	
+	//하단 후기&문의&교환 페이지 설정
 	$(document).ready(function() {
 
 		//문의&교환 페이지 숨겨놓기
@@ -168,7 +230,7 @@
 		
 		//문의 페이지 보이기
 		$("#question").click(function() {
-					$("#question_list").show(10); 
+					$("#question_list").show(10); //10ms = 0.01초
 					$("#review_list").hide(); //나머지는 숨기기
 					$("#exchange_list").hide(); 
 			
@@ -176,7 +238,7 @@
 
 		//리뷰 페이지 보이기
 		$("#review").click(function() {
-				$("#review_list").show(10); //10ms = 0.01초
+				$("#review_list").show(10); 
 				$("#question_list").hide();
 				$("#exchange_list").hide(); 
 		});//click

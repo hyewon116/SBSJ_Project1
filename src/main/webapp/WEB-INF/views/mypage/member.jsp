@@ -74,7 +74,7 @@
 					
 				<jsp:include page="/WEB-INF/views/mypage/asideMypage.jsp"></jsp:include>
 				<br>
-				<br>			
+				<br>
 				
 				
 				

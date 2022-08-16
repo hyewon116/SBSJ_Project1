@@ -9,9 +9,9 @@
 	<title>상부상酒</title>
 	
 	<!-- CSS 파일 -->	
-	<link  rel="stylesheet" href="resources/home/css/home.css">
-	<link  rel="stylesheet" href="resources/home/css/headerMain.css">
-	<link  rel="stylesheet" href="resources/home/css/homeFooter.css">
+	<link  rel="stylesheet" href="${pageContext.request.contextPath}/resources/home/css/home.css">
+	<link  rel="stylesheet" href="${pageContext.request.contextPath}/resources/home/css/headerMain.css">
+	<link  rel="stylesheet" href="${pageContext.request.contextPath}/resources/home/css/homeFooter.css">
 	
 	<!-- CDN -->
 	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -38,13 +38,13 @@
 	<div id="carouselExampleFade" class="carousel slide carousel-fade mb-10" data-bs-ride="carousel">
 	    <div class="carousel-inner">
 	      <div class="carousel-item active">
-	        <a href="/event/eventTiger"><img src="resources/home/img/main_1.jpg" class="d-block w-100" alt="1"></a>
+	        <a href="/event/eventTiger"><img src="${pageContext.request.contextPath}/resources/home/img/main_1.jpg" class="d-block w-100" alt="1"></a>
 	      </div>
 	      <div class="carousel-item">
-	        <a href="event/eventKH"><img src="resources/home/img/main_2.jpg" class="d-block w-100" alt="2"></a>
+	        <a href="event/eventKH"><img src="${pageContext.request.contextPath}/resources/home/img/main_2.jpg" class="d-block w-100" alt="2"></a>
 	      </div>
 	      <div class="carousel-item">
-	        <a href="/event/eventRecommend"><img src="resources/home/img/main_3.jpg" class="d-block w-100" alt="3"></a>
+	        <a href="/event/eventRecommend"><img src="${pageContext.request.contextPath}/resources/home/img/main_3.jpg" class="d-block w-100" alt="3"></a>
 	      </div>
 	    </div>
 	    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
@@ -102,7 +102,7 @@
 		<div class="col-2">
 		</div>
 		<div class="col">
-		상부상酒의 이 달의 추천 상품
+			상부상酒의 이 달의 추천 상품
 		</div>
 		<div class="col-2">
 		</div>

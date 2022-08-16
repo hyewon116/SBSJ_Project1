@@ -16,16 +16,20 @@
 			<table class="table table-hover">
 				<thead>
 					<tr>
-					<th>작성일자 </th> <th> 답변상태 </th> <th> 문의유형 </th> <th>작성자</th> <th>글 제목</th>
+					<th>작성일자 </th> <th>글 제목</th> <th>작성자</th> <th> 문의유형 </th> <th> 답변상태 </th>
 					</tr>
 				</thead>
 					<c:forEach var="question" items="${list}">
 						<tr>
 							<td>${question.md_question_date}</td>
-							<td>${question.md_question_answer}</td>
-							<td>${question.md_question_type}</td>
+							<td>
+								<a href="${pageContext.request.contextPath}/mdquestion/detail?md_question_id=${question.md_question_id}">
+								${question.md_question_title}
+								</a>
+							</td>
 							<td>${question.member_id}</td>
-							<td>${question.md_question_title}</td>
+							<td>${question.md_question_type}</td>
+							<td>${question.md_question_answer}</td>
 						</tr>
 					</c:forEach>
 			</table>

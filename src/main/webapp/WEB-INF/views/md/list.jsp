@@ -20,12 +20,10 @@
 		<link rel="stylesheet" href="/resources/mdList/assets/css/owl.css">
 		
 		<style type="text/css">
-/* 		.container {	 */
-/* 			max-width:1300px !important; */
-/* 		} */
 
 		.img-box {
 			overflow: hidden;
+			margin-top: 20px;
 		}
 		
 		/* 마우스 오버시 이미지 확대 */
@@ -40,7 +38,7 @@
 		}
 		
 		/* 이미지 모양 조정 */
-		img {
+		table img {
 			width: 250px;
 			top: 6px;
 			left: 7px;
@@ -67,7 +65,7 @@
 		
 		/* 하이퍼링크 밑줄 없애기 */
      	a:hover { text-decoration:none !important }
-
+		
 		</style>
 	
 	</head>
@@ -76,35 +74,103 @@
 	<hr class="my-50">
 	<div class="container">
 
+
+	<!-- 필터링 버튼 -->
+	<div class="btn-group">
+	  <button type="button" class="btn text-black dropdown-toggle" style="background-color: tan;"
+			data-toggle="dropdown">
+	  	주종
+	  </button>
+	  <div class="dropdown-menu">
+	    <a class="dropdown-item" href="#">탁주</a>
+	    <a class="dropdown-item" href="#">약·청주</a>
+	    <a class="dropdown-item" href="#">과실주</a>
+	    <a class="dropdown-item" href="#">증류주</a>
+	    <a class="dropdown-item" href="#">선물세트</a>
+	  </div>
+	 </div>
+	  
+	 <div class="btn-group">
+	  <button type="button" class="btn text-black dropdown-toggle" style="background-color: wheat;" 
+	  	data-toggle="dropdown" >
+	  	단맛
+	  </button>
+	  <div class="dropdown-menu">
+	    <a class="dropdown-item" href="#">약한</a>
+	    <a class="dropdown-item" href="#">중간</a>
+	    <a class="dropdown-item" href="#">강한</a>
+	  </div>
+	 </div>
+	  
+	 <div class="btn-group">
+	  <button type="button" class="btn text-black dropdown-toggle" style="background-color: wheat;" 
+	  	data-toggle="dropdown">
+	  	신맛
+	  </button>
+	  <div class="dropdown-menu">
+	    <a class="dropdown-item" href="#">약한</a>
+	    <a class="dropdown-item" href="#">중간</a>
+	    <a class="dropdown-item" href="#">강한</a>
+	  </div>
+	 </div>
+	 
+	 <div class="btn-group">
+	  <button type="button" class="btn text-black dropdown-toggle" style="background-color: wheat;" 
+	  	data-toggle="dropdown">
+	  	탄산
+	  </button>
+	  <div class="dropdown-menu">
+	    <a class="dropdown-item" href="#">약한</a>
+	    <a class="dropdown-item" href="#">중간</a>
+	    <a class="dropdown-item" href="#">강한</a>
+	  </div>
+	 </div>
+	 
+	 <div class="btn-group">
+	  <button type="button" class="btn btn-warning dropdown-toggle" style="background-color: coral;" 
+	  	data-toggle="dropdown">
+	  	상황별
+	  </button>
+	  <div class="dropdown-menu">
+	    <a class="dropdown-item" href="#">웃어른</a>
+	    <a class="dropdown-item" href="#">연인</a>
+	    <a class="dropdown-item" href="#">친구</a>
+	    <a class="dropdown-item" href="#">혼자</a>
+	    <a class="dropdown-item" href="#">비지니스</a>
+	  </div>
+	 </div>
+	<br><br>
+	
+	
 	<!-- 상품 목록 -->
 		<table class="table table-hover" style="width:500px;">
+			<tbody id="tbody_for_list">
+			</tbody>
 			<tr>
 				<c:forEach var="md" items="${list}">
 				<td>
-				 <div class="img-box"><a href="${pageContext.request.contextPath}/md/detail?md_id=${md.md_id}">
-	                        <img src="${md.md_thumbnail_path}" alt=""></a></div>
-				<div class="product-item">
-	            	<div class="img-box">
-		            	 <input type=hidden id="md_id" value="${md.md_id}">
-		           	</div>
-	                     <a href="${pageContext.request.contextPath}/md/detail?md_id=${md.md_id}">
-	                     <h5>${md.md_name}</h5>
-	                     </a>
-	                     <a><h6>${md.md_oneline}</h6></a>
-	                     <h6><del><fmt:formatNumber value="${md.md_price}" pattern="#,###" />원</del></h6>
-	                     <h6><fmt:formatNumber value="${md.sale_price}" pattern="#,###" />원</h6>
-	            	</div>
+					<div class="img-box"><a href="${pageContext.request.contextPath}/md/detail?md_id=${md.md_id}">
+		                     <img src="${md.md_thumbnail_path}" alt=""></a></div>
+						<div class="product-item">
+			            	 <input type=hidden id="md_id" value="${md.md_id}">
+		                   	 	<a href="${pageContext.request.contextPath}/md/detail?md_id=${md.md_id}">
+		                     <h5>${md.md_name}</h5>
+		                     </a>
+		                     	<a><h6>${md.md_oneline}</h6></a>
+		                     <h6><del><fmt:formatNumber value="${md.md_price}" pattern="#,###" />원</del></h6>
+		                     <h6><b><fmt:formatNumber value="${md.sale_price}" pattern="#,###" />원</b></h6>
+		            	</div>
 				</td>
 				</c:forEach>
 			</tr>
 		</table>
 	</div>
 	
-	<!-- 페이징 부분 => 간격 조정 필요 -->
+	<!-- 페이징 부분 -->
       <div class="container">
-		<ul class="pagination">
+		<ul class="pagination justify-content-center" >
 			<c:if test="${startPageNum > 10}">
-				<li class="page-item mx-auto">
+				<li class="page-item">
 					<a class="page-link"
 						href="${pageContext.request.contextPath}/md/list?userWantPage=${startPageNum-1}">
 						Previous
@@ -114,12 +180,12 @@
 			<c:forEach var="page_no" begin="${startPageNum}" end="${endPageNum}">
 				<c:choose>
 					<c:when test="${page_no == userWantPage}">
-						<li class="page-item active mx-auto">
+						<li class="page-item active">
 							<a class="page-link">${page_no}</a>
 						</li>
 					</c:when>
 					<c:otherwise>
-						<li class="page-item mx-auto">
+						<li class="page-item">
 							<a class="page-link"
 								href="${pageContext.request.contextPath}/md/list?userWantPage=${page_no}">
 								${page_no}
@@ -129,7 +195,7 @@
 				</c:choose>
 			</c:forEach>
 			<c:if test="${lastPageNum > endPageNum}">
-				<li class="page-item mx-auto">
+				<li class="page-item">
 					<a class="page-link"
 						href="${pageContext.request.contextPath}/md/list?userWantPage=${endPageNum+1}">
 						Next

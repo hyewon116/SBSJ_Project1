@@ -1,5 +1,6 @@
 package kr.co.sbsj.mdquestion;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
@@ -23,6 +24,44 @@ public class MdquestionController {
 	
 	@Autowired
 	private MdQuestionService service;
+	
+	//문의 삭제
+	@RequestMapping ( value = "/delete", method = RequestMethod.GET) 
+	public void delete( MdQuestionDTO dto, String md_question_id, PrintWriter out ) { 
+		int successCount = 0;
+		successCount = service.delete( dto );
+		out.print(successCount);
+		out.close();
+	}//delete
+	
+	//문의 수정
+	@RequestMapping( value = "/update", method = RequestMethod.POST )
+	public void update( MdQuestionDTO dto, PrintWriter out ) throws IOException {
+		int successCount = 0;
+		successCount = service.update( dto );
+		out.print(successCount);
+		out.close();
+	}//update
+	
+	//문의 수정 입력폼
+	@RequestMapping( value = "/uform", method = RequestMethod.GET )
+	public String updateForm( String md_question_id, Model model ) {
+		MdQuestionDTO dto = null;
+		dto = service.detail( md_question_id ); //md_question_id에 맞는 디테일 정보를 가져와서 수정폼에 자동 입력
+		model.addAttribute("detail_dto", dto);
+		return "/mdquestion/question_uform";//jsp file name
+	}//updateForm
+	
+	//문의 상세보기
+	@RequestMapping( value = "/detail", method = RequestMethod.GET )
+	public String detail( String md_question_id, Model model ) {
+		MdQuestionDTO dto = null;
+		dto = service.detail( md_question_id );
+		model.addAttribute("detail_dto", dto);
+		model.addAttribute("md_question_id", md_question_id);
+		return "/mdquestion/question_detail";//jsp file name
+	}//detail
+
 	
 	//상품문의 리스트
 	@RequestMapping(value = "/question_list", method = RequestMethod.GET)
