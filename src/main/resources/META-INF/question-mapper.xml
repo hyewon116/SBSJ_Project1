@@ -5,6 +5,11 @@
 
 <mapper namespace="QuestionMapper">
 	
+	<insert id="insert" parameterType="kr.co.sbsj.mdquestion.MdQuestionDTO">
+	INSERT INTO md_question (md_id, md_question_title, md_question_content, md_question_date, md_question_type)
+	VALUES(#{md_id}, #{md_question_title}, #{md_question_content}, now(), #{md_question_type})
+	</insert>
+
 	<select id="pagingList" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="kr.co.sbsj.mdquestion.MdQuestionDTO"> 
 	select md_question_id, md_id, member_id, md_question_title, md_question_content
 	, md_question_date, md_question_answer, md_question_type, md_answer_id, md_answer_member
