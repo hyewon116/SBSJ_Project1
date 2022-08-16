@@ -12,29 +12,41 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 	<body>
+	<!-- body 시작 부분 -->
+	
 		<div class="container">
+			
+			<!-- 후기 리스트 -->
 			<table class="table table-hover">
 				<thead>
 					<tr>
-					<th>작성일자 </th> <th> 별점 </th> <th>작성자 </th> <th>조회수</th> <th>글 제목</th>
+					<th>작성일자 </th> <th>글 제목</th> <th>작성자 </th> <th> 별점 </th> <th>조회수</th> 
 					</tr>
 				</thead>
 					<c:forEach var="review" items="${list}">
 						<tr>
 							<td>${review.review_date}</td>
-							<td>${review.review_star}</td>
+							<td>
+								<a href="${pageContext.request.contextPath}/mdreview/detail?review_id=${review.review_id}">
+								${review.review_title}
+								</a>
+							</td>
 							<td>${review.member_id}</td>
+							<td>${review.review_star}</td>
 							<td>${review.review_viewcnt}</td>
-							<td>${review.review_title}</td>
 						</tr>
 					</c:forEach>
 			</table>
-			<div class="clearfix">
+			
+		<!-- 후기 작성 버튼 -->
+		<div class="clearfix">
 			<a href="${pageContext.request.contextPath}/mdreview/write?md_id=${md_id}">
 				<button class="btn btn-info float-right"> 후기 작성 </button>
 			</a>
 		</div>
 			
+			
+		<!-- 페이징 부분 -->
 		<ul class="pagination">
 			<c:if test="${startPageNum > 10}">
 				<li class="page-item mx-auto">

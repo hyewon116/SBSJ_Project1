@@ -5,6 +5,29 @@
 
 <mapper namespace="ReviewMapper">
 
+	<delete id="delete" parameterType="kr.co.sbsj.mdreview.MdReviewDTO">
+	delete from review where review_id = #{review_id}
+	</delete>
+
+	<update id="update" parameterType="kr.co.sbsj.mdreview.MdReviewDTO">
+	update review
+	set review_title = #{review_title}
+		, review_content = #{review_content}
+		, review_star = #{review_star}
+	where review_id = #{review_id}
+	</update>
+
+	<select id="detail" parameterType="java.lang.String" resultType="kr.co.sbsj.mdreview.MdReviewDTO">
+		select review_id, md_id, member_id, review_title, review_content, review_date, review_star
+    	from review
+		where review_id = #{review_id}
+	</select>
+
+	<insert id="insert" parameterType="kr.co.sbsj.mdreview.MdReviewDTO">
+	INSERT INTO review (md_id, member_id, review_title, review_content, review_date, review_star)
+	VALUES(#{md_id}, #{member_id}, #{review_title}, #{review_content}, now(), #{review_star})
+	</insert>
+
 	<select id="pagingList" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="kr.co.sbsj.mdreview.MdReviewDTO"> 
 	select review_id, md_id, member_id, order_detail_id, review_title
 	, review_content, review_date, review_viewcnt, review_star
@@ -16,21 +39,6 @@
 
 	<select id="totalCount" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="int">
 	select count(review_id) cnt from review
-	where md_id = #{md_id}
-	</select>
-	
-	<select id="question_pagingList" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="kr.co.sbsj.mdreview.MdReviewDTO"> 
-	select md_question_id, md_id, member_id, md_question_title, md_question_content
-	, md_question_date, md_question_answer, md_question_type, md_answer_id, md_answer_member
-	, md_answer_content, md_answer_date
-	from md_question
-	where md_id = #{md_id}
-	order by md_question_id desc
-	limit #{limitNum}, 10
-	</select>
-	
-	<select id="question_totalCount" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="int">
-	select count(md_question_id) cnt from md_question
 	where md_id = #{md_id}
 	</select>
 

@@ -26,5 +26,11 @@ public class MdQuestionDAO {
 		totalCount = sqlSession.selectOne("QuestionMapper.totalCount", dto );
 		return totalCount;
 	}//totalListCount
+
+	public int insert( MdQuestionDTO dto ) {
+		int successCount = 0;
+		successCount = sqlSession.insert("QuestionMapper.insert", dto);
+		return successCount;
+	}//insert
 	
 }

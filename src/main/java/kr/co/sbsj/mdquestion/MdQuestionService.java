@@ -26,5 +26,9 @@ public class MdQuestionService {
 		return totalCount;
 	}//totalListCount
 
-	
+	public int insert( MdQuestionDTO dto ) {
+		int successCount = 0;
+		successCount = dao.insert( dto );
+		return successCount;
+	}//insert
 }

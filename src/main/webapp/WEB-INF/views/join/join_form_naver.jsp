@@ -47,128 +47,144 @@
 			<header class="jumbotron bg-white mt-1 mb-1">
 				<h1 class="text-center"> 회원 가입</h1>
 			</header>
-			
+			<!-- <nav class="navbar navbar-expand-sm bg-secondary navbar-dark">
+				<a class="navbar-band"> L O G O </a>
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a class="nav-link"> 메뉴 1 </a></li>
+					<li class="nav-item"><a class="nav-link"> 메뉴 2 </a></li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle"
+							data-toggle="dropdown" href="#"> Dropdown 메뉴 </a>
+						<div class="dropdown-menu">
+							<a class="dropdown-item"> Menu Botton 1 </a>
+							<a class="dropdown-item"> Menu Botton 2 </a>
+						</div>
+					</li>
+				</ul>
+				<form class="form-inline">
+					<input type="text" class="form-control mr-sm-2" placeholder="S E A R C H">
+					<button class="btn btn-success">SEARCH</button>
+				</form>
+			</nav> -->
 			
 			<main class="clearfix mt-1" style="height:900px">
 				<aside class="col-1 h-100 bg-warning float-left">aside</aside>
 				<section class="col-9 h-100 bg-white float-left">
-				<table class="table table-hover">
-					<hr size="30" noshade>
-					<tbody>
-						<tr>
-						<br>
-							<th> 이 름  </th>
-							<td>
-								<div class="input-group">
-									<input type="text" id="member_name" name="member_name" maxlength="20" class="form-control" value="${naver_login_info.name}" readonly="readonly">
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<th> 이 메 일 </th>
-							<td>
-								<div class="input-group">
-									<input type="text" id="member_email" name="member_email" maxlength="25" class="form-control" value="${naver_login_info.email}" readonly="readonly">
-									<div class="input-group-append">
-										<button id="email_btn" class="btn btn-primary"> email 중 복 체 크 </button>
-									</div>
-								</div>
-										<label id="member_email_label"></label>
-							</td>
-						</tr>
-						<tr>
-							<th> 비 밀 번 호 </th>
-							<td>
-								<input type="password" id="member_pwd" name="member_pwd" maxlength="20" class="form-control">
-								<label for="pwd" id="member_pwd_label"></label>
-							</td>
-						</tr>
-						<tr>
-							<th> 비 밀 번 호 확 인 </th>
-							<td>
-								<input type="password" id="remember_pwd" name="remember_pwd" maxlength="20" class="form-control">
-								<label for="rempwd" id="remember_pwd_label"></label>
-							</td>
-						</tr>
-						<tr>
-							<th> 닉 네 임  </th>
-							<td>
-								<div class="input-group">
-									<input type="text" id="member_nick" name="member_nick" maxlength="20" class="form-control" value="${naver_login_info.nickname}">
-									<div class="input-group-append">
-										<button id="nick_btn" class="btn btn-primary"> 닉 네 임 중 복 체 크 </button>
-									</div>
-								</div>
-								<label id="member_nick_label"></label>
-							</td>
-						</tr>
-						<tr>
-							<th> 전 화 번 호 </th>
-							<td>
-								<div class="input-group">
-									<input type="text" id="member_phone" name="member_phone" maxlength="11" class="form-control" value="${naver_login_info.mobile}" readonly="readonly">
-									<div class="input-group-append">
-										<button id="phone_btn" class="btn btn-primary"> 전 화 번 호 중 복 체 크 </button>
-									</div>
-								</div>
-								<label id="member_phone_label"></label>
-							</td>
-						</tr>
-						<tr>
-							<th> 주 소 </th>
-							<td>
-								<div class="input-group">
-									<div class="input-group">
-										<span class="input-group-text"> 우 편 번 호 </span>
-										<input type="text" id="member_addr1" name="member_addr1" readonly="readonly"
-												class="form-control">
-										<button id="addr_btn" class="btn btn-primary"> 주 소 검 색 </button>
-									</div>
-									
-									<div class="input-group">
-										<span class="input-group-text"> 주 소 </span>
-										<input type="text" id="member_addr2" name="member_addr2" readonly="readonly"
-												class="form-control">
-									</div>
-									<div class="input-group">
-										<span class="input-group-text"> 상 세 주 소 </span>
-										<input type="text" id="member_addr3" name="member_addr3" class="form-control">
-									</div>
-									
-									<label for="addr1" id="member_addr1_label"></label>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<th> E M A I L 수신동의 </th>
-							<td>
-								<div class="input-group">
-									<div class="input-group-text">
-										<input type="checkbox" id="email_agree" name="email_agree" class="mr-1"
-												checked="checked"> EMAIL 수신을 동의 합니다.
-									</div>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<th> S _ M _ S 수신동의 </th>
-							<td>
-								<div class="input-group">
-									<div class="input-group-text">
-										<input type="checkbox" id="sms_agree" name="sms_agree" class="mr-1"
-												checked="checked"> SMS 수신을 동의 합니다.
-									</div>
-								</div>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-					<div class="clearfix">
-						<button id="join_btn" class="btn btn-primary float-right"> 회 원 가 입 </button>
-					</div>
-					<hr size="30" noshade>
-		
-				</section>
+					<table class="table table-hover">
+			<hr size="30" noshade>
+			<tbody>
+				<tr>
+				<br>
+					<th> 이 름  </th>
+					<td>
+						<div class="input-group">
+							<input type="text" id="member_name" name="member_name" maxlength="20" class="form-control" value="${naver_login_info.name}" readonly="readonly">
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th> 이 메 일 </th>
+					<td>
+						<div class="input-group">
+							<input type="text" id="member_email" name="member_email" maxlength="25" class="form-control" value="${naver_login_info.email}" readonly="readonly">
+							<div class="input-group-append">
+								<button id="email_btn" class="btn btn-primary"> email 중 복 체 크 </button>
+							</div>
+						</div>
+								<label id="member_email_label"></label>
+					</td>
+				</tr>
+				<tr>
+					<th> 비 밀 번 호 </th>
+					<td>
+						<input type="password" id="member_pwd" name="member_pwd" maxlength="20" class="form-control">
+						<label for="pwd" id="member_pwd_label"></label>
+					</td>
+				</tr>
+				<tr>
+					<th> 비 밀 번 호 확 인 </th>
+					<td>
+						<input type="password" id="remember_pwd" name="remember_pwd" maxlength="20" class="form-control">
+						<label for="rempwd" id="remember_pwd_label"></label>
+					</td>
+				</tr>
+				<tr>
+					<th> 닉 네 임  </th>
+					<td>
+						<div class="input-group">
+							<input type="text" id="member_nick" name="member_nick" maxlength="20" class="form-control" value="${naver_login_info.nickname}">
+							<div class="input-group-append">
+								<button id="nick_btn" class="btn btn-primary"> 닉 네 임 중 복 체 크 </button>
+							</div>
+						</div>
+						<label id="member_nick_label"></label>
+					</td>
+				</tr>
+				<tr>
+					<th> 전 화 번 호 </th>
+					<td>
+						<div class="input-group">
+							<input type="text" id="member_phone" name="member_phone" maxlength="11" class="form-control" value="${naver_login_info.mobile}" readonly="readonly">
+							<div class="input-group-append">
+								<button id="phone_btn" class="btn btn-primary"> 전 화 번 호 중 복 체 크 </button>
+							</div>
+						</div>
+						<label id="member_phone_label"></label>
+					</td>
+				</tr>
+				<tr>
+					<th> 주 소 </th>
+					<td>
+						<div class="input-group">
+							<div class="input-group">
+								<span class="input-group-text"> 우 편 번 호 </span>
+								<input type="text" id="member_addr1" name="member_addr1" readonly="readonly"
+										class="form-control">
+								<button id="addr_btn" class="btn btn-primary"> 주 소 검 색 </button>
+							</div>
+							
+							<div class="input-group">
+								<span class="input-group-text"> 주 소 </span>
+								<input type="text" id="member_addr2" name="member_addr2" readonly="readonly"
+										class="form-control">
+							</div>
+							<div class="input-group">
+								<span class="input-group-text"> 상 세 주 소 </span>
+								<input type="text" id="member_addr3" name="member_addr3" class="form-control">
+							</div>
+							
+							<label for="addr1" id="member_addr1_label"></label>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th> E M A I L 수신동의 </th>
+					<td>
+						<div class="input-group">
+							<div class="input-group-text">
+								<input type="checkbox" id="email_agree" name="email_agree" class="mr-1"
+										checked="checked"> EMAIL 수신을 동의 합니다.
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th> S _ M _ S 수신동의 </th>
+					<td>
+						<div class="input-group">
+							<div class="input-group-text">
+								<input type="checkbox" id="sms_agree" name="sms_agree" class="mr-1"
+										checked="checked"> SMS 수신을 동의 합니다.
+							</div>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="clearfix">
+			<button id="join_btn" class="btn btn-primary float-right"> 회 원 가 입 </button>
+		</div>
+		<hr size="30" noshade>
 	<script type="text/javascript">
 	let checkedNICK = "";
 	let checkedEMAIL = "";
@@ -366,8 +382,8 @@
 					}
 					, function(data, status) {
 						if(data == 1){
-							alert("회원 가입에 성공 하셨습니다.	\n\n 로그인 페이지로 이동합니다.");
-							location.href="${pageContext.request.contextPath}/login/login";
+							alert("회원 가입에 성공 하셨습니다.");
+							location.href="${pageContext.request.contextPath}/login/naver_callback";
 						} else {
 							alert("잠시 후 다시 시도해 주세요.");
 						}
@@ -379,7 +395,7 @@
 
 
 	</script>
-			
+				</section>
 				<aside class="col-1  h-100 bg-warning float-right">aside</aside>
 			</main>
 			

@@ -8,7 +8,7 @@
 	<meta charset="UTF-8">
 	<title>상부상酒</title>
 	
-	<!-- CSS 파일 -->										
+	<!-- CSS 파일 -->	
 	<link  rel="stylesheet" href="resources/home/css/home.css">
 	<link  rel="stylesheet" href="resources/home/css/headerMain.css">
 	<link  rel="stylesheet" href="resources/home/css/homeFooter.css">
@@ -59,13 +59,13 @@
 	</div>
 	</div>
 	
-	<!-- 주종별 메뉴 (경로 수정 예정임) -->
+	<!-- 주종별 메뉴 -->
 	
 	<div class="row justify-content-md-center main-md">
 		<div class="col-3.5">
 		</div>
 		<div class="col-1">
-	                <a href="/md/detail/page?md_id=60">
+	                <a href="${pageContext.request.contextPath}/md/list">
 	                    <img class="hover:grow hover:shadow-lg" src="${pageContext.request.contextPath}/resources/home/img/takju.jpg" width="80px">
 	                </a>
 	            </div>
@@ -108,7 +108,6 @@
 		</div>
 	</div>
 	 
-	<!-- a 경로 수정 예정임  -->
 	<div class="row justify-content-md-center main-md">
 		<div class="col-2">
 		</div>
@@ -123,22 +122,22 @@
 		<div class="col-2">
 	                <a href="/md/detail/page?md_id=17">
 	                    <img class="hover:grow hover:shadow-lg" src="${pageContext.request.contextPath}/resources/home/img/dam_1.jpg">
-		                <p class="pt-3" style="text-align:center; text-decoration:none !important" id="main-md-name">담은</p>
-		                <p class="pt-1" style="text-align:center; text-decoration:none !important" id="main-md-price">12,000원</p>
+	                 <p class="pt-3" style="text-align:center; text-decoration:none !important" id="main-md-name">담은</p>
+	                 <p class="pt-1" style="text-align:center; text-decoration:none !important" id="main-md-price">12,000원</p>
 	                </a>
 		</div>
 		<div class="col-2">
 	                <a href="/md/detail/page?md_id=6">
 	                    <img class="hover:grow hover:shadow-lg" src="${pageContext.request.contextPath}/resources/home/img/straw_1.jpg">
-	                	<p class="pt-3" style="text-align:center; text-decoration:none !important" id="main-md-name">편백숲 딸기 스파클링</p>
-	                	<p class="pt-1" style="text-align:center; text-decoration:none !important" id="main-md-price">14,000원</p>
+	                 <p class="pt-3" style="text-align:center; text-decoration:none !important" id="main-md-name">편백숲 딸기 스파클링</p>
+	                 <p class="pt-1" style="text-align:center; text-decoration:none !important" id="main-md-price">14,000원</p>
 	                </a>
 		</div>
 		<div class="col-2">
 	                <a href="/md/detail/page?md_id=29">
 	                    <img class="hover:grow hover:shadow-lg" src="${pageContext.request.contextPath}/resources/home/img/boksun_1.jpg">
-	                	<p class="pt-3" style="text-align:center; text-decoration:none !important" id="main-md-name">복순도가 손 막걸리</p>
-	                 	<p class="pt-1" style="text-align:center; text-decoration:none !important" id="main-md-price">13,000원</p>
+	                 <p class="pt-3" style="text-align:center; text-decoration:none !important" id="main-md-name">복순도가 손 막걸리</p>
+	                 <p class="pt-1" style="text-align:center; text-decoration:none !important" id="main-md-price">13,000원</p>
 	                </a>
 		</div>	
 		<div class="col-2">

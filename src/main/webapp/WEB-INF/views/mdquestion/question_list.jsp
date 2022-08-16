@@ -29,6 +29,12 @@
 						</tr>
 					</c:forEach>
 			</table>
+		<div class="clearfix">
+			<a href="${pageContext.request.contextPath}/mdquestion/write?md_id=${md_id}">
+				<button class="btn btn-info float-right"> 문의 작성 </button>
+			</a>
+		</div>	
+			
 		<ul class="pagination">
 			<c:if test="${startPageNum > 10}">
 				<li class="page-item mx-auto">
