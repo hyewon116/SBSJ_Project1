@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<jsp:include page="/WEB-INF/views/headerMain.jsp"></jsp:include>
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -10,6 +11,7 @@
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+		<script src="https://kit.fontawesome.com/def66b134a.js" crossorigin="anonymous"></script>
 		<style type="text/css">
 		#table1 img{ 
 			height:450px; !important
@@ -23,6 +25,10 @@
 		#question {
 			margin-right : 30px;
 		} 
+		#heart {
+			height:10px; !important
+		}
+
 		</style>
 	
 	</head>
@@ -36,9 +42,22 @@
 			<tbody>
 				<tr>
 					<td rowspan="5"><img src="${detail_dto.md_thumbnail_path}"></td>
-					<td colspan="4"><h3>${detail_dto.md_name}</h3>
-					<br><h6>${detail_dto.md_oneline}</h6></td>
+					<td colspan="2"> 
+						<p style="font-size:27px;"> 
+						<b>${detail_dto.md_name}</b>
+						</p>  
+					</td>
+					<td colspan="2">
+						<button type="button" id="wish_btn" class="btn btn-danger btn-sm">
+						♡
+						</button>
+					</td>
 				</tr>
+					<tr>
+					<td>
+						<h6>${detail_dto.md_oneline}</h6>
+					</td>
+					</tr>				
 				<tr>
 					<th> 판 매 가 </th>
 					<td colspan="3">
@@ -49,6 +68,15 @@
 					</td>
 				</tr>
 				<tr>
+					<th> 구 매 수 량 </th>
+					<td>
+						<select id="cart_item_count" name="cart_item_count">
+							<option value="0"> 선 택 </option>
+							<c:forEach var="tmp_qty" begin="1" end="10">
+								<option value="${tmp_qty}"> ${tmp_qty} </option>
+							</c:forEach>
+						</select>
+					</td>
 					<th> 구 매 가 격 </th>
 					<td><span id="tot_price_span"> 0 </span> 원 </td>
 				</tr>
@@ -78,33 +106,61 @@
 		
 		<!-- 후기/문의/교환 버튼 -->
 		<div class="text-center">
-			<button type="button" class="btn btn-outline-info" id="review"> 상품 후기 </button> 
-			<button type="button" class="btn btn-outline-warning" id="question"> 상품 문의 </button>
-			<button type="button" class="btn btn-outline-success" id="exchange"> 교환/반품 </button>
+			<button type="button" class="btn btn-info" id="review"> 상품 후기 </button> 
+			<button type="button" class="btn btn-warning" id="question"> 상품 문의 </button>
+			<button type="button" class="btn btn-success" id="exchange"> 교환/반품 </button>
 		</div>
 		<br>
 		<br>
 		
-		<!-- 후기 페이지 -->
-		<div id="review_list">
-			<iframe src="${pageContext.request.contextPath}/mdreview/review_list?md_id=${md_id}"
-			width="100%" height="500px" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
-		</div>
-		
-		<!-- 문의 페이지 -->
-		<div id="question_list">
-			<iframe src="${pageContext.request.contextPath}/mdquestion/question_list?md_id=${md_id}"
-			width="100%" height="500px" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
-		</div>
-		
-		<!-- 교환/환불 페이지 -->
-		<div id="exchange_list">
-			<iframe src="${pageContext.request.contextPath}/mdreview/exchange"
-			width="100%" height="500px" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
+		<div class="iframebox">
+			<!-- 후기 페이지 -->
+			<div id="review_list">
+				<iframe src="${pageContext.request.contextPath}/mdreview/review_list?md_id=${md_id}"
+				width="100%" height=700px frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
+			</div>
+			
+			<!-- 문의 페이지 -->
+			<div id="question_list">
+				<iframe src="${pageContext.request.contextPath}/mdquestion/question_list?md_id=${md_id}"
+				width="100%" height=700px frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
+			</div>
+			
+			<!-- 교환/환불 페이지 -->
+			<div id="exchange_list">
+				<iframe src="${pageContext.request.contextPath}/mdreview/exchange"
+				width="100%" height=700px frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
+			</div>
 		</div>
 		
 	<script type="text/javascript">
+	
+	$(document).ready(function() {
+		$("#wish_btn").click(function() {
 			
+			//if로 찜목록 중복 체크하기!!! (같은 제품 또 안 넣도록)
+			 //ex. 이미 찜 목록에 있는 아이템입니다.
+			 // 아이디(member id) 체크 + md_id 체크 하면 될듯...?
+			
+			$.post(
+					"${pageContext.request.contextPath}/md/wish_insert"
+					, {
+						md_id : ${detail_dto.md_id}
+					}
+					, function(data, status) {
+						if(data >= 1){
+							alert("찜 목록에 추가되었습니다.");
+						} else {
+							alert("찜 목록 추가를 실패 하였습니다.");
+						}
+					}//call back function
+			);//post
+		}); //click
+	});//ready
+	
+	</script>
+	
+	<script type="text/javascript">
 	$(document).ready(function() {
 
 		//문의&교환 페이지 숨겨놓기
@@ -135,50 +191,8 @@
 			
 	}); //ready
 	
-	$(document).ready(function() {
-		$("#buy_qty").change(function() {
-
-			$("#tot_price_span").text(
-					$("#buy_qty").val() * ${detail_dto.sale_price}
-			);
-
-		});//change
-	});//ready
 	</script>
-	
-	<script type="text/javascript">
-	$(document).ready(function() {
-		$("#jang_btn").click(function() {
 
-			if("${login_info.mno}" == ""){
-				alert("로그인 해주세요.");
-				return;
-			}
-
-			if( $("#buy_qty").val() == 0 ){
-				alert("구매 수량을 선택 하세요.");
-				return;
-			}
-
-			$.post(
-					"${pageContext.request.contextPath}/basket/insert"
-					, {
-						md_id : ${detail_dto.md_id}
-						, buy_qty : $("#buy_qty").val()
-					}
-					, function(data, status) {
-						if(data >= 1){
-							let tmp_bool = confirm("장바구니에 추가 하였습니다.\n장바구니로 이동 하시겠습니까?");
-							if( tmp_bool == true ) location.href="${pageContext.request.contextPath}/basket/list";
-						} else {
-							alert("장바구니 추가를 실패 하였습니다.");
-						}
-					}//call back function
-			);//post
-
-		});//click
-	});//ready
-	</script>
 	</div>
 	</body>
 </html>

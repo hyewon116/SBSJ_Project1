@@ -29,12 +29,12 @@
 						<th> 상품 분류 </th>
 						<td colspan="3">
 						<select id="md_category" name="md_category">
-							<option value="kind" selected disabled hidden>주종</option>
-							<option value="takju">탁주</option>
-							<option value="yakju">약·청주</option>
-							<option value="fruit">과실주</option>
-							<option value="jeungryu">증류주</option>
-							<option value="giftset">선물세트</option>
+							<option value="주종" selected disabled hidden>주종</option>
+							<option value="탁주">탁주</option>
+							<option value="약·청주">약·청주</option>
+							<option value="과실주">과실주</option>
+							<option value="증류주">증류주</option>
+							<option value="선물세트">선물세트</option>
 						</select>
 					</tr>
 					<tr>
@@ -144,7 +144,7 @@
 			</table>
 		</form>
 		<button id="write_btn" class="btn btn-primary float-right"> 저장하기 </button>
-		<a href="${pageContext.request.contextPath}/md/list">
+		<a href="${pageContext.request.contextPath}/admin/admin_md_list">
 			<button class="btn btn-warning"> 취소 </button>
 		</a>
 		<hr>
@@ -207,7 +207,7 @@
 						, cache : false
 						, success : function(result) {
 							alert("상품이 등록 되었습니다.");
-							location.href = "${pageContext.request.contextPath}/md/list";
+							location.href = "${pageContext.request.contextPath}/admin/admin_md_list";
 						}//call back function
 						, error : function(xhr) {
 							alert("잠시 후 다시 시도해 주세요.");

@@ -81,7 +81,7 @@
 			
 			<!-- nav 시작 -->
 			<nav>
-				<jsp:include page="/WEB-INF/views/mypage/navMypage.jsp"></jsp:include>
+				<jsp:include page="/WEB-INF/views/mypage/mypage_nav.jsp"></jsp:include>
 				<br>
 				<br>			
 			</nav>
@@ -92,7 +92,7 @@
 				<aside class="col-3 h-100 bg-white float-left">
 					
 					
-				<jsp:include page="/WEB-INF/views/mypage/asideMypage.jsp"></jsp:include>
+				<jsp:include page="/WEB-INF/views/mypage/mypage_aside.jsp"></jsp:include>
 				<br>
 				<br>			
 				
