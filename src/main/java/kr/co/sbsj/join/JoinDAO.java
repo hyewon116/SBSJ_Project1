@@ -19,11 +19,19 @@ public class JoinDAO {
 	}
 	
 	
+	public int passwordCheck( MemberDTO dto ) {
+		int isYN = 0;
+		isYN = sqlSession.selectOne("JoinMapper.passwordCheck", dto );
+		return isYN;
+	}
+	
 	public int nickCheck( String member_nick ) {
 		int isYN = 0;
 		isYN = sqlSession.selectOne("JoinMapper.nickCheck", member_nick );
 		return isYN;
 	}
+	
+	
 	public int emailCheck( String member_email ) {
 		int isYN = 0;
 		isYN = sqlSession.selectOne("JoinMapper.emailCheck", member_email );

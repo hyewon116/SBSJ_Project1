@@ -22,11 +22,21 @@
 <!-- 로그인, 회원가입, 고객센터 -->
 
 <div id="loginBar">
-
-	<a id="loginBarText" href="${pageContext.request.contextPath}/join/form"> 회원가입 </a>		
+	
+	
+	<c:choose>
+		<c:when test="${login_info != null && login_info.member_name != null}">
+		${login_info.member_nick}님
+	<a id="loginBarText" href="${pageContext.request.contextPath}/mypage/member"> 마이페이지 </a>
+	<a id="loginBarText" href="${pageContext.request.contextPath}/login/logout"> 로그아웃 </a>
+		</c:when>
+		<c:otherwise>
+	
+	<a id="loginBarText" href="${pageContext.request.contextPath}/join/join"> 회원가입 </a>		
 	<a id="loginBarText" href="${pageContext.request.contextPath}/login/login"> 로그인 </a>
-	<a id="loginBarText" href="${pageContext.request.contextPath}/logout"> 로그아웃 </a>
-	<a id="loginBarText" href="${pageContext.request.contextPath}/member/mypage"> 마이페이지 </a>
+		</c:otherwise>
+	</c:choose>
+
 
 </div>
 

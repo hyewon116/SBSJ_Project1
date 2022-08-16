@@ -9,19 +9,20 @@
 
 <!DOCTYPE html>
 	<html>
-		<title>상부상酒  |  로그인</title>
+		<title>상부상酒  |  회원가입</title>
 		<head>
 		<!-- CDN -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 		<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+		<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
 		<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 		<script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
 		<link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
-		<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
+		
 		
 		<!-- CSS -->
-		<link  rel="stylesheet" href="${pageContext.request.contextPath}/resources/login/css/login.css">
+		<link  rel="stylesheet" href="${pageContext.request.contextPath}/resources/join/css/join.css">
 		
 		</head>
 		
@@ -42,28 +43,33 @@
 					    apiURL += "&state=" + state;
 					    session.setAttribute("state", state);
 					%>
-						<a href="<%=apiURL%>"><img height="80" width="600" src=${pageContext.request.contextPath}/resources/login/img/naver.png/></a>
+						<a href="<%=apiURL%>"><img height="80" width="600" src=${pageContext.request.contextPath}/resources/join/img/naver_join.png/></a>
 
 				</div>
 				<!-- 네이버 코드의 끝 -->
+
+
+
+
 
 
 				<!-- 카카오 코드의 시작 -->
 
 				<div class="kakao">
 					<a href="https://kauth.kakao.com/oauth/authorize?client_id=cf8c2b8f99409406ce4505e3f2eb3c58&redirect_uri=http://localhost:8081/sbsj/login/kakao_login&response_type=code">
-					<img height="80" width="600" src=${pageContext.request.contextPath}/resources/login/img/kakao.png /></a>
+					<img height="80" width="600" src=${pageContext.request.contextPath}/resources/join/img/kakao_join.png /></a>
 
 
 				</div>
+
 
 				<!-- 카카오 코드의 끝 -->
 
 
 
-				<span class="titleName">SNS 간편 로그인</span>
+				<span class="titleName">SNS 간편 회원가입</span>
 				<div class="logo">
-					<img height="69" width="69" src=${pageContext.request.contextPath}/resources/login/img/logo.png />
+					<img height="69" width="69" src=${pageContext.request.contextPath}/resources/join/img/logo.png />
 				</div>
 			</div>
 		</body>
@@ -77,3 +83,4 @@
 		<br/>
 		<br/>
 		
+		 
