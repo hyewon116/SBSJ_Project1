@@ -68,24 +68,19 @@
 			
 			<!-- nav 끝 -->
 			<main class="clearfix mt-1" style="height:500px">
+				<!--  aside 시작 -->	
 				<aside class="col-3 h-100 bg-white float-left">
 					
 					
-					
-					<ul id="myMenu">
-					  <li ><h1>My Page</h1></li>
-					  <li><a href="#">주문내역</a></li>
-					  <li><a href="#">찜한상품</a></li>
-					  <li><a href="#">배송지 관리</a></li>
-					  <li><a href="#">쿠폰</a></li>
-					  <li><a href="#">상품문의</a></li>
-					  <li><a href="#">상품후기</a></li>
-					  <li><a href="${pageContext.request.contextPath}/mypage/member_before_detail">개인정보 수정</a></li>
-					</ul>
+				<jsp:include page="/WEB-INF/views/mypage/asideMypage.jsp"></jsp:include>
+				<br>
+				<br>			
 				
 				
 				
 				</aside>
+				
+			<!--  aside 끝 -->	
 				
 				
 				<!-- section 시작--------------------------------------------------------------------------------- -->
