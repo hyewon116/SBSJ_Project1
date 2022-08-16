@@ -166,7 +166,7 @@ public class LoginController {
 				String age = dto.getBirthyear(); // 접속한 접속자의 나이가 20세 미만의 경우 return 페이지로 이동
 				System.out.println("나이가 몇인가요? : " + age);
 				if ( Integer.parseInt(age) > 2003 ) {
-					return "/tmp_page";// 미성년자 일 경우 리턴되는 페이지
+					return "/19age";// 미성년자 일 경우 리턴되는 페이지
 				}//if
 				
 				
@@ -290,7 +290,7 @@ public class LoginController {
 			System.out.println("나이가 몇인가요? : " + afterage); // 해당 연령대 확인
 			
 			if ( Integer.parseInt(afterage) < 20 ) { // 연령대가 20대보다 낮으면 즉 미성년자일 경우 
-				return "/tmp_page";// 미성년자 가입불가 페이지로 리턴
+				return "/19age";// 미성년자 가입불가 페이지로 리턴
 			}//if
 			
 			

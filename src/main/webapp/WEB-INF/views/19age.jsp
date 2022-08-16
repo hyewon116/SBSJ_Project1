@@ -26,41 +26,58 @@ body {
         background-repeat : no-repeat;
         background-size : cover;
       }
+
+/* #age {
+		height: 100px;
+        width: 100px;
+		margin-top: 300px;
+	}       */
+      
 </style>	
 		
 	
 	
-	<script>
+	<script type="text/javascript">
+	
+	
+		
+	
+		let popup_19;
 		 //pop=window.open('https://nid.naver.com/nidlogin.logout?returl=http://localhost:8081/sbsj/');
 		 
-		setTimeout(function () {
-			window.open("https://nid.naver.com/nidlogin.logout?returl=http://localhost:8081/sbsj/","popup", "width=500, height=500, left=0, top=0");
+		setTimeout(function () { // 팝업열어서 로그 아웃 실행 함
+			popup_19 = window.open("https://nid.naver.com/nidlogin.logout?returl=http://localhost:8081/sbsj/","popup", "width=1, height=1, left=0, top=0");
 		}, 1000);
-		setTimeout(function () {
-			window.close();
-		}, 2000);
 		
 	</script> 
+	
+	
 	
 	
 		
 	</head>
 		<body>
 		
-				
-			<!-- <meta http-equiv="refresh" content="2;url=https://nid.naver.com/nidlogin.logout?returl=localhost%3A8081%2Fsbsj%2F">
+			<main style="height:700px">
+			
+			</main>
+			<footer>
+			
+				<center>
+								<a href="${pageContext.request.contextPath}/">
+										<img align="bottom" src="${pageContext.request.contextPath}/resources/login/img/19age.png" style="cursor:pointer" onclick="popup_19.close();" > 
+								</a>
+				</center>
+			
+			</footer>
 			
 			
-			<button onclick="openPop();"> 팝 업 열 기</button>
-				
-				
-				<script type="text/javascript">
-					function openPop() {
-					//windown.open("http://www.naver.com/");
-					window.open("http://www.naver.com/", "myPop", "width=150 height=150");
-				}		
-				</script> -->
-		
+			
+			
+			
+			
+			
+			
 		</body>
 
 </html>
