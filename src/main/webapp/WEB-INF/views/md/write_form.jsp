@@ -30,11 +30,11 @@
 						<td colspan="3">
 						<select id="md_category" name="md_category">
 							<option value="kind" selected disabled hidden>주종</option>
-							<option value="takju">탁주</option>
-							<option value="yakju">약·청주</option>
-							<option value="fruit">과실주</option>
-							<option value="jeungryu">증류주</option>
-							<option value="giftset">선물세트</option>
+							<option value="탁주">탁주</option>
+							<option value="약·청주">약·청주</option>
+							<option value="과실주">과실주</option>
+							<option value="과실주">과실주</option>
+							<option value="선물세트">선물세트</option>
 						</select>
 					</tr>
 					<tr>
@@ -111,11 +111,11 @@
 						<th> 상황별 </th>
 						<td>
 							<select id="md_use" name="md_use">
-								<option value="adult">웃어른</option>
-								<option value="lover">연인</option>
-								<option value="freinds">친구</option>
-								<option value="alone">혼자</option>
-								<option value="business">비지니스</option>
+								<option value="웃어른">웃어른</option>
+								<option value="연인">연인</option>
+								<option value="친구">친구</option>
+								<option value="혼자">혼자</option>
+								<option value="비지니스">비지니스</option>
 							</select>
 						</td>
 					</tr>
