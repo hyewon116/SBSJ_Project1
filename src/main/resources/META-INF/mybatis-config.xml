@@ -14,6 +14,8 @@
 		<mapper resource="META-INF/question-mapper.xml" />
 		<mapper resource="META-INF/cart-mapper.xml" />
 		<mapper resource="META-INF/admin-mapper.xml" />
+		<mapper resource="META-INF/order-mapper.xml" />
+		<mapper resource="META-INF/delivery-mapper.xml" />
 	</mappers>
 
 </configuration>

@@ -57,7 +57,6 @@
 						</p>  
 					</td>
 					<td colspan="2">
-						<button type="button" id="wish_btn" class="btn btn-danger btn-sm">
 						<p style="font-size:27px; color:dimgray;"> 
 						<b>${detail_dto.md_name}</b>
 						</p>  
@@ -84,9 +83,6 @@
 					</td>
 				</tr>
 				<tr>
-					<th> 구 매 수 량 </th>
-					<td>
-						<select id="cart_item_count" name="cart_item_count">
 					<th> 도 수 </th>
 					<td> <b> <span> ${detail_dto.md_abv}</span> % </b></td>
 				</tr>
@@ -221,7 +217,7 @@
 					"${pageContext.request.contextPath}/cart/insert"
 					, {
 						md_id : ${detail_dto.md_id}
-						s, buy_qty : $("#buy_qty").val()
+						, buy_qty : $("#buy_qty").val()
 					}
 					, function(data, status) {
 						if(data >= 1){

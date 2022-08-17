@@ -173,9 +173,6 @@
                         </td>
                     </tr>
                 </table>
-                <!-- <hr style="background-color:black; color:white; padding:10px;"> -->
-
-                <!-- </hr> -->
 <%--                 <%@ include file="/WEB-INF/views/footer.jsp" %> --%>
 
 

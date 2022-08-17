@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="OrderMapper">
+
+	<update id="updateDeliveryAddrUsedDate" parameterType="kr.co.sbsj.order.OrderMainDTO">
+	update delivery
+	set used_date = now()
+	where delivery_id = #{delivery_id}
+	and member_id = #{member_id}
+	</update>
+
+	
+	<delete id="deletecartByArray">
+	delete from cart c
+	where c.cart_id in
+		<foreach item="cart_id" collection="array" open="(" close=")" separator=",">
+			#{cart_id}
+		</foreach>
+	</delete>
+
+	<insert id="insertBuyNowOrderDetail" parameterType="kr.co.sbsj.order.OrderMainDTO">
+	insert into order_detail (order_id, md_id
+							, order_detail_qty, order_detail_price, order_detail_amt
+	                        , order_detail_discount, order_detail_discount_amt
+							, order_detail_pay_amt)
+	select #{order_id}, md.md_id
+			, #{buy_now_qty}, md.md_price, #{buy_now_qty} * md.md_price
+			, md.md_discount, #{buy_now_qty} * md.md_price / 100 * md.md_discount
+			, (#{buy_now_qty} * md.md_price) - (#{buy_now_qty} * md.md_price / 100 * md.md_discount)
+	from md md
+	where md.md_id = #{buy_now_md_id}
+	</insert>
+
+	<insert id="insertOrderDetail" parameterType="kr.co.sbsj.order.OrderMainDTO">
+	insert into order_detail (order_id, md_id
+							, order_detail_qty, order_detail_price, order_detail_amt
+	                        , order_detail_discount, order_detail_discount_amt
+							, order_detail_pay_amt)
+	select #{order_id}, md.md_id
+			, c.buy_qty, md.md_price, c.buy_qty * md.md_price
+			, md.md_discount, c.buy_qty * md.md_price / 100 * md.md_discount
+			, (c.buy_qty * md.md_price) - (c.buy_qty * md.md_price / 100 * md.md_discount)
+	from cart c, md md
+	where c.cart_id in
+		<foreach item="cart_id" collection="arr_cart_id" open="(" close=")" separator=",">
+			#{cart_id}
+		</foreach>
+	and c.md_id = md.md_id
+	order by c.reg_date
+	</insert>
+
+	<insert id="insertOrderMain" parameterType="kr.co.sbsj.order.OrderMainDTO">
+		insert into order_main (member_id,  delivery_id, order_md_cnt
+								, order_amt, discount_amt, pay_amt, order_date)
+		values (#{member_id},  #{delivery_id}, #{order_md_cnt}
+				, #{order_amt}, #{discount_amt}, #{pay_amt}, now());
+		<selectKey resultType="String" keyProperty="order_id" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<select id="buyNowOrderList" resultType="kr.co.sbsj.md.mdDTO">
+	select 0 cart_id, #{buy_qty} as buy_qty, now()
+			, md.md_id, md.md_name, md.member_id, m.member_name, md.md_stock, md.md_price, md.md_discount
+			, md.md_price - (md.md_price / 100 * md.md_discount) as sale_price
+			, ( md.md_price - (md.md_price / 100 * md.md_discount) ) * #{buy_qty} as total_price
+			, md.description, md.view_cnt, md.reg_date
+			, md.thumbnail_name, md.thumbnail_path, md.md_img_name, md.md_img_path
+			, md.desc_img_name, md.desc_img_path, md.add_file_name, md.add_file_path
+	from md md, member m
+	where md.md_id = #{md_id}
+	and md.member_id = m.member_id
+	</select>
+
+	<select id="orderList" resultType="kr.co.sbsj.md.mdDTO">
+	select c.cart_id, c.member_id, m.member_name, c.md_id, c.buy_qty, c.reg_date
+			, md.md_id, md.md_name, md.member_id, m2.member_name, md.md_stock, md.md_price, md.md_discount
+			, md.md_price - (md.md_price / 100 * md.md_discount) sale_price
+			, ( md.md_price - (md.md_price / 100 * md.md_discount) ) * c.buy_qty total_price
+			, md.description, md.view_cnt, md.reg_date
+			, md.thumbnail_name, md.thumbnail_path, md.md_img_name, md.md_img_path
+			, md.desc_img_name, md.desc_img_path, md.add_file_name, md.add_file_path
+	from cart c, member m, md md, member m2
+	where c.cart_id in
+		<foreach item="cart_id" collection="array" open="(" close=")" separator=",">
+			#{cart_id}
+		</foreach>
+	and c.member_id = m.member_id
+	and c.md_id = md.md_id
+	and md.member_id = m2.member_id
+	order by c.reg_date desc
+	</select>
+
+</mapper>
