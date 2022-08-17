@@ -13,7 +13,7 @@
 	</update>
 
 	
-	<delete id="deletecartByArray">
+	<delete id="deleteCartByArray">
 	delete from cart c
 	where c.cart_id in
 		<foreach item="cart_id" collection="array" open="(" close=")" separator=",">

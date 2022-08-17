@@ -135,7 +135,7 @@
 	<!-- delivery modal start -->
 	<div class="modal" id="delivery_choice_modal">
 		<div class="modal-dialog">
-			<div class="modal-content">
+			<div class="modal-content" >
 
 				<!-- Modal Header -->
 				<div class="modal-header">
@@ -161,7 +161,7 @@
 									</td>
 									<td class="text-right">
 										<button class="addr_delete_btn btn btn-danger btn-sm mt-1 mb-1" value="${dto.delivery_id}"> 삭제 </button>
-										<button class="addr_choice_btn btn btn-primary btn-sm" value="${dto.delivery_id}" name="${status.index}"> 선택 </button>
+										<button class="addr_choice_btn btn btn-primary btn-sm" value="${dto.delivery_id}" name="${status.index}"data-dismiss="modal"> 선택 </button>
 									</td>
 								</tr>
 							</c:forEach>
@@ -205,7 +205,7 @@
 
 			$("#td_delivery").html( $("#td_delivery" + $(this).attr("name") ).html() );
 			$("#delivery_id").val( $(this).val() );
-			$("#delivery_choice_modal").modal("hide");
+// 			$("#delivery_choice_modal").modal("hide");
 
 		});//click
 	});//ready
