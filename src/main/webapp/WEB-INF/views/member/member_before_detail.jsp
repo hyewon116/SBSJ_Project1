@@ -83,7 +83,7 @@
 			
 			<!-- nav 시작 -->
 			<nav>
-				<jsp:include page="/WEB-INF/views/mypage/mypage_nav.jsp"></jsp:include>
+				<jsp:include page="/WEB-INF/views/member/mypage_nav.jsp"></jsp:include>
 				<br>
 				<br>			
 			</nav>
@@ -94,7 +94,7 @@
 				<aside class="col-3 h-100 bg-white float-left">
 					
 					
-				<jsp:include page="/WEB-INF/views/mypage/mypage_aside.jsp"></jsp:include>
+				<jsp:include page="/WEB-INF/views/member/mypage_aside.jsp"></jsp:include>
 				<br>
 				<br>			
 				
@@ -136,7 +136,7 @@
 		            
 		            	<div class="submit_button">
 			               	<button id="pwd_btn" name="pwd_btn" class="submit">확인</button>
-			               	<a href="${pageContext.request.contextPath}/mypage/member">
+			               	<a href="${pageContext.request.contextPath}/member/member">
 			               	<button type="button" class="cancel">취소</button></a>
 		            	</div>
 		        	</form>
@@ -160,7 +160,7 @@
 				} else { $("#member_pwd_label").text(""); }
 
 				$.get(
-						"${pageContext.request.contextPath}/mypage/pwd_chk"
+						"${pageContext.request.contextPath}/member/pwd_chk"
 						, { member_pwd : $("#member_pwd").val() 
 							, member_email : "${login_info.member_email}"	
 						}
@@ -170,7 +170,7 @@
 								$("#member_pwd_label").css("color", "red");
 							
 							} else if(data >= 1){ // 중복되는 닉네임이 있을경우
-								location.href="${pageContext.request.contextPath}/mypage/member_detail"
+								location.href="${pageContext.request.contextPath}/member/member_detail"
 								return;
 							} else {
 								alert("잠시 후 다시 시도해 주세요.");

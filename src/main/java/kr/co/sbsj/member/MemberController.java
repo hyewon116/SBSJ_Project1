@@ -1,4 +1,4 @@
-package kr.co.sbsj.mypage;
+package kr.co.sbsj.member;
 
 import java.io.PrintWriter;
 
@@ -18,7 +18,7 @@ import kr.co.sbsj.util.dto.UpdateDTO;
 
 
 @Controller
-@RequestMapping( value = "/mypage" )
+@RequestMapping( value = "/member" )
 public class MemberController {
 	
 	
@@ -29,7 +29,7 @@ public class MemberController {
 	
 	@RequestMapping( value = "/member", method = RequestMethod.GET )
 	private String myPage() {
-		return "/mypage/member";//
+		return "/member/member";//
 	}
 
 	@RequestMapping( value = "/nick_chk", method = RequestMethod.GET )
@@ -51,13 +51,13 @@ public class MemberController {
 	}//passwordCheck
 	
 	@RequestMapping( value = "/member_detail", method = RequestMethod.GET )
-	private String myPage_Detail() {
-		return "/mypage/member_detail";//
+	private String member_Detail() {
+		return "/member/member_detail";//
 	}
 	
 	@RequestMapping( value = "/member_update_form", method = RequestMethod.GET )
 	private String memberForm() {
-		return "/mypage/member_update_form";//
+		return "/member/member_update_form";//
 	}
 	
 	@RequestMapping( value = "/member_update", method = RequestMethod.POST )
@@ -75,8 +75,8 @@ public class MemberController {
 	
 	
 	@RequestMapping( value = "/member_before_detail", method = RequestMethod.GET )
-	private String myPage_Before_Detail() {
-		return "/mypage/member_before_detail";//
+	private String member_Before_Detail() {
+		return "/member/member_before_detail";//
 	}
 	
 	
