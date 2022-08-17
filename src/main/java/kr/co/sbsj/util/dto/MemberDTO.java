@@ -2,6 +2,7 @@ package kr.co.sbsj.util.dto;
 
 public class MemberDTO {
 
+	private String member_id;
 	private String member_name;
 	private String member_email;
 	private String member_pwd;
@@ -22,10 +23,20 @@ public class MemberDTO {
 	private String join_kakao;
 	
 	public String toString() {
-		return member_name + " : " + member_email + " : " + member_pwd + " : " + member_nick + " : " + member_phone + " : " + member_addr1 + " : " + member_addr2 + " : " + member_addr3 + " : " + email_agree + " : " + sms_agree;
+		return member_id+ ":"+member_name + " : " + member_email + " : " + member_pwd + " : " + member_nick + " : " + member_phone + " : " + member_addr1 + " : " + member_addr2 + " : " + member_addr3 + " : " + email_agree + " : " + sms_agree;
 	}
 	
 	
+	public String getMember_id() {
+		return member_id;
+	}
+
+
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
+	}
+
+
 	public String getMember_name() {
 		return member_name;
 	}

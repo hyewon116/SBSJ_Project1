@@ -154,6 +154,17 @@
 				width="100%" height=700px frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
 			</div>
 		</div>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#buy_qty").change(function() {
+	
+				$("#tot_price_span").text(
+						$("#buy_qty").val() * ${detail_dto.sale_price}
+				);
+
+			});//change
+		});//ready
+	</script>
 		
 	<script type="text/javascript">
 	

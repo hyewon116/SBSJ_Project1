@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="CartMapper">
+
+	<update id="updateBuyQty" parameterType="kr.co.sbsj.md.MdDTO">
+	update cart
+	set buy_qty = #{buy_qty}
+	where cart_id = #{cart_id}
+	and member_id = #{member_id}
+	</update>
+
+	<delete id="delete" parameterType="kr.co.sbsj.md.MdDTO">
+	delete from cart
+	where cart_id = #{cart_id}
+	</delete>
+
+	<select id="list" parameterType="java.lang.String" resultType="kr.co.sbsj.md.MdDTO">
+	select c.cart_id, c.member_id, m.member_nick, c.md_id, c.buy_qty, c.reg_date
+			, md.md_id, md.md_name,  md.md_stock, md.md_price, md.md_discount
+			, md.md_price - (md.md_price / 100 * md.md_discount) sale_price
+			, ( md.md_price - (md.md_price / 100 * md.md_discount) ) * c.buy_qty total_price
+			, md.md_content,  md.reg_date
+			, md.md_thumbnail_name, md.md_thumbnail_path, md.md_detail_name, md.md_detail_path
+			
+	from cart c, member m, md md
+	where c.member_id = #{member_id}
+	and c.member_id = m.member_id
+	and c.md_id = md.md_id
+
+	order by c.reg_date desc
+	</select>
+
+	<insert id="insert" parameterType="kr.co.sbsj.md.MdDTO">
+	insert into cart (member_id , md_id, buy_qty, reg_date)
+	values(#{member_id}, #{md_id}, #{buy_qty}, now())
+	</insert>
+
+</mapper>
