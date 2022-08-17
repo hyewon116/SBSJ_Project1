@@ -81,7 +81,7 @@
 			
 			<!-- nav 시작 -->
 			<nav>
-				<jsp:include page="/WEB-INF/views/mypage/navMypage.jsp"></jsp:include>
+				<jsp:include page="/WEB-INF/views/member/mypage_nav.jsp"></jsp:include>
 				<br>
 				<br>			
 			</nav>
@@ -92,7 +92,7 @@
 				<aside class="col-3 h-100 bg-white float-left">
 					
 					
-				<jsp:include page="/WEB-INF/views/mypage/asideMypage.jsp"></jsp:include>
+				<jsp:include page="/WEB-INF/views/member/mypage_aside.jsp"></jsp:include>
 				<br>
 				<br>			
 				
@@ -254,7 +254,7 @@
 			} else { $("#member_nick_label").text(""); }
 
 			$.get(
-					"${pageContext.request.contextPath}/mypage/nick_chk"
+					"${pageContext.request.contextPath}/member/nick_chk"
 					, { member_nick : $("#member_nick").val() }
 					, function(data, status) {
 						if(data == 0){
@@ -321,7 +321,7 @@
 			
 
 			$.post(
-					"${pageContext.request.contextPath}/mypage/member_update"
+					"${pageContext.request.contextPath}/member/member_update"
 					, {
 						member_name : $("#member_name").val()
 						, member_email : $("#member_email").val()
@@ -337,7 +337,7 @@
 					, function(data, status) {
 						if(data == 1){
 							alert("회원 정보가 수정되었습니다.");
-							location.href="${pageContext.request.contextPath}/mypage/member_detail";
+							location.href="${pageContext.request.contextPath}/member/member_detail";
 						} else {
 							alert("잠시 후 다시 시도해 주세요.");
 						}

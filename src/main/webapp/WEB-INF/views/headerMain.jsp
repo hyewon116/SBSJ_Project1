@@ -25,15 +25,21 @@
 	
 	
 	<c:choose>
-		<c:when test="${login_info != null && login_info.member_name != null}">
+		<c:when test="${login_info != null && login_info.member_name != null && login_info.admin_yn == 'N'}">
 		${login_info.member_nick}님
-	<a id="loginBarText" href="${pageContext.request.contextPath}/mypage/member"> 마이페이지 </a>
-	<a id="loginBarText" href="${pageContext.request.contextPath}/login/logout"> 로그아웃 </a>
+			<a id="loginBarText" href="${pageContext.request.contextPath}/mypage/member"> 마이페이지 </a>
+			<a id="loginBarText" href="${pageContext.request.contextPath}/login/logout"> 로그아웃 </a>
 		</c:when>
+		
+		<c:when test="${login_info != null && login_info.member_name != null && login_info.admin_yn == 'Y'}">
+		${login_info.member_nick}님
+			<a id="loginBarText" href="${pageContext.request.contextPath}/admin/admin"> 관리자페이지 </a>
+			<a id="loginBarText" href="${pageContext.request.contextPath}/login/logout"> 로그아웃 </a>
+		</c:when>
+		
 		<c:otherwise>
-	
-	<a id="loginBarText" href="${pageContext.request.contextPath}/join/join"> 회원가입 </a>		
-	<a id="loginBarText" href="${pageContext.request.contextPath}/login/login"> 로그인 </a>
+		<a id="loginBarText" href="${pageContext.request.contextPath}/join/join"> 회원가입 </a>		
+		<a id="loginBarText" href="${pageContext.request.contextPath}/login/login"> 로그인 </a>
 		</c:otherwise>
 	</c:choose>
 

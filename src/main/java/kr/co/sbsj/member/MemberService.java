@@ -1,4 +1,4 @@
-package kr.co.sbsj.mypage;
+package kr.co.sbsj.member;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

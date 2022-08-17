@@ -197,7 +197,7 @@ public class LoginController {
 			System.out.println(e);
 	}
 		
-		return "/home";//jsp file name
+		return "home";//jsp file name
 	}//callback_naver
 
 
@@ -298,8 +298,6 @@ public class LoginController {
 			MemberDTO dtoFromDB = null;
 			System.out.println("시작 전 dto : " + dtoFromDB);
 			dtoFromDB = k_service.login( dto ); //k_service.login를 통해 로그인 여부 확인
-			System.out.println(dtoFromDB);
-			
 			
 			if( dtoFromDB == null ) {//회원 가입 이력이 없는 사용자
 				session.setAttribute("kakao_login_info", dto); 
@@ -314,7 +312,7 @@ public class LoginController {
 			
 			
 			
-			return "/home";
+			return "home";
 			
 		} catch (Exception e) {
 			return "/login/login";
