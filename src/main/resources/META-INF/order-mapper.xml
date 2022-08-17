@@ -62,35 +62,33 @@
 		</selectKey>
 	</insert>
 
-	<select id="buyNowOrderList" resultType="kr.co.sbsj.md.mdDTO">
+	<select id="buyNowOrderList" resultType="kr.co.sbsj.md.MdDTO">
 	select 0 cart_id, #{buy_qty} as buy_qty, now()
 			, md.md_id, md.md_name, md.member_id, m.member_name, md.md_stock, md.md_price, md.md_discount
 			, md.md_price - (md.md_price / 100 * md.md_discount) as sale_price
 			, ( md.md_price - (md.md_price / 100 * md.md_discount) ) * #{buy_qty} as total_price
-			, md.description, md.view_cnt, md.reg_date
-			, md.thumbnail_name, md.thumbnail_path, md.md_img_name, md.md_img_path
-			, md.desc_img_name, md.desc_img_path, md.add_file_name, md.add_file_path
+			, md.md_content,  md.reg_date
+			, md.md_thumbnail_name, md.md_thumbnail_path, md.md_detail_name, md.md_detail_path
 	from md md, member m
 	where md.md_id = #{md_id}
 	and md.member_id = m.member_id
 	</select>
 
-	<select id="orderList" resultType="kr.co.sbsj.md.mdDTO">
-	select c.cart_id, c.member_id, m.member_name, c.md_id, c.buy_qty, c.reg_date
-			, md.md_id, md.md_name, md.member_id, m2.member_name, md.md_stock, md.md_price, md.md_discount
+	<select id="orderList" resultType="kr.co.sbsj.md.MdDTO">
+	select c.cart_id, c.member_id, m.member_nick, c.md_id, c.buy_qty, c.reg_date
+			, md.md_id, md.md_name,  md.md_stock, md.md_price, md.md_discount
 			, md.md_price - (md.md_price / 100 * md.md_discount) sale_price
 			, ( md.md_price - (md.md_price / 100 * md.md_discount) ) * c.buy_qty total_price
-			, md.description, md.view_cnt, md.reg_date
-			, md.thumbnail_name, md.thumbnail_path, md.md_img_name, md.md_img_path
-			, md.desc_img_name, md.desc_img_path, md.add_file_name, md.add_file_path
-	from cart c, member m, md md, member m2
+			, md.md_content,  md.reg_date
+			, md.md_thumbnail_name, md.md_thumbnail_path, md.md_detail_name, md.md_detail_path
+			
+	from cart c, member m, md md
 	where c.cart_id in
 		<foreach item="cart_id" collection="array" open="(" close=")" separator=",">
 			#{cart_id}
 		</foreach>
 	and c.member_id = m.member_id
 	and c.md_id = md.md_id
-	and md.member_id = m2.member_id
 	order by c.reg_date desc
 	</select>
 

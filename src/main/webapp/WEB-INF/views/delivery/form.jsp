@@ -68,8 +68,8 @@
 						<tr>
 							<th> 받 는 분 </th>
 							<td>
-								<input type="text" class="form-control" id="recipient_name" name="recipient_name" maxlength="20">
-								<label for="receiver_name" id="receiver_name_label" class="write_label"></label>
+								<input type="text" class="form-control" id="receiver" name="receiver" maxlength="20">
+								<label for="receiver" id="receiver_label" class="write_label"></label>
 							</td>
 						</tr>
 						<tr>

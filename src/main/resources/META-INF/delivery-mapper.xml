@@ -13,8 +13,8 @@
 	</update>
 
 	<insert id="insert" parameterType="kr.co.sbsj.delivery.DeliveryDTO">
-	insert into delivery ( addr_name,  receiver, member_phone, post_code, delivery_addr1, delivery_addr2, used_date )
-	values ( #{addr_name},  #{receiver}, #{member_phone}, #{post_code}, #{delivery_addr1}, #{delivery_addr2}, now() )
+	insert into delivery ( addr_name, member_id, receiver, member_phone, post_code, delivery_addr1, delivery_addr2, used_date )
+	values ( #{addr_name},#{member_id},  #{receiver}, #{member_phone}, #{post_code}, #{delivery_addr1}, #{delivery_addr2}, now() )
 	</insert>
 
 	<select id="list"  parameterType="java.lang.String"

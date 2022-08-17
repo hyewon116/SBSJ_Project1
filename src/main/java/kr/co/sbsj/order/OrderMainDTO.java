@@ -30,10 +30,10 @@ public class OrderMainDTO {
 				+ " : " +order_date
 				+ " : " +order_status;
 	}
-	public String getorder_id() {
+	public String getOrder_id() {
 		return order_id;
 	}
-	public void setorder_id(String order_id) {
+	public void setOrder_id(String order_id) {
 		this.order_id = order_id;
 	}
 	public String getMember_id() {
@@ -42,16 +42,16 @@ public class OrderMainDTO {
 	public void setMember_id(String member_id) {
 		this.member_id = member_id;
 	}
-	public String getdelivery_id() {
+	public String getDelivery_id() {
 		return delivery_id;
 	}
-	public void setdelivery_id(String delivery_id) {
+	public void setDelivery_id(String delivery_id) {
 		this.delivery_id = delivery_id;
 	}
-	public String getorder_md_cnt() {
+	public String getOrder_md_cnt() {
 		return order_md_cnt;
 	}
-	public void setorder_md_cnt(String order_md_cnt) {
+	public void setOrder_md_cnt(String order_md_cnt) {
 		this.order_md_cnt = order_md_cnt;
 	}
 	public String getOrder_amt() {
@@ -90,10 +90,10 @@ public class OrderMainDTO {
 	public void setArr_cart_id(String[] arr_cart_id) {
 		this.arr_cart_id = arr_cart_id;
 	}
-	public String getbuy_now_md_id() {
+	public String getBuy_now_md_id() {
 		return buy_now_md_id;
 	}
-	public void setbuy_now_md_id(String buy_now_md_id) {
+	public void setBuy_now_md_id(String buy_now_md_id) {
 		this.buy_now_md_id = buy_now_md_id;
 	}
 	public String getBuy_now_qty() {

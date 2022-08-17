@@ -25,25 +25,25 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:set var="sum_product_class_qty" value="0" />
+				<c:set var="sum_md_class_qty" value="0" />
 				<c:set var="sum_buy_amt" value="0" />
 				<c:set var="sum_discount_amt" value="0" />
 				<c:set var="delivery_cost" value="0" />
 				<c:forEach var="dto" items="${list}" varStatus="status">
-					<c:set var="sum_product_class_qty" value="${sum_product_class_qty + 1}" />
-					<c:set var="sum_buy_amt" value="${sum_buy_amt + (dto.price * dto.buy_qty)}" />
-					<c:set var="sum_discount_amt" value="${sum_discount_amt + ( (dto.price - dto.sale_price) * dto.buy_qty )}" />
+					<c:set var="sum_md_class_qty" value="${sum_md_class_qty + 1}" />
+					<c:set var="sum_buy_amt" value="${sum_buy_amt + (dto.md_price * dto.buy_qty)}" />
+					<c:set var="sum_discount_amt" value="${sum_discount_amt + ( (dto.md_price - dto.sale_price) * dto.buy_qty )}" />
 					<tr>
 						<td width="10%">
-							<img src="${dto.thumbnail_path}" class="img-thumbnail">
+							<img src="${dto.md_thumbnail_path}" class="img-thumbnail">
 						</td>
 						<td>
-							<a href="${pageContext.request.contextPath}/product/detail?prdt_no=${dto.prdt_no}">
-								${dto.prdt_name}
+							<a href="${pageContext.request.contextPath}/md/detail?md_id=${dto.md_id}">
+								${dto.md_name}
 							</a>
 						</td>
 						<td> ${dto.buy_qty} 개 </td>
-						<td> ${dto.price * dto.buy_qty - ( (dto.price - dto.sale_price) * dto.buy_qty )} 원 </td>
+						<td> ${dto.md_price * dto.buy_qty - ( (dto.md_price - dto.sale_price) * dto.buy_qty )} 원 </td>
 					</tr>
 				</c:forEach>
 				<c:choose>
@@ -80,8 +80,8 @@
 									<div class="card">
 										<div class="card-body">
 											<h5 class="card-title">배송지 : ${deliverylist[0].addr_name}</h5>
-											<p class="card-text">받는 분 : ${deliverylist[0].recipient_name} ( 연락처 : ${deliverylist[0].tel} )</p>
-											<p class="card-text">( ${deliverylist[0].post_code} ) ${deliverylist[0].addr1} ${deliverylist[0].addr2}</p>
+											<p class="card-text">받는 분 : ${deliverylist[0].receiver} ( 연락처 : ${deliverylist[0].member_phone} )</p>
+											<p class="card-text">( ${deliverylist[0].post_code} ) ${deliverylist[0].delivery_addr1} ${deliverylist[0].delivery_addr2}</p>
 										</div>
 									</div>
 								</c:when>
@@ -92,9 +92,9 @@
 						</td>
 					</tr>
 				</table>
-				<input type="hidden" id="addr_no" name="addr_no"
+				<input type="hidden" id="delivery_id" name="delivery_id"
 					<c:if test="${deliverylist != null && deliverylist[0] != null}">
-						value="${deliverylist[0].addr_no}"
+						value="${deliverylist[0].delivery_id}"
 					</c:if>
 				>
 			</div>
@@ -102,7 +102,7 @@
 				<table class="table table-hover">
 					<tr>
 						<th> 총 상품수 </th>
-						<td class="text-right"> <span id="span_sum_product_class_qty">${sum_product_class_qty}</span> 개 </td>
+						<td class="text-right"> <span id="span_sum_md_class_qty">${sum_md_class_qty}</span> 개 </td>
 					</tr>
 					<tr>
 						<th> 총 구 매 금 액 </th>
@@ -154,14 +154,14 @@
 										<div class="card">
 											<div class="card-body">
 												<h5 class="card-title">배송지 : ${dto.addr_name}</h5>
-												<p class="card-text">받는 분 : ${dto.recipient_name} ( 연락처 : ${dto.tel} )</p>
-												<p class="card-text">( ${dto.post_code} ) ${dto.addr1} ${dto.addr2}</p>
+												<p class="card-text">받는 분 : ${dto.receiver} ( 연락처 : ${dto.member_phone} )</p>
+												<p class="card-text">( ${dto.post_code} ) ${dto.delivery_addr1} ${dto.delivery_addr2}</p>
 											</div>
 										</div>
 									</td>
 									<td class="text-right">
-										<button class="addr_delete_btn btn btn-danger btn-sm mt-1 mb-1" value="${dto.addr_no}"> 삭제 </button>
-										<button class="addr_choice_btn btn btn-primary btn-sm" value="${dto.addr_no}" name="${status.index}"> 선택 </button>
+										<button class="addr_delete_btn btn btn-danger btn-sm mt-1 mb-1" value="${dto.delivery_id}"> 삭제 </button>
+										<button class="addr_choice_btn btn btn-primary btn-sm" value="${dto.delivery_id}" name="${status.index}"> 선택 </button>
 									</td>
 								</tr>
 							</c:forEach>
@@ -185,17 +185,17 @@
 	<!-- delivery modal end -->
 
 	<script type="text/javascript">
-	let arr_basket_no = ${arr_basket_no};
-	let str_basket_no = "";
-	$.each( ${arr_basket_no}, function(idx, str) {
+	let arr_cart_id = ${arr_cart_id};
+	let str_cart_id = "";
+	$.each( ${arr_cart_id}, function(idx, str) {
 		//alert(idx + " : " + str);
 		if(idx == 0){
-			str_basket_no = str_basket_no + str;
+			str_cart_id = str_cart_id + str;
 		} else {
-			str_basket_no = str_basket_no + "," + str;
+			str_cart_id = str_cart_id + "," + str;
 		}
 	});//each
-	let buy_now_prdt_no = "${list[0].prdt_no}";
+	let buy_now_md_id = "${list[0].md_id}";
 	let buy_now_qty = "${list[0].buy_qty}";
 	</script>
 
@@ -204,7 +204,7 @@
 		$(".addr_choice_btn").click(function() {
 
 			$("#td_delivery").html( $("#td_delivery" + $(this).attr("name") ).html() );
-			$("#addr_no").val( $(this).val() );
+			$("#delivery_id").val( $(this).val() );
 			$("#delivery_choice_modal").modal("hide");
 
 		});//click
@@ -218,12 +218,12 @@
 			$.get(
 					"${pageContext.request.contextPath}/delivery/delete"
 					, {
-						addr_no : $(this).val()
+						delivery_id : $(this).val()
 					}
 					, function(data, status) {
 						if(data >= 1){
 							alert("배송지 주소를 삭제 하였습니다.");
-							location.href="${pageContext.request.contextPath}/order/order_list?arr_basket_no="+arr_basket_no;
+							location.href="${pageContext.request.contextPath}/order/order_list?arr_cart_id="+arr_cart_id;
 						} else {
 							alert("배송지 주소 삭제를 실패 하였습니다.");
 						}
@@ -236,24 +236,25 @@
 
 
 	<script type="text/javascript">
-	$(document).ready(function() {
+	$(document).ready(function () {
+        let _delivery_id = $("#delivery_id").val();
 		$("#order_btn").click(function() {
 			$.post(
 					"${pageContext.request.contextPath}/order/insert"
 					, {
-						addr_no : $("#addr_no").val()
-						, order_product_cnt : $("#span_sum_product_class_qty").text()
+						delivery_id : $("#delivery_id").val()
+						, order_md_cnt : $("#span_sum_md_class_qty").text()
 						, order_amt : $("#span_sum_buy_amt").text()
 						, discount_amt : $("#span_sum_discount_amt").text()
 						, pay_amt : $("#span_sum_total_buy_amt").text()
-						, str_basket_no : str_basket_no
-						, buy_now_prdt_no : buy_now_prdt_no
+						, str_cart_id : str_cart_id
+						, buy_now_md_id : buy_now_md_id
 						, buy_now_qty : buy_now_qty
 					},
 					function(data, status) {
 						if(data >= 1){
 							alert("주문을 성공적으로 등록 하였습니다.");
-							location.href="${pageContext.request.contextPath}/basket/list";
+							location.href="${pageContext.request.contextPath}/order/list";
 						} else if(data <= 0){
 							alert("주문 등록을 실패 하였습니다.");
 						} else {
