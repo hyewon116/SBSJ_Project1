@@ -12,11 +12,8 @@
 		<mapper resource="META-INF/md-mapper.xml" />
 		<mapper resource="META-INF/review-mapper.xml" />
 		<mapper resource="META-INF/question-mapper.xml" />
-<<<<<<< HEAD
 		<mapper resource="META-INF/cart-mapper.xml" />
-=======
 		<mapper resource="META-INF/admin-mapper.xml" />
->>>>>>> 6bed07c6d278aeb78c9b3717307efe7b05d7336e
 	</mappers>
 
 </configuration>
