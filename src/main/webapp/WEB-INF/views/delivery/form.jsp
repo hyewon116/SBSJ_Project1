@@ -35,6 +35,7 @@
 	<%@ include file="/WEB-INF/views/headerMain.jsp" %>
 		<hr>
 		<h3> 배 송 지 추 가 </h3>
+		<button type="button"  onclick="location.href='${pageContext.request.contextPath}/order/order_list'">주문페이지 바로가기</button> 
 		<hr>
 		<div class="row">
 			<div class="col-6">
