@@ -64,14 +64,14 @@
 
 	<select id="buyNowOrderList" resultType="kr.co.sbsj.md.MdDTO">
 	select 0 cart_id, #{buy_qty} as buy_qty, now()
-			, md.md_id, md.md_name, md.member_id, m.member_name, md.md_stock, md.md_price, md.md_discount
+			, md.md_id, md.md_name, m.member_nick, md.md_stock, md.md_price, md.md_discount
 			, md.md_price - (md.md_price / 100 * md.md_discount) as sale_price
 			, ( md.md_price - (md.md_price / 100 * md.md_discount) ) * #{buy_qty} as total_price
 			, md.md_content,  md.reg_date
 			, md.md_thumbnail_name, md.md_thumbnail_path, md.md_detail_name, md.md_detail_path
 	from md md, member m
 	where md.md_id = #{md_id}
-	and md.member_id = m.member_id
+	
 	</select>
 
 	<select id="orderList" resultType="kr.co.sbsj.md.MdDTO">

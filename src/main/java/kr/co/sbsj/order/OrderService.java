@@ -31,9 +31,6 @@ public class OrderService {
 		}
 		if(successCount < 1) return successCount;
 
-		successCount = dao.updateCreditCardUsedDate(dto);
-		if(successCount < 1) return successCount;
-
 		successCount = dao.updateDeliveryAddrUsedDate(dto);
 		if(successCount < 1) return successCount;
 

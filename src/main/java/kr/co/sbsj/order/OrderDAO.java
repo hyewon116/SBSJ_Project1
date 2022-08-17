@@ -20,11 +20,6 @@ public class OrderDAO {
 		return successCount;
 	}//updateDeliveryAddrUsedDate
 
-	public int updateCreditCardUsedDate( OrderMainDTO dto ) {
-		int successCount = 0;
-		successCount = sqlSession.update("OrderMapper.updateCreditCardUsedDate", dto);
-		return successCount;
-	}//updateCreditCardUsedDate
 
 	public int deleteCartByArray(String [] arr_cart_id) {
 		int successCount = 0;
@@ -36,7 +31,7 @@ public class OrderDAO {
 		int successCount = 0;
 		successCount = sqlSession.insert("OrderMapper.insertBuyNowOrderDetail", dto);
 		return successCount;
-	}//insertOrderDetail
+	}//insertBuyNowOrderDetail
 
 	public int insertOrderDetail(OrderMainDTO dto) {
 		int successCount = 0;

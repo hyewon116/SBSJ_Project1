@@ -12,6 +12,7 @@
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 		<script src="https://kit.fontawesome.com/def66b134a.js" crossorigin="anonymous"></script>
+		
 		<style type="text/css">
 		
 		#table1 img{ 
@@ -52,11 +53,6 @@
 				<tr>
 					<td rowspan="5"><img src="${detail_dto.md_thumbnail_path}"></td>
 					<td colspan="2"> 
-						<p style="font-size:27px;"> 
-						<b>${detail_dto.md_name}</b>
-						</p>  
-					</td>
-					<td colspan="2">
 						<p style="font-size:27px; color:dimgray;"> 
 						<b>${detail_dto.md_name}</b>
 						</p>  
@@ -65,6 +61,7 @@
 					<!-- 찜 버튼 -->
 					<td colspan="2">
 						<button type="button" id="wish_btn" class="btn btn-danger btn-sm"> 
+						♡
 						</button>
 					</td>
 				</tr>
@@ -89,12 +86,15 @@
 				<tr>
 					<th> 구 매 수 량 </th>
 					<td>
+						<form id="buy_now_form">
+						<input type="hidden" id="md_id" name="md_id" value="${detail_dto.md_id }">
 						<select id="buy_qty" name="buy_qty">
 							<option value="0"> 선 택 </option>
 							<c:forEach var="tmp_qty" begin="1" end="10">
 								<option value="${tmp_qty}"> ${tmp_qty} </option>
 							</c:forEach>
 						</select>
+						</form>
 					</td>
 					<th> 구 매 가 격 </th>
 					<td><span id="tot_price_span"> 0 </span> 원 </td>
@@ -102,7 +102,7 @@
 				<tr>
 					<td colspan="4" class="text-right">
 						<button type="button" id="jang_btn" class="btn btn-primary btn-lg"> 장바구니 담기 </button>
-						<button type="button" id="buy_btn" class="btn btn-primary btn-lg"> 바로 구매하기 </button>
+						<button type="button" id="buy_now_btn" class="btn btn-primary btn-lg"> 바로 구매하기 </button>
 					</td>
 				</tr>
 			</tbody>
@@ -157,17 +157,6 @@
 				width="100%" height=700px frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
 			</div>
 		</div>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$("#buy_qty").change(function() {
-	
-				$("#tot_price_span").text(
-						$("#buy_qty").val() * ${detail_dto.sale_price}
-				);
-
-			});//change
-		});//ready
-	</script>
 		
 	<script type="text/javascript">
 	
@@ -197,6 +186,27 @@
 	
 	</script>
 	
+	<script type="text/javascript">
+	</script>
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$("#buy_now_btn").click(function() {
+
+			if("${login_info.member_id}" == ""){
+				alert("로그인 해주세요.");
+				return;
+			}
+
+			if( $("#buy_qty").val() == 0 ){
+				alert("구매 수량을 선택 하세요.");
+				return;
+			}
+
+			$("#buy_now_form").attr("action", "${pageContext.request.contextPath}/order/order_list");
+			$("#buy_now_form").submit();
+		});//click
+	});//ready
+	</script>
 	<script type="text/javascript">
 	
 	//장바구니 담기 
