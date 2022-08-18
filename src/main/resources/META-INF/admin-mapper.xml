@@ -5,14 +5,79 @@
 
 <mapper namespace="AdminMapper">
 
+	<update id="fileDelete" parameterType="kr.co.sbsj.admin.AdminDTO">
+	update md
+		<if test="md_thumbnail_name != null and md_thumbnail_name != ''">
+			set md_thumbnail_name = ''
+			, md_thumbnail_path = ''
+		</if>
+		<if test="md_detail_name != null and md_detail_name != ''">
+			set md_detail_name = ''
+			, md_detail_path = ''
+		</if>
+		
+	where md_id = #{md_id}
+	</update>
+	
+	
+	
+	<update id="update" parameterType="kr.co.sbsj.admin.AdminDTO">
+	update md
+	set md_name = #{md_name}
+		, md_oneline = #{md_oneline}
+		, md_price = #{md_price}
+		, md_category = #{md_category}
+		, md_abv = #{md_abv}
+		
+		<if test="md_thumbnail_name != null and md_thumbnail_name != ''">
+			,md_thumbnail_name = #{md_thumbnail_name}
+			, md_thumbnail_path = #{md_thumbnail_path}
+		</if>
+		<if test="md_detail_name != null and md_detail_name != ''">
+			,md_detail_name = #{md_detail_name}
+			, md_detail_path = #{md_detail_path}
+		</if>
+		, md_content = #{md_content}
+		, md_standard_stock = #{md_standard_stock}
+		, md_sales_rate = #{md_sales_rate}
+		, md_stock = #{md_stock}
+		, md_sweet = #{md_sweet}
+		, md_sour = #{md_sour}
+		, md_sparkling = #{md_sparkling}
+		, md_use = #{md_use}
+		, md_discount = #{md_discount}
+	
+	where md_id = #{md_id}
+	</update>
+	
 	
 	<delete id="delete">
 	delete from md
 	where md_id=#{no}
 	</delete>
 	
+	<update id="offsale">
+	update md
+	set md_onsale = "N"
+	where md_id=#{no}
+	</update>
+	
+	<update id="onsale">
+	update md
+	set md_onsale = "Y"
+	where md_id=#{no}
+	</update>
 	
 	
+	<select id="detail" parameterType="java.lang.String" resultType="kr.co.sbsj.admin.AdminDTO">
+		select md_id, md_name, md_oneline, md_price, md_category, md_abv, md_discount
+		, truncate( md_price - (md_price / 100 * md_discount), 0 ) sale_price
+		, md_content, md_thumbnail_name, md_thumbnail_path, md_detail_name,
+		md_detail_path, md_content, md_standard_stock, md_sales_rate, md_stock
+		, md_sweet, md_sour, md_sparkling, md_use, md_ratingAvg
+    	from md
+		where md_id = #{md_id}
+	</select>
 	
 	
 	
@@ -37,7 +102,7 @@
 	<select id="selectList" parameterType="kr.co.sbsj.util.dto.SearchDTO"
 			resultType="kr.co.sbsj.md.MdDTO">
 		select m.md_id, m.md_name, m.md_price, m.md_category,  m.md_standard_stock, m.md_sales_rate, m.md_stock
-		, m.md_thumbnail_name, m.md_thumbnail_path
+		, m.md_thumbnail_name, m.md_thumbnail_path, m.md_onsale
     	from md m
 		<if test="searchOption != null and searchOption != ''
 					and searchWord != null and searchWord !=''">

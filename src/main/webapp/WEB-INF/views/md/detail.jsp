@@ -12,6 +12,7 @@
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 		<script src="https://kit.fontawesome.com/def66b134a.js" crossorigin="anonymous"></script>
+		
 		<style type="text/css">
 		
 		#table1 img{ 
@@ -52,12 +53,6 @@
 				<tr>
 					<td rowspan="5"><img src="${detail_dto.md_thumbnail_path}"></td>
 					<td colspan="2"> 
-						<p style="font-size:27px;"> 
-						<b>${detail_dto.md_name}</b>
-						</p>  
-					</td>
-					<td colspan="2">
-						<button type="button" id="wish_btn" class="btn btn-danger btn-sm">
 						<p style="font-size:27px; color:dimgray;"> 
 						<b>${detail_dto.md_name}</b>
 						</p>  
@@ -66,6 +61,7 @@
 					<!-- 찜 버튼 -->
 					<td colspan="2">
 						<button type="button" id="wish_btn" class="btn btn-danger btn-sm"> 
+						♡
 						</button>
 					</td>
 				</tr>
@@ -84,9 +80,6 @@
 					</td>
 				</tr>
 				<tr>
-					<th> 구 매 수 량 </th>
-					<td>
-						<select id="cart_item_count" name="cart_item_count">
 					<th> 도 수 </th>
 					<td> <b> <span> ${detail_dto.md_abv}</span> % </b></td>
 				</tr>
@@ -210,7 +203,7 @@
 					"${pageContext.request.contextPath}/cart/insert"
 					, {
 						md_id : ${detail_dto.md_id}
-						s, buy_qty : $("#buy_qty").val()
+						, buy_qty : $("#buy_qty").val()
 					}
 					, function(data, status) {
 						if(data >= 1){

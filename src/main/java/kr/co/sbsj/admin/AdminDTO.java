@@ -1,9 +1,9 @@
-package kr.co.sbsj.md;
+package kr.co.sbsj.admin;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class MdDTO {
-	
+public class AdminDTO {
+
 	private String md_id;
 	private String md_name;
 	private String md_oneline;
@@ -27,7 +27,7 @@ public class MdDTO {
 	private String md_detail_name;
 	private String md_detail_path;
 	private String sale_price;
-	private String md_onsale;
+
 
 	@Override
 	public String toString() {
@@ -52,11 +52,7 @@ public class MdDTO {
 		+ " : " + md_thumbnail_name
 		+ " : " + md_thumbnail_path
 		+ " : " + md_detail_name
-		+ " : " + md_detail_path
-		+ " : " + md_onsale;
-		
-		
-		
+		+ " : " + md_detail_path;
 	}
 	
 	public String getMd_id() {
@@ -197,16 +193,5 @@ public class MdDTO {
 	public void setSale_price(String sale_price) {
 		this.sale_price = sale_price;
 	}
-
-	public String getMd_onsale() {
-		return md_onsale;
-	}
-
-	public void setMd_onsale(String md_onsale) {
-		this.md_onsale = md_onsale;
-	}
-
-	
-	
 	
 }
