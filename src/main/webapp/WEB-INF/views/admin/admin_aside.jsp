@@ -24,7 +24,7 @@
 					
 					
 					<ul id="myMenu">
-					  <li ><h1>관리자페이지</h1></li>
+					  <li ><h3>관리자페이지</h3></li>
 					  <li><a href="#">회원관리</a></li>
 					  <li><a href="#">공지사항 관리</a></li>
 					  <li><a href="#">1:1 문의 관리</a></li>

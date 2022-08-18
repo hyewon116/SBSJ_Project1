@@ -34,6 +34,11 @@ public class MdDTO {
 	private String buy_qty;
 	private String total_price;
 
+	
+	private String md_onsale;
+	
+	
+
 
 	@Override
 	public String toString() {
@@ -63,7 +68,8 @@ public class MdDTO {
 		+ " : " + md_detail_name
 		+ " : " + md_detail_path
 		+ " : " + buy_qty
-		+ " : " + total_price;
+		+ " : " + total_price
+		+ " : " + md_onsale;
 	}
 	
 

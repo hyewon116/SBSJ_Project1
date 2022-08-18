@@ -43,7 +43,12 @@
   background-color: #eee;
 }
 
-
+#disable_btn {
+	margin-right : 30px;
+}
+#insert {
+	margin-right : 30px;
+}
 
 </style>	
 
@@ -85,8 +90,8 @@
 				
 				<!-- section 시작--------------------------------------------------------------------------------- -->
 				<section class="col-9 h-100 bg-white float-left">
-					<h1> 상 품 관 리</h1>
-					  <hr style="width:100%;height:5px;border:none;background-color:black;">
+					<h3> 상 품 관 리</h3>
+					  <hr style="width:100%;height:1px;border:none;background-color:black;">
 					  	
 					  	
 					  	
@@ -115,7 +120,8 @@
 		<table class="text-center text-capitalize table table-hover">
 			<thead>
 				<tr>
-					<th><input id="allCheck" type="checkbox" name="allCheck"></th> <th> image </th> <th> 상품번호 </th> <th> 상품명 </th> <th> 가격 </th>	<th> 주종 </th> <th> 기준재고 </th> <th> 판매수량 </th> <th> 잔여재고 </th>
+					<th><input id="allCheck" type="checkbox" name="allCheck"></th> <th> image </th> <th> 상품번호 </th> <th> 상품명 </th> 
+					<th> 가격 </th>	<th> 주종 </th> <th> 기준재고 </th> <th> 판매수량 </th> <th> 잔여재고 </th> <th> 판매여부 </th>
 				</tr>
 			</thead>
 			<tbody>
@@ -131,7 +137,7 @@
 							${dto.md_id}
 						</td>
 						<td class="col-1">
-							<a href="${pageContext.request.contextPath}/admin/detail?prdt_no=">
+							<a href="${pageContext.request.contextPath}/admin/admin_md_detail?md_id=${dto.md_id}">
 							${dto.md_name}	
 							</a><!-- 디테일 수정 예정 -->
 						</td>
@@ -150,6 +156,9 @@
 						<td class="col-1">
 							${dto.md_stock} 개
 						</td>
+						<td class="col-1">
+							${dto.md_onsale} 
+						</td>
 						
 					</tr>
 				</c:forEach>
@@ -157,11 +166,13 @@
 		</table>
 		<hr>
 		<div class="clearfix">
-				<button id="delete_btn" class="btn btn-danger" onclick="deleteValue();"> 상 품 삭 제 </button>
+				<button id="able_btn" class="btn btn-info float-right" onclick="onsale();"> 상 품 올 리 기 </button>
+				<button id="disable_btn" class="btn btn-warning float-right" onclick="offsale();"> 상 품 내 리 기 </button>
 			
 			<a href="${pageContext.request.contextPath}/md/write_form"><!-- 컨트롤러의 RequestMapping 호출 -->
-				<button class="btn btn-primary float-right"> 상 품 등 록 </button>
+				<button id="insert" class="btn btn-primary float-left"> 상 품 등 록 </button>
 			</a>
+				<button id="delete_btn" class="btn btn-danger float-left" onclick="deleteValue();"> 상 품 삭 제 </button>
 		</div>
 		<hr>
 		<ul class="pagination">
@@ -275,11 +286,81 @@
 			
 		}//deleteValue
 		
+		function offsale(){
+			var url = "${pageContext.request.contextPath}/admin/offsale"; // Controller로 보내고자하는 URL
+			var valueArr = new Array();
+			var list = $("input[name='RowCheck']");
+			
+			for(var i = 0; i < list.length; i++){
+				if(list[i].checked){ //선택되어 있으면 배열에 값을 저장함
+					valueArr.push(list[i].value);
+				}
+			}
 		
+			if (valueArr.length == 0){
+				alert("선택된 상품이 없습니다.");
+			}
+			else{
+				var chk = confirm("정말 상품을 내리시겠습니까?");
+				$.ajax({
+					url : "${pageContext.request.contextPath}/admin/offsale"//전송 URL
+					, type : 'POST' //POST 방식
+					, traditional : true
+					, data : {
+						valueArr : valueArr //보내고자 하는 data 변수 설정
+					},
+					success : function(jdata){
+						if(jdata = 1) {
+							alert("상품 내리기 성공");
+							location.href = "${pageContext.request.contextPath}/admin/admin_md_list";
+						}
+						else {
+							alert("상품 내리기 실패");
+						}
+					}
+				});
+				
+			}//else
+			
+		}//disableValue
 		
+		function onsale(){
+			var url = "${pageContext.request.contextPath}/admin/onsale"; // Controller로 보내고자하는 URL
+			var valueArr = new Array();
+			var list = $("input[name='RowCheck']");
+			
+			for(var i = 0; i < list.length; i++){
+				if(list[i].checked){ //선택되어 있으면 배열에 값을 저장함
+					valueArr.push(list[i].value);
+				}
+			}
 		
-		
-		
+			if (valueArr.length == 0){
+				alert("선택된 상품이 없습니다.");
+			}
+			else{
+				var chk = confirm("정말 상품을 올리시겠습니까?");
+				$.ajax({
+					url : "${pageContext.request.contextPath}/admin/onsale"//전송 URL
+					, type : 'POST' //POST 방식
+					, traditional : true
+					, data : {
+						valueArr : valueArr //보내고자 하는 data 변수 설정
+					},
+					success : function(jdata){
+						if(jdata = 1) {
+							alert("상품 올리기 성공");
+							location.href = "${pageContext.request.contextPath}/admin/admin_md_list";
+						}
+						else {
+							alert("상품 올리기 실패");
+						}
+					}
+				});
+				
+			}//else
+			
+		}//ableValue
 		
 	</script>
 </html>

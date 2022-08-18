@@ -17,6 +17,28 @@ public class AdminDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	
+	public int fileDelete( AdminDTO dto ) {
+		int successCount = 0;
+		successCount = sqlSession.update("AdminMapper.fileDelete", dto);
+		return successCount;
+	}//delete
+	
+	public int update( AdminDTO dto ) {
+		int successCount = 0;
+		successCount = sqlSession.update("AdminMapper.update", dto);
+		return successCount;
+	}//update
+	
+	
+	
+	public AdminDTO detail( String md_id ) {
+		AdminDTO dto = null;
+		dto = sqlSession.selectOne("AdminMapper.detail", md_id);
+		return dto;
+	}//detail
+	
+	
 	public int searchListCount( SearchDTO dto ) {
 		int totalCount = 0;
 		totalCount = sqlSession.selectOne("AdminMapper.searchListCount", dto);
@@ -33,5 +55,14 @@ public class AdminDAO {
 	public void delete( String no ) {
 		sqlSession.delete("AdminMapper.delete", no);
 	}//delete
+
+	public void offsale(String no) {
+		sqlSession.update("AdminMapper.offsale", no);
+		
+	}
+	public void onsale(String no) {
+		sqlSession.update("AdminMapper.onsale", no);
+		
+	}
 	
 }//JoinDAO

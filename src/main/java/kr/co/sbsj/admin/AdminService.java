@@ -18,6 +18,30 @@ public class AdminService {
 	@Autowired
 	private AdminDAO dao;
 
+	
+	
+	public int fileDelete( AdminDTO dto ) {
+		int successCount = 0;
+		successCount = dao.fileDelete( dto );
+		return successCount;
+	}//fileDelete
+	
+	
+	public int update( AdminDTO dto ) {
+		int successCount = 0;
+		successCount = dao.update( dto );
+		return successCount;
+	}//update
+	
+	
+	
+	public AdminDTO detail( String md_id ) {
+		AdminDTO dto = null;
+		dto = dao.detail( md_id );
+		return dto;
+	}//detail
+	
+	
 	public int searchListCount( SearchDTO dto ) {
 		int totalCount = 0;
 		totalCount = dao.searchListCount( dto );
@@ -32,6 +56,13 @@ public class AdminService {
 	
 	public void delete(String no) {
 		dao.delete(no);
+	}
+	
+	public void offsale(String no) {
+		dao.offsale(no);
+	}
+	public void onsale(String no) {
+		dao.onsale(no);
 	}
 	
 	
