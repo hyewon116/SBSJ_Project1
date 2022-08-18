@@ -184,7 +184,7 @@ public class AdminController {
 	
 	
 	@RequestMapping( value = "/admin", method = RequestMethod.GET )
-	private String myPage() {
+	private String admin() {
 		return "/admin/admin";//
 	}//admin
 	
@@ -226,7 +226,7 @@ public class AdminController {
 
 		List<MdDTO> list = null;
 		list = service.searchList( dto );
-		
+		System.out.println(list);
 		model.addAttribute("list", list); 
 		model.addAttribute("search_dto", dto);
 		 

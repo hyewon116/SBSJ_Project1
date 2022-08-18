@@ -139,7 +139,7 @@
 						<td class="col-1">
 							<a href="${pageContext.request.contextPath}/admin/admin_md_detail?md_id=${dto.md_id}">
 							${dto.md_name}	
-							</a><!-- 디테일 수정 예정 -->
+							</a>
 						</td>
 						<td class="col-1">
 							${dto.md_price} 원
@@ -157,7 +157,7 @@
 							${dto.md_stock} 개
 						</td>
 						<td class="col-1">
-							${dto.md_onsale} 
+							${dto.md_onsale}
 						</td>
 						
 					</tr>

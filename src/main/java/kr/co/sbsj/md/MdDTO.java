@@ -6,8 +6,6 @@ public class MdDTO {
 
 	private String md_id;
 	private String md_name;
-	private String member_id;
-	private String member_nick;
 	private String md_standard_stock;
 	private String md_price;
 	private String md_discount;
@@ -38,13 +36,15 @@ public class MdDTO {
 	private String md_onsale;
 	
 	
+	private String member_id;
+	private String member_nick;
+	
+	
 
 
 	@Override
 	public String toString() {
 		return  md_id
-		+ " : " + member_id
-		+ " : " + member_nick
 		+ " : " + md_name
 		+ " : " + sale_price
 		+ " : " + md_oneline
@@ -69,7 +69,9 @@ public class MdDTO {
 		+ " : " + md_detail_path
 		+ " : " + buy_qty
 		+ " : " + total_price
-		+ " : " + md_onsale;
+		+ " : " + md_onsale
+		+ " : " + member_id
+		+ " : " + member_nick;
 	}
 	
 
@@ -360,6 +362,38 @@ public class MdDTO {
 	public void setTotal_price(String total_price) {
 		this.total_price = total_price;
 	}
+
+
+
+	public String getCart_id() {
+		return cart_id;
+	}
+
+
+
+	public void setCart_id(String cart_id) {
+		this.cart_id = cart_id;
+	}
+
+
+
+	public String getMd_onsale() {
+		return md_onsale;
+	}
+
+
+
+	public void setMd_onsale(String md_onsale) {
+		this.md_onsale = md_onsale;
+	}
+
+
+
+	public String getMember_nick() {
+		return member_nick;
+	}
+	
+	
 	
 	
 }
