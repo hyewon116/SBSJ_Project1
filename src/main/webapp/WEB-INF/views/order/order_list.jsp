@@ -9,6 +9,8 @@
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+		<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+		
 	</head>
 	<body>
 	<%@ include file="/WEB-INF/views/headerMain.jsp" %>
@@ -125,6 +127,7 @@
 					<tr>
 						<td colspan="2" class="text-center">
 							<button id="order_btn" class="btn btn-danger btn-lg"> 결 제 하 기 </button>
+							<button id="kakao_btn" class="btn btn-warning btn-lg"> 카카오페이 </button>
 						</td>
 					</tr>
 				</table>
@@ -234,7 +237,7 @@
 	});//ready
 	</script>
 
-
+<!-- 일반 결제하기 -->
 	<script type="text/javascript">
 	$(document).ready(function () {
         let _delivery_id = $("#delivery_id").val();
@@ -264,8 +267,44 @@
 			);//post
 
 		});//click
-	});//ready
+	}); //ready
 	</script>
 
+<!-- 카카오페이 -->
+<script type="text/javascript">
+	    $(document).ready(function(){$("#kakao_btn").click(function() {
+	    	kakaoPay();
+	     });
+	    })
+	    function kakaoPay() {
+	        IMP.init('imp82628187');
+	        
+		    IMP.request_pay({
+		    pg: "kakaopay"
+		    ,pay_method: "card" //결제시 카드결제만 해야함. 카카오포인트로 결제 불가.
+	        ,merchant_uid:'merchant_'+new Date().getTime() //상점에서 관리하는 주문 번호
+	        ,name: "상품 이름 들어가는 곳" 			//'${dto.md_name}'이거 하면 "item_name can't be null." 에러가 뜸.
+	        ,amount: '${sum_buy_amt - sum_discount_amt+delivery_cost}' //가격정보는 잘 뜸.
+	        ,buyer_name:"구매자 이름"  			//'${dto.receiver}' 인식 안됨.
+	        ,buyer_tel:"010-9999-9999" 		//'${dto.member_phone}' 인식 안됨.
+	        }
+	        , function(rsp) { //callback
+	        	if (rsp.success) {
+	                var msg = '결제가 완료 되었습니다.';
+                    msg += ' 고유ID : ' + rsp.imp_uid;
+                    msg += ' 상점 거래ID : ' + rsp.merchant_uid;
+                    msg += ' 결제 금액 : ' + rsp.paid_amount;
+                    msg += ' 카드 승인번호 : ' + rsp.apply_num;
+                    msg += ' 구매자 이름 : ' + rsp.buyer_name;
+                    msg += ' 구매자 전화번호 : ' + rsp.buyer_tel;
+	            } else {
+	            	var msg = '결제에 실패 하였습니다.';
+                    msg += ' 에러내용 : ' + rsp.error_msg;
+                    msg += ' 에러코드: ' + rsp.error_code;
+	            }
+	            alert(msg);
+	        });
+	    };
+	</script>
 	</body>
 </html>
