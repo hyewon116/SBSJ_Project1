@@ -172,7 +172,8 @@
 					"${pageContext.request.contextPath}/md/wish_insert"
 					, {
 						md_id : ${detail_dto.md_id}
-					}
+						, member_id: ${login_info.member_id}
+					} 
 					, function(data, status) {
 						if(data >= 1){
 							alert("찜 목록에 추가되었습니다.");

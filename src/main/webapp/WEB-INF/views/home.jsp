@@ -65,27 +65,27 @@
 		<div class="col-3.5">
 		</div>
 		<div class="col-1">
-	                <a href="${pageContext.request.contextPath}/md/list">
+	                <a href="${pageContext.request.contextPath}/md/list_cate?md_category=탁주">
 	                    <img class="hover:grow hover:shadow-lg" src="${pageContext.request.contextPath}/resources/home/img/takju.jpg" width="80px">
 	                </a>
 	            </div>
 		<div class="col-1">
-	                <a href="/md/detail/page?md_id=17">
+	                <a href="${pageContext.request.contextPath}/md/list_cate?md_category=약·청주">
 	                    <img class="hover:grow hover:shadow-lg" src="${pageContext.request.contextPath}/resources/home/img/yakju.jpg" width="80px">
 	                </a>
 		</div>
 		<div class="col-1">
-	                <a href="/md/detail/page?md_id=6">
+	                <a href="${pageContext.request.contextPath}/md/list_cate?md_category=과실주">
 	                    <img class="hover:grow hover:shadow-lg" src="${pageContext.request.contextPath}/resources/home/img/fruit.jpg" width="80px">
 	                </a>
 		</div>
 		<div class="col-1">
-	                <a href="/md/detail/page?md_id=29">
+	                <a href="${pageContext.request.contextPath}/md/list_cate?md_category=증류주">
 	                    <img class="hover:grow hover:shadow-lg" src="${pageContext.request.contextPath}/resources/home/img/jeungryu.jpg" width="80px">
 	                </a>
 		</div>
 		<div class="col-1">
-	                <a href="/md/detail/page?md_id=29">
+	                <a href="${pageContext.request.contextPath}/md/list_cate?md_category=선물세트">
 	                    <img class="hover:grow hover:shadow-lg" src="${pageContext.request.contextPath}/resources/home/img/giftset.jpg" width="80px"> 
 	                </a>
 		</div>		

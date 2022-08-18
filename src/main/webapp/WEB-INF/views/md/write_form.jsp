@@ -29,11 +29,11 @@
 						<th> 상품 분류 </th>
 						<td colspan="3">
 						<select id="md_category" name="md_category">
-							<option value="주종" selected disabled hidden>주종</option>
+							<option value="kind" selected disabled hidden>주종</option>
 							<option value="탁주">탁주</option>
 							<option value="약·청주">약·청주</option>
 							<option value="과실주">과실주</option>
-							<option value="증류주">증류주</option>
+							<option value="과실주">과실주</option>
 							<option value="선물세트">선물세트</option>
 						</select>
 					</tr>
@@ -85,17 +85,17 @@
 						<th> 단맛 </th>
 						<td>
 							<select id="md_sweet" name="md_sweet">
-								<option value="weak">약한</option>
-								<option value="middle">중간</option>
-								<option value="strong">강한</option>
+								<option value="약한">약한</option>
+								<option value="중간">중간</option>
+								<option value="강한">강한</option>
 							</select>
 						</td>
 						<th> 신맛 </th>
 						<td>
 							<select id="md_sour" name="md_sour">
-								<option value="weak">약한</option>
-								<option value="middle">중간</option>
-								<option value="strong">강한</option>
+								<option value="약한">약한</option>
+								<option value="중간">중간</option>
+								<option value="강한">강한</option>
 							</select>
 						</td>
 					</tr>
@@ -103,19 +103,19 @@
 						<th> 탄산 </th>
 						<td>
 							<select id="md_sparkling" name="md_sparkling">
-								<option value="weak">약한</option>
-								<option value="middle">중간</option>
-								<option value="strong">강한</option>
+								<option value="약한">약한</option>
+								<option value="중간">중간</option>
+								<option value="강한">강한</option>
 							</select>
 						</td>
 						<th> 상황별 </th>
 						<td>
 							<select id="md_use" name="md_use">
-								<option value="adult">웃어른</option>
-								<option value="lover">연인</option>
-								<option value="freinds">친구</option>
-								<option value="alone">혼자</option>
-								<option value="business">비지니스</option>
+								<option value="웃어른">웃어른</option>
+								<option value="연인">연인</option>
+								<option value="친구">친구</option>
+								<option value="혼자">혼자</option>
+								<option value="비지니스">비지니스</option>
 							</select>
 						</td>
 					</tr>
@@ -144,7 +144,7 @@
 			</table>
 		</form>
 		<button id="write_btn" class="btn btn-primary float-right"> 저장하기 </button>
-		<a href="${pageContext.request.contextPath}/admin/admin_md_list">
+		<a href="${pageContext.request.contextPath}/md/list">
 			<button class="btn btn-warning"> 취소 </button>
 		</a>
 		<hr>
@@ -207,7 +207,7 @@
 						, cache : false
 						, success : function(result) {
 							alert("상품이 등록 되었습니다.");
-							location.href = "${pageContext.request.contextPath}/admin/admin_md_list";
+							location.href = "${pageContext.request.contextPath}/md/list";
 						}//call back function
 						, error : function(xhr) {
 							alert("잠시 후 다시 시도해 주세요.");

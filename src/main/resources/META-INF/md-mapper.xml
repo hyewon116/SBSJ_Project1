@@ -14,8 +14,8 @@
     	from md
 		where md_id = #{md_id}
 	</select>
-
-	<select id="selectList" parameterType="kr.co.sbsj.util.dto.SearchDTO"
+	
+	<select id="selectList2" parameterType="kr.co.sbsj.util.dto.SearchDTO"
 			resultType="kr.co.sbsj.md.MdDTO">
 		select md_id, md_name, md_oneline, md_price, md_category, md_abv, md_discount
 		, truncate( md_price - (md_price / 100 * md_discount), 0 ) sale_price
@@ -23,6 +23,43 @@
 		md_detail_path, md_content, md_standard_stock, md_sales_rate, md_stock
 		, md_sweet, md_sour, md_sparkling, md_use, md_ratingAvg
     	from md
+		<if test="md_category != null and md_category != ''">
+			where md_category = #{md_category}
+		</if>
+		<if test="md_sweet != null and md_sweet != ''">
+			where md_sweet = #{md_sweet}
+		</if>
+		<if test="md_sour != null and md_sour != ''">
+			where md_sour = #{md_sour}
+		</if>
+		<if test="md_sparkling != null and md_sparkling != ''">
+			where md_sparkling = #{md_sparkling}
+		</if>
+		<if test="md_use != null and md_use != ''">
+			where md_use = #{md_use}
+		</if>
+
+		order by md_id desc
+		limit #{limitNum}, 4
+	</select>
+
+	<select id="searchListCount2" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="int">
+		select count(md_id) cnt
+		from md
+		where md_category = #{md_category}
+	</select>
+
+	<select id="selectList" parameterType="kr.co.sbsj.util.dto.SearchDTO"
+			resultType="kr.co.sbsj.md.MdDTO">
+		select md_id, md_name, md_oneline, md_price, md_category, md_abv, md_discount
+		, truncate( md_price - (md_price / 100 * md_discount), 0 ) sale_price
+		, md_content, md_thumbnail_name, md_thumbnail_path, md_detail_name,
+		md_detail_path, md_content, md_standard_stock, md_sales_rate, md_stock
+		, md_sweet, md_sour, md_sparkling, md_use, #{md_ratingAvg}
+    	from md
+    	<if test="searchWord != null and searchWord != ''">
+			where md_name like concat('%', #{searchWord}, '%')
+		</if>
 		order by md_id desc
 		limit #{limitNum}, 4
 	</select>
@@ -30,6 +67,9 @@
 	<select id="searchListCount" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="int">
 		select count(md_id) cnt
 		from md
+		<if test="searchWord != null and searchWord != ''">
+			where md_name like concat('%', #{searchWord}, '%')
+		</if>
 	</select>
 
 	<insert id="insert" parameterType="kr.co.sbsj.md.MdDTO">
@@ -43,11 +83,17 @@
 			#{md_sweet}, #{md_sour}, #{md_sparkling}, #{md_use}, #{md_discount})
 	</insert>
 	
-	<insert id="wish_insert" parameterType="java.lang.String">
-	INSERT INTO wish (md_id, wish_item, wish_price, wish_date) 
-		select #{md_id}, md_name, md_price, now()
+	<insert id="wish_insert" parameterType="kr.co.sbsj.util.dto.SearchDTO">
+	INSERT INTO wish (md_id, member_id, wish_item, wish_price, wish_date) 
+		select #{md_id}, #{member_id}, md_name, md_price, now()
 		from md
 		where md_id = #{md_id}
 	</insert>
+	
+	<select id="wishCheck" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="int">
+	select count(md_id) cnt
+	from wish
+	where member_id = #{member_id}
+	</select>
 
 </mapper>
