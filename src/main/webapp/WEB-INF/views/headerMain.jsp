@@ -102,11 +102,13 @@
 
           </ul>
 	<!-- searchbar 검색바 -->
+	<form action="${pageContext.request.contextPath}/md/list" method="get">
 	<div id="side_search" class="gnb_search">
-		<input name="search" type="text" id="search" class="inp_search" value="" required label="검색어" placeholder="검색어를 입력 해주세요.">
+		<input name="searchWord" type="text" id="searchWord" class="inp_search" value="${search_dto.searchWord}" required label="검색어" placeholder="검색어를 입력해주세요.">
 		<a href="javascript:void(0);" id="search-button"><input type=image src="https://res.kurly.com/pc/service/common/1908/ico_search_x2.png" class="btn_search"></a>
 	</div>
-
+	</form>
+	
 	<!-- searchbar 아이콘 -->
 	<div id="icon">
 		<span >
