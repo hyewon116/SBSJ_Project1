@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="HistoryMapper">
+
+	<select id="payDetail" parameterType="kr.co.sbsj.history.HistoryDTO" resultType="kr.co.sbsj.history.HistoryDTO">
+	SELECT om.order_id, om.member_id,   om.delivery_id
+			, om.order_md_cnt, om.order_amt, om.discount_amt, om.pay_amt
+			, om.order_date, om.order_status
+            , coco.code_name order_status_name
+			, od.order_detail_id, od.md_id
+			, od.order_detail_qty, od.order_detail_price, od.order_detail_amt
+			, od.order_detail_discount, od.order_detail_discount_amt, od.order_detail_pay_amt
+			, md.md_name 
+			, md.md_thumbnail_name, md.md_thumbnail_path
+			, da.receiver, da.member_phone, da.post_code, da.delivery_addr1, da.delivery_addr2
+	FROM order_main om, order_detail od, md md, delivery da, member m
+		, common_code coco
+	where om.order_id = #{order_id}
+	and om.member_id = #{member_id}
+	and om.member_id = m.member_id
+	and om.order_id = od.order_id
+	and od.md_id = md.md_id
+	and om.delivery_id = da.delivery_id
+	and coco.code_class = 'order_status'
+	and om.order_status = coco.code_id
+	order by od.order_detail_id desc
+	</select>
+
+	<select id="searchOrderList" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="kr.co.sbsj.history.HistoryDTO">
+	SELECT om.order_id, om.member_id,   om.delivery_id
+			, om.order_md_cnt, om.order_amt, om.discount_amt, om.pay_amt
+			, om.order_date, om.order_status
+            , coco.code_name order_status_name
+			, od.order_detail_id, od.md_id
+			, od.order_detail_qty, od.order_detail_price, od.order_detail_amt
+			, od.order_detail_discount, od.order_detail_discount_amt, od.order_detail_pay_amt
+			, md.md_name 
+			, md.md_thumbnail_name, md.md_thumbnail_path
+			, da.receiver, da.member_phone, da.post_code, da.delivery_addr1, da.delivery_addr2
+	FROM order_main om, order_detail od, md md, delivery da, member m
+		, common_code coco
+	where om.member_id = #{member_id}
+		<if test="searchOption != null and searchOption != ''
+					and searchWord != null and searchWord !=''">
+			<choose>
+				<when test="searchOption == 'md_name'">
+					and md.md_name like concat('%', #{searchWord}, '%')
+				</when>
+<!-- 				<when test="searchOption == 'member_nick'"> -->
+<!-- 					and m.member_nick like concat('%', #{searchWord}, '%') -->
+<!-- 				</when> -->
+			</choose>
+		</if>
+	and om.member_id = m.member_id
+	and om.order_id = od.order_id
+	and od.md_id = md.md_id
+	and om.delivery_id = da.delivery_id
+	and coco.code_class = 'order_status'
+	and om.order_status = coco.code_id
+	order by om.order_id desc
+	limit #{limitNum}, 10
+	</select>
+
+	<select id="searchOrderListCount" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="int">
+	SELECT count(om.order_id) cnt
+	FROM order_main om, order_detail od, md md,  delivery da, member m
+		, common_code coco
+	where om.member_id = #{member_id}
+		<if test="searchOption != null and searchOption != ''
+					and searchWord != null and searchWord !=''">
+			<choose>
+				<when test="searchOption == 'md_name'">
+					and md.md_name like concat('%', #{searchWord}, '%')
+				</when>
+<!-- 				<when test="searchOption == 'seller_member_nick'"> -->
+<!-- 					and m.member_nick like concat('%', #{searchWord}, '%') -->
+<!-- 				</when> -->
+			</choose>
+		</if>
+	and om.member_id = m.member_id
+	and om.order_id = od.order_id
+	and od.md_id = md.md_id
+	and om.delivery_id = da.delivery_id
+	and coco.code_class = 'order_status'
+	and om.order_status = coco.code_id
+	</select>
+
+</mapper>
