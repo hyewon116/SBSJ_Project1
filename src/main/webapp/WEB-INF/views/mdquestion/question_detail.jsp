@@ -22,8 +22,8 @@
 				<tr>
 					<th>작성일자</th>
 					<td>${detail_dto.md_question_date}</td>
-					<th>작성자</th> <!-- login_info 정보 추가할 예정 -->
-					<td>${detail_dto.member_id}</td>
+					<th>작성자</th> 
+					<td>${detail_dto.member_nick}</td>
 				</tr>
 				<tr>
 					<th> 문의 제목 </th>
@@ -38,13 +38,21 @@
 			</tbody>
 		</table>
 		
-		<!-- 문의 수정&삭제 버튼 -->
+		<!-- 문의 목록가기 버튼 : 누구나 보임 -->
 		<div class="text-center">
-			<a href="${pageContext.request.contextPath}/mdquestion/uform?md_question_id=${md_question_id}">
-				<button type="button" class="btn btn-warning" id="update"> 수정 </button> 
+			<a href="${pageContext.request.contextPath}/mdquestion/question_list?md_id=${detail_dto.md_id}">
+				<button type="button" class="btn btn-info float-left" id="list"> 문의 목록 </button> 
 			</a>
-			<button type="button" class="btn btn-danger" id="delete_btn"> 삭제 </button>
-		</div>
+			
+		<!-- 문의 수정&삭제 버튼 : 내 게시글에서만 보임 -->
+		<c:if test="${login_info.member_id == detail_dto.member_id}"> 
+			<div class="text-center">
+				<a href="${pageContext.request.contextPath}/mdquestion/uform?md_question_id=${md_question_id}">
+					<button type="button" class="btn btn-warning" id="update"> 수정 </button> 
+				</a>
+				<button type="button" class="btn btn-danger" id="delete_btn"> 삭제 </button>
+			</div>
+		</c:if>
 		<br>
 		<br>
 	</div>

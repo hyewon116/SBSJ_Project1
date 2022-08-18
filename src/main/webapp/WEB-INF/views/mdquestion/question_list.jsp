@@ -27,18 +27,22 @@
 								${question.md_question_title}
 								</a>
 							</td>
-							<td>${question.member_id}</td>
+							<td>${question.member_nick}</td>
 							<td>${question.md_question_type}</td>
 							<td>${question.md_question_answer}</td>
 						</tr>
 					</c:forEach>
 			</table>
-		<div class="clearfix">
-			<a href="${pageContext.request.contextPath}/mdquestion/write?md_id=${md_id}">
-				<button class="btn btn-info float-right"> 문의 작성 </button>
-			</a>
-		</div>	
-			
+		
+		<!-- 문의 작성 버튼 -->
+		<c:if test="${login_info.member_id != null}"> <!-- 비회원은 글 작성 불가 -->
+			<div class="clearfix">
+				<a href="${pageContext.request.contextPath}/mdquestion/write?md_id=${md_id}">
+					<button class="btn btn-info float-right"> 문의 작성 </button>
+				</a>
+			</div>	
+		</c:if>
+		
 		<ul class="pagination">
 			<c:if test="${startPageNum > 10}">
 				<li class="page-item mx-auto">

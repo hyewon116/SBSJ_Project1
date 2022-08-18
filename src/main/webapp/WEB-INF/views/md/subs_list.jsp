@@ -41,28 +41,27 @@
 		
 		<div class="container" id="onemonth">
 			<a id="onemonth">
-			
-			<br><br>
-			한 달에 한 번,<br>
-			인생술을 만나보세요.
+				<br><br>
+				<b>한 달에 한 번,<br>
+				인생술을 만나보세요.</b>
 			</a>
 		</div>
 		
 		<table class="subs_table" id="subs_table">
 		<tr>
 			<td>
-				<a>
+				<a href="${pageContext.request.contextPath}/md/subs_detail">
 					<img src=${pageContext.request.contextPath}/resources/mdList/images/subs_thum.jpg>
-				</a><br><br>
-				<b><a id="one_year">상부상酒 한 달 체험권</a></b>
+				<br><br></a>
+				<b><a href="${pageContext.request.contextPath}/md/subs_detail" id="one_year">상부상酒 한 달 체험권</a></b>
 					<br>
 				<a id="cost">36,000원 / 월</a>
 			<td>
 				<div class="subs_box">
-				<a>
+				<a href="${pageContext.request.contextPath}/md/subs_detail">
 					<img src=${pageContext.request.contextPath}/resources/mdList/images/subs_thum.jpg>
 				</a><br><br>
-				<b><a id="one_year"> 상부상酒 일 년 구독권 </a></b>
+				<b><a href="${pageContext.request.contextPath}/md/subs_detail" id="one_year"> 상부상酒 일 년 구독권 </a></b>
 					<br>
 				<a id="cost">390,000원 / 년 </a>
 			</td>

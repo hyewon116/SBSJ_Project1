@@ -5,6 +5,7 @@ public class MdReviewDTO {
 	private String review_id;
 	private String md_id;
 	private String member_id;
+	private String member_nick;
 	private String order_detail_id;
 	private String review_title;
 	private String review_content;
@@ -36,6 +37,12 @@ public class MdReviewDTO {
 	}
 	public void setMember_id(String member_id) {
 		this.member_id = member_id;
+	}
+	public String getMember_nick() {
+		return member_nick;
+	}
+	public void setMember_nick(String member_nick) {
+		this.member_nick = member_nick;
 	}
 	public String getOrder_detail_id() {
 		return order_detail_id;
@@ -79,5 +86,7 @@ public class MdReviewDTO {
 	public void setUserWantPage(String userWantPage) {
 		this.userWantPage = userWantPage;
 	}
+	
+	
 	
 }

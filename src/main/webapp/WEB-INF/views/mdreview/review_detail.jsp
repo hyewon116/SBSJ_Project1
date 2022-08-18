@@ -10,7 +10,6 @@
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-	
 	</head>
 	<body>
 		<div class="container">
@@ -22,8 +21,8 @@
 				<tr>
 					<th>작성일자</th>
 					<td>${detail_dto.review_date}</td>
-					<th>작성자</th> <!-- login_info 정보 추가할 예정 -->
-					<td>${detail_dto.member_id}</td>
+					<th>작성자</th> 
+					<td>${detail_dto.member_nick}</td>
 				</tr>
 				<tr>
 					<th> 후기 제목 </th>
@@ -36,12 +35,18 @@
 			</tbody>
 		</table>
 		
-		<!-- 후기 수정&삭제 버튼 -->
+		<!-- 후기 목록가기 버튼 : 누구나 보임 -->
 		<div class="text-center">
-			<a href="${pageContext.request.contextPath}/mdreview/uform?review_id=${review_id}">
-				<button type="button" class="btn btn-warning" id="update"> 수정 </button> 
+			<a href="${pageContext.request.contextPath}/mdreview/review_list?md_id=${detail_dto.md_id}">
+				<button type="button" class="btn btn-info float-left" id="list"> 후기 목록 </button> 
 			</a>
-			<button type="button" class="btn btn-danger" id="delete_btn"> 삭제 </button>
+		<!-- 후기 수정&삭제 버튼 : 내 게시글에서만 보임 -->
+			<c:if test="${login_info.member_id == detail_dto.member_id}"> <!-- 내 게시글만 수정&삭제 -->
+				<a href="${pageContext.request.contextPath}/mdreview/uform?review_id=${review_id}">
+					<button type="button" class="btn btn-warning" id="update"> 수정 </button> 
+				</a>
+				<button type="button" class="btn btn-danger" id="delete_btn"> 삭제 </button>
+			</c:if>
 		</div>
 		<br>
 		<br>

@@ -44,8 +44,14 @@
 				<label for="md_question_title" id="md_question_title_label" class="write_label"></label>
 				<br>
 				
-				작성자<br><br>
-				<!-- login_info 정보 추가 예정 -->
+				작성자<br>
+				<input id="member_nick" name="member_nick" type="text" readonly="readonly"
+					value="${login_info.member_nick}" cols="100" style="width:500px;">
+				<br><br>
+				
+				<!-- member_id 정보 넘기기 -->
+				<input id="member_id" name="member_id" type="hidden" 
+					value="${login_info.member_id}" cols="100" style="width:500px;">
 				
 				내용 작성<br>
 				<textarea id="md_question_content" name="md_question_content" 

@@ -31,7 +31,7 @@
 								${review.review_title}
 								</a>
 							</td>
-							<td>${review.member_id}</td>
+							<td>${review.member_nick}</td>
 							<td>${review.review_star}</td>
 							<td>${review.review_viewcnt}</td>
 						</tr>
@@ -39,12 +39,13 @@
 			</table>
 			
 		<!-- 후기 작성 버튼 -->
-		<div class="clearfix">
-			<a href="${pageContext.request.contextPath}/mdreview/write?md_id=${md_id}">
-				<button class="btn btn-info float-right"> 후기 작성 </button>
-			</a>
-		</div>
-			
+		<c:if test="${login_info.member_id != null}"> <!-- 비회원은 글 작성 불가 -->
+			<div class="clearfix">
+				<a href="${pageContext.request.contextPath}/mdreview/write?md_id=${md_id}">
+					<button class="btn btn-info float-right"> 후기 작성 </button>
+				</a>
+			</div>
+		</c:if>	
 			
 		<!-- 페이징 부분 -->
 		<ul class="pagination">

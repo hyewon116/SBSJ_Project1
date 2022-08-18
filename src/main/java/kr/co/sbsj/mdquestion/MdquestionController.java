@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import kr.co.sbsj.mdreview.MdReviewDTO;
+import kr.co.sbsj.util.dto.MemberDTO;
 import kr.co.sbsj.util.dto.SearchDTO;
 
 
@@ -65,7 +68,8 @@ public class MdquestionController {
 	
 	//상품문의 리스트
 	@RequestMapping(value = "/question_list", method = RequestMethod.GET)
-	public String question_list( Model model, String userWantPage, SearchDTO dto, String md_id ) {
+	public String question_list( Model model, String userWantPage, SearchDTO dto, String md_id) {
+		
 		if( userWantPage == null || userWantPage.equals("") ) userWantPage = "1";
 		int totalCount = 0, startPageNum = 1, endPageNum = 10, lastPageNum = 1;
 		totalCount = service.totalListCount( dto );
@@ -126,3 +130,22 @@ public class MdquestionController {
 		return "/mdquestion/question_write";//jsp file name
 	}//question_write
 }
+
+/*
+ CREATE TABLE `md_question` (
+        `md_question_id`        int        NOT NULL auto_increment,
+        `md_id`        int        NOT NULL,
+        `member_id`        int        NOT NULL,
+        `md_question_title`        varchar(100) NOT NULL,
+        `md_question_content` varchar(4000) NOT NULL,
+        `md_question_date` datetime        NOT NULL,
+        `md_question_answer` varchar(100) NOT NULL        DEFAULT '답변대기',
+        `md_question_type`        varchar(100) NOT NULL DEFAULT '상품',
+        `md_answer_id`        int,
+        `md_answer_member`        varchar(20)        DEFAULT '관리자',
+        `md_answer_content`        varchar(4000),
+        `md_answer_date` datetime,
+         member_nick varchar(100) NOT NULL,
+         PRIMARY KEY (`md_question_id`)
+);
+*/

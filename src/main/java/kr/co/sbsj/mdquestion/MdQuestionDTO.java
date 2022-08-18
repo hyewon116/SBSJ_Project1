@@ -4,6 +4,7 @@ public class MdQuestionDTO {
 
 	private String md_id;
 	private String member_id;
+	private String member_nick;
 	private String md_question_id;
 	private String md_question_title;
 	private String md_question_content;
@@ -27,6 +28,12 @@ public class MdQuestionDTO {
 	}
 	public void setMember_id(String member_id) {
 		this.member_id = member_id;
+	}
+	public String getMember_nick() {
+		return member_nick;
+	}
+	public void setMember_nick(String member_nick) {
+		this.member_nick = member_nick;
 	}
 	public String getMd_question_id() {
 		return md_question_id;

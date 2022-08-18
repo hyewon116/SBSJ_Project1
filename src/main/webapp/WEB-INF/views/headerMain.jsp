@@ -67,14 +67,14 @@
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
           <li class="nav-item dropdown dmenu">
             <a class="nav-link dropdown-toggle" href="/md/list" id="navbardrop" data-toggle="dropdown">
-              전체상품
+               전체상품
             </a>
             <div class="dropdown-menu sm-menu">
-              <a class="dropdown-item" href="/md/search?search=탁주">탁주</a>
-              <a class="dropdown-item" href="/md/search?search=약·청주">약·청주</a>
-              <a class="dropdown-item" href="/md/search?search=과실주">과실주</a>
-              <a class="dropdown-item" href="/md/search?search=증류주">증류주</a>
-              <a class="dropdown-item" href="/md/search?search=선물세트">선물세트</a>
+              <a class="dropdown-item" href="${pageContext.request.contextPath}/md/list_cate?md_category=탁주">탁주</a>
+              <a class="dropdown-item" href="${pageContext.request.contextPath}/md/list_cate?md_category=약·청주">약·청주</a>
+              <a class="dropdown-item" href="${pageContext.request.contextPath}/md/list_cate?md_category=과실주">과실주</a>
+              <a class="dropdown-item" href="${pageContext.request.contextPath}/md/list_cate?md_category=증류주">증류주</a>
+              <a class="dropdown-item" href="${pageContext.request.contextPath}/md/list_cate?md_category=선물세트">선물세트</a>
             </div>
           </li>
           <li class="nav-item">
@@ -84,7 +84,7 @@
               <a class="nav-link" href="/event/toEvent">베스트</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="/event/toEvent">정기구독</a>
+              <a class="nav-link" href="${pageContext.request.contextPath}/md/subs_list">정기구독</a>
           </li>
           <li class="nav-item">
               <a class="nav-link" href="/event/toEvent">이벤트</a>

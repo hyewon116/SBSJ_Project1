@@ -73,7 +73,7 @@ public class MdReviewController {
 		MdReviewDTO dto = null;
 		dto = service.detail( review_id );
 		model.addAttribute("detail_dto", dto);
-		model.addAttribute("review_id", review_id);
+		model.addAttribute("review_id", review_id); //수정&삭제 때 보낼 review_id 정보
 		return "/mdreview/review_detail";//jsp file name
 	}//detail
 	
@@ -153,3 +153,20 @@ public class MdReviewController {
 	}//review_write
 	
 }
+
+
+/*
+CREATE TABLE `review` (
+`review_id` int NOT NULL AUTO_INCREMENT,
+`md_id` int NOT NULL,
+`member_id` int NOT NULL,
+`order_detail_id` int NOT NULL,
+`review_title` varchar(100) NOT NULL,
+`review_content` varchar(4000) NOT NULL,
+`review_date` datetime NOT NULL,
+`review_viewcnt` int NOT NULL DEFAULT 0,
+review_star double NOT NULL DEFAULT 0,
+member_nick varchar(100) NOT NULL,
+PRIMARY KEY (`review_id`)
+);
+*/

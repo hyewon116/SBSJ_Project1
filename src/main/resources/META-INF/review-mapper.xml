@@ -18,18 +18,18 @@
 	</update>
 
 	<select id="detail" parameterType="java.lang.String" resultType="kr.co.sbsj.mdreview.MdReviewDTO">
-		select review_id, md_id, member_id, review_title, review_content, review_date, review_star
+		select review_id, md_id, member_id, member_nick, review_title, review_content, review_date, review_star
     	from review
 		where review_id = #{review_id}
 	</select>
 
 	<insert id="insert" parameterType="kr.co.sbsj.mdreview.MdReviewDTO">
-	INSERT INTO review (md_id, member_id, review_title, review_content, review_date, review_star)
-	VALUES(#{md_id}, #{member_id}, #{review_title}, #{review_content}, now(), #{review_star})
+	INSERT INTO review (md_id, member_id, member_nick, review_title, review_content, review_date, review_star)
+	VALUES(#{md_id}, #{member_id}, #{member_nick}, #{review_title}, #{review_content}, now(), #{review_star})
 	</insert>
 
 	<select id="pagingList" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="kr.co.sbsj.mdreview.MdReviewDTO"> 
-	select review_id, md_id, member_id, order_detail_id, review_title
+	select review_id, md_id, member_id, member_nick, order_detail_id, review_title
 	, review_content, review_date, review_viewcnt, review_star
 	from review
 	where md_id = #{md_id}

@@ -25,15 +25,15 @@
 		}
 		
 		#subs_table img {
-			width: 250px; !important
+			width: 500px; !important
 		}
 		
 		#one_year {
-			font-size : 15px;
+			font-size : 20px;
 		}
 		
 		#cost {
-			font-size : 15px;
+			font-size : 20px;
 			color: dimgray;
 		}
 		</style>
@@ -42,10 +42,9 @@
 		
 		<div class="container" id="onemonth">
 			<a id="onemonth">
-			
-			<br><br>
-			상부상酒 구독은 <br>
-			어떻게 구성되나요?
+				<br><br>
+				<b>상부상酒 구독은 <br>
+				어떻게 구성되나요?</b>
 			</a>
 		</div>
 		
@@ -63,7 +62,8 @@
 				<a id="cost">매월 15일에 결제되고,<br>
 							18일에 배송돼요.</a><br><br><br>
 							
-			<button class="btn btn-info" type="button"> 구독 신청하기 </button>
+			<button class="btn btn-warning" type="button"> 한 달 체험권 </button>
+			<button class="btn btn-info" type="button"> 일 년 구독권 </button>
 		</tr>
 		</table>
 				
