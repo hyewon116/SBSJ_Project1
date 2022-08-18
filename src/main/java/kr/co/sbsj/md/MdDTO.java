@@ -71,7 +71,8 @@ public class MdDTO {
       + " : " + total_price
       + " : " + md_onsale
       + " : " + member_id
-      + " : " + member_nick;
+      + " : " + member_nick
+      + " : " + cart_id ;
    }
    
 
@@ -334,14 +335,6 @@ public class MdDTO {
    }
 
 
-   public String getcart_id() {
-      return cart_id;
-   }
-
-
-   public void setcart_id(String cart_id) {
-      this.cart_id = cart_id;
-   }
 
 
    public String getBuy_qty() {
