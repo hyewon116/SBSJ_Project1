@@ -86,15 +86,12 @@
 				<tr>
 					<th> 구 매 수 량 </th>
 					<td>
-						<form id="buy_now_form">
-						<input type="hidden" id="md_id" name="md_id" value="${detail_dto.md_id }">
 						<select id="buy_qty" name="buy_qty">
 							<option value="0"> 선 택 </option>
 							<c:forEach var="tmp_qty" begin="1" end="10">
 								<option value="${tmp_qty}"> ${tmp_qty} </option>
 							</c:forEach>
 						</select>
-						</form>
 					</td>
 					<th> 구 매 가 격 </th>
 					<td><span id="tot_price_span"> 0 </span> 원 </td>
@@ -102,7 +99,7 @@
 				<tr>
 					<td colspan="4" class="text-right">
 						<button type="button" id="jang_btn" class="btn btn-primary btn-lg"> 장바구니 담기 </button>
-						<button type="button" id="buy_now_btn" class="btn btn-primary btn-lg"> 바로 구매하기 </button>
+						<button type="button" id="buy_btn" class="btn btn-primary btn-lg"> 바로 구매하기 </button>
 					</td>
 				</tr>
 			</tbody>
@@ -164,14 +161,29 @@
 	$(document).ready(function() {
 		$("#wish_btn").click(function() {
 			
+			if("${login_info.member_id}" == ""){
+				alert("로그인 해주세요.");
+				return;
+			}
+			
 			//if로 찜목록 중복 체크하기!!! (같은 제품 또 안 넣도록)
-			 //ex. 이미 찜 목록에 있는 아이템입니다.
-			 // 아이디(member id) 체크 + md_id 체크 하면 될듯...?
+					 
+			$.post(
+					"${pageContext.request.contextPath}/md/wish_check"
+					, {
+						md_id : ${detail_dto.md_id}
+						, member_id : ${login_info.member_id}
+					}
+					, function(data, status) {
+						if(data >= 1){
+							alert("이미 찜목록에 있는 아이템입니다.");
+						} else {		 
 			
 			$.post(
 					"${pageContext.request.contextPath}/md/wish_insert"
 					, {
 						md_id : ${detail_dto.md_id}
+						, member_id : ${login_info.member_id}
 					}
 					, function(data, status) {
 						if(data >= 1){
@@ -179,34 +191,15 @@
 						} else {
 							alert("찜 목록 추가를 실패 하였습니다.");
 						}
-					}//call back function
-			);//post
+					}//call back function1
+					}
+					}//call back function1
+				);//post1
+			);//post2
 		}); //click
 	});//ready
-	
 	</script>
 	
-	<script type="text/javascript">
-	</script>
-	<script type="text/javascript">
-	$(document).ready(function() {
-		$("#buy_now_btn").click(function() {
-
-			if("${login_info.member_id}" == ""){
-				alert("로그인 해주세요.");
-				return;
-			}
-
-			if( $("#buy_qty").val() == 0 ){
-				alert("구매 수량을 선택 하세요.");
-				return;
-			}
-
-			$("#buy_now_form").attr("action", "${pageContext.request.contextPath}/order/order_list");
-			$("#buy_now_form").submit();
-		});//click
-	});//ready
-	</script>
 	<script type="text/javascript">
 	
 	//장바구니 담기 
@@ -254,9 +247,9 @@
 		
 		//문의 페이지 보이기
 		$("#question").click(function() {
-					$("#question_list").show(10); //10ms = 0.01초
-					$("#review_list").hide(); //나머지는 숨기기
-					$("#exchange_list").hide(); 
+				$("#question_list").show(10); //10ms = 0.01초
+				$("#review_list").hide(); //나머지는 숨기기
+				$("#exchange_list").hide(); 
 			
 		});//click
 
@@ -281,16 +274,6 @@
 	</div>
 	</body>
 </html>
-
-
-
-
-
-
-
-
-
-
 
 
 
