@@ -157,7 +157,17 @@
 				width="100%" height=700px frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
 			</div>
 		</div>
-		
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$("#buy_qty").change(function() {
+
+			$("#tot_price_span").text(
+					$("#buy_qty").val() * ${detail_dto.sale_price}
+			);
+
+		});//change
+	});//ready
+	</script>	
 	<script type="text/javascript">
 	
 	//찜 목록 추가하기 
@@ -172,8 +182,8 @@
 					"${pageContext.request.contextPath}/md/wish_insert"
 					, {
 						md_id : ${detail_dto.md_id}
-						, member_id: ${login_info.member_id}
-					} 
+					, member_id: ${login_info.member_id}
+					}
 					, function(data, status) {
 						if(data >= 1){
 							alert("찜 목록에 추가되었습니다.");
