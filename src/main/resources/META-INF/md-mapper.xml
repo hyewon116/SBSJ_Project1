@@ -21,22 +21,22 @@
 		, truncate( md_price - (md_price / 100 * md_discount), 0 ) sale_price
 		, md_content, md_thumbnail_name, md_thumbnail_path, md_detail_name,
 		md_detail_path, md_content, md_standard_stock, md_sales_rate, md_stock
-		, md_sweet, md_sour, md_sparkling, md_use, md_ratingAvg
+		, md_sweet, md_sour, md_sparkling, md_use, md_ratingAvg, md_onsale
     	from md
 		<if test="md_category != null and md_category != ''">
-			where md_category = #{md_category}
+			where md_category = #{md_category} and md_onsale = "Y"
 		</if>
 		<if test="md_sweet != null and md_sweet != ''">
-			where md_sweet = #{md_sweet}
+			where md_sweet = #{md_sweet} and md_onsale = "Y"
 		</if>
 		<if test="md_sour != null and md_sour != ''">
-			where md_sour = #{md_sour}
+			where md_sour = #{md_sour} and md_onsale = "Y"
 		</if>
 		<if test="md_sparkling != null and md_sparkling != ''">
-			where md_sparkling = #{md_sparkling}
+			where md_sparkling = #{md_sparkling} and md_onsale = "Y"
 		</if>
 		<if test="md_use != null and md_use != ''">
-			where md_use = #{md_use}
+			where md_use = #{md_use} and md_onsale = "Y"
 		</if>
 
 		order by md_id desc
@@ -46,7 +46,7 @@
 	<select id="searchListCount2" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="int">
 		select count(md_id) cnt
 		from md
-		where md_category = #{md_category}
+		where md_category = #{md_category} and md_onsale = "Y"
 	</select>
 
 	<select id="selectList" parameterType="kr.co.sbsj.util.dto.SearchDTO"
@@ -58,7 +58,7 @@
 		, md_sweet, md_sour, md_sparkling, md_use, #{md_ratingAvg}
     	from md
     	<if test="searchWord != null and searchWord != ''">
-			where md_name like concat('%', #{searchWord}, '%')
+			where md_name like concat('%', #{searchWord}, '%') and md_onsale = "Y"
 		</if>
 		order by md_id desc
 		limit #{limitNum}, 4
@@ -68,7 +68,7 @@
 		select count(md_id) cnt
 		from md
 		<if test="searchWord != null and searchWord != ''">
-			where md_name like concat('%', #{searchWord}, '%')
+			where md_name like concat('%', #{searchWord}, '%') and md_onsale = "Y"
 		</if>
 	</select>
 

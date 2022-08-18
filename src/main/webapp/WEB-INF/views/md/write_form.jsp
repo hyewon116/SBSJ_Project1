@@ -33,7 +33,7 @@
 							<option value="탁주">탁주</option>
 							<option value="약·청주">약·청주</option>
 							<option value="과실주">과실주</option>
-							<option value="과실주">과실주</option>
+							<option value="증류주">증류주</option>
 							<option value="선물세트">선물세트</option>
 						</select>
 					</tr>

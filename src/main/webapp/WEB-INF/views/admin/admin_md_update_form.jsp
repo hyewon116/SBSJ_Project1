@@ -213,7 +213,7 @@ table img {
 							<input type="text" id="md_discount" name="md_discount" maxlength="20"
 									<%-- class="form-control" value="${detail_dto.md_discount}"> --%>
 									<c:set var="discount" value="${detail_dto.md_discount}" />
-									class="form-control" value="${ fn:substring(discount, 0, 2) }">
+									class="form-control" value="${ fn:substring(discount, 0, discount.length()-2) }">
 									
 							<label for="md_discount" id="md_discount_label" class="write_label"></label>
 						</td>

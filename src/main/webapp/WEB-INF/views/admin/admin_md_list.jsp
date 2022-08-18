@@ -264,23 +264,29 @@
 			}
 			else{
 				var chk = confirm("정말 삭제하시겠습니까?");
-				$.ajax({
-					url : "${pageContext.request.contextPath}/admin/delete"//전송 URL
-					, type : 'POST' //POST 방식
-					, traditional : true
-					, data : {
-						valueArr : valueArr //보내고자 하는 data 변수 설정
-					},
-					success : function(jdata){
-						if(jdata = 1) {
-							alert("삭제 성공");
-							location.href = "${pageContext.request.contextPath}/admin/admin_md_list";
-						}
-						else {
-							alert("삭제 실패");
-						}
+					if(chk == true) {
+						
+						$.ajax({
+							url : "${pageContext.request.contextPath}/admin/delete"//전송 URL
+							, type : 'POST' //POST 방식
+							, traditional : true
+							, data : {
+								valueArr : valueArr //보내고자 하는 data 변수 설정
+							},
+							success : function(jdata){
+								if(jdata = 1) {
+									alert("삭제 성공");
+									location.href = "${pageContext.request.contextPath}/admin/admin_md_list";
+								}
+								else {
+									alert("삭제 실패");
+								}
+							}
+						});
+					
+					} else {
+						alert("삭제를 취소하셨습니다.")
 					}
-				});
 				
 			}//else
 			
@@ -302,23 +308,31 @@
 			}
 			else{
 				var chk = confirm("정말 상품을 내리시겠습니까?");
-				$.ajax({
-					url : "${pageContext.request.contextPath}/admin/offsale"//전송 URL
-					, type : 'POST' //POST 방식
-					, traditional : true
-					, data : {
-						valueArr : valueArr //보내고자 하는 data 변수 설정
-					},
-					success : function(jdata){
-						if(jdata = 1) {
-							alert("상품 내리기 성공");
-							location.href = "${pageContext.request.contextPath}/admin/admin_md_list";
-						}
-						else {
-							alert("상품 내리기 실패");
-						}
-					}
-				});
+				if(chk == true) {
+				
+						$.ajax({
+							url : "${pageContext.request.contextPath}/admin/offsale"//전송 URL
+							, type : 'POST' //POST 방식
+							, traditional : true
+							, data : {
+								valueArr : valueArr //보내고자 하는 data 변수 설정
+							},
+							success : function(jdata){
+								if(jdata = 1) {
+									alert("상품 내리기 성공");
+									location.href = "${pageContext.request.contextPath}/admin/admin_md_list";
+								}
+								else {
+									alert("상품 내리기 실패");
+								}
+							}
+						});
+							
+					} else {
+						alert("상품 내리기를 취소하셨습니다.")
+					}		
+						
+						
 				
 			}//else
 			
@@ -340,23 +354,32 @@
 			}
 			else{
 				var chk = confirm("정말 상품을 올리시겠습니까?");
-				$.ajax({
-					url : "${pageContext.request.contextPath}/admin/onsale"//전송 URL
-					, type : 'POST' //POST 방식
-					, traditional : true
-					, data : {
-						valueArr : valueArr //보내고자 하는 data 변수 설정
-					},
-					success : function(jdata){
-						if(jdata = 1) {
-							alert("상품 올리기 성공");
-							location.href = "${pageContext.request.contextPath}/admin/admin_md_list";
-						}
-						else {
-							alert("상품 올리기 실패");
-						}
+					
+					if(chk == true) {
+				
+				
+						$.ajax({
+							url : "${pageContext.request.contextPath}/admin/onsale"//전송 URL
+							, type : 'POST' //POST 방식
+							, traditional : true
+							, data : {
+								valueArr : valueArr //보내고자 하는 data 변수 설정
+							},
+							success : function(jdata){
+								if(jdata = 1) {
+									alert("상품 올리기 성공");
+									location.href = "${pageContext.request.contextPath}/admin/admin_md_list";
+								}
+								else {
+									alert("상품 올리기 실패");
+								}
+							}
+						});
+						
+						
+					} else {
+						alert("상품 올리기를 취소하셨습니다.")
 					}
-				});
 				
 			}//else
 			

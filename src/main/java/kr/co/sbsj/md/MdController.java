@@ -81,7 +81,7 @@ public class MdController {
 		model.addAttribute("userWantPage", userWantPage);
 
 		dto.setLimitNum( ( Integer.parseInt(userWantPage) - 1 ) * 4  );
-
+		
 		List<MdDTO> list = null;
 		list = service.searchList2( dto ); //주종~상황별 속성 + limitNum 담은 dto
 		model.addAttribute("list", list);
