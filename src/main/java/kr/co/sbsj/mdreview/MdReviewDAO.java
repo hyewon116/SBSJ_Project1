@@ -45,8 +45,8 @@ public class MdReviewDAO {
 		successCount = sqlSession.insert("ReviewMapper.insert", dto);
 		return successCount;
 	}//insert
-
-	public int update(MdReviewDTO dto) {
+	
+	public int update( MdReviewDTO dto ) {
 		int successCount = 0;
 		successCount = sqlSession.update("ReviewMapper.update", dto);
 		return successCount;

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.co.sbsj.util.dto.MemberDTO;
 import kr.co.sbsj.mdreview.MdReviewDTO;
 import kr.co.sbsj.mdreview.MdReviewService;
 import kr.co.sbsj.util.dto.SearchDTO;
@@ -35,41 +36,43 @@ public class MdController {
 	@Autowired
 	private MdService service;
 	
-	@Autowired
-	private MdReviewService service2;
 	
-	@RequestMapping( value = "/detail", method = RequestMethod.GET )
-	public String detail( String md_id, String userWantPage, Model model ) {
-		MdDTO dto = null;
-		dto = service.detail( md_id );
-		model.addAttribute("detail_dto", dto);
-		model.addAttribute("md_id", md_id);
-		return "/md/detail";//jsp file name
-	}//detail
+	//정기구독 디테일
+	@RequestMapping(value = "/subs_detail", method = RequestMethod.GET)
+	public String subs_detail() {
+		return "/md/subs_detail";//jsp file name
+	}//subs_detail
 	
-	@RequestMapping( value = "/list", method = RequestMethod.GET )
-	public String list( Model model, String userWantPage, SearchDTO dto ) {
+	
+	//정기구독 리스트
+	@RequestMapping(value = "/subs_list", method = RequestMethod.GET)
+	public String subs_list() {
+		return "/md/subs_list";//jsp file name
+	}//subs_list
+	
+	
+	//상품 리스트 - 필터링  적용 
+	@RequestMapping( value = "/list_cate", method = RequestMethod.GET )
+	public String list_cate( Model model, String userWantPage, SearchDTO dto ) {
 		if( userWantPage == null || userWantPage.equals("") ) userWantPage = "1";
 		int totalCount = 0, startPageNum = 1, endPageNum = 10, lastPageNum = 1;
-		totalCount = service.searchListCount( dto );
+		totalCount = service.searchListCount2( dto ); //주종~상황별 속성 + limitNum 담은 dto
 
-		if(totalCount > 4) {//201 -> (201 /10) + (201 % 10 > 0 ? 1 : 0) -> 20 + 1
+		if(totalCount > 4) {
 			lastPageNum = (totalCount / 4) + (totalCount % 4 > 0 ? 1 : 0);
 		}//if
 
-		if(userWantPage.length() >= 2) { //userWantPage가 12인 경우 startPageNum는 11, endPageNum는 20.
-			String frontNum = userWantPage.substring(0, userWantPage.length() - 1);//12 -> 1
-			startPageNum = Integer.parseInt(frontNum) * 10 + 1;// 1 * 10 + 1 -> 11
-			endPageNum = ( Integer.parseInt(frontNum) + 1 ) * 10;// (1 + 1) * 10 -> 20
-			//userWantPage가 10인 경우, startPageNum는 11, endPageNum는 20.
+		if(userWantPage.length() >= 2) { 
+			String frontNum = userWantPage.substring(0, userWantPage.length() - 1);
+			startPageNum = Integer.parseInt(frontNum) * 10 + 1;
+			endPageNum = ( Integer.parseInt(frontNum) + 1 ) * 10;
 			String backNum = userWantPage.substring(userWantPage.length() - 1, userWantPage.length());
 			if(backNum.equals("0")) {
-				startPageNum = startPageNum - 10;// 11 - 10 -> 1
-				endPageNum = endPageNum - 10;// 20 - 10 -> 10
+				startPageNum = startPageNum - 10;
+				endPageNum = endPageNum - 10;
 			}//if
 		}//if
 
-		//endPageNum이 20이고, lastPageNum이 17이라면, endPageNum을 17로 수정해라
 		if(endPageNum > lastPageNum) endPageNum = lastPageNum;
 
 		model.addAttribute("startPageNum", startPageNum);
@@ -80,12 +83,90 @@ public class MdController {
 		dto.setLimitNum( ( Integer.parseInt(userWantPage) - 1 ) * 4  );
 
 		List<MdDTO> list = null;
-		list = service.searchList( dto );
+		list = service.searchList2( dto ); //주종~상황별 속성 + limitNum 담은 dto
 		model.addAttribute("list", list);
-		model.addAttribute("search_dto", dto);
+		return "/md/list";//jsp file name
+	}//list_cate
+	
+	
+	//찜 목록 체크
+	@RequestMapping( value = "/wish_check", method = RequestMethod.POST ) 
+	public void wish_check( SearchDTO dto, PrintWriter out, MemberDTO mdto ) {
+		int isYN = 0;
+		isYN = service.wishCheck( dto );
+		System.out.println(isYN);
+		out.print(isYN);
+		out.close();
+	}//wish_check
+	
+	
+	//찜 목록에 넣기
+	@RequestMapping( value = "/wish_insert", method = RequestMethod.POST ) 
+	public void wish( SearchDTO dto, PrintWriter out, MemberDTO mdto ) {
+		
+		System.out.println("=============" + mdto);
+		
+		int successCount = 0;
+		successCount = service.wish_insert( dto );
+		out.print(successCount);
+		out.close();
+		
+	}//wish
+	
+	//게시글 상세보기
+	@RequestMapping( value = "/detail", method = RequestMethod.GET )
+	public String detail( MdDTO dto, String md_id, HttpSession session, Model model ) {
+		MemberDTO mDto = (MemberDTO) session.getAttribute("login_info"); //로그인 정보 전달
+		
+		dto = service.detail( md_id );
+		
+		model.addAttribute("detail_dto", dto);
+		model.addAttribute("md_id", md_id); //상품후기&문의 게시판에 보낼 md_id 정보
+		return "/md/detail";//jsp file name
+	}//detail
+	
+	
+	//상품 리스트
+	@RequestMapping( value = "/list", method = RequestMethod.GET )
+	public String list( Model model, String userWantPage, SearchDTO dto, String md_id ) {
+		if( userWantPage == null || userWantPage.equals("") ) userWantPage = "1";
+		int totalCount = 0, startPageNum = 1, endPageNum = 10, lastPageNum = 1;
+		totalCount = service.searchListCount( dto ); //md_id를 넘기기 위한 dto
+
+		if(totalCount > 4) {
+			lastPageNum = (totalCount / 4) + (totalCount % 4 > 0 ? 1 : 0);
+		}//if
+
+		if(userWantPage.length() >= 2) { 
+			String frontNum = userWantPage.substring(0, userWantPage.length() - 1);//12 -> 1
+			startPageNum = Integer.parseInt(frontNum) * 10 + 1;
+			endPageNum = ( Integer.parseInt(frontNum) + 1 ) * 10;
+			String backNum = userWantPage.substring(userWantPage.length() - 1, userWantPage.length());
+			if(backNum.equals("0")) {
+				startPageNum = startPageNum - 10;
+				endPageNum = endPageNum - 10;
+			}//if
+		}//if
+
+		if(endPageNum > lastPageNum) endPageNum = lastPageNum;
+
+		model.addAttribute("startPageNum", startPageNum);
+		model.addAttribute("endPageNum", endPageNum);
+		model.addAttribute("lastPageNum", lastPageNum);
+		model.addAttribute("userWantPage", userWantPage);
+
+		dto.setLimitNum( ( Integer.parseInt(userWantPage) - 1 ) * 4  );
+		
+		List<MdDTO> list = null;
+		list = service.searchList( dto ); //limitNum, md_id가 담긴 dto
+		model.addAttribute("list", list);
+		model.addAttribute("search_dto", dto);//검색용 dto
+		
 		return "/md/list";//jsp file name
 	}//list
 	
+	
+	//게시글 등록
 	@RequestMapping( value = "/insert", method = RequestMethod.POST )
 	public void insert( MdDTO dto, String md_name, HttpSession session, PrintWriter out ) throws IOException {
 		
@@ -100,28 +181,28 @@ public class MdController {
 		String todaySigan = sigan.format(today);
 
 		//String mid = ( (MemberDTO) session.getAttribute("login_info") ).getMid();
-		File newFolder = new File("C:/upload/md/" + todayNalja + "/");
+		File newFolder = new File("C:/upload/md/" + todayNalja + "/"); //이미지 저장될 폴더명
 		if( newFolder.exists() == false ) newFolder.mkdirs();
 
 		MultipartFile thumbnail = dto.getMd_thumbnail();
 		InputStream is = thumbnail.getInputStream();
 		FileOutputStream fos 
-			= new FileOutputStream("C:/upload/md/" + todaySigan + "_" + thumbnail.getOriginalFilename());
+			= new FileOutputStream("C:/upload/md/" + todayNalja + "/" + todaySigan + "_" + thumbnail.getOriginalFilename());
 		FileCopyUtils.copy(is, fos);
 		is.close();
 		fos.close();
 		dto.setMd_thumbnail_name(todayNalja + "_" + todaySigan + "_" + thumbnail.getOriginalFilename());
-		dto.setMd_thumbnail_path("/upload/md/" + todaySigan + "_" + thumbnail.getOriginalFilename());
+		dto.setMd_thumbnail_path("/upload/md/" + todayNalja + "/" + todaySigan + "_" + thumbnail.getOriginalFilename());
 
 		MultipartFile detail_img = dto.getMd_detail_image();
 		if(detail_img != null && !detail_img.getOriginalFilename().equals("")) {
 			is = detail_img.getInputStream();
-			fos = new FileOutputStream( "C:/upload/md/" + todayNalja + "_" + todaySigan + "_" + detail_img.getOriginalFilename());
+			fos = new FileOutputStream( "C:/upload/md/" + todayNalja + "/" + todaySigan + "_" + detail_img.getOriginalFilename());
 			FileCopyUtils.copy(is, fos);
 			is.close();
 			fos.close();
 			dto.setMd_detail_name(todayNalja + "_" + todaySigan + "_" + detail_img.getOriginalFilename());
-			dto.setMd_detail_path("/upload/md/" + todayNalja + "_" + todaySigan + "_" + detail_img.getOriginalFilename());
+			dto.setMd_detail_path("/upload/md/" + todayNalja + "/" + todaySigan + "_" + detail_img.getOriginalFilename());
 		}
 
 		//dto.setMno( ( (MemberDTO) session.getAttribute("login_info") ).getMno() );
@@ -132,6 +213,8 @@ public class MdController {
 		out.close();
 	}//insert
 	
+	
+	//게시글 쓰기
 	@RequestMapping(value = "/write_form", method = RequestMethod.GET)
 	public String write_form() {
 		return "/md/write_form";//jsp file name

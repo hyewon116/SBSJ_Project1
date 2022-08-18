@@ -6,6 +6,13 @@ public class SearchDTO {
 	private String searchWord;
 	private int limitNum;
 	private String md_id;
+	private String md_category;
+	private String md_sweet;
+	private String md_sour;
+	private String md_sparkling;
+	private String md_use;
+	private double md_ratingAvg;
+	private String member_id;
 	
 	@Override
 	public String toString() {
@@ -35,6 +42,50 @@ public class SearchDTO {
 	}
 	public void setMd_id(String md_id) {
 		this.md_id = md_id;
+	}
+	public String getMd_category() {
+		return md_category;
+	}
+	public void setMd_category(String md_category) {
+		this.md_category = md_category;
+	}
+	public String getMd_sweet() {
+		return md_sweet;
+	}
+	public void setMd_sweet(String md_sweet) {
+		this.md_sweet = md_sweet;
+	}
+	public String getMd_sour() {
+		return md_sour;
+	}
+	public void setMd_sour(String md_sour) {
+		this.md_sour = md_sour;
+	}
+	public String getMd_sparkling() {
+		return md_sparkling;
+	}
+	public void setMd_sparkling(String md_sparkling) {
+		this.md_sparkling = md_sparkling;
+	}
+	public String getMd_use() {
+		return md_use;
+	}
+	public void setMd_use(String md_use) {
+		this.md_use = md_use;
+	}
+	public double getMd_ratingAvg() {
+		return md_ratingAvg;
+	}
+	public void setMd_ratingAvg(double md_ratingAvg) {
+		this.md_ratingAvg = md_ratingAvg;
+	}
+
+	public String getMember_id() {
+		return member_id;
+	}
+
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
 	}
 	
 }//class

@@ -25,21 +25,15 @@
 	
 	
 	<c:choose>
-		<c:when test="${login_info != null && login_info.member_name != null && login_info.admin_yn == 'N'}">
+		<c:when test="${login_info != null && login_info.member_name != null}">
 		${login_info.member_nick}님
-			<a id="loginBarText" href="${pageContext.request.contextPath}/mypage/member"> 마이페이지 </a>
-			<a id="loginBarText" href="${pageContext.request.contextPath}/login/logout"> 로그아웃 </a>
+	<a id="loginBarText" href="${pageContext.request.contextPath}/mypage/member"> 마이페이지 </a>
+	<a id="loginBarText" href="${pageContext.request.contextPath}/login/logout"> 로그아웃 </a>
 		</c:when>
-		
-		<c:when test="${login_info != null && login_info.member_name != null && login_info.admin_yn == 'Y'}">
-		${login_info.member_nick}님
-			<a id="loginBarText" href="${pageContext.request.contextPath}/admin/admin"> 관리자페이지 </a>
-			<a id="loginBarText" href="${pageContext.request.contextPath}/login/logout"> 로그아웃 </a>
-		</c:when>
-		
 		<c:otherwise>
-		<a id="loginBarText" href="${pageContext.request.contextPath}/join/join"> 회원가입 </a>		
-		<a id="loginBarText" href="${pageContext.request.contextPath}/login/login"> 로그인 </a>
+	
+	<a id="loginBarText" href="${pageContext.request.contextPath}/join/join"> 회원가입 </a>		
+	<a id="loginBarText" href="${pageContext.request.contextPath}/login/login"> 로그인 </a>
 		</c:otherwise>
 	</c:choose>
 
@@ -102,10 +96,12 @@
 
           </ul>
 	<!-- searchbar 검색바 -->
+	<form action="${pageContext.request.contextPath}/md/list" method="get">
 	<div id="side_search" class="gnb_search">
-		<input name="search" type="text" id="search" class="inp_search" value="" required label="검색어" placeholder="검색어를 입력 해주세요.">
+		<input name="searchWord" type="text" id="searchWord" class="inp_search" value="${search_dto.searchWord}" required label="검색어" placeholder="검색어를 입력해주세요.">
 		<a href="javascript:void(0);" id="search-button"><input type=image src="https://res.kurly.com/pc/service/common/1908/ico_search_x2.png" class="btn_search"></a>
 	</div>
+	</form>
 
 	<!-- searchbar 아이콘 -->
 	<div id="icon">
