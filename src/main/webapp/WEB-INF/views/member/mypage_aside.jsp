@@ -31,7 +31,7 @@
 					  <li><a href="#">쿠폰</a></li>
 					  <li><a href="#">상품문의</a></li>
 					  <li><a href="#">상품후기</a></li>
-					   <li><a href="${pageContext.request.contextPath}/mypage/member_before_detail">개인정보 수정</a></li>
+					   <li><a href="${pageContext.request.contextPath}/member/member_before_detail">개인정보 수정</a></li>
 					</ul>
 				
 				
