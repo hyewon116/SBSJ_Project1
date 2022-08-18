@@ -22,9 +22,6 @@
 						<option value="md_name"
 							<c:if test="${search_dto.searchOption == 'md_name'}">selected="selected"</c:if>
 						> 상 품 이 름 </option>
-<!-- 						<option value="member_nick" -->
-<%-- 							<c:if test="${search_dto.searchOption == 'member_nick'}">selected="selected"</c:if> --%>
-<!-- 						> 판 매 자 </option> -->
 					</select>
 				</div>
 				<input type="text" class="form-control" id="searchWord" name="searchWord"

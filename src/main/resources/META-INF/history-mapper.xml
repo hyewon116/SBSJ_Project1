@@ -49,9 +49,6 @@
 				<when test="searchOption == 'md_name'">
 					and md.md_name like concat('%', #{searchWord}, '%')
 				</when>
-<!-- 				<when test="searchOption == 'member_nick'"> -->
-<!-- 					and m.member_nick like concat('%', #{searchWord}, '%') -->
-<!-- 				</when> -->
 			</choose>
 		</if>
 	and om.member_id = m.member_id
@@ -75,9 +72,6 @@
 				<when test="searchOption == 'md_name'">
 					and md.md_name like concat('%', #{searchWord}, '%')
 				</when>
-<!-- 				<when test="searchOption == 'seller_member_nick'"> -->
-<!-- 					and m.member_nick like concat('%', #{searchWord}, '%') -->
-<!-- 				</when> -->
 			</choose>
 		</if>
 	and om.member_id = m.member_id
