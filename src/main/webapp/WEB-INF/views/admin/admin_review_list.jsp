@@ -131,7 +131,7 @@
 			<thead>
 				<tr>
 					<th><input id="allCheck" type="checkbox" name="allCheck"> 번호 </th> 
-					<th> Image </th> <th> 상품명 </th> <th> 작성자 </th> 
+					<th> Image </th> <th> 상품명 </th> <th> 제목 </th> <th> 작성자 </th> 
 					<th> 작성일 </th> <th> 별점 </th> <th> 공개여부 </th>
 				</tr>
 			</thead>
@@ -146,8 +146,11 @@
 							<img src="${dto.md_thumbnail_path}" class="img-thumbnail">
 						</td>
 						<td class="col-1">
-							<a href="${pageContext.request.contextPath}/mdreview/detail_admin?review_id=${dto.review_id}">
 							${dto.md_name}
+						</td>
+						<td class="col-1">
+							<a href="${pageContext.request.contextPath}/mdreview/detail_admin?review_id=${dto.review_id}">
+							${dto.review_title}
 							</a>
 						</td>
 						<td class="col-1">
@@ -397,6 +400,7 @@
 			});//keyup
 		
 		});//ready
+		//
 		
 // 				if(   $("#searchOption1").val() == "review_star" ){
 // 					let tmp = $("#searchOption1").val().replace(/[^  0-9  \.]/g,"");

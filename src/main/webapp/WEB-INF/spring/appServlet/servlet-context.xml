@@ -23,6 +23,26 @@
 	
 	<context:component-scan base-package="kr.co.sbsj." />
 	
+	
+	<interceptors>
+		<interceptor>
+			<mapping path="/admin/*"/>
+			<mapping path="/cart/*"/>
+			<mapping path="/delivery/*"/>
+			<mapping path="/history/*"/>
+			<mapping path="/mdquestion/*"/>
+			<mapping path="/mdreview/*"/>
+			<mapping path="/member/*"/>
+			<mapping path="/order/*"/>
+			<mapping path="/md/write_form"/>
+			
+			<exclude-mapping path="/md/list_cate*"/>
+			<beans:bean class="kr.co.sbsj.login.LoginCheckInterceptor" />
+		</interceptor>
+	</interceptors>
+	
+	
+	
 	<!-- file upload -->
    <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
       <beans:property name="defaultEncoding" value="UTF-8" />
