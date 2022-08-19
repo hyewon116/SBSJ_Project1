@@ -92,7 +92,7 @@
 				
 			<!--  aside 끝 -->	
 		<hr>
-		<h3> 배 송 지  </h3>
+		<h3> 배 송 지 관 리 </h3>
 		<hr>
 		<div class="row">
 			<div class="col-6">
@@ -153,7 +153,7 @@
 						</tr>
 						<tr>
 							<td colspan="2" class="text-center">
-								<button id="write_btn" type="button" class="btn btn-primary btn-block"> 저장 </button>
+								<button id="write_btn" type="button" class="btn btn-primary btn-block"> 배송지 추가 </button>
 							</td>
 						</tr>
 					</tbody>

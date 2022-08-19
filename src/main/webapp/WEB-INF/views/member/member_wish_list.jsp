@@ -90,7 +90,9 @@
 							<input name="RowCheck" type="checkbox" value="${dto.wish_id}">
 						</td>
 						<td class="col-1">
+							<a href="${pageContext.request.contextPath}/md/detail?md_id=${dto.md_id}">
 							<img src="${dto.md_thumbnail_path}" class="img-thumbnail">
+							</a>
 						</td>
 						<td class="col-2">
 							<a href="${pageContext.request.contextPath}/md/detail?md_id=${dto.md_id}">

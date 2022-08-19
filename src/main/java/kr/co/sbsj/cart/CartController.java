@@ -26,6 +26,7 @@ public class CartController {
 	@Autowired
 	private CartService service;
 	
+	//찜 목록에서 장바구니 담기
 	@RequestMapping( value = "/wish_insert", method = RequestMethod.POST )
 	public void wish_insert( MdDTO dto, HttpSession session, PrintWriter out, HttpServletRequest request ) {
 		dto.setMember_id( ( (MemberDTO) session.getAttribute("login_info") ).getMember_id() );
@@ -35,7 +36,6 @@ public class CartController {
 		for(int i=0; i<size; i++) {
 			service.wish_insert(ajaxMsg[i]);
 		}
-		
 	}//wish_insert
 
 	@RequestMapping( value = "/update_buy_qty", method = RequestMethod.GET )
