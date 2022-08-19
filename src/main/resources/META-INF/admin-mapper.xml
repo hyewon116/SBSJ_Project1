@@ -68,6 +68,24 @@
 	where md_id=#{no}
 	</update>
 	
+	<delete id="reviewDelete">
+	delete from review
+	where review_id=#{no}
+	</delete>
+	
+	<update id="reviewOn">
+	update review
+	set review_enable = "Y"
+	where review_id=#{no}
+	</update>
+	
+	<update id="reviewOff">
+	update review
+	set review_enable = "N"
+	where review_id=#{no}
+	</update>
+	
+	
 	
 	<select id="detail" parameterType="java.lang.String" resultType="kr.co.sbsj.admin.AdminDTO">
 		select md_id, md_name, md_oneline, md_price, md_category, md_abv, md_discount
@@ -81,17 +99,55 @@
 	
 	
 	
+	<select id="searchReviewCount" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="int">
+		select count(r.md_id) cnt
+		from review r
+		
+		<if test="searchOption1 != null and searchOption1 != ''
+					and searchWord1 != null and searchWord1 !=''">
+			<choose>
+				<when test="searchOption1 == 'md_name'">
+				, md m	where r.md_id = m.md_id and  m.md_name like concat('%', #{searchWord1}, '%')
+				</when>
+				<when test="searchOption1 == 'review_star'">
+				, md m	where r.md_id = m.md_id and  r.review_star like concat('%', #{searchWord1}, '%')
+				</when>
+			</choose>
+		</if>
+	</select>
+	
+	<select id="selectReview" parameterType="kr.co.sbsj.util.dto.SearchDTO"
+			resultType="kr.co.sbsj.admin.AdminReviewDTO">
+		select r.review_id, r.md_id, r.member_nick, r.order_detail_id,  r.review_title, r.review_content, r.review_date, review_star
+		, r.review_enable, m.md_name, m.md_thumbnail_path
+    	from review r, md m
+    	where r.md_id = m.md_id
+		<if test="searchOption1 != null and searchOption1 != ''
+					and searchWord1 != null and searchWord1 !=''">
+			<choose>
+				<when test="searchOption1 == 'md_name'">
+					and m.md_name like concat('%', #{searchWord1}, '%')
+				</when>
+				<when test="searchOption1 == 'review_star'">
+					and r.review_star like concat('%', #{searchWord1}, '%')
+				</when>
+			</choose>
+		</if>
+		order by review_id desc
+		limit #{limitNum}, 10
+	</select>
+	
 	<select id="searchListCount" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="int">
 		select count(m.md_id) cnt
 		from md m
-		<if test="searchOption != null and searchOption != ''
-					and searchWord != null and searchWord !=''">
+		<if test="searchOption1 != null and searchOption1 != ''
+					and searchWord1 != null and searchWord1 !=''">
 			<choose>
-				<when test="searchOption == 'md_name'">
-					where m.md_name like concat('%', #{searchWord}, '%')
+				<when test="searchOption1 == 'md_name'">
+					where m.md_name like concat('%', #{searchWord1}, '%')
 				</when>
-				<when test="searchOption == 'md_category'">
-					where md_category like concat('%', #{searchWord}, '%')
+				<when test="searchOption1 == 'md_category'">
+					where md_category like concat('%', #{searchWord1}, '%')
 				</when>
 			</choose>
 		</if>
@@ -99,19 +155,20 @@
 	</select>
 	
 	
+	
 	<select id="selectList" parameterType="kr.co.sbsj.util.dto.SearchDTO"
 			resultType="kr.co.sbsj.md.MdDTO">
 		select m.md_id, m.md_name, m.md_price, m.md_category,  m.md_standard_stock, m.md_sales_rate, m.md_stock
 		, m.md_thumbnail_name, m.md_thumbnail_path, m.md_onsale
     	from md m
-		<if test="searchOption != null and searchOption != ''
-					and searchWord != null and searchWord !=''">
+		<if test="searchOption1 != null and searchOption1 != ''
+					and searchWord1 != null and searchWord1 !=''">
 			<choose>
-				<when test="searchOption == 'md_name'">
-					where m.md_name like concat('%', #{searchWord}, '%')
+				<when test="searchOption1 == 'md_name'">
+					where m.md_name like concat('%', #{searchWord1}, '%')
 				</when>
-				<when test="searchOption == 'md_category'">
-					where md_category like concat('%', #{searchWord}, '%')
+				<when test="searchOption1 == 'md_category'">
+					where md_category like concat('%', #{searchWord1}, '%')
 				</when>
 			</choose>
 		</if>

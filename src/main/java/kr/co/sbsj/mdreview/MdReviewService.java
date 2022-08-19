@@ -39,6 +39,12 @@ public class MdReviewService {
 		return successCount;
 	}//insert
 
+	public MdReviewDTO detail_admin( String review_id ) {
+		MdReviewDTO dto = null;
+		dto = dao.detail_admin( review_id );
+		return dto;
+	}//detail_admin
+	
 	public MdReviewDTO detail( String review_id ) {
 		MdReviewDTO dto = null;
 		dto = dao.detail( review_id );
@@ -50,5 +56,6 @@ public class MdReviewService {
 		successCount = dao.update( dto );
 		return successCount;
 	}//update
+
 
 }

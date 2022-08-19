@@ -17,6 +17,12 @@
 	where review_id = #{review_id}
 	</update>
 
+	<select id="detail_admin" parameterType="java.lang.String" resultType="kr.co.sbsj.mdreview.MdReviewDTO">
+		select review_id, md_id, member_id, member_nick, review_title, review_content, review_date, review_star
+    	from review
+		where review_id = #{review_id}
+	</select>
+	
 	<select id="detail" parameterType="java.lang.String" resultType="kr.co.sbsj.mdreview.MdReviewDTO">
 		select review_id, md_id, member_id, member_nick, review_title, review_content, review_date, review_star
     	from review
@@ -32,14 +38,14 @@
 	select review_id, md_id, member_id, member_nick, order_detail_id, review_title
 	, review_content, review_date, review_viewcnt, review_star
 	from review
-	where md_id = #{md_id}
+	where md_id = #{md_id} and review_enable = "Y"
 	order by review_id desc
 	limit #{limitNum}, 10
 	</select>
 
 	<select id="totalCount" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="int">
 	select count(review_id) cnt from review
-	where md_id = #{md_id}
+	where md_id = #{md_id} and review_enable = "Y"
 	</select>
 
 </mapper>

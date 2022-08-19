@@ -39,6 +39,13 @@ public class AdminDAO {
 	}//detail
 	
 	
+	public int searchReviewCount( SearchDTO dto ) {
+		int totalCount = 0;
+		totalCount = sqlSession.selectOne("AdminMapper.searchReviewCount", dto);
+		return totalCount;
+	}//searchListCount
+	
+	
 	public int searchListCount( SearchDTO dto ) {
 		int totalCount = 0;
 		totalCount = sqlSession.selectOne("AdminMapper.searchListCount", dto);
@@ -46,11 +53,21 @@ public class AdminDAO {
 	}//searchListCount
 
 
+	public List<AdminReviewDTO> searchReview( SearchDTO dto ) {
+		 List<AdminReviewDTO> list = null;
+		list = sqlSession.selectList("AdminMapper.selectReview", dto);
+		return list;
+	}//searchList
+	
 	public List<MdDTO> searchList( SearchDTO dto ) {
-		 List<MdDTO> list = null;
+		List<MdDTO> list = null;
 		list = sqlSession.selectList("AdminMapper.selectList", dto);
 		return list;
 	}//searchList
+	
+	public void reviewDelete( String no ) {
+		sqlSession.delete("AdminMapper.reviewDelete", no);
+	}//reviewDelete
 	
 	public void delete( String no ) {
 		sqlSession.delete("AdminMapper.delete", no);
@@ -60,6 +77,17 @@ public class AdminDAO {
 		sqlSession.update("AdminMapper.offsale", no);
 		
 	}
+	public void reviewOn(String no) {
+		sqlSession.update("AdminMapper.reviewOn", no);
+		
+	}
+	
+	public void reviewOff(String no) {
+		sqlSession.update("AdminMapper.reviewOff", no);
+		
+	}
+	
+	
 	public void onsale(String no) {
 		sqlSession.update("AdminMapper.onsale", no);
 		

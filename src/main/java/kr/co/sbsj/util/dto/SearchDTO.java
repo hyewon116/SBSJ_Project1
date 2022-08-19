@@ -14,6 +14,9 @@ public class SearchDTO {
 	private double md_ratingAvg;
 	private String member_id;
 	
+	private String searchOption1;
+	private String searchWord1;
+	
 	@Override
 	public String toString() {
 		return searchOption + " : " + searchWord;
@@ -87,5 +90,28 @@ public class SearchDTO {
 	public void setMember_id(String member_id) {
 		this.member_id = member_id;
 	}
+
+	public void setSearchOption1(String searchOption1) {
+		this.searchOption1 = searchOption1;
+	}
+
+	public String getSearchOption1() {
+		return searchOption1;
+	}
+	
+	public void setSearchWord1(String searchWord1) {
+		this.searchWord1 = searchWord1;
+	}
+
+
+	public String getSearchWord1() {
+		return searchWord1;
+	}
+	
+	
+	
+	
+	
+	
 	
 }//class

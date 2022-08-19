@@ -90,7 +90,7 @@
 				
 				<!-- section 시작--------------------------------------------------------------------------------- -->
 				<section class="col-9 h-100 bg-white float-left">
-					<h3> 상 품 관 리</h3>
+					<h3> 상 품 후 기 관 리</h3>
 					  <hr style="width:100%;height:1px;border:none;background-color:black;">
 					  	
 					  	
@@ -98,16 +98,26 @@
 					  	
 					  	
 					  	
-		<form action="${pageContext.request.contextPath}/admin/admin_md_list" method="get">
+		<form action="${pageContext.request.contextPath}/admin/admin_review_list" method="get">
 			<div class="input-group">
 				<div class="input-group-prepend">
 					<select class="form-control" id="searchOption1" name="searchOption1">
+						
+						
+						
 						<option value="md_name"
 							<c:if test="${search_dto.searchOption1 == 'md_name'}">selected="selected"</c:if>
 						> 상 품 이 름 </option>
-						<option value="md_category"
-							<c:if test="${search_dto.searchOption1 == 'md_category'}">selected="selected"</c:if>
-						> 주 종 </option>
+						
+						
+						
+						<option value="review_star"
+							<c:if test="${search_dto.searchOption1 == 'review_star'}">selected="selected"</c:if>
+						> 별점 </option>
+						
+						
+						
+						
 					</select>
 				</div>
 				<input type="text" class="form-control" id="searchWord1" name="searchWord1"
@@ -120,44 +130,40 @@
 		<table class="text-center text-capitalize table table-hover">
 			<thead>
 				<tr>
-					<th><input id="allCheck" type="checkbox" name="allCheck"></th> <th> image </th> <th> 상품번호 </th> <th> 상품명 </th> 
-					<th> 가격 </th>	<th> 주종 </th> <th> 기준재고 </th> <th> 판매수량 </th> <th> 잔여재고 </th> <th> 판매여부 </th>
+					<th><input id="allCheck" type="checkbox" name="allCheck"> 번호 </th> 
+					<th> Image </th> <th> 상품명 </th> <th> 작성자 </th> 
+					<th> 작성일 </th> <th> 별점 </th> <th> 공개여부 </th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="dto" items="${list}">
 					<tr>
 						<td class="col-1">
-							<input name="RowCheck" type="checkbox" value="${dto.md_id}">
+							<input name="RowCheck" type="checkbox" value="${dto.review_id}"> ${dto.review_id}
 						</td>
+					
 						<td class="col-1">
 							<img src="${dto.md_thumbnail_path}" class="img-thumbnail">
 						</td>
 						<td class="col-1">
-							${dto.md_id}
-						</td>
-						<td class="col-1">
-							<a href="${pageContext.request.contextPath}/admin/admin_md_detail?md_id=${dto.md_id}">
-							${dto.md_name}	
+							<a href="${pageContext.request.contextPath}/mdreview/detail_admin?review_id=${dto.review_id}">
+							${dto.md_name}
 							</a>
 						</td>
 						<td class="col-1">
-							${dto.md_price} 원
+							${dto.member_nick} 님
 						</td>
 						<td class="col-1">
-							${dto.md_category} 
+							${dto.review_date}
 						</td>
 						<td class="col-1">
-							${dto.md_standard_stock}개
+						
+							<c:set var="star" value="${dto.review_star}" />
+							${ fn:substring(star, 0, star.length()-2) }점
+							
 						</td>
 						<td class="col-1">
-							${dto.md_sales_rate} 개
-						</td>
-						<td class="col-1">
-							${dto.md_stock} 개
-						</td>
-						<td class="col-1">
-							${dto.md_onsale}
+							${dto.review_enable} 
 						</td>
 						
 					</tr>
@@ -166,13 +172,10 @@
 		</table>
 		<hr>
 		<div class="clearfix">
-				<button id="able_btn" class="btn btn-info float-right" onclick="onsale();"> 상 품 올 리 기 </button>
-				<button id="disable_btn" class="btn btn-warning float-right" onclick="offsale();"> 상 품 내 리 기 </button>
+				<button id="able_btn" class="btn btn-info float-right" onclick="onReview();"> 후 기 공 개 </button>
+				<button id="disable_btn" class="btn btn-warning float-right" onclick="offReview();"> 후 기 비 공 개 </button>
 			
-			<a href="${pageContext.request.contextPath}/md/write_form"><!-- 컨트롤러의 RequestMapping 호출 -->
-				<button id="insert" class="btn btn-primary float-left"> 상 품 등 록 </button>
-			</a>
-				<button id="delete_btn" class="btn btn-danger float-left" onclick="deleteValue();"> 상 품 삭 제 </button>
+				<button id="delete_btn" class="btn btn-danger float-left" onclick="deleteReview();"> 후 기 삭 제 </button>
 		</div>
 		<hr>
 		<ul class="pagination">
@@ -248,8 +251,8 @@
 			});//click
 		});//function
 		
-		function deleteValue(){
-			var url = "${pageContext.request.contextPath}/admin/delete"; // Controller로 보내고자하는 URL
+		function deleteReview(){
+			var url = "${pageContext.request.contextPath}/admin/review_delete"; // Controller로 보내고자하는 URL
 			var valueArr = new Array();
 			var list = $("input[name='RowCheck']");
 			
@@ -260,14 +263,14 @@
 			}
 		
 			if (valueArr.length == 0){
-				alert("선택된 상품이 없습니다.");
+				alert("선택된 후기가 없습니다.");
 			}
 			else{
 				var chk = confirm("정말 삭제하시겠습니까?");
 					if(chk == true) {
 						
 						$.ajax({
-							url : "${pageContext.request.contextPath}/admin/delete"//전송 URL
+							url : "${pageContext.request.contextPath}/admin/review_delete"//전송 URL
 							, type : 'POST' //POST 방식
 							, traditional : true
 							, data : {
@@ -275,25 +278,25 @@
 							},
 							success : function(jdata){
 								if(jdata = 1) {
-									alert("삭제 성공");
-									location.href = "${pageContext.request.contextPath}/admin/admin_md_list";
+									alert("후기 삭제 성공");
+									location.href = "${pageContext.request.contextPath}/admin/admin_review_list";
 								}
 								else {
-									alert("삭제 실패");
+									alert("후기 삭제 실패");
 								}
 							}
 						});
 					
 					} else {
-						alert("삭제를 취소하셨습니다.")
+						alert(" 후기 삭제를 취소하셨습니다.")
 					}
 				
 			}//else
 			
 		}//deleteValue
 		
-		function offsale(){
-			var url = "${pageContext.request.contextPath}/admin/offsale"; // Controller로 보내고자하는 URL
+		function offReview(){
+			var url = "${pageContext.request.contextPath}/admin/review_off"; // Controller로 보내고자하는 URL
 			var valueArr = new Array();
 			var list = $("input[name='RowCheck']");
 			
@@ -304,14 +307,14 @@
 			}
 		
 			if (valueArr.length == 0){
-				alert("선택된 상품이 없습니다.");
+				alert("선택된 후기가 없습니다.");
 			}
 			else{
-				var chk = confirm("정말 상품을 내리시겠습니까?");
+				var chk = confirm("정말 후기를 비공개하시겠습니까?");
 				if(chk == true) {
 				
 						$.ajax({
-							url : "${pageContext.request.contextPath}/admin/offsale"//전송 URL
+							url : "${pageContext.request.contextPath}/admin/review_off"//전송 URL
 							, type : 'POST' //POST 방식
 							, traditional : true
 							, data : {
@@ -319,17 +322,17 @@
 							},
 							success : function(jdata){
 								if(jdata = 1) {
-									alert("상품 내리기 성공");
-									location.href = "${pageContext.request.contextPath}/admin/admin_md_list";
+									alert("후기 비공개 성공");
+									location.href = "${pageContext.request.contextPath}/admin/admin_review_list";
 								}
 								else {
-									alert("상품 내리기 실패");
+									alert("후기 비공개 실패");
 								}
 							}
 						});
 							
 					} else {
-						alert("상품 내리기를 취소하셨습니다.")
+						alert("후기 비공개를 취소하셨습니다.")
 					}		
 						
 						
@@ -338,8 +341,8 @@
 			
 		}//disableValue
 		
-		function onsale(){
-			var url = "${pageContext.request.contextPath}/admin/onsale"; // Controller로 보내고자하는 URL
+		function onReview(){
+			var url = "${pageContext.request.contextPath}/admin/review_on"; // Controller로 보내고자하는 URL
 			var valueArr = new Array();
 			var list = $("input[name='RowCheck']");
 			
@@ -350,16 +353,16 @@
 			}
 		
 			if (valueArr.length == 0){
-				alert("선택된 상품이 없습니다.");
+				alert("선택된 후기가 없습니다.");
 			}
 			else{
-				var chk = confirm("정말 상품을 올리시겠습니까?");
+				var chk = confirm("정말 후기를 공개하시겠습니까?");
 					
 					if(chk == true) {
 				
 				
 						$.ajax({
-							url : "${pageContext.request.contextPath}/admin/onsale"//전송 URL
+							url : "${pageContext.request.contextPath}/admin/review_on"//전송 URL
 							, type : 'POST' //POST 방식
 							, traditional : true
 							, data : {
@@ -367,23 +370,37 @@
 							},
 							success : function(jdata){
 								if(jdata = 1) {
-									alert("상품 올리기 성공");
-									location.href = "${pageContext.request.contextPath}/admin/admin_md_list";
+									alert("후기 공개 성공");
+									location.href = "${pageContext.request.contextPath}/admin/admin_review_list";
 								}
 								else {
-									alert("상품 올리기 실패");
+									alert("후기 공개 실패");
 								}
 							}
 						});
 						
 						
 					} else {
-						alert("상품 올리기를 취소하셨습니다.")
+						alert("후기 공개를 취소하셨습니다.")
 					}
 				
 			}//else
 			
 		}//ableValue
 		
+		
+		$(document).ready(function() {
+			
+			$("#searchOption1").keyup(function() {
+					let tmp = $("#searchOption1").val().replace(/[^  0-9  \.]/g,"");
+					$("#searchOption1").val(tmp);
+			});//keyup
+		
+		});//ready
+		
+// 				if(   $("#searchOption1").val() == "review_star" ){
+// 					let tmp = $("#searchOption1").val().replace(/[^  0-9  \.]/g,"");
+// 					$("#searchOption1").val(tmp);
+// 				}
 	</script>
 </html>

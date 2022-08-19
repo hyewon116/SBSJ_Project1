@@ -24,15 +24,15 @@
 					
 					
 					<ul id="myMenu">
-					  <li ><h3>관리자페이지</h3></li>
-					  <li><a href="#">회원관리</a></li>
+					  <li ><h3>관리자 페이지</h3></li>
+					  <li><a href="#">회원 관리</a></li>
 					  <li><a href="#">공지사항 관리</a></li>
 					  <li><a href="#">1:1 문의 관리</a></li>
-					  <li><a href="#">상품후기 관리</a></li>
+					  <li><a href="${pageContext.request.contextPath}/admin/admin_review_list">상품후기 관리</a></li>
 					  <li><a href="#">상품문의 관리</a></li>
-					  <li><a href="${pageContext.request.contextPath}/admin/admin_md_list">상품관리</a></li>
-					  <li><a href="#">주문관리</a></li>
-					  <li><a href="#">쿠폰관리</a></li>
+					  <li><a href="${pageContext.request.contextPath}/admin/admin_md_list">상품 관리</a></li>
+					  <li><a href="#">주문 관리</a></li>
+					  <li><a href="#">쿠폰 관리</a></li>
 					</ul>
 				
 				

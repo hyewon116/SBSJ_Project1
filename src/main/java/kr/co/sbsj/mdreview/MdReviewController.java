@@ -21,6 +21,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import kr.co.sbsj.util.dto.MemberDTO;
 import kr.co.sbsj.util.dto.SearchDTO;
 
 
@@ -69,12 +70,21 @@ public class MdReviewController {
 	
 	//후기 상세보기
 	@RequestMapping( value = "/detail", method = RequestMethod.GET )
-	public String detail( String review_id, Model model ) {
+	public String detail( String review_id, Model model, MemberDTO mdto ) {
 		MdReviewDTO dto = null;
 		dto = service.detail( review_id );
 		model.addAttribute("detail_dto", dto);
 		model.addAttribute("review_id", review_id); //수정&삭제 때 보낼 review_id 정보
 		return "/mdreview/review_detail";//jsp file name
+	}//detail
+	
+	@RequestMapping( value = "/detail_admin", method = RequestMethod.GET )
+	public String detail_Admin( String review_id, Model model, MemberDTO mdto ) {
+		MdReviewDTO dto = null;
+		dto = service.detail_admin( review_id );
+		model.addAttribute("detail_dto", dto);
+		model.addAttribute("review_id", review_id); //수정&삭제 때 보낼 review_id 정보
+		return "admin/admin_review_detail";//jsp file name
 	}//detail
 	
 	
