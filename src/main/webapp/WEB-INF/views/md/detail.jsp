@@ -158,6 +158,7 @@
             width="100%" height=700px frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
          </div>
       </div>
+     
    <script type="text/javascript">
    $(document).ready(function() {
       $("#buy_qty").change(function() {
@@ -169,37 +170,39 @@
       });//change
    });//ready
    </script>   
+   
+   
    <script type="text/javascript">
    
-   //찜 목록 추가하기 
+   //찜 목록 추가하기 (중복체크)
    $(document).ready(function() {
       $("#wish_btn").click(function() {
-         
-         //if로 찜목록 중복 체크하기!!! (같은 제품 또 안 넣도록)
-          //ex. 이미 찜 목록에 있는 아이템입니다.
-          // 아이디(member id) 체크 + md_id 체크 하면 될듯...?
-         
-         $.post(
-               "${pageContext.request.contextPath}/md/wish_insert"
-               , {
-                  md_id : ${detail_dto.md_id}
-               	  , member_id : ${login_info.member_id}
-               }
-               , function(data, status) {
-                  if(data >= 1){
-                     alert("찜 목록에 추가되었습니다.");
-                  } else {
-                     alert("찜 목록 추가를 실패하였습니다.");
-                  }
-               }//call back function
-         );//post
+    	  
+    	 //로그인 체크
+    	  if("${login_info.member_id}" == ""){
+              alert("로그인 해주세요.");
+              return;
+           } else {
+	         $.post(
+	               "${pageContext.request.contextPath}/md/wish_insert"
+	               , {
+	                  md_id : ${detail_dto.md_id}
+	               	  , member_id : ${login_info.member_id}
+	               }
+	               , function(data, status) {
+	                  if(data >= 1){
+	                     alert("찜 목록에 추가되었습니다.");
+	                  } else {
+	                	  alert("이미 찜 목록에 추가된 아이템입니다.");
+	                  }
+	               }//call back function
+	         );//post
+           }//else
       }); //click
    });//ready
    
    </script>
    
-   <script type="text/javascript">
-   </script>
    <script type="text/javascript">
    $(document).ready(function() {
       $("#buy_now_btn").click(function() {
@@ -219,14 +222,15 @@
       });//click
    });//ready
    </script>
+   
    <script type="text/javascript">
    
    //장바구니 담기 
    $(document).ready(function() {
       $("#jang_btn").click(function() {
-
+    	  	
          if("${login_info.member_id}" == ""){
-            alert("로그인 해주세요.");
+        	alert("로그인 해주세요.");
             return;
          }
 
@@ -293,16 +297,5 @@
    </div>
    </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
 
 

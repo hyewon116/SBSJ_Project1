@@ -1,19 +1,22 @@
 package kr.co.sbsj.member;
 
 import java.io.PrintWriter;
+import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.mysql.cj.Session;
-
+import kr.co.sbsj.md.MdDTO;
 import kr.co.sbsj.util.dto.MemberDTO;
+import kr.co.sbsj.util.dto.SearchDTO;
 import kr.co.sbsj.util.dto.UpdateDTO;
 
 
@@ -26,6 +29,67 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService service;
+
+	
+	//찜 목록 삭제
+	@RequestMapping( value = "/wish_delete")
+	private String wish_delete(HttpServletRequest request) {
+		
+		String[] ajaxMsg = request.getParameterValues("valueArr");
+		int size = ajaxMsg.length;
+		for(int i=0; i<size; i++) {
+			service.wish_delete(ajaxMsg[i]);
+		}
+		
+		return "/member/member_wish_list";
+	}//wish_delete
+
+	
+	//찜 목록 리스트
+	@RequestMapping( value = "/member_wish_list", method = RequestMethod.GET )
+	private String member_wish_list( Model model, String userWantPage, SearchDTO dto, HttpSession session ) {
+		
+		MemberDTO mdto = (MemberDTO) session.getAttribute("login_info");
+		String member_id = mdto.getMember_id();
+		System.out.println("======================" + member_id);
+		
+		if( userWantPage == null || userWantPage.equals("") ) userWantPage = "1";
+		int totalCount = 0, startPageNum = 1, endPageNum = 10, lastPageNum = 1;
+		totalCount = service.wish_searchListCount( member_id );
+
+		if(totalCount > 10) {
+			lastPageNum = (totalCount / 10) + (totalCount % 10 > 0 ? 1 : 0);
+		}//if
+
+		if(userWantPage.length() >= 2) { 
+			String frontNum = userWantPage.substring(0, userWantPage.length() - 1);
+			startPageNum = Integer.parseInt(frontNum) * 10 + 1;
+			endPageNum = ( Integer.parseInt(frontNum) + 1 ) * 10;
+			String backNum = userWantPage.substring(userWantPage.length() - 1, userWantPage.length());
+			if(backNum.equals("0")) {
+				startPageNum = startPageNum - 10;
+				endPageNum = endPageNum - 10;
+			}//if
+		}//if
+
+		if(endPageNum > lastPageNum) endPageNum = lastPageNum;
+
+		model.addAttribute("startPageNum", startPageNum);
+		model.addAttribute("endPageNum", endPageNum);
+		model.addAttribute("lastPageNum", lastPageNum);
+		model.addAttribute("userWantPage", userWantPage);
+		
+		dto.setMember_id( ( (MemberDTO) session.getAttribute("login_info") ).getMember_id() );
+		dto.setLimitNum( ( Integer.parseInt(userWantPage) - 1 ) * 10  );
+
+		List<MdDTO> list = null;
+		list = service.wish_searchList( dto );
+		System.out.println(list);
+		model.addAttribute("list", list); 
+		model.addAttribute("search_dto", dto);
+
+		return "/member/member_wish_list";//jsp file name
+	}
 	
 	@RequestMapping( value = "/member", method = RequestMethod.GET )
 	private String myPage() {

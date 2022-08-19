@@ -39,6 +39,9 @@ public class MdDTO {
    private String member_id;
    private String member_nick;
    
+   private String wish_id;
+   private String wish_item;
+   private String wish_price;
    
 
 
@@ -385,8 +388,41 @@ public class MdDTO {
    public String getMember_nick() {
       return member_nick;
    }
-   
-   
-   
+
+
+	public String getWish_id() {
+		return wish_id;
+	}
+	
+	
+	public void setWish_id(String wish_id) {
+		this.wish_id = wish_id;
+	}
+
+
+
+	public String getWish_item() {
+		return wish_item;
+	}
+
+
+
+	public void setWish_item(String wish_item) {
+		this.wish_item = wish_item;
+	}
+
+
+
+	public String getWish_price() {
+		return wish_price;
+	}
+
+
+
+	public void setWish_price(String wish_price) {
+		this.wish_price = wish_price;
+	}
+	
+      
    
 }

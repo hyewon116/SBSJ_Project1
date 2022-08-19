@@ -91,9 +91,10 @@
 	</insert>
 	
 	<select id="wishCheck" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="int">
-	select count(md_id) cnt
+	select count(md_id)
 	from wish
-	where member_id = #{member_id}
+	where member_id = #{member_id} and md_id = #{md_id}
+
 	</select>
 
 </mapper>

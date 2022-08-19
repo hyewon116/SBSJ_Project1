@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -89,27 +91,27 @@ public class MdController {
 	}//list_cate
 	
 	
-	//찜 목록 체크
-	@RequestMapping( value = "/wish_check", method = RequestMethod.POST ) 
-	public void wish_check( SearchDTO dto, PrintWriter out, MemberDTO mdto ) {
-		int isYN = 0;
-		isYN = service.wishCheck( dto );
-		System.out.println(isYN);
-		out.print(isYN);
-		out.close();
-	}//wish_check
-	
-	
 	//찜 목록에 넣기
 	@RequestMapping( value = "/wish_insert", method = RequestMethod.POST ) 
 	public void wish( SearchDTO dto, PrintWriter out, MemberDTO mdto ) {
 		
-		System.out.println("=============" + mdto);
+		int isYN = 0;
+		isYN = service.wishCheck( dto ); //찜 중복 체크용 쿼리
 		
-		int successCount = 0;
-		successCount = service.wish_insert( dto );
-		out.print(successCount);
-		out.close();
+		//중복 체크 
+		if ( isYN >= 1 ) {
+			System.out.println(isYN);
+			out.print(0);
+			out.close();
+			return;
+		} else { //중복이 아니면 insert
+			int successCount = 0;
+			successCount = service.wish_insert( dto );
+			System.out.println(successCount);
+			out.print(successCount);
+			out.close();	
+		}
+		System.out.println("=============" + mdto);
 		
 	}//wish
 	

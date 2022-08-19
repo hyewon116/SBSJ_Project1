@@ -3,6 +3,7 @@ package kr.co.sbsj.cart;
 import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -24,6 +25,18 @@ public class CartController {
 
 	@Autowired
 	private CartService service;
+	
+	@RequestMapping( value = "/wish_insert", method = RequestMethod.POST )
+	public void wish_insert( MdDTO dto, HttpSession session, PrintWriter out, HttpServletRequest request ) {
+		dto.setMember_id( ( (MemberDTO) session.getAttribute("login_info") ).getMember_id() );
+
+		String[] ajaxMsg = request.getParameterValues("valueArr");
+		int size = ajaxMsg.length;
+		for(int i=0; i<size; i++) {
+			service.wish_insert(ajaxMsg[i]);
+		}
+		
+	}//wish_insert
 
 	@RequestMapping( value = "/update_buy_qty", method = RequestMethod.GET )
 	public void updateBuyQty( MdDTO dto, HttpSession session, PrintWriter out ) {

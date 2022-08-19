@@ -37,4 +37,8 @@ public class CartService {
 		return successCount;
 	}//insert
 
+	public void wish_insert(String no) {
+		dao.wish_insert(no);
+	}//wish_insert
+
 }//class

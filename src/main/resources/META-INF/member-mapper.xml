@@ -5,6 +5,25 @@
 
 <mapper namespace="MemberMapper">
 
+	<delete id="wish_delete">
+	delete from wish
+	where wish_id=#{no}
+	</delete>
+	
+	<select id="wish_searchListCount" parameterType="java.lang.String" resultType="int">
+		select count(wish_id) cnt
+		from wish
+		where member_id = #{member_id}
+	</select>
+	
+	<select id="wish_selectList" parameterType="kr.co.sbsj.util.dto.SearchDTO"
+			resultType="kr.co.sbsj.md.MdDTO">
+		select m.md_thumbnail_path, w.wish_id, w.member_id, w.md_id, w.wish_item, w.wish_price
+    	from md m, wish w
+    	where w.member_id = #{member_id} and m.md_id = w.md_id
+		order by w.wish_id desc
+		limit #{limitNum}, 10
+	</select>
 
 	<update id="member_update" parameterType="kr.co.sbsj.util.dto.MemberDTO">
 	update member set member_pwd = #{member_pwd}, member_nick = #{member_nick}

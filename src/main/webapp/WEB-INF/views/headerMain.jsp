@@ -112,7 +112,7 @@
 	<!-- searchbar 아이콘 -->
 	<div id="icon">
 		<span >
-	  		<a href="/mypage/myPageLike?cPage=1" id="heartbtn"><i class="far fa-heart"  style="font-size: 25px;"></i></a></span>
+	  		<a href="${pageContext.request.contextPath}/member/member_wish_list" id="heartbtn"><i class="far fa-heart"  style="font-size: 25px;"></i></a></span>
 		<span style="margin:10px;margin-top: 15px;"><a href="${pageContext.request.contextPath}/cart/list" id="cartbtn"><i class="fas fa-shopping-cart" style="font-size: 22px;"></i></a> </span>          
 	</div>
 

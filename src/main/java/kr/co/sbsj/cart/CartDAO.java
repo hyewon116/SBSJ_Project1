@@ -38,4 +38,8 @@ public class CartDAO {
 		return successCount;
 	}//insert
 
+	public void wish_insert(String no) {
+		sqlSession.insert("CartMapper.wish_insert", no);
+	}//wish_insert
+
 }//class
