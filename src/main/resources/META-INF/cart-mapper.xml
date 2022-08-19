@@ -39,7 +39,7 @@
 	</insert>
 	
 	<insert id="wish_insert" parameterType="java.lang.String">
-	insert into cart (member_id , md_id, buy_qty, reg_date)
+	insert into cart (member_id, md_id, buy_qty, reg_date)
 		select w.member_id, w.md_id, 1, now()
 		from md m, wish w
 		where w.wish_id = #{no} and m.md_id = w.md_id

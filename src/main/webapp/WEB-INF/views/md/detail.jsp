@@ -40,7 +40,14 @@
       #question {
          margin-right : 30px;
       } 
-
+		
+	  #category {
+	  	 margin-left: auto; 
+         margin-right: auto;
+         border-spacing: 2px;
+         text-align: center;
+	  }
+	
       </style>
    
    </head>
@@ -79,12 +86,8 @@
                   <fmt:formatNumber type="number" var="saleprice" value="${detail_dto.sale_price}" />
                   <h3>${saleprice} 원</h3>
                </td>
-            </tr>
-            <tr>
-               <th> 도 수 </th>
-               <td> <b> <span> ${detail_dto.md_abv}</span> % </b></td>
-            </tr>
-            <tr>
+            </tr>    
+     	     <tr>
                <th> 구 매 수 량 </th>
                <td>
                   <form id="buy_now_form">
@@ -110,10 +113,28 @@
       </table>
       
       <!-- 상품 상세 설명 -->
-      <br>
+      <br><br><br>
       <div style="text-align:center">
          <h6 style="color:dimgray;"><b>상품 상세 설명</b></h6> <br><br>
-      </div>
+      </div>	
+ 	     	<table id="category">
+	      		<tr>
+	               <th> 주 종  : ${detail_dto.md_category} </th>
+	            </tr>
+	            <tr>
+	            	<th> 도 수 : ${detail_dto.md_abv} % </th>
+	            </tr>
+	            <tr>
+	               <th> 단 맛 : ${detail_dto.md_sweet} </th>
+	            </tr>   
+	            <tr>
+	               <th> 신 맛 : ${detail_dto.md_sour}</th>
+	            </tr>
+	            <tr>
+	               <th> 탄 산 : ${detail_dto.md_sparkling}</th>
+	            </tr>
+            </table><br><br>
+         
       <table id="table2">
          <tbody>
             <tr>
