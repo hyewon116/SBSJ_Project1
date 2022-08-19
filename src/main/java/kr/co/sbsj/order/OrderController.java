@@ -33,6 +33,10 @@ public class OrderController {
 	@Autowired
 	private DeliveryService deliveryService;
 
+	@RequestMapping( value = "/paySuccess", method = RequestMethod.GET )
+	public String paySuccess() {
+		return "/order/paySuccess";
+	}
 	@RequestMapping( value = "/insert", method = RequestMethod.POST )
 	public void insert( OrderMainDTO dto, HttpSession session, PrintWriter out ) {
 		dto.setMember_id( ( (MemberDTO) session.getAttribute("login_info") ).getMember_id() );

@@ -401,38 +401,6 @@
 	});//ready
 	</script>
 
-<!-- 일반 결제하기 -->
-	<script type="text/javascript">
-	$(document).ready(function () {
-        let _delivery_id = $("#delivery_id").val();
-		$("#order_btn").click(function() {
-			$.post(
-					"${pageContext.request.contextPath}/order/insert"
-					, {
-						delivery_id : $("#delivery_id").val()
-						, order_md_cnt : $("#span_sum_md_class_qty").text()
-						, order_amt : $("#span_sum_buy_amt").text()
-						, discount_amt : $("#span_sum_discount_amt").text()
-						, pay_amt : $("#span_sum_total_buy_amt").text()
-						, str_cart_id : str_cart_id
-						, buy_now_md_id : buy_now_md_id
-						, buy_now_qty : buy_now_qty
-					},
-					function(data, status) {
-						if(data >= 1){
-							alert("주문을 성공적으로 등록 하였습니다.");
-							location.href="${pageContext.request.contextPath}/order/list";
-						} else if(data <= 0){
-							alert("주문 등록을 실패 하였습니다.");
-						} else {
-							alert("잠시 후 다시 시도해 주세요.");
-						}
-					}//call back function
-			);//post
-
-		});//click
-	}); //ready
-	</script>
 
 <!-- 카카오페이 -->
 <script type="text/javascript">
@@ -447,20 +415,49 @@
 		    pg: "kakaopay"
 		    ,pay_method: "card" //결제시 카드결제만 해야함. 카카오포인트로 결제 불가.
 	        ,merchant_uid:'merchant_'+new Date().getTime() //상점에서 관리하는 주문 번호
-	        ,name: "상품 이름 들어가는 곳" 			//'${dto.md_name}'이거 하면 "item_name can't be null." 에러가 뜸.
+	        ,name: "임시 상품 이름" 			//'${dto.md_name}'이거 하면 "item_name can't be null." 에러가 뜸.
 	        ,amount: '${sum_buy_amt - sum_discount_amt+delivery_cost}' //가격정보는 잘 뜸.
-	        ,buyer_name:"구매자 이름"  			//'${dto.receiver}' 인식 안됨.
-	        ,buyer_tel:"010-9999-9999" 		//'${dto.member_phone}' 인식 안됨.
-	        }
+	        ,buyer_name: '${login_info.member_name}'  			//'${dto.receiver}' 인식 안됨.
+	        ,buyer_tel:'${login_info.member_phone}' 		//'${dto.member_phone}' 인식 안됨.
+	        ,buyer_email: '${login_info.member_email}'		//왜 login_info만 인식하는가....
+		    }
 	        , function(rsp) { //callback
+                let _delivery_id = $("#delivery_id").val();
+
 	        	if (rsp.success) {
 	                var msg = '결제가 완료 되었습니다.';
                     msg += ' 고유ID : ' + rsp.imp_uid;
                     msg += ' 상점 거래ID : ' + rsp.merchant_uid;
                     msg += ' 결제 금액 : ' + rsp.paid_amount;
+                    msg += ' 결제 수단 : ' + rsp.pay_method;
                     msg += ' 카드 승인번호 : ' + rsp.apply_num;
+                    msg += ' 결제 승인 시간 : ' + rsp.paid_at;
                     msg += ' 구매자 이름 : ' + rsp.buyer_name;
                     msg += ' 구매자 전화번호 : ' + rsp.buyer_tel;
+                    $.post(
+        					"${pageContext.request.contextPath}/order/insert"
+        					, {
+        						delivery_id : $("#delivery_id").val()
+        						, order_md_cnt : $("#span_sum_md_class_qty").text()
+        						, order_amt : $("#span_sum_buy_amt").text()
+        						, discount_amt : $("#span_sum_discount_amt").text()
+        						, pay_amt : rsp.paid_amount
+        						, str_cart_id : str_cart_id
+        						, buy_now_md_id : buy_now_md_id
+        						, buy_now_qty : buy_now_qty
+        					},
+        					function(data, status) {
+        						if(data >= 1){
+        							alert("주문을 성공적으로 등록 하였습니다.");
+        							location.href="${pageContext.request.contextPath}/order/paySuccess";
+        						} else if(data <= 0){
+        							alert("주문 등록을 실패 하였습니다.");
+        						} else {
+        							alert("잠시 후 다시 시도해 주세요.");
+        						}
+        					}//call back function
+        			);//post
+                    
 	            } else {
 	            	var msg = '결제에 실패 하였습니다.';
                     msg += ' 에러내용 : ' + rsp.error_msg;
