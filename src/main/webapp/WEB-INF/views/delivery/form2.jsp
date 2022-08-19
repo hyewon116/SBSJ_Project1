@@ -91,21 +91,14 @@
 				</aside>
 				
 			<!--  aside 끝 -->	
-		<hr>
+			<!-- section 시작--------------------------------------------------------------------------------- -->
+				<section class="col-9 h-100 bg-white float-left">
 		<h3> 배 송 지 관 리 </h3>
 		<hr>
 		<div class="row">
 			<div class="col-6">
 				<table class="table table-hover">
 					<tbody>
-					<c:set var="dto" value="${list[0]}"/>
-					 <tr>
-					 <td>
-									<h5> 기본배송지 </h5>
-									<h6> 받으시는 분 : ${dto.member_name} ( 연락처 : ${dto.member_phone} ) </h6>
-									<h6> ( ${dto.member_addr1} ) ${dto.member_addr2} ${dto.member_addr3} </h6>
-								</td>
-					 </tr>
 						<c:forEach var="dto" items="${list}">
 						
 							<tr>
@@ -115,7 +108,9 @@
 									<h6> ( ${dto.post_code} ) ${dto.delivery_addr1} ${dto.delivery_addr2} </h6>
 								</td>
 								<td class="text-right">
-									<button class="addr_delete_btn btn btn-danger btn-sm" value="${dto.delivery_id}"> X </button>
+								<c:if test = "${dto.isdefault == '0'}">
+											<button class="addr_delete_btn btn btn-danger btn-sm mt-1 mb-1" value="${dto.delivery_id}"> 삭제 </button>
+										</c:if>
 								</td>
 							</tr>
 						</c:forEach>
@@ -143,7 +138,7 @@
 							<th> 연 락 처 </th>
 							<td>
 								<input type="text" class="form-control" id="member_phone" name="member_phone" placeholder="'-' 를 제외한 숫자만 입력해 주세요." maxlength="15">
-								<label for="member_phone" id="member_phonel_label" class="write_label"></label>
+								<label for="member_phone" id="member_phone_label" class="write_label"></label>
 							</td>
 						</tr>
 						<tr>
@@ -169,7 +164,8 @@
 				</table>
 			</div>
 		</div>
-		<hr>
+		</section>
+				<!-- section 끝---------------------------------------------------------------------------- -->
 <%-- 	<%@ include file="/WEB-INF/views/footer.jsp" %> --%>
 
 	<script type="text/javascript">

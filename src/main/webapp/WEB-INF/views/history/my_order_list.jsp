@@ -9,9 +9,79 @@
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+	<style type="text/css">
+/* 	.modal-dialog { */
+/*   width: 1250px; */
+/*   height: 100%; */
+/*   margin: 0; */
+/*   padding: 0; */
+/* } */
+/* .modal-content { */
+/*   height: auto; */
+/*   min-height: 100%; */
+/*   border-radius: 0;  */
+/* } */
+	/* Style the navigation menu */
+#myMenu {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Style the navigation links */
+#myMenu li a {
+  padding: 12px;
+  text-decoration: none;
+  color: black;
+  display: block
+}
+
+#myMenu li a:hover {
+  background-color: #eee;
+}
+
+#disable_btn {
+	margin-right : 30px;
+}
+#insert {
+	margin-right : 30px;
+}
+		</style>
 	</head>
+	
 	<body>
-	<%@ include file="/WEB-INF/views/headerMain.jsp" %>
+	<!-- header -->
+			<jsp:include page="/WEB-INF/views/headerMain.jsp"></jsp:include>
+			<br>
+			<br>
+	
+	
+		<div class="container">
+			
+			<!-- nav 시작 -->
+			<nav>
+				<jsp:include page="/WEB-INF/views/member/mypage_nav.jsp"></jsp:include>
+				<br>
+				<br>			
+			</nav>
+			<!-- nav 끝 -->
+			<main class="clearfix mt-1" style="height:500px">
+				
+				<!--  aside 시작 -->	
+				<aside class="col-3 h-100 bg-white float-left">
+					
+					
+				<jsp:include page="/WEB-INF/views/member/mypage_aside.jsp"></jsp:include>
+				<br>
+				<br>			
+				
+				
+				
+				</aside>
+				
+			<!--  aside 끝 -->	
+			<!-- section 시작--------------------------------------------------------------------------------- -->
+				<section class="col-9 h-100 bg-white float-left">
 		<hr>
 		<h3> 주문 내역 </h3>
 		<hr>
@@ -34,13 +104,15 @@
 		<table class="table table-hover">
 			<col class="col-2">
 			<col class="col-2">
-			<col class="col-6">
-			<col class="col-1">
-			<col class="col-1">
+			<col class="col-2">
+			<col class="col-2">
+			<col class="col-2">
+			<col class="col-3">
+			
 			<thead>
 				<tr>
-					<th> 결제일 </th>
-					<th> 상품 이미지 </th>	<th> 주문번호 / 상품명 / 주문옵션 </th>
+					<th> 결제일 </th> <th>주문번호</th>
+					<th> 상품 이미지 </th>	<th> 상품명 </th> <th> 결제금액 </th> 
 						<th> 주문상태 </th>
 				</tr>
 			</thead>
@@ -49,12 +121,18 @@
 					<tr>
 						<td>
 							${dto.order_date}
-							<hr>
-							결제금액 : <b>${dto.order_detail_pay_amt}</b> 원
-							<hr>
-							<button type="button" class="pay_detail_btn btn btn-link btn-sm" data-toggle="modal" data-target="#pay_detail_modal" value="${dto.order_id}">
-								결제 상세 보기
+<!-- 							<hr> -->
+<%-- 							결제금액 : <b>${dto.order_detail_pay_amt}</b> 원 --%>
+<!-- 							<hr> -->
+<%-- 							<button type="button" class="pay_detail_btn btn btn-link btn-sm" data-toggle="modal" data-target="#pay_detail_modal" value="${dto.order_id}"> --%>
+<!-- 								결제 상세 보기 -->
+<!-- 							</button> -->
+						</td>
+						<td>
+						<button type="button" class="pay_detail_btn btn btn-link btn-sm" data-toggle="modal" data-target="#pay_detail_modal" value="${dto.order_id}">
+								${dto.order_id}
 							</button>
+							
 						</td>
 						<td>
 							<img src="${dto.md_thumbnail_path}" class="img-thumbnail">
@@ -63,11 +141,9 @@
 							<a href="${pageContext.request.contextPath}/md/detail?md_id=${dto.md_id}">
 								${dto.md_name}
 							</a>
-							<hr>
-							수량 : ${dto.order_detail_qty}
-							<hr>
-							주문 번호 : ${dto.order_detail_id}
+							
 						</td>
+						<td>${dto.pay_amt}</td>
 						<td>${dto.order_status_name}</td>
 					</tr>
 				</c:forEach>
@@ -109,12 +185,13 @@
 				</li>
 			</c:if>
 		</ul>
-		<hr>
+		</section>
+				<!-- section 끝---------------------------------------------------------------------------- -->
 <%-- 	<%@ include file="/WEB-INF/views/footer.jsp" %> --%>
-	<!-- pay detail modal start -->
+<!-- pay detail modal start -->
 	<div class="modal" id="pay_detail_modal">
-		<div class="modal-dialog modal-xl">
-			<div class="modal-content">
+		<div class="modal-dialog modal-lg" style="width:2000;">
+			 <div class="modal-content ">
 
 				<!-- Modal Header -->
 				<div class="modal-header">
@@ -127,7 +204,7 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th> 주문번호 </th>	<th> 상품명 </th>	<th> 수량 </th>	<th> 단가 </th>
+								<th> 주문상세번호 </th>	<th> 상품명 </th>	<th> 수량 </th>	<th> 단가 </th>
 								<th> 구매금액 </th>	<th> 할인율 </th>	<th> 할인금액 </th>	<th> 결제금액 </th>
 									<th> 주문상태 </th>
 							</tr>
@@ -209,9 +286,9 @@
 										+ "<td>" + dto.order_detail_qty + "</td>"
 										+ "<td>" + dto.order_detail_price + "</td>"
 										+ "<td>" + dto.order_detail_amt + "</td>"
-										+ "<td>" + dto.order_detail_discount + "</td>"
-										+ "<td class='text-danger'>-" + dto.order_detail_discount_amt + "</td>"
-										+ "<td>" + dto.order_detail_pay_amt + "</td>"
+										+ "<td>" + dto.order_detail_discount + "%</td>"
+										+ "<td class='text-danger'>-" + dto.order_detail_discount_amt + "원</td>"
+										+ "<td>" + dto.order_detail_pay_amt + "원</td>"
 										+ "<td>" + dto.order_status_name + "</td>"
 										+ "</tr>"
 								);//append

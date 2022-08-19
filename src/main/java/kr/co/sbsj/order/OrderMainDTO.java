@@ -18,6 +18,11 @@ public class OrderMainDTO {
 	private String buy_now_md_id;
 	private String buy_now_qty;
 
+	private String member_name;
+	private String member_addr1;
+	private String member_addr2;
+	private String member_addr3;
+	
 	@Override
 	public String toString() {
 		return order_id
@@ -28,8 +33,45 @@ public class OrderMainDTO {
 				+ " : " +discount_amt
 				+ " : " +pay_amt
 				+ " : " +order_date
-				+ " : " +order_status;
+				+ " : " +order_status
+				+ " : " + member_name 
+				+ " : " + member_addr1
+				+ " : " + member_addr2 
+				+ " : " + member_addr3;
 	}
+	
+	public String getMember_name() {
+		return member_name;
+	}
+
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
+	}
+
+	public String getMember_addr1() {
+		return member_addr1;
+	}
+
+	public void setMember_addr1(String member_addr1) {
+		this.member_addr1 = member_addr1;
+	}
+
+	public String getMember_addr2() {
+		return member_addr2;
+	}
+
+	public void setMember_addr2(String member_addr2) {
+		this.member_addr2 = member_addr2;
+	}
+
+	public String getMember_addr3() {
+		return member_addr3;
+	}
+
+	public void setMember_addr3(String member_addr3) {
+		this.member_addr3 = member_addr3;
+	}
+
 	public String getOrder_id() {
 		return order_id;
 	}

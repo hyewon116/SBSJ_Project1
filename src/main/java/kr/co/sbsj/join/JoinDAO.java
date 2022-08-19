@@ -13,10 +13,15 @@ public class JoinDAO {
 	private SqlSession sqlSession;
 	
 	public int join( MemberDTO dto ) {
-		int successCount = 0;
-		successCount = sqlSession.insert("JoinMapper.join", dto);
-		return successCount;
-	}
+        int successCount = 0;
+        successCount = sqlSession.insert("JoinMapper.join", dto);
+        if(successCount <1) {
+            return successCount;
+        }
+
+        successCount = sqlSession.insert("JoinMapper.addDelivery", dto);
+        return successCount;
+    }
 	
 	
 	public int passwordCheck( MemberDTO dto ) {

@@ -184,7 +184,9 @@
 										</div>
 									</td>
 									<td class="text-right">
-										<button class="addr_delete_btn btn btn-danger btn-sm mt-1 mb-1" value="${dto.delivery_id}"> 삭제 </button>
+										<c:if test = "${dto.isdefault == '0'}">
+											<button class="addr_delete_btn btn btn-danger btn-sm mt-1 mb-1" value="${dto.delivery_id}"> 삭제 </button>
+										</c:if>
 										<button class="addr_choice_btn btn btn-primary btn-sm" value="${dto.delivery_id}" name="${status.index}"data-dismiss="modal"> 선택 </button>
 									</td>
 								</tr>

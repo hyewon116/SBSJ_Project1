@@ -49,7 +49,9 @@
 									<h6> ( ${dto.post_code} ) ${dto.delivery_addr1} ${dto.delivery_addr2} </h6>
 								</td>
 								<td class="text-right">
-									<button class="addr_delete_btn btn btn-danger btn-sm" value="${dto.delivery_id}"> X </button>
+									<c:if test = "${dto.isdefault == '0'}">
+											<button class="addr_delete_btn btn btn-danger btn-sm mt-1 mb-1" value="${dto.delivery_id}"> 삭제 </button>
+										</c:if>
 								</td>
 							</tr>
 						</c:forEach>
@@ -77,7 +79,7 @@
 							<th> 연 락 처 </th>
 							<td>
 								<input type="text" class="form-control" id="member_phone" name="member_phone" placeholder="'-' 를 제외한 숫자만 입력해 주세요." maxlength="15">
-								<label for="member_phone" id="member_phonel_label" class="write_label"></label>
+								<label for="member_phone" id="member_phone_label" class="write_label"></label>
 							</td>
 						</tr>
 						<tr>
