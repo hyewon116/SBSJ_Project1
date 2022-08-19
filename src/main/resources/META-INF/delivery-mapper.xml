@@ -20,7 +20,8 @@
 	<select id="list"  parameterType="java.lang.String"
 						resultType="kr.co.sbsj.delivery.DeliveryDTO">
 		select d.delivery_id, d.addr_name, d.member_id
-			, d.receiver, d.member_phone, d.post_code, d.delivery_addr1, d.delivery_addr2, used_date
+			, d.receiver, d.member_phone, d.post_code, d.delivery_addr1, d.delivery_addr2, used_date, m.member_name,
+			m.member_addr1, m.member_addr2, m.member_addr3 
 		from delivery d, member m
 		where d.member_id = #{member_id}
 		and del_yn = 0

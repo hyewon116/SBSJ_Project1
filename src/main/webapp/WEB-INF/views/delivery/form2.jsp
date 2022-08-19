@@ -98,7 +98,16 @@
 			<div class="col-6">
 				<table class="table table-hover">
 					<tbody>
+					<c:set var="dto" value="${list[0]}"/>
+					 <tr>
+					 <td>
+									<h5> 기본배송지 </h5>
+									<h6> 받으시는 분 : ${dto.member_name} ( 연락처 : ${dto.member_phone} ) </h6>
+									<h6> ( ${dto.member_addr1} ) ${dto.member_addr2} ${dto.member_addr3} </h6>
+								</td>
+					 </tr>
 						<c:forEach var="dto" items="${list}">
+						
 							<tr>
 								<td>
 									<h5> 배송지 : ${dto.addr_name} </h5>
