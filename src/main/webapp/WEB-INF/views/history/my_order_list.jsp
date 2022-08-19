@@ -13,9 +13,9 @@
 	<body>
 	<%@ include file="/WEB-INF/views/headerMain.jsp" %>
 		<hr>
-		<h3> 구매 내역 </h3>
+		<h3> 주문 내역 </h3>
 		<hr>
-		<form action="${pageContext.request.contextPath}/history/order_list" method="get">
+		<form action="${pageContext.request.contextPath}/history/my_order_list" method="get">
 			<div class="input-group">
 				<div class="input-group-prepend">
 					<select class="form-control" id="searchOption" name="searchOption">
@@ -52,7 +52,7 @@
 							<hr>
 							결제금액 : <b>${dto.order_detail_pay_amt}</b> 원
 							<hr>
-							<button type="button" class="pay_detail_btn btn btn-link btn-sm" value="${dto.order_id}">
+							<button type="button" class="pay_detail_btn btn btn-link btn-sm" data-toggle="modal" data-target="#pay_detail_modal" value="${dto.order_id}">
 								결제 상세 보기
 							</button>
 						</td>
@@ -78,7 +78,7 @@
 			<c:if test="${startPageNum > 10}">
 				<li class="page-item mx-auto">
 					<a class="page-link"
-						href="${pageContext.request.contextPath}/md/list?userWantPage=${startPageNum-1}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
+						href="${pageContext.request.contextPath}/history/my_order_list?userWantPage=${startPageNum-1}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
 						Previous
 					</a>
 				</li>
@@ -93,7 +93,7 @@
 					<c:otherwise>
 						<li class="page-item mx-auto">
 							<a class="page-link"
-								href="${pageContext.request.contextPath}/md/list?userWantPage=${page_no}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
+								href="${pageContext.request.contextPath}/history/my_order_list?userWantPage=${page_no}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
 								${page_no}
 							</a>
 						</li>
@@ -103,7 +103,7 @@
 			<c:if test="${lastPageNum > endPageNum}">
 				<li class="page-item mx-auto">
 					<a class="page-link"
-						href="${pageContext.request.contextPath}/md/list?userWantPage=${endPageNum+1}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
+						href="${pageContext.request.contextPath}/history/my_order_list?userWantPage=${endPageNum+1}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
 						Next
 					</a>
 				</li>
@@ -223,9 +223,9 @@
 								$("#span_sum_md_class_qty").text(dto.order_md_cnt);
 								$("#span_sum_buy_amt").text(dto.order_amt);
 								$("#span_sum_discount_amt").text(dto.discount_amt);
+								
 								$("#span_sum_total_buy_amt").text(dto.pay_amt);
 							});//each
-							$("#pay_detail_modal").modal("show");
 						} else {
 							alert("결제 정보 조회를 실패 하였습니다.");
 						}
