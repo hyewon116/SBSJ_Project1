@@ -51,6 +51,13 @@ public class DeliveryController {
 		model.addAttribute("list", list);
 		return "delivery/form";//jsp file name
 	}//form
+	@RequestMapping(value = "/form2", method = RequestMethod.GET)
+	public String form2( Model model, HttpSession session ) {
+		List<DeliveryDTO> list = null;
+		list = service.list( ( (MemberDTO) session.getAttribute("login_info") ).getMember_id() );
+		model.addAttribute("list", list);
+		return "delivery/form2";//jsp file name
+	}//form
 
 }//class
 
