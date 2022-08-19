@@ -49,7 +49,9 @@
 						<td>
 							<a href="${pageContext.request.contextPath}/md/detail?md_id=${dto.md_id}">
 								${dto.md_name}
+								<input type=hidden id="md_name" value="${dto.md_name}">
 							</a>
+							
 						</td>
 						<td width="15%">
                                     <div id="qty_btn">
@@ -415,7 +417,7 @@
 		    pg: "kakaopay"
 		    ,pay_method: "card" //결제시 카드결제만 해야함. 카카오포인트로 결제 불가.
 	        ,merchant_uid:'merchant_'+new Date().getTime() //상점에서 관리하는 주문 번호
-	        ,name: "임시 상품 이름" 			//'${dto.md_name}'이거 하면 "item_name can't be null." 에러가 뜸.
+	        ,name: $("#md_name").val()			//'${dto.md_name}'이거 하면 "item_name can't be null." 에러가 뜸.
 	        ,amount: '${sum_buy_amt - sum_discount_amt+delivery_cost}' //가격정보는 잘 뜸.
 	        ,buyer_name: '${login_info.member_name}'  			//'${dto.receiver}' 인식 안됨.
 	        ,buyer_tel:'${login_info.member_phone}' 		//'${dto.member_phone}' 인식 안됨.
