@@ -1,6 +1,8 @@
 package kr.co.sbsj.member;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,10 +38,20 @@ public class MemberDAO {
 	}//wish_searchListCount
 
 	public int update( MemberDTO dto ) {
-		int successCount = 0;
-		successCount = sqlSession.update("MemberMapper.member_update", dto);
-		return successCount;
-	}
+        int successCount = 0;
+        successCount = sqlSession.update("MemberMapper.member_update", dto);
+        if(successCount < 1) return successCount;
+
+//        String id = sqlSession.selectOne("MemberMapper.get_member_id", dto);
+//
+//        Map<String,Object>map = new HashMap<String,Object>();
+//        map.put("member_addr1", dto.getMember_addr1());
+//        map.put("member_addr2", dto.getMember_addr2());
+//        map.put("member_addr3", dto.getMember_addr3());
+//        map.put("member_id", id);
+//        successCount = sqlSession.update("MemberMapper.delivery_update", map);
+        return successCount;
+    }
 	
 	public UpdateDTO udto( MemberDTO dto ) {
 		UpdateDTO udto = null;

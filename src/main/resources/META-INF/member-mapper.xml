@@ -30,8 +30,18 @@
 	, member_addr1 = #{member_addr1}, member_addr2 = #{member_addr2}, member_addr3 = #{member_addr3}, email_agree = #{email_agree}, sms_agree = #{sms_agree}
 	where member_name = #{member_name} and member_email = #{member_email} and member_phone = #{member_phone}
 	</update>
-
-	
+    
+    <update id="delivery_update" parameterType="Map">
+    update delivery set post_code = #{member_addr1}, delivery_addr1 = #{member_addr2}, delivery_addr2 = #{member_addr3}
+    where member_id = #{member_id} and isdefault = "1"
+    </update>
+    
+	<select id="get_member_id" parameterType="kr.co.sbsj.util.dto.MemberDTO" resultType="String">
+    select member_id
+    from member
+    where member_name = #{member_name} and member_email = #{member_email} and member_phone = #{member_phone}
+    </select>
+    
 	<select id="update_dto" parameterType="kr.co.sbsj.util.dto.MemberDTO" resultType="kr.co.sbsj.util.dto.UpdateDTO">
 	select *
 	from member
@@ -64,5 +74,5 @@
 	from member
 	where member_phone = #{member_phone}
 	</select>
-
+	
 </mapper>
