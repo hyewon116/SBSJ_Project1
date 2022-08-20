@@ -113,116 +113,121 @@
 					  
 			<table class="table table-hover">
 					<tbody>
-						<tr>
-						<br>
-							<th> 이 름  </th>
-							<td>
-								<div class="input-group">
-									<a href="#"><p onclick="alert('SNS 간편 회원가입시 입력된 정보는 수정 할 수 없습니다.')">
-									<input type="text" id="member_name" name="member_name" maxlength="20" class="form-control" value="${login_info.member_name}" readonly="readonly">
-									</p></a>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<th> 이 메 일 </th>
-							<td>
-								<div class="input-group">
-									<a href="#"><p onclick="alert('SNS 간편 회원가입시 입력된 정보는 수정 할 수 없습니다.')">
-									<input type="text" id="member_email" name="member_email" maxlength="25" class="form-control" value="${login_info.member_email}" readonly="readonly">
-									</p></a>
-								</div>
-										<label id="member_email_label"></label>
-							</td>
-						</tr>
-						<tr>
-							<th> 비 밀 번 호 </th>
-							<td>
-								<input type="password" id="member_pwd" name="member_pwd" maxlength="20" class="form-control">
-								<label for="pwd" id="member_pwd_label"></label>
-							</td>
-						</tr>
-						<tr>
-							<th> 비 밀 번 호 확 인 </th>
-							<td>
-								<input type="password" id="remember_pwd" name="remember_pwd" maxlength="20" class="form-control">
-								<label for="rempwd" id="remember_pwd_label"></label>
-							</td>
-						</tr>
-						<tr>
-							<th> 닉 네 임  </th>
-							<td>
-								<div class="input-group">
-									<input type="text" id="member_nick" name="member_nick" maxlength="20" class="form-control" value="${login_info.member_nick}">
-									<div class="input-group-append">
-										<button id="nick_btn" class="btn btn-primary"> 닉 네 임 중 복 체 크 </button>
-									</div>
-								</div>
-								<label id="member_nick_label"></label>
-							</td>
-						</tr>
-						<tr>
-							<th> 전 화 번 호 </th>
-							<td>
-								<div class="input-group">
-									<a href="#"><p onclick="alert('SNS 간편 회원가입시 입력된 정보는 수정 할 수 없습니다.')">
-									<input type="text" id="member_phone" name="member_phone" maxlength="11" class="form-control" value="${login_info.member_phone}" readonly="readonly">
-									</p></a>
-								</div>
-								<label id="member_phone_label"></label>
-							</td>
-						</tr>
-						<tr>
-							<th> 주 소 </th>
-							<td>
-								<div class="input-group">
-									<div class="input-group">
-										<span class="input-group-text"> 우 편 번 호 </span>
-										<input type="text" id="member_addr1" name="member_addr1" value="${login_info.member_addr1}" readonly="readonly"
-												class="form-control">
-										<button id="addr_btn" class="btn btn-primary"> 주 소 검 색 </button>
-									</div>
+						<c:forEach var="dto" items="${list}">
+								<tr>
+								<br>
+									<th> 이 름  </th>
+									<td>
+										<div class="input-group">
+											<a href="#"><p onclick="alert('SNS 간편 회원가입시 입력된 정보는 수정 할 수 없습니다.')">
+											<input type="text" id="member_name" name="member_name" maxlength="20" class="form-control" value="${dto.member_name}" readonly="readonly">
+											<input type="hidden" id="member_id" name="member_id" maxlength="20" class="form-control" value="${dto.member_id}" readonly="readonly">
+											</p></a>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th> 이 메 일 </th>
+									<td>
+										<div class="input-group">
+											<a href="#"><p onclick="alert('SNS 간편 회원가입시 입력된 정보는 수정 할 수 없습니다.')">
+											<input type="text" id="member_email" name="member_email" maxlength="25" class="form-control" value="${dto.member_email}" readonly="readonly">
+											<input type="hidden" id="member_email" name="member_email" maxlength="25" class="form-control" value="${dto.member_email}" readonly="readonly">
+											</p></a>
+										</div>
+												<label id="member_email_label"></label>
+									</td>
+								</tr>
+								<tr>
+									<th> 비 밀 번 호 </th>
+									<td>
+										<input type="password" id="member_pwd" name="member_pwd" maxlength="20" class="form-control">
+										<label for="pwd" id="member_pwd_label"></label>
+									</td>
+								</tr>
+								<tr>
+									<th> 비 밀 번 호 확 인 </th>
+									<td>
+										<input type="password" id="remember_pwd" name="remember_pwd" maxlength="20" class="form-control">
+										<label for="rempwd" id="remember_pwd_label"></label>
+									</td>
+								</tr>
+								<tr>
+									<th> 닉 네 임  </th>
+									<td>
+										<div class="input-group">
+											<input type="text" id="member_nick" name="member_nick" maxlength="20" class="form-control" value="${dto.member_nick}">
+											<div class="input-group-append">
+												<button id="nick_btn" class="btn btn-primary"> 닉 네 임 중 복 체 크 </button>
+											</div>
+										</div>
+										<label id="member_nick_label"></label>
+									</td>
+								</tr>
+								<tr>
+									<th> 전 화 번 호 </th>
+									<td>
+										<div class="input-group">
+											<a href="#"><p onclick="alert('SNS 간편 회원가입시 입력된 정보는 수정 할 수 없습니다.')">
+											<input type="text" id="member_phone" name="member_phone" maxlength="11" class="form-control" value="${dto.member_phone}" readonly="readonly">
+											</p></a>
+										</div>
+										<label id="member_phone_label"></label>
+									</td>
+								</tr>
+								<tr>
+									<th> 주 소 </th>
+									<td>
 									
-									<div class="input-group">
-										<span class="input-group-text"> 주 소 </span>
-										<input type="text" id="member_addr2" name="member_addr2" value="${login_info.member_addr2}" readonly="readonly"
-												class="form-control">
-									</div>
-									<div class="input-group">
-										<span class="input-group-text"> 상 세 주 소 </span>
-										<input type="text" id="member_addr3" name="member_addr3" class="form-control" value="${login_info.member_addr3}">
-									</div>
-									
-									<label for="addr1" id="member_addr1_label"></label>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<th> 수 신 동 의 </th>
-							<td>
-								<div class="input-group mr-1">
-									<div class="input-group-text">
-										<input type="checkbox" id="email_agree" name="email_agree" class="mr-1"
-												checked="checked"> EMAIL 수신을 동의 합니다.
-									</div>
-									
-									
-									<div class="input-group-text">
-										<input type="checkbox" id="sms_agree" name="sms_agree" class="mr-1"
-												checked="checked"> SMS 수신을 동의 합니다.
-									</div>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<th> 개인정보 수정 </th>
-							<td>
-								<div class="clearfix">
-										<button id="update_btn" class="btn btn-primary float-right"> 수 정 하 기 </button>
-									</div>
-							</td>
-						</tr>
-					</tbody>
+										<div class="input-group">
+											<div class="input-group">
+												<span class="input-group-text"> 우 편 번 호 </span>
+												<input type="text" id="member_addr1" name="member_addr1" value="${dto.member_addr1}" readonly="readonly"
+														class="form-control">
+												<button id="addr_btn" class="btn btn-primary"> 주 소 검 색 </button>
+											</div>
+											
+											<div class="input-group">
+												<span class="input-group-text"> 주 소 </span>
+												<input type="text" id="member_addr2" name="member_addr2" value="${dto.member_addr2}" readonly="readonly"
+														class="form-control">
+											</div>
+											<div class="input-group">
+												<span class="input-group-text"> 상 세 주 소 </span>
+												<input type="text" id="member_addr3" name="member_addr3" class="form-control" value="${dto.member_addr3}">
+											</div>
+											
+											<label for="addr1" id="member_addr1_label"></label>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th> 수 신 동 의 </th>
+									<td>
+										<div class="input-group mr-1">
+											<div class="input-group-text">
+												<input type="checkbox" id="email_agree" name="email_agree" class="mr-1"
+														checked="checked"> EMAIL 수신을 동의 합니다.
+											</div>
+											
+											
+											<div class="input-group-text">
+												<input type="checkbox" id="sms_agree" name="sms_agree" class="mr-1"
+														checked="checked"> SMS 수신을 동의 합니다.
+											</div>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th> 개인정보 수정 </th>
+									<td>
+										<div class="clearfix">
+												<button id="update_btn" class="btn btn-primary float-right"> 수 정 하 기 </button>
+											</div>
+									</td>
+								</tr>
+							</c:forEach>
+						</tbody>
 				</table>
 					  
 				</section>
@@ -258,7 +263,7 @@
 					, { member_nick : $("#member_nick").val() }
 					, function(data, status) {
 						if(data == 0){
-							$("#member_nick_label").text("사용 가능한 닉네임 입니다.");
+							$("#member_nick_label").text("사용 가능한 닉네임 입니다. / 변경하신 닉네임은 재로그인 시 적용됩니다.");
 							$("#member_nick_label").css("color", "blue");
 							checkedNICK = $("#member_nick").val();
 							checkResult = 0;
@@ -323,7 +328,8 @@
 			$.post(
 					"${pageContext.request.contextPath}/member/member_update"
 					, {
-						member_name : $("#member_name").val()
+						member_id : $("#member_id").val()
+						,member_name : $("#member_name").val()
 						, member_email : $("#member_email").val()
 						, member_pwd : $("#member_pwd").val()
 						, member_nick : $("#member_nick").val()
@@ -337,7 +343,7 @@
 					, function(data, status) {
 						if(data == 1){
 							alert("회원 정보가 수정되었습니다.");
-							location.href="${pageContext.request.contextPath}/member/member_detail";
+							location.href="${pageContext.request.contextPath}/member/member_detail?member_email=${login_info.member_email}";
 						} else {
 							alert("잠시 후 다시 시도해 주세요.");
 						}

@@ -119,48 +119,49 @@
 					  
 					  
 					  
-		<div class="member_info">			  
-		 <h5>이름</h5>
-			<ul>
-				<li><u>${login_info.member_name}</u></li>
-			</ul>
-					  
-		 <h5>이메일</h5>
-			<ul>
-				<li><u>${login_info.member_email}</u></li>
-			</ul>
-			
-		 <h5>닉네임</h5>
-			<ul>
-				<li><u>${login_info.member_nick}</u></li>
-			</ul>
-			
-		 <h5>전화번호</h5>
-			<ul>
-				<li><u>${login_info.member_phone}</u></li>
-			</ul>
-			
-		 <h5>주소</h5>
-			<ul>
-				<li><u>${login_info.member_addr1}</u></li>
-				<li><u>${login_info.member_addr2}</u></li>
-				<li><u>${login_info.member_addr3}</u></li>
-			</ul>
-			
-		 <h5>Email 수신동의</h5>
-			<ul>
-				<li><u>${login_info.email_agree}</u></li>
-			</ul>
-			
-		 <h5>SMS 수신동의</h5>
-			<ul>
-				<li><u>${login_info.sms_agree}</u></li>
-			</ul>
-		</div>				
-				<div class="update_btn">
-					<button id="update_btn" class="btn btn-primary float-info"> 수 정 하 러 가 기 </button>
-				</div>
-			
+			<c:forEach var="dto" items="${list}">
+				<div class="member_info">			  
+				 <h5>이름</h5>
+					<ul>
+						<li><u>${dto.member_name}</u></li>
+					</ul>
+							  
+				 <h5>이메일</h5>
+					<ul>
+						<li><u>${dto.member_email}</u></li>
+					</ul>
+					
+				 <h5>닉네임</h5>
+					<ul>
+						<li><u>${dto.member_nick}</u></li>
+					</ul>
+					
+				 <h5>전화번호</h5>
+					<ul>
+						<li><u>${dto.member_phone}</u></li>
+					</ul>
+					
+				 <h5>주소</h5>
+					<ul>
+						<li><u>${dto.member_addr1}</u></li>
+						<li><u>${dto.member_addr2}</u></li>
+						<li><u>${dto.member_addr3}</u></li>
+					</ul>
+					
+				 <h5>Email 수신동의</h5>
+					<ul>
+						<li><u>${dto.email_agree}</u></li>
+					</ul>
+					
+				 <h5>SMS 수신동의</h5>
+					<ul>
+						<li><u>${dto.sms_agree}</u></li>
+					</ul>
+				</div>				
+						<div class="update_btn">
+							<button id="update_btn" class="btn btn-primary float-info"> 수 정 하 러 가 기 </button>
+						</div>
+			</c:forEach>
 					  
 				</section>
 				<!-- section 끝---------------------------------------------------------------------------- -->
@@ -180,7 +181,7 @@
 
 			
 			
-		location.href="${pageContext.request.contextPath}/member/member_update_form";
+		location.href="${pageContext.request.contextPath}/member/member_update_form?member_email=${login_info.member_email}";
 		
 		
 		

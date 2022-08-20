@@ -24,6 +24,18 @@
 		order by w.wish_id desc
 		limit #{limitNum}, 10
 	</select>
+	
+	<select id="member_updateList" parameterType="java.lang.String"
+			resultType="kr.co.sbsj.util.dto.UpdateDTO">
+		select m.member_id, m.member_name, m.member_email, m.member_pwd, m.member_nick, m.member_phone
+		, m.member_addr1, m.member_addr2, m.member_addr3, m.email_agree, m.sms_agree
+    	from member m
+    	where m.member_email = #{member_email}
+	</select>
+
+
+
+
 
 	<update id="member_update" parameterType="kr.co.sbsj.util.dto.MemberDTO">
 	update member set member_pwd = #{member_pwd}, member_nick = #{member_nick}
@@ -31,16 +43,13 @@
 	where member_name = #{member_name} and member_email = #{member_email} and member_phone = #{member_phone}
 	</update>
     
-    <update id="delivery_update" parameterType="Map">
+    <update id="delivery_update" parameterType="kr.co.sbsj.util.dto.MemberDTO">
     update delivery set post_code = #{member_addr1}, delivery_addr1 = #{member_addr2}, delivery_addr2 = #{member_addr3}
     where member_id = #{member_id} and isdefault = "1"
     </update>
     
-	<select id="get_member_id" parameterType="kr.co.sbsj.util.dto.MemberDTO" resultType="String">
-    select member_id
-    from member
-    where member_name = #{member_name} and member_email = #{member_email} and member_phone = #{member_phone}
-    </select>
+    
+    
     
 	<select id="update_dto" parameterType="kr.co.sbsj.util.dto.MemberDTO" resultType="kr.co.sbsj.util.dto.UpdateDTO">
 	select *

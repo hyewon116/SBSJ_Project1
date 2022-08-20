@@ -37,13 +37,14 @@ public class MemberService {
 		int successCount = 0;
 		successCount = dao.update( dto );
 		return successCount;
-	}//join
+	}//update
 	
-	public UpdateDTO udto ( MemberDTO dto ) {
-		UpdateDTO udto = null;
-		udto = dao.udto( dto );
-		return udto;
-	}//login
+	public int update1( MemberDTO dto ) {
+		int successCount1 = 0;
+		successCount1 = dao.update1( dto );
+		return successCount1;
+	}//delivery_update
+	
 	
 	
 	public int passwordCheck( MemberDTO dto ) {
@@ -70,6 +71,12 @@ public class MemberService {
 		isYN = dao.phoneCheck( member_phone );
 		return isYN;
 	}//idCheck
+
+	public List<UpdateDTO> member_updateList(String member_email) {
+		List<UpdateDTO> list = null;
+		list = dao.member_updateList( member_email );
+		return list;
+	}
 
 	
 }//class

@@ -23,7 +23,8 @@ public class MemberDTO {
 	private String join_kakao;
 	
 	public String toString() {
-		return member_id+ ":"+member_name + " : " + member_email + " : " + member_pwd + " : " + member_nick + " : " + member_phone + " : " + member_addr1 + " : " + member_addr2 + " : " + member_addr3 + " : " + email_agree + " : " + sms_agree + admin_yn;
+		return member_id+ ":"+member_name + " : " + member_email + " : " + member_pwd + " : " + member_nick + " : " + member_phone + " : " 
+	+ member_addr1 + " : " + member_addr2 + " : " + member_addr3 + " : " + email_agree + " : " + sms_agree + " : " + admin_yn;
 	}
 	
 	

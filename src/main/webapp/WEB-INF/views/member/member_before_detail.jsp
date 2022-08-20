@@ -170,7 +170,7 @@
 								$("#member_pwd_label").css("color", "red");
 							
 							} else if(data >= 1){ // 중복되는 닉네임이 있을경우
-								location.href="${pageContext.request.contextPath}/member/member_detail"
+								location.href="${pageContext.request.contextPath}/member/member_detail?member_email=${login_info.member_email}"
 								return;
 							} else {
 								alert("잠시 후 다시 시도해 주세요.");

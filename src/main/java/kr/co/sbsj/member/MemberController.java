@@ -106,7 +106,7 @@ public class MemberController {
 	}//nickCheck
 	
 	@RequestMapping( value = "/pwd_chk", method = RequestMethod.GET )
-	public void passwordCheck( PrintWriter out, MemberDTO dto, HttpSession session ) {
+	public void passwordCheck( PrintWriter out, MemberDTO dto) {
 		int isYN = 0;
 		isYN = service.passwordCheck( dto );
 		System.out.println(isYN);
@@ -115,26 +115,33 @@ public class MemberController {
 	}//passwordCheck
 	
 	@RequestMapping( value = "/member_detail", method = RequestMethod.GET )
-	private String member_Detail() {
+	private String member_Detail( String member_email, Model model, HttpSession session, UpdateDTO dto ) {
+		List<UpdateDTO> list = null;
+		list = service.member_updateList(member_email);
+		model.addAttribute("list", list);
+		
 		return "/member/member_detail";//
 	}
 	
 	@RequestMapping( value = "/member_update_form", method = RequestMethod.GET )
-	private String memberForm() {
+	private String memberForm(HttpSession session, String member_email, Model model, UpdateDTO dto) {
+		List<UpdateDTO> list = null;
+		list = service.member_updateList(member_email);
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + list);
+		model.addAttribute("list", list);
 		return "/member/member_update_form";//
 	}
 	
 	@RequestMapping( value = "/member_update", method = RequestMethod.POST )
-	public void memberUpdate( MemberDTO dto, PrintWriter out, UpdateDTO udto, HttpSession session) {
-		
+	public void memberUpdate( MemberDTO dto, PrintWriter out, HttpSession session) {
 		logger.info(dto.toString());
 		int successCount = 0;
+		int successCount1 = 0;
 		successCount = service.update( dto );
+		successCount1 = service.update1( dto );//
 		out.print(successCount);
-		
-		udto = service.udto( dto );// 개인정보 update 후 변경된 회원정보로 login_info session 재생성
-		session.setAttribute("login_info", udto);
 		out.close();
+		
 	}//join
 	
 	

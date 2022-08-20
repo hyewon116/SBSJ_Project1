@@ -38,26 +38,17 @@ public class MemberDAO {
 	}//wish_searchListCount
 
 	public int update( MemberDTO dto ) {
-        int successCount = 0;
-        successCount = sqlSession.update("MemberMapper.member_update", dto);
-        if(successCount < 1) return successCount;
-
-     String id = sqlSession.selectOne("MemberMapper.get_member_id", dto);
-
-       Map<String,Object>map = new HashMap<String,Object>();
-       map.put("member_addr1", dto.getMember_addr1());
-       map.put("member_addr2", dto.getMember_addr2());
-        map.put("member_addr3", dto.getMember_addr3());
-       map.put("member_id", id);
-       successCount = sqlSession.update("MemberMapper.delivery_update", map);
-        return successCount;
-    }
+       int successCount = 0;
+       successCount = sqlSession.update("MemberMapper.member_update", dto);
+       return successCount;
+	}//update
 	
-	public UpdateDTO udto( MemberDTO dto ) {
-		UpdateDTO udto = null;
-		udto = sqlSession.selectOne("MemberMapper.update_dto", dto);
-		return udto;
-	}//login
+	public int update1( MemberDTO dto ) {
+		int successCount1 = 0;
+		successCount1 = sqlSession.update("MemberMapper.delivery_update", dto);
+		return successCount1;
+	}//update
+
 	
 	
 	public int passwordCheck( MemberDTO dto ) {
@@ -80,6 +71,12 @@ public class MemberDAO {
 		int isYN = 0;
 		isYN = sqlSession.selectOne("MemberMapper.phoneCheck", member_phone );
 		return isYN;
+	}
+
+	public List<UpdateDTO> member_updateList(String member_email) {
+		List<UpdateDTO> list = null;
+		list = sqlSession.selectList( "MemberMapper.member_updateList", member_email );
+		return list;
 	}
 	
 }//JoinDAO
