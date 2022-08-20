@@ -22,19 +22,6 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="kr.co.sbsj." />
-	<interceptors>
-      <interceptor>
-         <mapping path="/admin/*"/>
-         <mapping path="/cart/*"/>
-         <mapping path="/history/*"/>
-         <mapping path="/mdquestion/*"/>
-         <mapping path="/mdreview/*"/>
-         <mapping path="/order/*"/>
-         <mapping path="/md/write_form"/>
-         
-         <beans:bean class="kr.co.sbsj.login.LoginCheckInterceptor" />
-      </interceptor>
-   </interceptors>
 	
 	
 	
