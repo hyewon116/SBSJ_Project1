@@ -13,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.google.gson.Gson;
+
 import kr.co.sbsj.util.dto.MemberDTO;
 
 @Controller
@@ -45,12 +47,14 @@ public class DeliveryController {
 	}//insert
 
 	@RequestMapping(value = "/form", method = RequestMethod.GET)
-	public String form( Model model, HttpSession session ) {
-		List<DeliveryDTO> list = null;
-		list = service.list( ( (MemberDTO) session.getAttribute("login_info") ).getMember_id() );
-		model.addAttribute("list", list);
-		return "delivery/form";//jsp file name
-	}//form
+    public String form( String [] arr_cart_id, Model model, HttpSession session ) {
+        List<DeliveryDTO> list = null;
+        list = service.list( ( (MemberDTO) session.getAttribute("login_info") ).getMember_id() );
+        model.addAttribute("list", list);
+
+        model.addAttribute( "arr_cart_id", new Gson().toJson( arr_cart_id ) );
+        return "delivery/form";//jsp file name
+    }//form
 	@RequestMapping(value = "/form2", method = RequestMethod.GET)
 	public String form2( Model model, HttpSession session ) {
 		List<DeliveryDTO> list = null;

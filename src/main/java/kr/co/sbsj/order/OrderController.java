@@ -57,6 +57,7 @@ public class OrderController {
 
 	@RequestMapping( value = "/order_list", method = RequestMethod.GET )
 	public String orderList( String [] arr_cart_id, MdDTO dto, Model model, HttpSession session ) {
+		dto.setMember_id( ( (MemberDTO) session.getAttribute("login_info") ).getMember_id() );
 		List<MdDTO> list = null;
 		if(arr_cart_id != null && arr_cart_id.length > 0) {//장바구니 -> 주문 목록
 			list = service.orderList( arr_cart_id );

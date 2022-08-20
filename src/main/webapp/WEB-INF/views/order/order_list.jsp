@@ -85,7 +85,7 @@
 				<table class="table table-hover table-borderless">
 					<tr>
 						<td>
-							<a href="${pageContext.request.contextPath}/delivery/form">
+							<a href="javascript:void(0);" onclick="goAddDelivery();">
 								<button type="button" class="btn btn-primary btn-sm">
 									배 송 지 추 가
 								</button>
@@ -355,20 +355,6 @@
                             });//click
                         });//ready
                     </script>
-	<script type="text/javascript">
-	let arr_cart_id = ${arr_cart_id};
-	let str_cart_id = "";
-	$.each( ${arr_cart_id}, function(idx, str) {
-		//alert(idx + " : " + str);
-		if(idx == 0){
-			str_cart_id = str_cart_id + str;
-		} else {
-			str_cart_id = str_cart_id + "," + str;
-		}
-	});//each
-	let buy_now_md_id = "${list[0].md_id}";
-	let buy_now_qty = "${list[0].buy_qty}";
-	</script>
 
 	<script type="text/javascript">
 	$(document).ready(function() {
@@ -403,6 +389,22 @@
 
 		});//click
 	});//ready
+	let arr_cart_id = ${arr_cart_id};
+	let str_cart_id = "";
+	$.each( ${arr_cart_id}, function(idx, str) {
+		//alert(idx + " : " + str);
+		if(idx == 0){
+			str_cart_id = str_cart_id + str;
+		} else {
+			str_cart_id = str_cart_id + "," + str;
+		}
+	});//each
+	let buy_now_md_id = "${list[0].md_id}";
+	let buy_now_qty = "${list[0].buy_qty}";
+	function goAddDelivery() {
+		location.href="${pageContext.request.contextPath}/delivery/form?arr_cart_id="+str_cart_id;
+				
+	}
 	</script>
 
 

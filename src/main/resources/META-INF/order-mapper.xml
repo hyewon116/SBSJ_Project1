@@ -71,6 +71,7 @@
 			, md.md_thumbnail_name, md.md_thumbnail_path, md.md_detail_name, md.md_detail_path
 	from md md, member m
 	where md.md_id = #{md_id}
+	and m.member_id = #{member_id}
 	
 	</select>
 

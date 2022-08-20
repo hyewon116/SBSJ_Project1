@@ -35,7 +35,7 @@
 	<%@ include file="/WEB-INF/views/headerMain.jsp" %>
 		<hr>
 		<h3> 배 송 지 추 가 </h3>
-		<button type="button"  onclick="location.href='${pageContext.request.contextPath}/order/order_list'">주문페이지 바로가기</button> 
+		<button type="button"  id="order_btn">주문페이지 바로가기</button> 
 		<hr>
 		<div class="row">
 			<div class="col-6">
@@ -107,7 +107,14 @@
 		</div>
 		<hr>
 <%-- 	<%@ include file="/WEB-INF/views/footer.jsp" %> --%>
-
+	 <script type="text/javascript">
+	 let arr_cart_id = ${arr_cart_id};
+                        $(document).ready(function () {
+                            $("#order_btn").click(function () {
+                           		location.href = "${pageContext.request.contextPath}/order/order_list?arr_cart_id=" + arr_cart_id;
+                            });//click
+                        });//ready
+                    	</script>
 	<script type="text/javascript">
 	$(document).ready(function() {
 		$(".addr_delete_btn").click(function() {
