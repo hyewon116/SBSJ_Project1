@@ -66,10 +66,11 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
           <li class="nav-item dropdown dmenu">
-            <a class="nav-link dropdown-toggle" href="/md/list" id="navbardrop" data-toggle="dropdown">
+            <a class="nav-link dropdown-toggle" href="${pageContext.request.contextPath}/md/list/" id="navbardrop" data-toggle="dropdown">
             	   전체상품
             </a>
             <div class="dropdown-menu sm-menu">
+           	  <a class="dropdown-item" href="${pageContext.request.contextPath}/md/list">전체상품</a>
               <a class="dropdown-item" href="${pageContext.request.contextPath}/md/list_cate?md_category=탁주">탁주</a>
               <a class="dropdown-item" href="${pageContext.request.contextPath}/md/list_cate?md_category=약·청주">약·청주</a>
               <a class="dropdown-item" href="${pageContext.request.contextPath}/md/list_cate?md_category=과실주">과실주</a>
