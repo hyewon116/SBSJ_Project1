@@ -59,15 +59,15 @@
 
 <div class="navScroll">
  <nav class="navbar navbar-expand-lg   navbar-light bg-white" id="navi">
-<!--         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
-        </button> -->
+        </button>
 
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
           <li class="nav-item dropdown dmenu">
             <a class="nav-link dropdown-toggle" href="/md/list" id="navbardrop" data-toggle="dropdown">
-               전체상품
+            	   전체상품
             </a>
             <div class="dropdown-menu sm-menu">
               <a class="dropdown-item" href="${pageContext.request.contextPath}/md/list_cate?md_category=탁주">탁주</a>
@@ -91,7 +91,7 @@
           </li>
           <li class="nav-item dropdown dmenu">
             <a class="nav-link dropdown-toggle" href="/md/list" id="navbardrop" data-toggle="dropdown">
-              커뮤니티
+           		   커뮤니티
             </a>
             <div class="dropdown-menu sm-menu">
               <a class="dropdown-item" href="/md/search?search=공지사항">공지사항</a>
@@ -118,5 +118,24 @@
 
 </div>
 </nav>
+<script>
+$(document).ready(function () {
+$('.navbar-light .dmenu').hover(function () {
+        $(this).find('.sm-menu').first().stop(true, true).slideDown(150);
+    }, function () {
+        $(this).find('.sm-menu').first().stop(true, true).slideUp(105)
+    });
+});
+</script>
+
+<script>
+$(document).ready(function () {
+$('.navbar-light .dmenu').hover(function () {
+        $(this).find('.sm-menu').first().stop(true, true).slideDown(150);
+    }, function () {
+        $(this).find('.sm-menu').first().stop(true, true).slideUp(105)
+    });
+});
+</script>
 
 </html>
