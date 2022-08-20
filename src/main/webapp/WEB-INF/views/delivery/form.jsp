@@ -107,14 +107,20 @@
 		</div>
 		<hr>
 <%-- 	<%@ include file="/WEB-INF/views/footer.jsp" %> --%>
-	 <script type="text/javascript">
-	 let arr_cart_id = ${arr_cart_id};
-                        $(document).ready(function () {
-                            $("#order_btn").click(function () {
-                           		location.href = "${pageContext.request.contextPath}/order/order_list?arr_cart_id=" + arr_cart_id;
-                            });//click
-                        });//ready
-                    	</script>
+	               <script type="text/javascript">
+                     let arr_cart_id = ${ arr_cart_id };
+                  let buy_now_md_id = ${ md_id };
+                  let buy_now_qty = ${ buy_qty };
+                  $(document).ready(function () {
+                     $("#order_btn").click(function () {
+                        if(arr_cart_id[0] == "0") {   // 즉시 구매
+                           location.href = "${pageContext.request.contextPath}/order/order_list?md_id=" + buy_now_md_id + "&buy_qty=" + buy_now_qty;
+                        } else {
+                           location.href = "${pageContext.request.contextPath}/order/order_list?arr_cart_id=" + arr_cart_id;
+                        }
+                     });//click
+                  });//ready
+               </script>
 	<script type="text/javascript">
 	$(document).ready(function() {
 		$(".addr_delete_btn").click(function() {

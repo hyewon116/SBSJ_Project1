@@ -47,12 +47,25 @@ public class DeliveryController {
 	}//insert
 
 	@RequestMapping(value = "/form", method = RequestMethod.GET)
-    public String form( String [] arr_cart_id, Model model, HttpSession session ) {
+    public String form( String [] arr_cart_id,String [] md_id,String [] buy_qty, Model model, HttpSession session ) {
         List<DeliveryDTO> list = null;
         list = service.list( ( (MemberDTO) session.getAttribute("login_info") ).getMember_id() );
         model.addAttribute("list", list);
-
-        model.addAttribute( "arr_cart_id", new Gson().toJson( arr_cart_id ) );
+        if(arr_cart_id == null) {
+            arr_cart_id = new String[1];
+            arr_cart_id[0] = "0";
+         }
+        if(md_id == null) {
+        	md_id = new String[1];
+        	md_id[0] = "0";
+         }
+        if(buy_qty == null) {
+        	buy_qty = new String[1];
+        	buy_qty[0] = "0";
+         }
+        model.addAttribute( "arr_cart_id", new Gson().toJson(arr_cart_id) );
+        model.addAttribute( "md_id",  new Gson().toJson(md_id) );
+        model.addAttribute( "buy_qty",  new Gson().toJson(buy_qty) );
         return "delivery/form";//jsp file name
     }//form
 	@RequestMapping(value = "/form2", method = RequestMethod.GET)

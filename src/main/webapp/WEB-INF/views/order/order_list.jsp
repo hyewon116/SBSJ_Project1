@@ -197,7 +197,7 @@
 
 				<!-- Modal footer -->
 				<div class="modal-footer">
-					<a href="${pageContext.request.contextPath}/delivery/form">
+					<a href="javascript:void(0);" onclick="goAddDelivery();">
 						<button type="button" class="btn btn-primary btn-sm">
 							배 송 지 추 가
 						</button>
@@ -401,10 +401,13 @@
 	});//each
 	let buy_now_md_id = "${list[0].md_id}";
 	let buy_now_qty = "${list[0].buy_qty}";
-	function goAddDelivery() {
-		location.href="${pageContext.request.contextPath}/delivery/form?arr_cart_id="+str_cart_id;
-				
-	}
+    function goAddDelivery() {
+        if(arr_cart_id.length > 0 && arr_cart_id[0] == "0") {   // 즉구
+           location.href = "${pageContext.request.contextPath}/delivery/form?md_id=" + buy_now_md_id + "&buy_qty=" + buy_now_qty;
+        } else {   // 장바구니
+           location.href = "${pageContext.request.contextPath}/delivery/form?arr_cart_id=" + str_cart_id;
+        }
+     }
 	</script>
 
 
