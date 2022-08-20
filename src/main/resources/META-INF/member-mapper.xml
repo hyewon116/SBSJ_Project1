@@ -5,6 +5,102 @@
 
 <mapper namespace="MemberMapper">
 
+	<delete id="questionDelete">
+		delete from md_question
+		where md_question_id = #{md_question_id}
+	</delete>
+
+	<select id="question_detail" parameterType="java.lang.String" resultType="kr.co.sbsj.mdquestion.MdQuestionDTO">
+		select md_question_id, md_id, member_id, member_nick, md_question_title,  
+		md_question_content, md_question_date, md_question_answer, md_question_type, 
+		md_answer_id, md_answer_member, md_answer_content, md_answer_date
+    	from md_question
+		where md_question_id = #{md_question_id} 
+	</select>
+
+	<select id="searchQuestionCount" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="int">
+		select count(q.md_question_id) cnt
+		from md_question q, md m
+		where q.member_id = #{member_id}
+		
+		<if test="searchOption1 != null and searchOption1 != ''">
+			<choose>
+				<when test="searchOption1 == 'md_name'">
+				and q.md_id = m.md_id and  m.md_name like concat('%', #{searchWord1}, '%')
+				</when>
+			</choose>
+		</if>
+	</select>
+	
+	<select id="searchQuestion" parameterType="kr.co.sbsj.util.dto.SearchDTO"
+			resultType="kr.co.sbsj.mdquestion.MdQuestionDTO">
+		select q.md_question_id, q.md_id, q.member_id, q.member_nick, q.md_question_title,  
+		q.md_question_content, q.md_question_date, q.md_question_answer, q.md_question_type, 
+		q.md_answer_id, q.md_answer_member, q.md_answer_content, q.md_answer_date,
+		m.md_name, m.md_thumbnail_path
+    	from md_question q, md m
+    	where q.md_id = m.md_id and q.member_id = #{member_id}
+		<if test="searchOption1 != null and searchOption1 != ''">
+			<choose>
+				<when test="searchOption1 == 'md_name'">
+					and m.md_name like concat('%', #{searchWord1}, '%')
+				</when>
+			</choose>
+		</if>
+		order by md_question_id desc
+		limit #{limitNum}, 10
+	</select>
+
+	<delete id="reviewDelete">
+		delete from review
+		where review_id=#{no}
+	</delete>
+
+	<select id="review_detail" parameterType="java.lang.String" resultType="kr.co.sbsj.mdreview.MdReviewDTO">
+		select review_id, md_id, member_id, member_nick, review_title, review_content, review_date, review_star
+    	from review
+		where review_id = #{review_id} 
+	</select>
+
+	<select id="searchReviewCount" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="int">
+		select count(r.md_id) cnt
+		from review r, md m
+		where r.member_id = #{member_id}
+		
+		<if test="searchOption1 != null and searchOption1 != ''
+					and searchWord1 != null and searchWord1 !=''">
+			<choose>
+				<when test="searchOption1 == 'md_name'">
+				and r.md_id = m.md_id and  m.md_name like concat('%', #{searchWord1}, '%')
+				</when>
+				<when test="searchOption1 == 'review_star'">
+				and r.md_id = m.md_id and  r.review_star like concat('%', #{searchWord1}, '%')
+				</when>
+			</choose>
+		</if>
+	</select>
+	
+	<select id="selectReview" parameterType="kr.co.sbsj.util.dto.SearchDTO"
+			resultType="kr.co.sbsj.admin.AdminReviewDTO">
+		select r.review_id, r.md_id, r.member_nick, r.order_detail_id,  r.review_title, r.review_content, r.review_date, review_star
+		, r.review_enable, m.md_name, m.md_thumbnail_path
+    	from review r, md m
+    	where r.md_id = m.md_id and r.member_id = #{member_id}
+		<if test="searchOption1 != null and searchOption1 != ''
+					and searchWord1 != null and searchWord1 !=''">
+			<choose>
+				<when test="searchOption1 == 'md_name'">
+					and m.md_name like concat('%', #{searchWord1}, '%')
+				</when>
+				<when test="searchOption1 == 'review_star'">
+					and r.review_star like concat('%', #{searchWord1}, '%')
+				</when>
+			</choose>
+		</if>
+		order by review_id desc
+		limit #{limitNum}, 10
+	</select>
+
 	<delete id="wish_delete">
 	delete from wish
 	where wish_id=#{no}

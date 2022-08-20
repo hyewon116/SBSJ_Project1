@@ -20,21 +20,17 @@
 </head>
 
 <!--  aside 시작 -->	
-					
-					
-					
+
 					<ul id="myMenu">
 					  <li ><h1>My Page</h1></li>
 					  <li><a href="${pageContext.request.contextPath}/history/my_order_list">주문내역</a></li>
 					  <li><a href="${pageContext.request.contextPath}/member/member_wish_list">찜한 상품</a></li>
 					  <li><a href="${pageContext.request.contextPath}/delivery/form2">배송지 관리</a></li>
 					  <li><a href="#">쿠폰</a></li>
-					  <li><a href="#">상품문의</a></li>
-					  <li><a href="#">상품후기</a></li>
-					   <li><a href="${pageContext.request.contextPath}/member/member_before_detail">개인정보 수정</a></li>
+					  <li><a href="${pageContext.request.contextPath}/member/member_question_list">상품문의</a></li>
+					  <li><a href="${pageContext.request.contextPath}/member/member_review_list">상품후기</a></li>
+					  <li><a href="${pageContext.request.contextPath}/member/member_before_detail">개인정보 수정</a></li>
 					</ul>
 				
-				
-				
-				
+
 			<!--  aside 끝 -->	

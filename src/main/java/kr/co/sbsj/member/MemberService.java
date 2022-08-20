@@ -5,7 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.sbsj.admin.AdminReviewDTO;
 import kr.co.sbsj.md.MdDTO;
+import kr.co.sbsj.mdquestion.MdQuestionDTO;
+import kr.co.sbsj.mdreview.MdReviewDTO;
 import kr.co.sbsj.util.dto.MemberDTO;
 import kr.co.sbsj.util.dto.Naver_MemberDTO;
 import kr.co.sbsj.util.dto.SearchDTO;
@@ -16,6 +19,50 @@ public class MemberService {
 
 	@Autowired
 	private MemberDAO dao;
+	
+	public void questionDelete(String no) {
+		dao.questionDelete(no);
+	}//questionDelete
+	
+	public MdQuestionDTO question_detail(String review_id) {
+		MdQuestionDTO dto = null;
+		dto = dao.question_detail( review_id );
+		return dto;
+	}//question_detail
+	
+	public int searchQuestionCount( SearchDTO dto ) {
+		int totalCount = 0;
+		totalCount = dao.searchQuestionCount( dto );
+		return totalCount;
+	}//searchQuestionCount
+	
+	public List<MdQuestionDTO> searchQuestion( SearchDTO dto ) {
+		List<MdQuestionDTO> list = null;
+		list = dao.searchQuestion( dto );
+		return list;
+	}//searchQuestion
+	
+	public void reviewDelete(String no) {
+		dao.reviewDelete(no);
+	}//reviewDelete
+	
+	public MdReviewDTO review_detail(String review_id) {
+		MdReviewDTO dto = null;
+		dto = dao.review_detail( review_id );
+		return dto;
+	}//review_detail
+	
+	public int searchReviewCount( SearchDTO dto ) {
+		int totalCount = 0;
+		totalCount = dao.searchReviewCount( dto );
+		return totalCount;
+	}//searchReviewCount
+	
+	public List<AdminReviewDTO> searchReview( SearchDTO dto ) {
+		List<AdminReviewDTO> list = null;
+		list = dao.searchReview( dto );
+		return list;
+	}//searchReview
 	
 	public void wish_delete(String no) {
 		dao.wish_delete(no);
@@ -77,6 +124,7 @@ public class MemberService {
 		list = dao.member_updateList( member_email );
 		return list;
 	}
+
 
 	
 }//class

@@ -14,6 +14,7 @@ public class MdReviewDTO {
 	private String review_star;
 	private String userWantPage;
 	
+	
 	@Override
 	public String toString() {
 		return review_id + ":" + md_id + ":" + member_id + ":" + review_title + ":" + review_content;

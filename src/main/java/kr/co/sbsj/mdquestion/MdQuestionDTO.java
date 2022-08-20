@@ -15,6 +15,8 @@ public class MdQuestionDTO {
 	private String md_answer_member;
 	private String md_answer_content;
 	private String md_answer_date;
+	private String md_name;
+	private String md_thumbnail_path;
 	
 
 	public String getMd_id() {
@@ -95,5 +97,18 @@ public class MdQuestionDTO {
 	public void setMd_answer_date(String md_answer_date) {
 		this.md_answer_date = md_answer_date;
 	}
+	public String getMd_name() {
+		return md_name;
+	}
+	public void setMd_name(String md_name) {
+		this.md_name = md_name;
+	}
+	public String getMd_thumbnail_path() {
+		return md_thumbnail_path;
+	}
+	public void setMd_thumbnail_path(String md_thumbnail_path) {
+		this.md_thumbnail_path = md_thumbnail_path;
+	}
+	
 	
 }

@@ -5,8 +5,6 @@
 <%@ page import="java.security.SecureRandom" %>
 <%@ page import="java.math.BigInteger" %>
 
-
-
 <!DOCTYPE html>
 	<html>
 		<title>상부상酒  |  로그인</title>

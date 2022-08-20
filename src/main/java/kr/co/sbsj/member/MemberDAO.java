@@ -8,7 +8,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.sbsj.admin.AdminReviewDTO;
 import kr.co.sbsj.md.MdDTO;
+import kr.co.sbsj.mdquestion.MdQuestionDTO;
+import kr.co.sbsj.mdreview.MdReviewDTO;
 import kr.co.sbsj.util.dto.MemberDTO;
 import kr.co.sbsj.util.dto.Naver_MemberDTO;
 import kr.co.sbsj.util.dto.SearchDTO;
@@ -20,7 +23,50 @@ public class MemberDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	public void questionDelete( String no ) {
+		sqlSession.delete("MemberMapper.questionDelete", no);
+	}//questionDelete
 	
+	public MdQuestionDTO question_detail( String review_id ) {
+		MdQuestionDTO dto = null;
+		dto = sqlSession.selectOne("MemberMapper.question_detail", review_id);
+		return dto;
+	}//question_detail - 상품문의 디테일
+	
+	public int searchQuestionCount( SearchDTO dto ) {
+		int totalCount = 0;
+		totalCount = sqlSession.selectOne("MemberMapper.searchQuestionCount", dto);
+		return totalCount;
+	}//searchQuestionCount - 상품문의 리스트
+	
+	public List<MdQuestionDTO> searchQuestion( SearchDTO dto ) {
+		List<MdQuestionDTO> list = null;
+		list = sqlSession.selectList("MemberMapper.searchQuestion", dto);
+		return list;
+	}//searchQuestion - 상품문의 리스트
+	
+	public void reviewDelete( String no ) {
+		sqlSession.delete("MemberMapper.reviewDelete", no);
+	}//reviewDelete
+	
+	public MdReviewDTO review_detail( String review_id ) {
+		MdReviewDTO dto = null;
+		dto = sqlSession.selectOne("MemberMapper.review_detail", review_id);
+		return dto;
+	}//review_detail - 상품후기 디테일
+	
+	public int searchReviewCount( SearchDTO dto ) {
+		int totalCount = 0;
+		totalCount = sqlSession.selectOne("MemberMapper.searchReviewCount", dto);
+		return totalCount;
+	}//searchReviewCount - 상품후기 리스트
+	
+	public List<AdminReviewDTO> searchReview( SearchDTO dto ) {
+		 List<AdminReviewDTO> list = null;
+		list = sqlSession.selectList("MemberMapper.selectReview", dto);
+		return list;
+	}//searchReview - 상품후기 리스트
+
 	public void wish_delete( String no ) {
 		sqlSession.delete("MemberMapper.wish_delete", no);
 	}//wish_delete

@@ -14,7 +14,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import kr.co.sbsj.admin.AdminReviewDTO;
 import kr.co.sbsj.md.MdDTO;
+import kr.co.sbsj.mdquestion.MdQuestionDTO;
+import kr.co.sbsj.mdreview.MdReviewDTO;
 import kr.co.sbsj.util.dto.MemberDTO;
 import kr.co.sbsj.util.dto.SearchDTO;
 import kr.co.sbsj.util.dto.UpdateDTO;
@@ -29,7 +32,150 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService service;
+	
+	//내 상품 문의 삭제
+	@RequestMapping( value = "/question_delete")
+	private String questionDelete(HttpServletRequest request) {
+			
+		String[] ajaxMsg = request.getParameterValues("valueArr");
+		int size = ajaxMsg.length;
+		for(int i=0; i<size; i++) {
+			service.questionDelete(ajaxMsg[i]);
+		}
+			
+		return "/member/member_question_list";
+	}//questionDelete
+		
+	//내 상품 문의 디테일
+	@RequestMapping( value = "/question_detail", method = RequestMethod.GET )
+	public String question_detail( String md_question_id, Model model, MemberDTO mdto ) {
+		MdQuestionDTO dto = null;
+		dto = service.question_detail( md_question_id );
+		model.addAttribute("detail_dto", dto);
+		model.addAttribute("review_id", md_question_id); //수정&삭제 때 보낼 review_id 정보
+		return "member/member_question_detail";//jsp file name
+	}//question_detail
+		
+	//내 상품 문의 리스트
+	@RequestMapping( value = "/member_question_list", method = RequestMethod.GET )
+	public String questionList( Model model, String userWantPage, SearchDTO dto, HttpSession session ) {
+			
+		MemberDTO mdto = (MemberDTO) session.getAttribute("login_info");
+		String member_id = mdto.getMember_id();
+		dto.setMember_id(member_id);
+			
+		if( userWantPage == null || userWantPage.equals("") ) userWantPage = "1";
+		int totalCount = 0, startPageNum = 1, endPageNum = 10, lastPageNum = 1;
+		totalCount = service.searchQuestionCount( dto );
+			
+		if(totalCount > 10) {
+			lastPageNum = (totalCount / 10) + (totalCount % 10 > 0 ? 1 : 0);
+		}//if
 
+		if(userWantPage.length() >= 2) { 
+			String frontNum = userWantPage.substring(0, userWantPage.length() - 1);
+			startPageNum = Integer.parseInt(frontNum) * 10 + 1;
+			endPageNum = ( Integer.parseInt(frontNum) + 1 ) * 10;
+				
+			String backNum = userWantPage.substring(userWantPage.length() - 1, userWantPage.length());
+			if(backNum.equals("0")) {
+				startPageNum = startPageNum - 10;
+				endPageNum = endPageNum - 10;
+			}//if
+		}//if
+
+		if(endPageNum > lastPageNum) endPageNum = lastPageNum;
+
+		model.addAttribute("startPageNum", startPageNum);
+		model.addAttribute("endPageNum", endPageNum);
+		model.addAttribute("lastPageNum", lastPageNum);
+		model.addAttribute("userWantPage", userWantPage);
+
+		dto.setLimitNum( ( Integer.parseInt(userWantPage) - 1 ) * 10  );
+
+		List<MdQuestionDTO> list = null;
+		list = service.searchQuestion( dto );
+		System.out.println("===========================================================");
+		System.out.println(list.toString());
+		System.out.println("===========================================================");
+		model.addAttribute("list", list); 
+		model.addAttribute("search_dto", dto);
+			 
+		return "/member/member_question_list";//jsp file name
+	}//questionList
+		
+	
+	//내 상품 후기 삭제
+	@RequestMapping( value = "/review_delete")
+	private String reviewDelete(HttpServletRequest request) {
+		
+		String[] ajaxMsg = request.getParameterValues("valueArr");
+		int size = ajaxMsg.length;
+		for(int i=0; i<size; i++) {
+			service.reviewDelete(ajaxMsg[i]);
+		}
+		
+		return "/member/member_review_list";
+	}//review_delete
+	
+	//내 상품 후기 디테일
+	@RequestMapping( value = "/review_detail", method = RequestMethod.GET )
+	public String review_detail( String review_id, Model model, MemberDTO mdto ) {
+		MdReviewDTO dto = null;
+		dto = service.review_detail( review_id );
+		model.addAttribute("detail_dto", dto);
+		model.addAttribute("review_id", review_id); //수정&삭제 때 보낼 review_id 정보
+		return "member/member_review_detail";//jsp file name
+	}//detail
+
+	//내 상품 후기 리스트
+	@RequestMapping( value = "/member_review_list", method = RequestMethod.GET )
+	public String reviewList( Model model, String userWantPage, SearchDTO dto, HttpSession session ) {
+		
+		MemberDTO mdto = (MemberDTO) session.getAttribute("login_info");
+		String member_id = mdto.getMember_id();
+		dto.setMember_id(member_id);
+		
+		if( userWantPage == null || userWantPage.equals("") ) userWantPage = "1";
+		int totalCount = 0, startPageNum = 1, endPageNum = 10, lastPageNum = 1;
+		totalCount = service.searchReviewCount( dto );
+		
+		if(totalCount > 10) {
+			lastPageNum = (totalCount / 10) + (totalCount % 10 > 0 ? 1 : 0);
+		}//if
+
+		if(userWantPage.length() >= 2) { 
+			String frontNum = userWantPage.substring(0, userWantPage.length() - 1);
+			startPageNum = Integer.parseInt(frontNum) * 10 + 1;
+			endPageNum = ( Integer.parseInt(frontNum) + 1 ) * 10;
+			
+			String backNum = userWantPage.substring(userWantPage.length() - 1, userWantPage.length());
+			if(backNum.equals("0")) {
+				startPageNum = startPageNum - 10;
+				endPageNum = endPageNum - 10;
+			}//if
+		}//if
+
+		if(endPageNum > lastPageNum) endPageNum = lastPageNum;
+
+		model.addAttribute("startPageNum", startPageNum);
+		model.addAttribute("endPageNum", endPageNum);
+		model.addAttribute("lastPageNum", lastPageNum);
+		model.addAttribute("userWantPage", userWantPage);
+
+		dto.setLimitNum( ( Integer.parseInt(userWantPage) - 1 ) * 10  );
+
+		List<AdminReviewDTO> list = null;
+		list = service.searchReview( dto );
+		System.out.println("===========================================================");
+		System.out.println(list.toString());
+		System.out.println("===========================================================");
+		model.addAttribute("list", list); 
+		model.addAttribute("search_dto", dto);
+		 
+		return "/member/member_review_list";//jsp file name
+	}//member_review_list
+	
 	
 	//찜 목록 삭제
 	@RequestMapping( value = "/wish_delete")
@@ -81,7 +227,7 @@ public class MemberController {
 		
 		dto.setMember_id( ( (MemberDTO) session.getAttribute("login_info") ).getMember_id() );
 		dto.setLimitNum( ( Integer.parseInt(userWantPage) - 1 ) * 10  );
-
+		
 		List<MdDTO> list = null;
 		list = service.wish_searchList( dto );
 		System.out.println(list);
