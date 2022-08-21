@@ -26,12 +26,7 @@ public class QnaController {
 		out.print(successCount);
 		out.close();
 	}//update
-	
-	/*
-	 * @RequestMapping( value = "/rform", method = RequestMethod.POST ) public void
-	 * replyUpdate(QnaDTO dto, PrintWriter out) { int successCount = 0; successCount
-	 * = service.replyUpdate(dto); out.print(successCount); out.close(); }//update
-	 */	
+
 	@RequestMapping( value = "/rform", method = RequestMethod.GET )
 	public String rform (String qa_question_id, Model model) {
 		QnaDTO dto = null;
