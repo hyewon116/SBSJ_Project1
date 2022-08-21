@@ -47,6 +47,15 @@
          border-spacing: 2px;
          text-align: center;
 	  }
+	  #category th {
+	  	 padding-left: 20px; 
+         padding-right: 20px;
+         color: crimson;
+	  }
+	  #category td {
+         padding-top: 20px;
+ 		 font-weight: bold;
+	  }
 	
       </style>
    
@@ -119,19 +128,19 @@
       </div>	
  	     	<table id="category">
 	      		<tr>
-	               <th> 주 종  : ${detail_dto.md_category} </th>
+	               <th>주종</th> <th>|</th> <th>도수</th> <th>|</th> <th>단맛</th> <th>|</th> 
+	               <th>신맛</th> <th>|</th> <th>탄산</th>
 	            </tr>
 	            <tr>
-	            	<th> 도 수 : ${detail_dto.md_abv} % </th>
-	            </tr>
-	            <tr>
-	               <th> 단 맛 : ${detail_dto.md_sweet} </th>
-	            </tr>   
-	            <tr>
-	               <th> 신 맛 : ${detail_dto.md_sour}</th>
-	            </tr>
-	            <tr>
-	               <th> 탄 산 : ${detail_dto.md_sparkling}</th>
+	            	<td> ${detail_dto.md_category}</td>
+	            	<td></td>
+	            	<td> ${detail_dto.md_abv} % </td>
+	            	<td></td>
+	            	<td> ${detail_dto.md_sweet} </td>
+	            	<td></td>
+	            	<td> ${detail_dto.md_sour} </td>
+	            	<td></td>
+	            	<td> ${detail_dto.md_sparkling} </td>
 	            </tr>
             </table><br><br>
          
