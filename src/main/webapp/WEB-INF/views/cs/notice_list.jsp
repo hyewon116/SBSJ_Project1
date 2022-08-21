@@ -71,13 +71,17 @@
 		</tbody>
 	</table>
 	
-	<!-- 작성 버튼 -->
-			<div>
-				<a href="${pageContext.request.contextPath}/notice/write_form" class="clearfix">
-					<button type="button" class="btn btn-info float-right"> 작성 하기 </button>
-				</a>
-			</div>
-			
+
+	<!-- 작성 버튼 : 관리자만 보임 -->
+			<c:if test="${login_info.admin_yn eq 'Y'}"> 
+				<div class="float-right">
+					<c:if test="${login_info.admin_yn eq 'Y'}"> 
+						<a href="${pageContext.request.contextPath}/notice/write_form" class="clearfix">
+						<button type="button" class="btn btn-info float-right"> 작성 하기 </button>
+						</a>
+					</c:if>
+				</div>
+			</c:if>
 	<!-- 페이징 -->
 			<div>
 				<ul class="pagination">
