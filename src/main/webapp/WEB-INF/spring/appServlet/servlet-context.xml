@@ -23,7 +23,35 @@
 	
 	<context:component-scan base-package="kr.co.sbsj." />
 	
-	
+	<interceptors>
+		
+		<interceptor>
+			<mapping path="/cart/*"/>
+			<mapping path="/delivery/*"/>
+			<mapping path="/history/*"/>
+			<mapping path="/mdquestion/*"/>
+			<mapping path="/mdreview/*"/>
+			<mapping path="/member/*"/>
+			<mapping path="/order/*"/>
+			<exclude-mapping path="/md/list_cate*"/>
+			<beans:bean class="kr.co.sbsj.login.LoginCheckInterceptor_member" />
+		</interceptor>
+		
+		<interceptor>
+			<mapping path="/admin/*"/>
+			<mapping path="/md/write_form"/>
+			
+			<exclude-mapping path="/cart/*"/>
+			<exclude-mapping path="/delivery/*"/>
+			<exclude-mapping path="/history/*"/>
+			<exclude-mapping path="/mdquestion/*"/>
+			<exclude-mapping path="/mdreview/*"/>
+			<exclude-mapping path="/member/*"/>
+			<exclude-mapping path="/order/*"/>
+			<beans:bean class="kr.co.sbsj.login.LoginCheckInterceptor_admin" />
+		</interceptor>
+		
+	</interceptors>
 	
 	
 	<!-- file upload -->

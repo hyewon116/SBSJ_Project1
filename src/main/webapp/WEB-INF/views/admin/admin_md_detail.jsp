@@ -84,7 +84,7 @@
 			<!-- nav 끝 -->
 			<main class="clearfix mt-1" style="height:500px">
 				<!--  aside 시작 -->	
-				<aside class="col-3 h-100 bg-white float-left">
+				<aside class="col-2 h-100 bg-white float-left">
 					
 					
 				<jsp:include page="/WEB-INF/views/admin/admin_aside.jsp"></jsp:include>
@@ -99,7 +99,7 @@
 				
 				
 				<!-- section 시작--------------------------------------------------------------------------------- -->
-				<section class="col-9 h-100 bg-white float-left">
+				<section class="col-10 h-100 bg-white float-left">
 					<h3> 상 품 관 리</h3>
 					  <!-- <hr style="width:100%;height:2px;border:none;background-color:black;"> -->
 					  	

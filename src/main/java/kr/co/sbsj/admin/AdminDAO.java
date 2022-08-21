@@ -6,8 +6,11 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.sbsj.history.HistoryDTO;
 import kr.co.sbsj.md.MdDTO;
+import kr.co.sbsj.util.dto.MemberDTO;
 import kr.co.sbsj.util.dto.SearchDTO;
+import kr.co.sbsj.util.dto.UpdateDTO;
 
 
 
@@ -16,6 +19,30 @@ public class AdminDAO {
 
 	@Autowired
 	private SqlSession sqlSession;
+	
+	
+	
+	public List<HistoryDTO> searchOrderList( SearchDTO dto ) {
+		List<HistoryDTO> list = null;
+		list = sqlSession.selectList("AdminMapper.searchOrderList", dto);
+		return list;
+	}//searchOrderList
+	
+	
+	public int searchOrderListCount( SearchDTO dto ) {
+		int totalCount = 0;
+		totalCount = sqlSession.selectOne("AdminMapper.searchOrderListCount", dto);
+		return totalCount;
+	}//searchOrderListCount
+	
+	
+	public List<MemberDTO> admin_member_updateList(String member_email) {
+		List<MemberDTO> list = null;
+		list = sqlSession.selectList( "AdminMapper.admin_member_updateList", member_email );
+		return list;
+	}//admin_member_updateList
+	
+	
 	
 	
 	public int fileDelete( AdminDTO dto ) {
@@ -51,6 +78,12 @@ public class AdminDAO {
 		totalCount = sqlSession.selectOne("AdminMapper.searchListCount", dto);
 		return totalCount;
 	}//searchListCount
+	
+	public int searchMemberCount( SearchDTO dto ) {
+		int totalCount = 0;
+		totalCount = sqlSession.selectOne("AdminMapper.searchMemberCount", dto);
+		return totalCount;
+	}//searchListCount
 
 
 	public List<AdminReviewDTO> searchReview( SearchDTO dto ) {
@@ -64,6 +97,12 @@ public class AdminDAO {
 		list = sqlSession.selectList("AdminMapper.selectList", dto);
 		return list;
 	}//searchList
+	
+	public List<AdminDTO> selectMemberList( SearchDTO dto ) {
+		List<AdminDTO> list = null;
+		list = sqlSession.selectList("AdminMapper.selectMemberList", dto);
+		return list;
+	}//selectMemberList
 	
 	public void reviewDelete( String no ) {
 		sqlSession.delete("AdminMapper.reviewDelete", no);
@@ -90,6 +129,14 @@ public class AdminDAO {
 	
 	public void onsale(String no) {
 		sqlSession.update("AdminMapper.onsale", no);
+		
+	}
+	public void on_account(String no) {
+		sqlSession.update("AdminMapper.on_account", no);
+		
+	}
+	public void off_account(String no) {
+		sqlSession.update("AdminMapper.off_account", no);
 		
 	}
 	

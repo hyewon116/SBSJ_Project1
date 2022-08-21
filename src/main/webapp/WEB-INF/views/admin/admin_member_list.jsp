@@ -90,34 +90,24 @@
 				
 				<!-- section 시작--------------------------------------------------------------------------------- -->
 				<section class="col-10 h-100 bg-white float-left">
-					<h3> 상 품 후 기 관 리</h3>
+					<h3> 회 원 관 리</h3>
 					  <hr style="width:100%;height:1px;border:none;background-color:black;">
 					  	
 					  	
 					  	
 					  	
 					  	
-					  	
-		<form action="${pageContext.request.contextPath}/admin/admin_review_list" method="get">
+		<!-- 검색창 -->			  	
+		<form action="${pageContext.request.contextPath}/admin/admin_md_list" method="get">
 			<div class="input-group">
 				<div class="input-group-prepend">
 					<select class="form-control" id="searchOption1" name="searchOption1">
-						
-						
-						
 						<option value="md_name"
-							<c:if test="${search_dto.searchOption1 == 'md_name'}">selected="selected"</c:if>
-						> 상 품 이 름 </option>
-						
-						
-						
-						<option value="review_star"
-							<c:if test="${search_dto.searchOption1 == 'review_star'}">selected="selected"</c:if>
-						> 별점 </option>
-						
-						
-						
-						
+							<c:if test="${search_dto.searchOption1 == 'pay_amt'}">selected="selected"</c:if>
+						> 고 민 중 </option>
+						<option value="md_category"
+							<c:if test="${search_dto.searchOption1 == 'order_id'}">selected="selected"</c:if>
+						> 주 문 </option>
 					</select>
 				</div>
 				<input type="text" class="form-control" id="searchWord1" name="searchWord1"
@@ -127,49 +117,54 @@
 				</div>
 			</div>
 		</form>
+		
+		<!-- 리스트  -->
+		
 		<table class="text-center text-capitalize table table-hover">
 			<thead>
 				<tr>
-					<th><input id="allCheck" type="checkbox" name="allCheck"></th><th> 번호 </th> 
-					<th> Image </th> <th> 상품명 </th> <th> 제목 </th> <th> 작성자 </th> 
-					<th> 작성일 </th> <th> 별점 </th> <th> 공개여부 </th>
+					<th><input id="allCheck" type="checkbox" name="allCheck">회 원 번    호 </th> <th> 이름 </th> <th> 닉네임 </th> 
+					<th> 가입일 </th>	<th> 이메일수신동의 </th> <th> SMS수신동의 </th> <th> 구독여부 </th> <th> 구매횟수 </th> <th> 총구매액 </th> <th> 계정활성화 </th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="dto" items="${list}">
 					<tr>
 						<td class="col-1">
-							<input name="RowCheck" type="checkbox" value="${dto.review_id}">
+							<input name="RowCheck" type="checkbox" value="${dto.member_id}">
+							${dto.member_id}
 						</td>
 						<td class="col-1">
-						${dto.review_id}
-						</td>
-					
-						<td class="col-1">
-							<img src="${dto.md_thumbnail_path}" class="img-thumbnail">
+							${dto.member_name}
 						</td>
 						<td class="col-1">
-							${dto.md_name}
-						</td>
-						<td class="col-2">
-							<a href="${pageContext.request.contextPath}/mdreview/detail_admin?review_id=${dto.review_id}">
-							${dto.review_title}
+							<a href="${pageContext.request.contextPath}/admin/admin_member_detail?member_email=${dto.member_email}">
+							${dto.member_nick}	
 							</a>
 						</td>
 						<td class="col-1">
-							${dto.member_nick}님
+							${dto.member_joindate}
 						</td>
 						<td class="col-1">
-							${dto.review_date}
+							${dto.email_agree} 
 						</td>
 						<td class="col-1">
-						
-							<c:set var="star" value="${dto.review_star}" />
-							${ fn:substring(star, 0, star.length()-2) }점
-							
+							${dto.sms_agree}
 						</td>
 						<td class="col-1">
-							${dto.review_enable} 
+							${dto.subs_yn}
+						</td>
+						<td class="col-1">
+							<a href="${pageContext.request.contextPath}/admin/admin_order_list?member_id=${dto.member_id}">
+							${dto.order_id}회
+							</a>
+						</td>
+						<td class="col-1">
+						<fmt:formatNumber type="number" var="priceNum" value="${dto.pay_amt}" />
+							${priceNum}원
+						</td>
+						<td class="col-1">
+							${dto.member_account}
 						</td>
 						
 					</tr>
@@ -178,10 +173,13 @@
 		</table>
 		<hr>
 		<div class="clearfix">
-				<button id="able_btn" class="btn btn-info float-right" onclick="onReview();"> 후 기 공 개 </button>
-				<button id="disable_btn" class="btn btn-warning float-right" onclick="offReview();"> 후 기 비 공 개 </button>
-			
-				<button id="delete_btn" class="btn btn-danger float-left" onclick="deleteReview();"> 후 기 삭 제 </button>
+				<button id="able_btn" class="btn btn-info float-right" onclick="on_account();"> 계정 활성화 </button>
+				<button id="disable_btn" class="btn btn-warning float-right" onclick="off_account();"> 계정 비활성화 </button>
+			<!-- 하단버튼 사용 고민중  -->
+			<%-- <a href="${pageContext.request.contextPath}/md/write_form"><!-- 컨트롤러의 RequestMapping 호출 -->
+				<button id="insert" class="btn btn-primary float-left"> 상 품 등 록 </button>
+			</a>
+				<button id="delete_btn" class="btn btn-danger float-left" onclick="deleteValue();"> 상 품 삭 제 </button> --%>
 		</div>
 		<hr>
 		<ul class="pagination">
@@ -257,8 +255,8 @@
 			});//click
 		});//function
 		
-		function deleteReview(){
-			var url = "${pageContext.request.contextPath}/admin/review_delete"; // Controller로 보내고자하는 URL
+		function deleteValue(){
+			var url = "${pageContext.request.contextPath}/admin/delete"; // Controller로 보내고자하는 URL
 			var valueArr = new Array();
 			var list = $("input[name='RowCheck']");
 			
@@ -269,14 +267,14 @@
 			}
 		
 			if (valueArr.length == 0){
-				alert("선택된 후기가 없습니다.");
+				alert("선택된 상품이 없습니다.");
 			}
 			else{
 				var chk = confirm("정말 삭제하시겠습니까?");
 					if(chk == true) {
 						
 						$.ajax({
-							url : "${pageContext.request.contextPath}/admin/review_delete"//전송 URL
+							url : "${pageContext.request.contextPath}/admin/delete"//전송 URL
 							, type : 'POST' //POST 방식
 							, traditional : true
 							, data : {
@@ -284,25 +282,25 @@
 							},
 							success : function(jdata){
 								if(jdata = 1) {
-									alert("후기 삭제 성공");
-									location.href = "${pageContext.request.contextPath}/admin/admin_review_list";
+									alert("삭제 성공");
+									location.href = "${pageContext.request.contextPath}/admin/admin_md_list";
 								}
 								else {
-									alert("후기 삭제 실패");
+									alert("삭제 실패");
 								}
 							}
 						});
 					
 					} else {
-						alert(" 후기 삭제를 취소하셨습니다.")
+						alert("삭제를 취소하셨습니다.")
 					}
 				
 			}//else
 			
 		}//deleteValue
 		
-		function offReview(){
-			var url = "${pageContext.request.contextPath}/admin/review_off"; // Controller로 보내고자하는 URL
+		function off_account(){
+			var url = "${pageContext.request.contextPath}/admin/off_account"; // Controller로 보내고자하는 URL
 			var valueArr = new Array();
 			var list = $("input[name='RowCheck']");
 			
@@ -313,14 +311,14 @@
 			}
 		
 			if (valueArr.length == 0){
-				alert("선택된 후기가 없습니다.");
+				alert("선택된 계정이 없습니다.");
 			}
 			else{
-				var chk = confirm("정말 후기를 비공개하시겠습니까?");
+				var chk = confirm("정말 계정을 비활성화 하시겠습니까?");
 				if(chk == true) {
 				
 						$.ajax({
-							url : "${pageContext.request.contextPath}/admin/review_off"//전송 URL
+							url : "${pageContext.request.contextPath}/admin/offsale"//전송 URL
 							, type : 'POST' //POST 방식
 							, traditional : true
 							, data : {
@@ -328,17 +326,17 @@
 							},
 							success : function(jdata){
 								if(jdata = 1) {
-									alert("후기 비공개 성공");
-									location.href = "${pageContext.request.contextPath}/admin/admin_review_list";
+									alert("계정 비활성화 성공");
+									location.href = "${pageContext.request.contextPath}/admin/admin_md_list";
 								}
 								else {
-									alert("후기 비공개 실패");
+									alert("계정 비활성화 성공");
 								}
 							}
 						});
 							
 					} else {
-						alert("후기 비공개를 취소하셨습니다.")
+						alert("계정 비활성화를 취소하셨습니다.")
 					}		
 						
 						
@@ -347,8 +345,8 @@
 			
 		}//disableValue
 		
-		function onReview(){
-			var url = "${pageContext.request.contextPath}/admin/review_on"; // Controller로 보내고자하는 URL
+		function off_account(){
+			var url = "${pageContext.request.contextPath}/admin/on_account"; // Controller로 보내고자하는 URL
 			var valueArr = new Array();
 			var list = $("input[name='RowCheck']");
 			
@@ -359,16 +357,16 @@
 			}
 		
 			if (valueArr.length == 0){
-				alert("선택된 후기가 없습니다.");
+				alert("선택된 계정이 없습니다.");
 			}
 			else{
-				var chk = confirm("정말 후기를 공개하시겠습니까?");
+				var chk = confirm("정말 계정을 활성화 하시겠습니까?");
 					
 					if(chk == true) {
 				
 				
 						$.ajax({
-							url : "${pageContext.request.contextPath}/admin/review_on"//전송 URL
+							url : "${pageContext.request.contextPath}/admin/off_account"//전송 URL
 							, type : 'POST' //POST 방식
 							, traditional : true
 							, data : {
@@ -376,38 +374,70 @@
 							},
 							success : function(jdata){
 								if(jdata = 1) {
-									alert("후기 공개 성공");
-									location.href = "${pageContext.request.contextPath}/admin/admin_review_list";
+									alert("계정 활성화 성공");
+									location.href = "${pageContext.request.contextPath}/admin/admin_member_list";
 								}
 								else {
-									alert("후기 공개 실패");
+									alert("계정 활성화 실패");
 								}
 							}
 						});
 						
 						
 					} else {
-						alert("후기 공개를 취소하셨습니다.")
+						alert("계정 활성화를 취소하셨습니다.")
 					}
 				
 			}//else
 			
-		}//ableValue
+		}//onAccount
 		
-		
-		$(document).ready(function() {
+		function on_account(){
+			var url = "${pageContext.request.contextPath}/admin/on_account"; // Controller로 보내고자하는 URL
+			var valueArr = new Array();
+			var list = $("input[name='RowCheck']");
 			
-			$("#searchOption1").keyup(function() {
-					let tmp = $("#searchOption1").val().replace(/[^  0-9  \.]/g,"");
-					$("#searchOption1").val(tmp);
-			});//keyup
+			for(var i = 0; i < list.length; i++){
+				if(list[i].checked){ //선택되어 있으면 배열에 값을 저장함
+					valueArr.push(list[i].value);
+				}
+			}
 		
-		});//ready
-		//
+			if (valueArr.length == 0){
+				alert("선택된 상품이 없습니다.");
+			}
+			else{
+				var chk = confirm("정말 계정을 활성화 하시겠습니까?");
+					
+					if(chk == true) {
+				
+				
+						$.ajax({
+							url : "${pageContext.request.contextPath}/admin/on_account"//전송 URL
+							, type : 'POST' //POST 방식
+							, traditional : true
+							, data : {
+								valueArr : valueArr //보내고자 하는 data 변수 설정
+							},
+							success : function(jdata){
+								if(jdata = 1) {
+									alert("계정 활성화 성공");
+									location.href = "${pageContext.request.contextPath}/admin/admin_member_list";
+								}
+								else {
+									alert("계정 활성화 실패");
+								}
+							}
+						});
+						
+						
+					} else {
+						alert("계정 활성화를 취소하셨습니다.")
+					}
+				
+			}//else
+			
+		}//onAccount
 		
-// 				if(   $("#searchOption1").val() == "review_star" ){
-// 					let tmp = $("#searchOption1").val().replace(/[^  0-9  \.]/g,"");
-// 					$("#searchOption1").val(tmp);
-// 				}
 	</script>
 </html>

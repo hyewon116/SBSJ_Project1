@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -48,6 +46,12 @@
 #insert {
 	margin-right : 30px;
 }
+
+.update_btn{
+	text-align: right;
+}
+
+
 		</style>
 	</head>
 	
@@ -62,7 +66,7 @@
 			
 			<!-- nav 시작 -->
 			<nav>
-				<jsp:include page="/WEB-INF/views/member/mypage_nav.jsp"></jsp:include>
+				<jsp:include page="/WEB-INF/views/admin/admin_nav.jsp"></jsp:include>
 				<br>
 				<br>			
 			</nav>
@@ -70,10 +74,10 @@
 			<main class="clearfix mt-1" style="height:500px">
 				
 				<!--  aside 시작 -->	
-				<aside class="col-3 h-100 bg-white float-left">
+				<aside class="col-2 h-100 bg-white float-left">
 					
 					
-				<jsp:include page="/WEB-INF/views/member/mypage_aside.jsp"></jsp:include>
+				<jsp:include page="/WEB-INF/views/admin/admin_aside.jsp"></jsp:include>
 				<br>
 				<br>			
 				
@@ -83,11 +87,11 @@
 				
 			<!--  aside 끝 -->	
 			<!-- section 시작--------------------------------------------------------------------------------- -->
-				<section class="col-9 h-100 bg-white float-left">
+				<section class="col-10 h-100 bg-white float-left">
 		<hr>
 		<h3> 주문 내역 </h3>
-		<hr>
-		<form action="${pageContext.request.contextPath}/history/my_order_list" method="get">
+		<!-- 검색창 비활성화 -->
+		<%-- <form action="${pageContext.request.contextPath}/history/my_order_list" method="get">
 			<div class="input-group">
 				<div class="input-group-prepend">
 					<select class="form-control" id="searchOption" name="searchOption">
@@ -102,7 +106,7 @@
 					<button type="submit" class="btn btn-primary"> 검 색 </button>
 				</div>
 			</div>
-		</form>
+		</form> --%>
 		<table class="table table-hover">
 			<col class="col-2">
 			<col class="col-2">
@@ -131,10 +135,7 @@
 <!-- 							</button> -->
 						</td>
 						<td>
-						<button type="button" class="pay_detail_btn btn btn-link btn-sm" data-toggle="modal" data-target="#pay_detail_modal" value="${dto.order_id}">
 								${dto.order_id}
-							</button>
-							
 						</td>
 						<td>
 							<img src="${dto.md_thumbnail_path}" class="img-thumbnail">
@@ -143,17 +144,16 @@
 							<a href="${pageContext.request.contextPath}/md/detail?md_id=${dto.md_id}">
 								${dto.md_name}
 							</a>
-							
 						</td>
-						<td>
-						<fmt:formatNumber type="number" var="priceNum" value="${dto.pay_amt}" />
-							${priceNum}원
-						</td>
+						<td>${dto.pay_amt}</td>
 						<td>${dto.order_status_name}</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
+				<div class="update_btn">
+					<button id="update_btn" name="update_btn" class="btn btn-warning float-info"> 뒤 로 가 기 </button>
+				</div>
 		<hr>
 		<ul class="pagination">
 			<c:if test="${startPageNum > 10}">
@@ -272,11 +272,23 @@
 	<!-- pay detail modal end -->
 
 	<script type="text/javascript">
+	
+	
+	$(document).ready(function() {
+		$("#update_btn").click(function() {
+			location.href="${pageContext.request.contextPath}/admin/admin_member_list";
+			
+		});//click
+	});//ready
+	
+	
+	
+	
 	$(document).ready(function() {
 		$(".pay_detail_btn").click(function() {
 
 			$.get(
-					"${pageContext.request.contextPath}/history/pay_detail"
+					"${pageContext.request.contextPath}/admin/admin_pay_detail"
 					, {
 						order_id : $(this).val()
 					}
@@ -315,6 +327,10 @@
 			);//get
 
 		});//click
+		
+		/* 뒤로가기 */
+		
+		
 	});//ready
 	</script>
 

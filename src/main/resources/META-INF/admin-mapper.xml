@@ -5,6 +5,81 @@
 
 <mapper namespace="AdminMapper">
 
+
+	
+
+	<select id="searchOrderList" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="kr.co.sbsj.history.HistoryDTO">
+	SELECT om.order_id, om.member_id,   om.delivery_id
+			, om.order_md_cnt, om.order_amt, om.discount_amt, om.pay_amt
+			, om.order_date, om.order_status
+            , coco.code_name order_status_name
+			, od.order_detail_id, od.md_id
+			, od.order_detail_qty, od.order_detail_price, od.order_detail_amt
+			, od.order_detail_discount, od.order_detail_discount_amt, od.order_detail_pay_amt
+			, md.md_name 
+			, md.md_thumbnail_name, md.md_thumbnail_path
+			, da.receiver, da.member_phone, da.post_code, da.delivery_addr1, da.delivery_addr2
+	FROM order_main om, order_detail od, md md, delivery da, member m
+		, common_code coco
+	where om.member_id = #{member_id}
+		<if test="searchOption != null and searchOption != ''
+					and searchWord != null and searchWord !=''">
+			<choose>
+				<when test="searchOption == 'md_name'">
+					and md.md_name like concat('%', #{searchWord}, '%')
+				</when>
+			</choose>
+		</if>
+	and om.member_id = m.member_id
+	and om.order_id = od.order_id
+	and od.md_id = md.md_id
+	and om.delivery_id = da.delivery_id
+	and coco.code_class = 'order_status'
+	and om.order_status = coco.code_id
+	order by om.order_id desc
+	limit #{limitNum}, 10
+	</select>
+	
+	
+	
+	
+	<select id="searchOrderListCount" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="int">
+	SELECT count(om.order_id) cnt
+	FROM order_main om, order_detail od, md md,  delivery da, member m
+		, common_code coco
+	where om.member_id = #{member_id}
+		<if test="searchOption != null and searchOption != ''
+					and searchWord != null and searchWord !=''">
+			<choose>
+				<when test="searchOption == 'md_name'">
+					and md.md_name like concat('%', #{searchWord}, '%')
+				</when>
+			</choose>
+		</if>
+	and om.member_id = m.member_id
+	and om.order_id = od.order_id
+	and od.md_id = md.md_id
+	and om.delivery_id = da.delivery_id
+	and coco.code_class = 'order_status'
+	and om.order_status = coco.code_id
+	</select>
+
+
+
+
+
+
+	<select id="admin_member_updateList" parameterType="java.lang.String"
+			resultType="kr.co.sbsj.util.dto.MemberDTO">
+		select m.member_id, m.member_name, m.member_email, m.member_pwd, m.member_nick, m.member_phone
+		, m.member_addr1, m.member_addr2, m.member_addr3, m.email_agree, m.sms_agree
+    	from member m
+    	where m.member_email = #{member_email}
+	</select>
+
+
+
+
 	<update id="fileDelete" parameterType="kr.co.sbsj.admin.AdminDTO">
 	update md
 		<if test="md_thumbnail_name != null and md_thumbnail_name != ''">
@@ -66,6 +141,18 @@
 	update md
 	set md_onsale = "Y"
 	where md_id=#{no}
+	</update>
+	
+	<update id="on_account">
+	update member
+	set member_account = "Y"
+	where member_id=#{no}
+	</update>
+	
+	<update id="off_account">
+	update member
+	set member_account = "N"
+	where member_id=#{no}
 	</update>
 	
 	<delete id="reviewDelete">
@@ -154,6 +241,23 @@
 	
 	</select>
 	
+	<select id="searchMemberCount" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="int">
+		select count(m.member_id) cnt
+		from member m
+		<if test="searchOption1 != null and searchOption1 != ''
+					and searchWord1 != null and searchWord1 !=''">
+			<choose>
+				<when test="searchOption1 == 'pay_amt'">
+					where m.md_name like concat('%', #{searchWord1}, '%')
+				</when>
+				<when test="searchOption1 == 'order_id'">
+					where md_category like concat('%', #{searchWord1}, '%')
+				</when>
+			</choose>
+		</if>
+	
+	</select>
+	
 	
 	
 	<select id="selectList" parameterType="kr.co.sbsj.util.dto.SearchDTO"
@@ -173,6 +277,28 @@
 			</choose>
 		</if>
 		order by md_id desc
+		limit #{limitNum}, 10
+	</select>
+	
+	<select id="selectMemberList" parameterType="kr.co.sbsj.util.dto.SearchDTO"
+			resultType="kr.co.sbsj.admin.AdminDTO">
+		select m.member_id, m.member_name, member_email, m.member_nick, m.member_joindate,  m.email_agree, m.sms_agree, m.subs_yn
+		, m.member_account, om.order_id, sum(om.pay_amt) pay_amt
+    	from member m, order_main om
+    	where m.member_id = om.member_id
+		<if test="searchOption1 != null and searchOption1 != ''
+					and searchWord1 != null and searchWord1 !=''">
+			<choose>
+				<when test="searchOption1 == 'order_id'">
+					where m.md_name like concat('%', #{searchWord1}, '%')
+				</when>
+				<when test="searchOption1 == 'pay_amt'">
+					where md_category like concat('%', #{searchWord1}, '%')
+				</when>
+			</choose>
+		</if>
+		group by member_name
+		order by m.member_id desc
 		limit #{limitNum}, 10
 	</select>
 

@@ -22,9 +22,14 @@ public class MemberDTO {
 	private String join_naver;
 	private String join_kakao;
 	
+	private String member_account;
+	
+	
+	
+	
 	public String toString() {
 		return member_id+ ":"+member_name + " : " + member_email + " : " + member_pwd + " : " + member_nick + " : " + member_phone + " : " 
-	+ member_addr1 + " : " + member_addr2 + " : " + member_addr3 + " : " + email_agree + " : " + sms_agree + " : " + admin_yn;
+	+ member_addr1 + " : " + member_addr2 + " : " + member_addr3 + " : " + email_agree + " : " + sms_agree + " : " + admin_yn + " : " + member_account;
 	}
 	
 	
@@ -138,6 +143,18 @@ public class MemberDTO {
 	}
 
 
+	public String getMember_account() {
+		return member_account;
+	}
+
+
+	public void setMember_account(String member_account) {
+		this.member_account = member_account;
+	}
+
+
+	
+	
 	
 
 }//class

@@ -22,16 +22,16 @@
 body {
         height: 100vh;
         width: 100vw;
-        background-image: url('${pageContext.request.contextPath}/resources/login/img/19.png');
+        background-image: url('${pageContext.request.contextPath}/resources/login/img/block.png');
         background-repeat : no-repeat;
         background-size : cover;
       }
 
-#age {
+/* #age {
 		height: 100px;
         width: 100px;
 		margin-top: 300px;
-	}    
+	}       */
       
 </style>	
 		
@@ -42,11 +42,11 @@ body {
 	
 		
 	
-		let popup_19;
+		let block;
 		 //pop=window.open('https://nid.naver.com/nidlogin.logout?returl=http://localhost:8081/sbsj/');
 		 
 		setTimeout(function () { // 팝업열어서 로그 아웃 실행 함
-			popup_19 = window.open("https://nid.naver.com/nidlogin.logout?returl=http://localhost:8081/sbsj/","popup", "width=1, height=1, left=0, top=0");
+			block = window.open("https://nid.naver.com/nidlogin.logout?returl=http://localhost:8081/sbsj/","popup", "width=1, height=1, left=0, top=0");
 		}, 1000);
 		
 	</script> 
@@ -77,7 +77,7 @@ body {
 				<br>
 				<br>
 								<a href="${pageContext.request.contextPath}/">
-										<img align="bottom" src="${pageContext.request.contextPath}/resources/login/img/home.png" style="cursor:pointer" onclick="popup_19.close();" > 
+										<img align="bottom" src="${pageContext.request.contextPath}/resources/login/img/home.png" style="cursor:pointer" onclick="block.close();" > 
 								</a>
 				</center>
 			

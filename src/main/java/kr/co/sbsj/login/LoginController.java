@@ -175,6 +175,8 @@ public class LoginController {
 				System.out.println("가입한적이 있나요?" + dtoFromDB);
 				
 				
+				//블럭처리된 계정의 처리 
+				String BlockYn = "N"; // 계정블럭처리 시 사용할 변수
 				
 				
 				if( dtoFromDB == null ) {
@@ -182,7 +184,9 @@ public class LoginController {
 					session.setAttribute("naver_login_info", dto);// Naver_MemberDTO의 값을가지고 회원가입 페이지로 이동
 					
 					return "/join/join_form_naver";// 회원 가입 페이지로 이동
-					
+				
+				} else if ( dtoFromDB != null && dtoFromDB.getMember_account() != null && dtoFromDB.getMember_account().equals(BlockYn)) {
+					return "block";//block 처리 조건문
 					
 				} else if ( dtoFromDB != null && dtoFromDB.getMember_name() != null && dtoFromDB.getMember_name() != "") {
 					//네이버 로그인을 통해 들어온 유저가 그 전에 가입한 적이 있을경우 세션을 통해  Member DTO의 값을 세션 login_info로 생성 후 
@@ -299,10 +303,17 @@ public class LoginController {
 			System.out.println("시작 전 dto : " + dtoFromDB);
 			dtoFromDB = k_service.login( dto ); //k_service.login를 통해 로그인 여부 확인
 			
+			//블럭처리된 계정의 처리 
+			String BlockYn = "N"; // 계정블럭처리 시 사용할 변수
+			
 			if( dtoFromDB == null ) {//회원 가입 이력이 없는 사용자
 				session.setAttribute("kakao_login_info", dto); 
 				// 미가입의 경우 api에서 전달 받은 값을 넣은 dto를 회원가입 페이지에서 로딩하기위해 kakao_login_info 세선에 정보 탑재
 				return "/join/join_form_kakao";//카카오 회원가입 페이지로 이동 
+			
+			} else if ( dtoFromDB != null && dtoFromDB.getMember_account() != null && dtoFromDB.getMember_account().equals(BlockYn)) {
+				return "block";//block 처리 조건문
+				
 				
 			} else if ( dtoFromDB != null && dtoFromDB.getMember_name() != null && dtoFromDB.getMember_name() != "") {
 				// 회원가입 이력이 있을경우

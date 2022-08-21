@@ -11,9 +11,9 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import kr.co.sbsj.util.dto.MemberDTO;
 
-public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
+public class LoginCheckInterceptor_member extends HandlerInterceptorAdapter {
 
-	private final static Logger logger = LoggerFactory.getLogger(LoginCheckInterceptor.class);
+	private final static Logger logger = LoggerFactory.getLogger(LoginCheckInterceptor_member.class);
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)

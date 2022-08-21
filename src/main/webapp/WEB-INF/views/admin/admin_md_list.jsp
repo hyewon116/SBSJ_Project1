@@ -74,7 +74,7 @@
 			<!-- nav 끝 -->
 			<main class="clearfix mt-1" style="height:500px">
 				<!--  aside 시작 -->	
-				<aside class="col-3 h-100 bg-white float-left">
+				<aside class="col-2 h-100 bg-white float-left">
 					
 					
 				<jsp:include page="/WEB-INF/views/admin/admin_aside.jsp"></jsp:include>
@@ -89,7 +89,7 @@
 				
 				
 				<!-- section 시작--------------------------------------------------------------------------------- -->
-				<section class="col-9 h-100 bg-white float-left">
+				<section class="col-10 h-100 bg-white float-left">
 					<h3> 상 품 관 리</h3>
 					  <hr style="width:100%;height:1px;border:none;background-color:black;">
 					  	
@@ -120,7 +120,7 @@
 		<table class="text-center text-capitalize table table-hover">
 			<thead>
 				<tr>
-					<th><input id="allCheck" type="checkbox" name="allCheck"></th> <th> image </th> <th> 상품번호 </th> <th> 상품명 </th> 
+					<th><input id="allCheck" type="checkbox" name="allCheck"></th> <th> 상품번호 </th> <th> image </th>  <th> 상품명 </th> 
 					<th> 가격 </th>	<th> 주종 </th> <th> 기준재고 </th> <th> 판매수량 </th> <th> 잔여재고 </th> <th> 판매여부 </th>
 				</tr>
 			</thead>
@@ -131,10 +131,10 @@
 							<input name="RowCheck" type="checkbox" value="${dto.md_id}">
 						</td>
 						<td class="col-1">
-							<img src="${dto.md_thumbnail_path}" class="img-thumbnail">
+							${dto.md_id}
 						</td>
 						<td class="col-1">
-							${dto.md_id}
+							<img src="${dto.md_thumbnail_path}" class="img-thumbnail">
 						</td>
 						<td class="col-1">
 							<a href="${pageContext.request.contextPath}/admin/admin_md_detail?md_id=${dto.md_id}">

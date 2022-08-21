@@ -27,8 +27,22 @@ public class AdminDTO {
 	private String md_detail_name;
 	private String md_detail_path;
 	private String sale_price;
-
-
+	
+	private String member_id;
+	private String member_name;
+	private String member_nick;
+	private String member_joindate;
+	private String email_agree;
+	private String sms_agree;
+	private String subs_yn;
+	private String member_account;
+	private String member_email;
+	
+	private String order_id;
+	private String pay_amt;
+	
+	
+	
 	@Override
 	public String toString() {
 		return  md_id
@@ -193,5 +207,100 @@ public class AdminDTO {
 	public void setSale_price(String sale_price) {
 		this.sale_price = sale_price;
 	}
+
+	public String getMember_id() {
+		return member_id;
+	}
+
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
+	}
+
+	public String getMember_name() {
+		return member_name;
+	}
+
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
+	}
+
+	public String getMember_nick() {
+		return member_nick;
+	}
+
+	public void setMember_nick(String member_nick) {
+		this.member_nick = member_nick;
+	}
+
+	public String getMember_joindate() {
+		return member_joindate;
+	}
+
+	public void setMember_joindate(String member_joindate) {
+		this.member_joindate = member_joindate;
+	}
+
+	public String getEmail_agree() {
+		return email_agree;
+	}
+
+	public void setEmail_agree(String email_agree) {
+		this.email_agree = email_agree;
+	}
+
+	public String getSms_agree() {
+		return sms_agree;
+	}
+
+	public void setSms_agree(String sms_agree) {
+		this.sms_agree = sms_agree;
+	}
+
+	public String getSubs_yn() {
+		return subs_yn;
+	}
+
+	public void setSubs_yn(String subs_yn) {
+		this.subs_yn = subs_yn;
+	}
+
+	public String getMember_account() {
+		return member_account;
+	}
+
+	public void setMember_account(String member_account) {
+		this.member_account = member_account;
+	}
 	
-}
+
+	public String getMember_email() {
+		return member_email;
+	}
+
+	public void setMember_email(String member_email) {
+		this.member_email = member_email;
+	}
+
+	public String getOrder_id() {
+		return order_id;
+	}
+
+	public void setOrder_id(String order_id) {
+		this.order_id = order_id;
+	}
+
+	public String getPay_amt() {
+		return pay_amt;
+	}
+
+	public void setPay_amt(String pay_amt) {
+		this.pay_amt = pay_amt;
+	}
+
+	
+	
+	
+	
+	
+	
+}//class
