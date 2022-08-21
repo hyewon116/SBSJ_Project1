@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="NoticeMapper">
+
+	<update id="update" parameterType="kr.co.sbsj.cs.NoticeDTO">
+	update notice 
+	set title = #{title}
+		, notice_content = #{notice_content}
+	where notice_id = #{notice_id}
+	</update>
+
+	<delete id="delete" parameterType="kr.co.sbsj.cs.NoticeDTO">
+	delete from notice
+	where notice_id = #{notice_id}
+	</delete>
+
+	<update id="incrementViewCnt" parameterType="java.lang.String">
+	update notice
+	set notice_view_cnt = notice_view_cnt + 1
+	where notice_id = #{notice_id}
+	</update>
+
+	<select id="detail" parameterType="java.lang.String" resultType="kr.co.sbsj.cs.NoticeDTO">
+	select notice_id, n.member_id, notice_title, notice_content, notice_write_date, notice_view_cnt
+	from notice n, member m
+	where n.notice_id = #{notice_id}
+	and n.member_id = m.member_id
+	</select>
+	
+	<select id="selectList" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="kr.co.sbsj.cs.NoticeDTO">
+	select notice_id, n.member_id, notice_title, notice_write_date, notice_view_cnt
+	from notice n, member m
+	where n.member_id = m.member_id
+		<if test="searchOption != null and searchOption != ''
+					and searchWord != null and searchWord != ''">
+			<choose>
+				<when test="searchOption == 'title'">
+					and n.notice_title like concat('%', #{searchWord}, '%')
+				</when>
+			</choose>
+		</if>
+	order by notice_id desc
+	limit #{limitNum}, 10
+	</select>
+	
+	<select id="searchListCount" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="int">
+	select count(notice_id) cnt
+	from notice n, member m
+	where n.member_id = m.member_id
+		<if test="searchOption != null and searchOption != ''
+					and searchWord != null and searchWord !=''">
+			<choose>
+				<when test="searchOption == 'title'">
+					and n.notice_title like concat('%', #{searchWord}, '%')
+				</when>
+			</choose>
+		</if>
+	</select>
+	
+	<insert id="write" parameterType="kr.co.sbsj.cs.NoticeDTO">
+	insert into notice (notice_title, member_id, notice_content, notice_view_cnt, notice_write_date)
+	values (#{notice_title}, #{member_id}, #{notice_content}, 0, now())
+	</insert>
+
+</mapper>

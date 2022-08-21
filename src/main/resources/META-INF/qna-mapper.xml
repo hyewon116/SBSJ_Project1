@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="QnaMapper">
+
+	<!-- 그룹 순서 증가-->
+	<insert id="replyInsert" parameterType="kr.co.sbsj.cs.QnaDTO">
+	insert into qa_question ( qa_question_title, member_id, member_nick, qa_question_content, qa_question_viewcnt
+								, qa_question_date, open_yn, qa_question_category
+								, originNo, groupOrd, groupLayer)
+	values ( #{qa_question_title}, #{member_id}, #{member_nick}, #{qa_question_content}, 0
+								, now(), #{open_yn}, #{qa_question_category}
+								, #{originNo}, #{groupOrd}+1, #{groupLayer}+1)
+	</insert>
+
+	<update id="update" parameterType="kr.co.sbsj.cs.QnaDTO">
+	update qa_question 
+	set qa_question_title = #{qa_question_title}
+		, qa_question_category = #{qa_question_category}
+		, qa_question_content = #{qa_question_content}
+		, open_yn = #{open_yn}
+	where qa_question_id = #{qa_question_id}
+	</update>
+
+	<delete id="delete" parameterType="kr.co.sbsj.cs.QnaDTO">
+	delete from qa_question
+	where qa_question_id = #{qa_question_id}
+	</delete>
+
+	<update id="incrementViewCnt" parameterType="java.lang.String">
+	update qa_question
+	set qa_question_viewcnt = qa_question_viewcnt + 1
+	where qa_question_id = #{qa_question_id}
+	</update>
+
+	<select id="detail" parameterType="java.lang.String" resultType="kr.co.sbsj.cs.QnaDTO">
+	select qa_question_id, qa_question_category, qa_question_title, qa.member_id, qa.member_nick
+			,qa_question_content, qa_question_date, qa_question_viewcnt, open_yn
+			,originNo, groupOrd, groupLayer
+	from qa_question qa, member m
+	where qa.qa_question_id = #{qa_question_id}
+	and qa.member_id = m.member_id
+	</select>
+
+	<select id="selectList" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="kr.co.sbsj.cs.QnaDTO">
+	select qa_question_id, qa_question_category, qa_question_title, qa.member_id, qa.member_nick
+			,qa_question_date, qa_question_viewcnt, open_yn  
+			, originNo, groupOrd, groupLayer
+	from qa_question qa, member m
+	where qa.member_nick = m.member_nick
+		<if test="searchOption != null and searchOption != ''
+					and searchWord != null and searchWord != ''">
+			<choose>
+				<when test="searchOption == 'qa_question_title'">
+					and qa.qa_question_title like concat('%', #{searchWord}, '%')
+				</when>
+				<when test="searchOption == 'writer'">
+					and m.member_nick like concat('%', #{searchWord}, '%')
+				</when>
+			</choose>
+		</if>
+	order by originNo desc, groupOrd asc
+	limit #{limitNum}, 10
+	</select>
+	
+	<select id="searchListCount" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="int">
+	select count(qa.qa_question_id) cnt
+	from qa_question qa, member m
+	where qa.member_nick = m.member_nick
+		<if test="searchOption != null and searchOption != ''
+					and searchWord != null and searchWord !=''">
+			<choose>
+				<when test="searchOption == 'qa_question_title'">
+					and qa.qa_question_title like concat('%', #{searchWord}, '%')
+				</when>
+				<when test="searchOption == 'writer'">
+					and m.member_nick like concat('%', #{searchWord}, '%')
+				</when>
+			</choose>
+		</if>
+	</select>
+	
+	<insert id="write" parameterType="kr.co.sbsj.cs.QnaDTO">
+	insert into qa_question ( qa_question_id, qa_question_title, member_id, member_nick
+							, qa_question_content, qa_question_viewcnt, qa_question_date, open_yn, qa_question_category
+							, originNo, groupOrd, groupLayer )
+	values ( #{qa_question_id}, #{qa_question_title}, #{member_id}, #{member_nick}
+							, #{qa_question_content}, 0, now(), #{open_yn}, #{qa_question_category}
+							, (SELECT IFNULL(max(qa_question_id),0)+1 FROM qa_question AS temp), 0, 0 )
+	
+	</insert>
+
+</mapper>

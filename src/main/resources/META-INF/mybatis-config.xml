@@ -17,6 +17,8 @@
 		<mapper resource="META-INF/order-mapper.xml" />
 		<mapper resource="META-INF/delivery-mapper.xml" />
 		<mapper resource="META-INF/history-mapper.xml" />
+		<mapper resource="META-INF/qna-mapper.xml" />
+		<mapper resource="META-INF/notice-mapper.xml" />
 	</mappers>
 
 </configuration>

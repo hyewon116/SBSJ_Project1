@@ -95,8 +95,8 @@
            		   커뮤니티
             </a>
             <div class="dropdown-menu sm-menu">
-              <a class="dropdown-item" href="/md/search?search=공지사항">공지사항</a>
-              <a class="dropdown-item" href="/md/search?search=1:1문의">1:1문의</a>
+              <a class="dropdown-item" href="${pageContext.request.contextPath}/notice/list">공지사항</a>
+              <a class="dropdown-item" href="${pageContext.request.contextPath}/qna/list">1:1문의</a>
             </div>
           </li>
 </div>            
