@@ -31,12 +31,12 @@
 						<tr>
 							<th>문의 유형</th>
 							<td>
-								<select id="qa_question_category" name="qa_question_category" value="${detail_dto.qa_question_category}">
-									<option value="상품">상품</option>
-									<option value="배송">배송</option>
-									<option value="교환/반품">교환/반품</option>
-									<option value="이벤트/쿠폰">이벤트/쿠폰</option>
-									<option value="기타">기타</option>
+								<select id="qa_question_category" name="qa_question_category">
+									<option value="상품" <c:if test="${detail_dto.qa_question_category eq '상품'}">selected</c:if>>상품</option>
+									<option value="배송" <c:if test="${detail_dto.qa_question_category eq '배송'}">selected</c:if>>배송</option>
+									<option value="교환/반품" <c:if test="${detail_dto.qa_question_category eq '교환/반품'}">selected</c:if>>교환/반품</option>
+									<option value="이벤트/쿠폰" <c:if test="${detail_dto.qa_question_category eq '이벤트/쿠폰'}">selected</c:if>>이벤트/쿠폰</option>
+									<option value="기타" <c:if test="${detail_dto.qa_question_category eq '기타'}">selected</c:if>>기타</option>
 								</select>
 							</td>
 						</tr>
