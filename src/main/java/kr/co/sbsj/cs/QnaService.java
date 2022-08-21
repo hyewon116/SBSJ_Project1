@@ -18,10 +18,7 @@ public class QnaService {
 		successCount = dao.replyInsert(dto);
 		return successCount;
 	}//update
-	/*
-	 * public int replyUpdate(QnaDTO dto) { int successCount = 0; successCount =
-	 * dao.replyUpdate(dto); return successCount; }//update
-	 */	
+	
 	public int update(QnaDTO dto) {
 		int successCount = 0;
 		successCount = dao.update(dto);
