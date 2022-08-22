@@ -27,7 +27,7 @@
 					  <li ><h4>관리자 페이지</h4></li>
 					  <br>
 					  <li><a href="${pageContext.request.contextPath}/admin/admin_member_list">회원 관리</a></li>
-					  <li><a href="#">공지사항 관리</a></li>
+					  <li><a href="${pageContext.request.contextPath}/admin/admin_notice_list">공지사항 관리</a></li>
 					  <li><a href="#">1:1 문의 관리</a></li>
 					  <li><a href="${pageContext.request.contextPath}/admin/admin_review_list">상품후기 관리</a></li>
 					  <li><a href="#">상품문의 관리</a></li>
