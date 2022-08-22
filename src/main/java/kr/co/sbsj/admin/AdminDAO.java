@@ -107,7 +107,11 @@ public class AdminDAO {
 	      list = sqlSession.selectList("AdminMapper.orderDetail", dto);
 	      return list;
 	   }//orderDetail
-	
+	public int changeStatus( HistoryDTO dto ) {
+		int successCount = 0;
+		successCount = sqlSession.update("AdminMapper.changeStatus", dto);
+		return successCount;
+	}//delete
 	public int searchOrderListCount( SearchDTO dto ) {
 		int totalCount = 0;
 		totalCount = sqlSession.selectOne("AdminMapper.searchOrderListCount", dto);

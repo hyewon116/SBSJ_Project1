@@ -123,12 +123,6 @@
 					<tr>
 						<td>
 							${dto.order_date}
-<!-- 							<hr> -->
-<%-- 							결제금액 : <b>${dto.order_detail_pay_amt}</b> 원 --%>
-<!-- 							<hr> -->
-<%-- 							<button type="button" class="pay_detail_btn btn btn-link btn-sm" data-toggle="modal" data-target="#pay_detail_modal" value="${dto.order_id}"> --%>
-<!-- 								결제 상세 보기 -->
-<!-- 							</button> -->
 						</td>
 						<td>
 						<button type="button" class="pay_detail_btn btn btn-link btn-sm" data-toggle="modal" data-target="#pay_detail_modal" value="${dto.order_id}">

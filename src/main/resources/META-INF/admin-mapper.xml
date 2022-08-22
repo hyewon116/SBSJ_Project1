@@ -27,6 +27,12 @@
 	where md_question_id=#{no}
 	</update>
 	
+	<update id="changeStatus" parameterType="kr.co.sbsj.history.HistoryDTO">
+	update order_main
+	set order_status = #{order_status}
+	where order_id = #{order_id}
+	</update>
+	
 	<update id="questionOff">
 	update md_question
 	set question_enable = "N"
@@ -78,10 +84,11 @@
 		order by md_question_id desc
 		limit #{limitNum}, 10
 	</select>
+
 	
 
 	<select id="searchOrderList" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="kr.co.sbsj.history.HistoryDTO">
-	SELECT om.order_id, om.member_id,   om.delivery_id
+	SELECT om.order_id, om.member_id,   om.delivery_id, m.member_name, m.member_email,m.member_nick
 			, om.order_md_cnt, om.order_amt, om.discount_amt, om.pay_amt
 			, om.order_date, om.order_status
             , coco.code_name order_status_name
@@ -93,25 +100,30 @@
 			, da.receiver, da.member_phone, da.post_code, da.delivery_addr1, da.delivery_addr2
 	FROM order_main om, order_detail od, md md, delivery da, member m
 		, common_code coco
-	where om.member_id = #{member_id}
+	 where 
 		<if test="searchOption != null and searchOption != ''
 					and searchWord != null and searchWord !=''">
 			<choose>
 				<when test="searchOption == 'md_name'">
-					and md.md_name like concat('%', #{searchWord}, '%')
+					 md.md_name like concat('%', #{searchWord}, '%') and
+				</when>
+				<when test="searchOption == 'order_id'">
+					om.order_id like concat('%', #{searchWord}, '%') and
 				</when>
 			</choose>
 		</if>
-	and om.member_id = m.member_id
+	om.member_id = m.member_id
 	and om.order_id = od.order_id
 	and od.md_id = md.md_id
 	and om.delivery_id = da.delivery_id
 	and coco.code_class = 'order_status'
 	and om.order_status = coco.code_id
+	group by om.order_id
+		
+		
 	order by om.order_id desc
 	limit #{limitNum}, 10
 	</select>
-	
 	<select id="searchOrderListCount" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="int">
 	SELECT count(om.order_id) cnt
 	FROM order_main om, order_detail od, md md,  delivery da, member m

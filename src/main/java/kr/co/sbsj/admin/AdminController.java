@@ -304,6 +304,16 @@ public class AdminController {
 	      
 	      return "/admin/admin_order_detail";//
 	   }
+	@RequestMapping( value = "/admin_change_status", method = RequestMethod.POST )
+	   private String admin_change_status(  Model model, HttpSession session, HistoryDTO dto ) {
+		List<HistoryDTO> list = null;
+		list = service.orderDetail(dto);
+		model.addAttribute("list", list);
+
+		int successCount = 0;
+		successCount = service.changeStatus( dto );
+		return "/admin/admin_order_detail";//
+	   }
 	
 	@RequestMapping( value = "/admin_member_detail", method = RequestMethod.GET )
 	private String admin_member_Detail( String member_email, Model model, HttpSession session, MemberDTO dto ) {

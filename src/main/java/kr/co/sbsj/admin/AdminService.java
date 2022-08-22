@@ -114,7 +114,11 @@ public class AdminService {
 	      list = dao.orderDetail( dto );
 	      return list;
 	   }//orderDetail
-	
+	public int changeStatus(HistoryDTO dto) {
+		int successCount = 0;
+		successCount = dao.changeStatus( dto );
+		return successCount;
+	   }//changeStatus
 	public List<MemberDTO> admin_member_updateList(String member_email) {
 		List<MemberDTO> list = null;
 		list = dao.admin_member_updateList( member_email );

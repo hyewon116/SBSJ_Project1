@@ -89,15 +89,18 @@
 			<!-- section 시작--------------------------------------------------------------------------------- -->
 				<section class="col-10 h-100 bg-white float-left">
 		<hr>
-		<h3> 주문 내역 </h3>
+		<h3> 주문 관리 </h3>
 		<!-- 검색창 비활성화 -->
-		<%-- <form action="${pageContext.request.contextPath}/history/my_order_list" method="get">
+		 <form action="${pageContext.request.contextPath}/admin/admin_order_list" method="get">
 			<div class="input-group">
 				<div class="input-group-prepend">
 					<select class="form-control" id="searchOption" name="searchOption">
 						<option value="md_name"
 							<c:if test="${search_dto.searchOption == 'md_name'}">selected="selected"</c:if>
 						> 상 품 이 름 </option>
+						<option value="order_id"
+							<c:if test="${search_dto.searchOption == 'order_id'}">selected="selected"</c:if>
+						> 주 문 번 호</option>
 					</select>
 				</div>
 				<input type="text" class="form-control" id="searchWord" name="searchWord"
@@ -106,44 +109,41 @@
 					<button type="submit" class="btn btn-primary"> 검 색 </button>
 				</div>
 			</div>
-		</form> --%>
+		</form> 
 		<table class="table table-hover">
 			<col class="col-2">
 			<col class="col-2">
+			<col class="col-1">
 			<col class="col-2">
 			<col class="col-2">
 			<col class="col-2">
-			<col class="col-3">
+			
 			
 			<thead>
 				<tr>
-					<th> 결제일 </th> <th>주문번호</th>
-					<th> 상품 이미지 </th>	<th> 상품명 </th> <th> 결제금액 </th> 
+					<th> 주문날짜 </th><th> 주문번호 </th> <th>이름</th>
+						<th>상품</th><th> 결제금액 </th> 
 						<th> 주문상태 </th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="dto" items="${list}">
+				<c:forEach var="dto" items="${list}" varStatus="status">
+
 					<tr>
 						<td>
+							
 							${dto.order_date}
-<!-- 							<hr> -->
-<%-- 							결제금액 : <b>${dto.order_detail_pay_amt}</b> 원 --%>
-<!-- 							<hr> -->
-<%-- 							<button type="button" class="pay_detail_btn btn btn-link btn-sm" data-toggle="modal" data-target="#pay_detail_modal" value="${dto.order_id}"> --%>
-<!-- 								결제 상세 보기 -->
-<!-- 							</button> -->
 						</td>
 						<td>
+							<a href="${pageContext.request.contextPath}/admin/admin_order_detail?order_id=${dto.order_id}">
 								${dto.order_id}
-						</td>
-						<td>
-							<img src="${dto.md_thumbnail_path}" class="img-thumbnail">
-						</td>
-						<td>
-							<a href="${pageContext.request.contextPath}/md/detail?md_id=${dto.md_id}">
-								${dto.md_name}
 							</a>
+						</td>
+						<td>
+							${dto.member_name}
+						</td>
+						<td>
+							${dto.md_name}
 						</td>
 						<td>${dto.pay_amt}</td>
 						<td>${dto.order_status_name}</td>
@@ -159,7 +159,7 @@
 			<c:if test="${startPageNum > 10}">
 				<li class="page-item mx-auto">
 					<a class="page-link"
-						href="${pageContext.request.contextPath}/history/my_order_list?userWantPage=${startPageNum-1}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
+						href="${pageContext.request.contextPath}/admin/admin_order_list?userWantPage=${startPageNum-1}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
 						Previous
 					</a>
 				</li>
@@ -174,7 +174,7 @@
 					<c:otherwise>
 						<li class="page-item mx-auto">
 							<a class="page-link"
-								href="${pageContext.request.contextPath}/history/my_order_list?userWantPage=${page_no}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
+								href="${pageContext.request.contextPath}/admin/admin_order_list?userWantPage=${page_no}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
 								${page_no}
 							</a>
 						</li>
@@ -184,7 +184,7 @@
 			<c:if test="${lastPageNum > endPageNum}">
 				<li class="page-item mx-auto">
 					<a class="page-link"
-						href="${pageContext.request.contextPath}/history/my_order_list?userWantPage=${endPageNum+1}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
+						href="${pageContext.request.contextPath}/admin/admin_order_list?userWantPage=${endPageNum+1}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
 						Next
 					</a>
 				</li>
@@ -193,83 +193,7 @@
 		</section>
 				<!-- section 끝---------------------------------------------------------------------------- -->
 <%-- 	<%@ include file="/WEB-INF/views/footer.jsp" %> --%>
-<!-- pay detail modal start -->
-	<div class="modal" id="pay_detail_modal">
-		<div class="modal-dialog modal-lg" style="width:2000;">
-			 <div class="modal-content ">
-
-				<!-- Modal Header -->
-				<div class="modal-header">
-					<h4 class="modal-title"> 결제상세정보 (결제일자 <span id="span_order_date"></span> | 결제번호 <span id="span_order_id"></span>) </h4>
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-				</div>
-
-				<!-- Modal body -->
-				<div class="modal-body">
-					<table class="table table-hover">
-						<thead>
-							<tr>
-								<th> 주문상세번호 </th>	<th> 상품명 </th>	<th> 수량 </th>	<th> 단가 </th>
-								<th> 구매금액 </th>	<th> 할인율 </th>	<th> 할인금액 </th>	<th> 결제금액 </th>
-									<th> 주문상태 </th>
-							</tr>
-						</thead>
-						<tbody id="tbody_pay_detail_modal">
-						</tbody>
-					</table>
-				</div>
-				<div class="row">
-					<div class="col-6">
-						<table class="table table-hover table-borderless">
-							<tbody>
-								<tr>
-									<td>
-										<div class="card">
-											<div class="card-body">
-												<h5 class="card-title">배송지정보</h5>
-												<p class="card-text">받 는 분 : <span id="span_receiver"></span></p>
-												<p class="card-text">연 락 처 : <span id="span_member_phone"></span></p>
-												<p class="card-text"> 주 소  : <span id="span_addr"></span></p>
-											</div>
-										</div>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					<div class="col-6">
-						<table class="table table-hover table-borderless mr-5">
-							<tbody>
-								<tr>
-									<th> 총 상 품 수 </th>
-									<td class="text-right"> <span id="span_sum_md_class_qty"></span> 개 </td>
-								</tr>
-								<tr>
-									<th> 총 구 매 금 액 </th>
-									<td class="text-right"> <span id="span_sum_buy_amt"></span> 원 </td>
-								</tr>
-								<tr>
-									<th> 총 할 인 금 액 </th>
-									<td class="text-right text-danger"> -<span id="span_sum_discount_amt"></span> 원 </td>
-								</tr>
-								<tr>
-									<th> <h3>총 결 제 금 액</h3> </th>
-									<td class="text-right"> <h3><span id="span_sum_total_buy_amt"></span> 원</h3> </td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-
-				<!-- Modal footer -->
-				<div class="modal-footer">
-					<button type="button" class="btn btn-warning btn-sm" data-dismiss="modal"> 닫 기 </button>
-				</div>
-
-			</div>
-		</div>
-	</div>
-	<!-- pay detail modal end -->
+	
 
 	<script type="text/javascript">
 	
@@ -280,59 +204,30 @@
 			
 		});//click
 	});//ready
-	
-	
-	
-	
-	$(document).ready(function() {
-		$(".pay_detail_btn").click(function() {
+	 </script>
+	<script type="text/javascript">
+// 	   $(document).ready(function() {
+// 	      $(".order_detail_btn").click(function() {
+	      
+// 	         $.get(
+// 	               "${pageContext.request.contextPath}/admin/admin_order_detail"
+// 	               , {
+// 	                  order_id : $(this).val()
+	                 
+// 	               }
+// 	               , function(data, status) {
+// 	                  if(data >= 0){
+// 	                     location.href="${pageContext.request.contextPath}/admin/admin_order_detail";
+// 		                 } else {
+// 	                     alert("잠시후 다시 시도 해주세요");
+// 	                  }
 
-			$.get(
-					"${pageContext.request.contextPath}/admin/admin_pay_detail"
-					, {
-						order_id : $(this).val()
-					}
-					, function(data, status) {
-						if(data.length >= 1){
-							$("#tbody_pay_detail_modal").empty();
-							$.each(JSON.parse(data), function(idx, dto) {
-								$("#tbody_pay_detail_modal").append(
-										"<tr>"
-										+ "<td>" + dto.order_detail_id + "</td>"
-										+ "<td>" + dto.md_name + "</td>"
-										+ "<td>" + dto.order_detail_qty + "</td>"
-										+ "<td>" + dto.order_detail_price + "</td>"
-										+ "<td>" + dto.order_detail_amt + "</td>"
-										+ "<td>" + dto.order_detail_discount + "%</td>"
-										+ "<td class='text-danger'>-" + dto.order_detail_discount_amt + "원</td>"
-										+ "<td>" + dto.order_detail_pay_amt + "원</td>"
-										+ "<td>" + dto.order_status_name + "</td>"
-										+ "</tr>"
-								);//append
-								$("#span_order_id").text(dto.order_id);
-								$("#span_order_date").text(dto.order_date);
-								$("#span_receiver").text(dto.receiver);
-								$("#span_member_phone").text(dto.member_phone);
-								$("#span_addr").text("(" + dto.post_code + ")" + dto.delivery_addr1 + " " + dto.delivery_addr2);
-								$("#span_sum_md_class_qty").text(dto.order_md_cnt);
-								$("#span_sum_buy_amt").text(dto.order_amt);
-								$("#span_sum_discount_amt").text(dto.discount_amt);
-								
-								$("#span_sum_total_buy_amt").text(dto.pay_amt);
-							});//each
-						} else {
-							alert("결제 정보 조회를 실패 하였습니다.");
-						}
-					}//call back function
-			);//get
+// 	               }//call back function
+// 	         );//get
 
-		});//click
-		
-		/* 뒤로가기 */
-		
-		
-	});//ready
-	</script>
+// 	      });//click
+// 	   });//ready
+	   </script>
 
 	</body>
 </html>

@@ -70,11 +70,18 @@
 
         <body>
             <%@ include file="/WEB-INF/views/headerMain.jsp" %>
-                <hr>
-                <h3> 장바구니 </h3>
-                <hr>
+            	<div class="container col-sm-8">
+	                <hr>
+	                <h3> 장바구니 </h3>
+	                <hr>
+                </div>
+                <div class="container col-sm-8">
                 <table class="table table-hover" id="table1" align="left">
-                    <col class="col-1">
+                    <col class="col-2">
+                    <col class="col-3">
+                    <col class="col-2">
+                    <col class="col-2">
+                    <col class="col-2">
                     <thead>
                         <tr>
                             <th> <input type="checkbox" id="cbx_chkAll" checked="checked">선택 </input> </th>
@@ -95,28 +102,28 @@
                             <c:set var="sum_discount_amt"
                                 value="${sum_discount_amt + ( (dto.md_price - dto.sale_price) * dto.buy_qty )}" />
                             <tr>
-                                <td width="8%">
+                                <td>
                                     <input type="checkbox" class="order_check_box form-control" checked="checked"
                                         id="${dto.md_price}" name="${dto.sale_price}" value="${dto.buy_qty}">
                                     <input type="hidden" id="cart_id${status.index}" name="cart_id${status.index}"
                                         value="${dto.cart_id}">
                                 </td>
-                                <td width="20%">
+                                <td>
                                     <img src="${dto.md_thumbnail_path}" class="img-thumbnail">
                                 </td>
-                                <td width="20%">
+                                <td>
                                     <a href="${pageContext.request.contextPath}/md/detail?md_id=${dto.md_id}">
                                         ${dto.md_name}
                                     </a>
                                 </td>
-                                <td width="15%">
+                                <td>
                                     <div id="qty_btn">
                                         <button class="minus_btn">-</button>
                                         <input type="text" value="${dto.buy_qty}" class="quantity_input" readonly>
                                         <button class="plus_btn" data-max-qty="${dto.md_stock}">+</button>
                                     </div>
                                     <a class="qty_chg_btn" data-cart_id="${dto.cart_id}">변경</a>
-                                <td width="30%"> ${dto.md_price * dto.buy_qty - ( (dto.md_price - dto.sale_price) *
+                                <td> ${dto.md_price * dto.buy_qty - ( (dto.md_price - dto.sale_price) *
                                     dto.buy_qty )} 원 </td>
                                     <button style = "display:none;" class="cart_delete_btn "  value="${dto.cart_id}"> 
                                     </button>
@@ -173,6 +180,7 @@
                         </td>
                     </tr>
                 </table>
+                </div>
 <%--                 <%@ include file="/WEB-INF/views/footer.jsp" %> --%>
 
 
