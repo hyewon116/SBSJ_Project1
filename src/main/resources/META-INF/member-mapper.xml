@@ -5,6 +5,12 @@
 
 <mapper namespace="MemberMapper">
 
+	<select id="couponList" parameterType="kr.co.sbsj.md.CouponDTO" resultType="kr.co.sbsj.md.CouponDTO">
+	select coupon_id, member_id, coupon_name, coupon_dis, coupon_start, coupon_end, coupon_yn
+	from coupon
+	where member_id = #{member_id}
+	</select>
+
 	<delete id="questionDelete">
 		delete from md_question
 		where md_question_id = #{md_question_id}

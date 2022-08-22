@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import kr.co.sbsj.admin.AdminReviewDTO;
+import kr.co.sbsj.admin.AdminService;
+import kr.co.sbsj.md.CouponDTO;
 import kr.co.sbsj.md.MdDTO;
 import kr.co.sbsj.mdquestion.MdQuestionDTO;
 import kr.co.sbsj.mdreview.MdReviewDTO;
@@ -33,6 +35,25 @@ public class MemberController {
 	@Autowired
 	private MemberService service;
 	
+	@Autowired
+	private AdminService service2;
+	
+	//내 쿠폰 목록
+	@RequestMapping( value = "/member_coupon_list", method = RequestMethod.GET )
+	private String couponList( Model model, CouponDTO dto, HttpSession session) {
+		
+		MemberDTO mdto = (MemberDTO) session.getAttribute("login_info");
+		String member_id = mdto.getMember_id();
+		dto.setMember_id(member_id);
+		
+		List<CouponDTO> list = null;
+		list = service.coupon_list( dto );
+		model.addAttribute("coupon_list", list); 
+		
+		return "/member/member_coupon_list";
+	}//couponList
+	
+	
 	//내 상품 문의 삭제
 	@RequestMapping( value = "/question_delete")
 	private String questionDelete(HttpServletRequest request) {
@@ -50,8 +71,12 @@ public class MemberController {
 	@RequestMapping( value = "/question_detail", method = RequestMethod.GET )
 	public String question_detail( String md_question_id, Model model, MemberDTO mdto ) {
 		MdQuestionDTO dto = null;
-		dto = service.question_detail( md_question_id );
+		dto = service.question_detail( md_question_id );//문의 상세
 		model.addAttribute("detail_dto", dto);
+		
+		dto = service2.replyDetail( md_question_id );//답변 상세
+		model.addAttribute("reply_dto", dto);
+		
 		model.addAttribute("review_id", md_question_id); //수정&삭제 때 보낼 review_id 정보
 		return "member/member_question_detail";//jsp file name
 	}//question_detail

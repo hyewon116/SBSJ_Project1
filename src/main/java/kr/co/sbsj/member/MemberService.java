@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.sbsj.admin.AdminReviewDTO;
+import kr.co.sbsj.md.CouponDTO;
 import kr.co.sbsj.md.MdDTO;
 import kr.co.sbsj.mdquestion.MdQuestionDTO;
 import kr.co.sbsj.mdreview.MdReviewDTO;
@@ -19,6 +20,12 @@ public class MemberService {
 
 	@Autowired
 	private MemberDAO dao;
+	
+	public List<CouponDTO> coupon_list(CouponDTO dto) {
+		List<CouponDTO> list = null;
+		list = dao.coupon_list( dto );
+		return list;
+	}//coupon_list
 	
 	public void questionDelete(String no) {
 		dao.questionDelete(no);
@@ -124,7 +131,5 @@ public class MemberService {
 		list = dao.member_updateList( member_email );
 		return list;
 	}
-
-
 	
 }//class

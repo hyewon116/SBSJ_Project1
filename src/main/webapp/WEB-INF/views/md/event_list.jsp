@@ -49,8 +49,7 @@
 		<div class="container" id="coupon_title">
 			<a id="coupon_title">
 				<br><br>
-				<b>상부상주의<br>
-				가을맞이 쿠폰</b>
+				<b>상부상주의 가을맞이 쿠폰</b>
 			</a>
 		</div>
 		
@@ -58,24 +57,24 @@
 		<tr>	
 			<td>	
 				<div>
-					<h4><b>3,000원</b></h4><br>
-					<h5><b>가입 축하 쿠폰</b></h5>
+					<h4><b>3,000원</b></h4>
+					<h5 style="color:brown;"><b>가입 축하 쿠폰</b></h5>
 					<h6>사용기간 ~2022.09.30.</h6>
 					<br><button id="coupon1" class="btn btn-warning" type="button"> 발급 받기 </button>
 				</div>
 			<td>
 			<td>
 				<div>
-					<h4><b>2,000원</b></h4><br>
-					<h5><b>추천인 쿠폰</b></h5>
+					<h4><b>2,000원</b></h4>
+					<h5 style="color:brown;"><b>추천인 쿠폰</b></h5>
 					<h6>사용기간 ~2022.09.30.</h6>
 					<br><button id="coupon2" class="btn btn-warning" type="button"> 발급 받기 </button>
 				</div>
 			<td>
 			<td>
 				<div>
-					<h4><b>2,000원</b></h4><br>
-					<h5><b>추석맞이 쿠폰</b></h5>
+					<h4><b>2,000원</b></h4>
+					<h5 style="color:brown;"><b>추석맞이 쿠폰</b></h5>
 					<h6>사용기간 ~2022.09.30.</h6>
 					<br><button id="coupon3" class="btn btn-warning" type="button"> 발급 받기 </button>
 				</div>

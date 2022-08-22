@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.sbsj.admin.AdminReviewDTO;
+import kr.co.sbsj.md.CouponDTO;
 import kr.co.sbsj.md.MdDTO;
 import kr.co.sbsj.mdquestion.MdQuestionDTO;
 import kr.co.sbsj.mdreview.MdReviewDTO;
@@ -22,6 +23,13 @@ public class MemberDAO {
 
 	@Autowired
 	private SqlSession sqlSession;
+	
+
+	public List<CouponDTO> coupon_list(CouponDTO dto) {
+		List<CouponDTO> list = null;
+		list = sqlSession.selectList("MemberMapper.couponList", dto);
+		return list;
+	}//coupon_list
 	
 	public void questionDelete( String no ) {
 		sqlSession.delete("MemberMapper.questionDelete", no);
@@ -124,5 +132,5 @@ public class MemberDAO {
 		list = sqlSession.selectList( "MemberMapper.member_updateList", member_email );
 		return list;
 	}
-	
+
 }//JoinDAO

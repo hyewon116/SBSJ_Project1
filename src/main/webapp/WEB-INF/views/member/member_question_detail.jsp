@@ -105,14 +105,38 @@
 			<a href="${pageContext.request.contextPath}/member/member_question_list">
 				<button type="button" class="btn btn-info float-left" id="back"> 뒤로 가기  </button> 
 			</a>
-		<!-- 문의 수정&삭제 버튼 : 내 게시글에서만 보임 -->
-			<c:if test="${login_info.member_id == detail_dto.member_id}"> <!-- 내 게시글만 수정&삭제 -->
-				<a href="${pageContext.request.contextPath}/mdquestion/uform?md_question_id=${md_question_id}">
-					<button type="button" class="btn btn-warning" id="update"> 수정 </button> 
-				</a>
+		<!-- 문의 삭제 버튼 : 내 게시글에서만 보임 -->
+			<c:if test="${login_info.member_id == detail_dto.member_id}"> <!-- 내 게시글만 삭제 -->
 				<button type="button" class="btn btn-danger" id="delete_btn"> 삭제 </button>
 			</c:if>
 		</div>
+		<br>
+		<br>
+		
+		<!-- 관리자 답변 출력 (답변 완료일 때만) -->
+		<c:if test="${detail_dto.md_question_answer == '답변완료'}"> 
+		
+			<br>
+			<h5><b> ▶ 답변 내역</b></h5>
+			<br>
+			<div style = "background-color: whitesmoke;"> 
+			<table class="table table-hover" id="table2">
+			<col class="w-25">
+				<tbody>
+					<tr>
+						<th>답변일자</th>
+						<td>${reply_dto.md_answer_date}</td>
+						<th>답변자</th> 
+						<td>${reply_dto.md_answer_member}</td>
+					</tr>
+					<tr>
+						<th> 답변 내용 </th>
+						<td colspan="3">${reply_dto.md_answer_content}</td>
+					</tr>
+				</tbody>
+			</table>
+			</div>
+		</c:if>
 		<br>
 		<br>
 	</div>
