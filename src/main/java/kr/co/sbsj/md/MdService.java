@@ -13,6 +13,18 @@ public class MdService {
 	@Autowired
 	private MdDAO dao;
 	
+	public int coupon_insert( CouponDTO dto ) {
+		int successCount = 0;
+		successCount = dao.coupon_insert( dto );
+		return successCount;
+	}//coupon_insert
+
+	public int couponCheck (CouponDTO dto) {
+		int isYN = 0;
+		isYN = dao.couponCheck( dto );
+		return isYN;
+	}//couponCheck
+	
 	
 	public MdDTO detail( String md_id ) {
 		MdDTO dto = null;

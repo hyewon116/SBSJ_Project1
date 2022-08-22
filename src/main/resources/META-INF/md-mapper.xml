@@ -4,6 +4,19 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="MdMapper">
+	
+	
+	<insert id="coupon_insert" parameterType="kr.co.sbsj.md.CouponDTO">
+	INSERT INTO coupon (member_id, coupon_name, coupon_dis, coupon_end) 
+		VALUES( #{member_id}, #{coupon_name}, #{coupon_dis}, #{coupon_end} )
+	</insert>
+	
+	<select id="couponCheck" parameterType="kr.co.sbsj.md.CouponDTO" resultType="int">
+	select count(coupon_id)
+	from coupon
+	where member_id = #{member_id} and coupon_name = #{coupon_name}
+
+	</select>
 
 	<select id="detail" parameterType="java.lang.String" resultType="kr.co.sbsj.md.MdDTO">
 		select md_id, md_name, md_oneline, md_price, md_category, md_abv, md_discount

@@ -88,7 +88,7 @@
               <a class="nav-link" href="${pageContext.request.contextPath}/md/subs_list">정기구독</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="/event/toEvent">이벤트</a>
+              <a class="nav-link" href="${pageContext.request.contextPath}/md/event_list">이벤트</a>
           </li>
           <li class="nav-item dropdown dmenu">
             <a class="nav-link dropdown-toggle" href="/md/list" id="navbardrop" data-toggle="dropdown">

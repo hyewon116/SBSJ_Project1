@@ -13,6 +13,18 @@ public class MdDAO {
 	
 	@Autowired
 	private SqlSession sqlSession;
+	
+	public int coupon_insert( CouponDTO dto ) {
+		int successCount = 0;
+		successCount = sqlSession.insert("MdMapper.coupon_insert", dto);
+		return successCount;
+	}//coupon_insert
+
+	public int couponCheck( CouponDTO dto) {
+		int isYN = 0;
+		isYN = sqlSession.selectOne("MdMapper.couponCheck", dto );
+		return isYN;
+	}//couponCheck
 
 	public MdDTO detail( String md_id ) {
 		MdDTO dto = null;
@@ -61,6 +73,6 @@ public class MdDAO {
 		int isYN = 0;
 		isYN = sqlSession.selectOne("MdMapper.wishCheck", dto );
 		return isYN;
-	}
+	}//wishCheck
 
 }

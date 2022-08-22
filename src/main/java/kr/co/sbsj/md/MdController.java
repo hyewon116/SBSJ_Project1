@@ -38,6 +38,36 @@ public class MdController {
 	@Autowired
 	private MdService service;
 	
+	//쿠폰 발급
+	@RequestMapping(value = "/coupon_insert", method = RequestMethod.POST)
+	public void couponInsert( CouponDTO dto, PrintWriter out ) {
+		int isYN = 0;
+		isYN = service.couponCheck( dto ); //쿠폰 중복 체크용 쿼리
+			
+		//중복 체크 
+		if ( isYN >= 1 ) {
+			System.out.println(isYN);
+			out.print(0);
+			out.close();
+			return;
+			
+		} else { //중복이 아니면 insert
+			int successCount = 0;
+			successCount = service.coupon_insert( dto );
+			System.out.println(successCount);
+			out.print(successCount);
+			out.close();	
+		}
+		
+	}//couponInsert
+	
+	
+	//이벤트(쿠폰) 리스트
+	@RequestMapping(value = "/event_list", method = RequestMethod.GET)
+	public String eventList() {
+		return "/md/event_list";//jsp file name
+	}//event_list
+	
 	
 	//정기구독 디테일
 	@RequestMapping(value = "/subs_detail", method = RequestMethod.GET)
