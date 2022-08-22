@@ -7,7 +7,7 @@
 
 	<update id="update" parameterType="kr.co.sbsj.cs.NoticeDTO">
 	update notice 
-	set title = #{title}
+	set notice_title = #{notice_title}
 		, notice_content = #{notice_content}
 	where notice_id = #{notice_id}
 	</update>

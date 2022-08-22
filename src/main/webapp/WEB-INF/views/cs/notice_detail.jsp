@@ -45,7 +45,7 @@
 				<a href="${pageContext.request.contextPath}/notice/uform?notice_id=${detail_dto.notice_id}">
 					<button type="button" class="btn btn-warning" id="update"> 수정 </button> 
 				</a>
-				<button type="button" class="btn btn-danger" id="delete_btn"> 삭제 </button>
+				<button type="button" class="btn btn-danger" id="delete_btn" name="delete_btn"> 삭제 </button>
 			</div>
 		</c:if>
 		

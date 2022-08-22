@@ -11,116 +11,204 @@
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 		<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 		
+		<style type="text/css">
+		ul {
+		list-style-type:none 
+		}
+		</style>
 	</head>
 	<body>
 	<%@ include file="/WEB-INF/views/headerMain.jsp" %>
+
+<!-- 타이틀 -->	
+	<div class="container col-sm-8">
 		<hr>
-		<h3> 주 문 서 </h3>
+		<h3> 주문  / 결제 </h3>
 		<hr>
-		<table class="table table-hover">
-			<col class="col-1">
-			<thead>
-				<tr>
-				 <th> <input type="checkbox" id="cbx_chkAll" checked="checked">선택 </input> </th>
-					<th> </th>	<th> 상품 </th>
+	</div>	
+	
+<!-- 상품 정보 시작 -->		
+		<div class="container col-sm-8">
+<!-- 		<div class="border rounded p-3 mb-3"></div>
+ -->		<table class="table table-hover">
+				<col class="col-1">
+				<thead>
+					<tr>
+						<th><!-- 상품이미지 --></th>
+						<th> 상품 </th>
 						<th> 수량 </th>	
-					<th> 가격 </th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:set var="sum_md_class_qty" value="0" />
-				<c:set var="sum_buy_amt" value="0" />
-				<c:set var="sum_discount_amt" value="0" />
-				<c:set var="delivery_cost" value="0" />
-				<c:forEach var="dto" items="${list}" varStatus="status">
-					<c:set var="sum_md_class_qty" value="${sum_md_class_qty + 1}" />
-					<c:set var="sum_buy_amt" value="${sum_buy_amt + (dto.md_price * dto.buy_qty)}" />
-					<c:set var="sum_discount_amt" value="${sum_discount_amt + ( (dto.md_price - dto.sale_price) * dto.buy_qty )}" />
-					<tr>
-					<td width="8%">
-                                    <input type="checkbox" class="order_check_box form-control" checked="checked"
-                                        id="${dto.md_price}" name="${dto.sale_price}" value="${dto.buy_qty}">
-                                    <input type="hidden" id="cart_id${status.index}" name="cart_id${status.index}"
-                                        value="${dto.cart_id}">
-                                </td>
-						<td width="10%">
-							<img src="${dto.md_thumbnail_path}" class="img-thumbnail">
-						</td>
-						<td>
-							<a href="${pageContext.request.contextPath}/md/detail?md_id=${dto.md_id}">
-								${dto.md_name}
-								<input type=hidden id="md_name" value="${dto.md_name}">
-							</a>
+						<th> 가격 </th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<c:set var="sum_md_class_qty" value="0" />
+					<c:set var="sum_buy_amt" value="0" />
+					<c:set var="sum_discount_amt" value="0" />
+					<c:set var="delivery_cost" value="0" />
+					<c:forEach var="dto" items="${list}" varStatus="status">
+					
+						<c:set var="sum_md_class_qty" value="${sum_md_class_qty + 1}" />
+						<c:set var="sum_buy_amt" value="${sum_buy_amt + (dto.md_price * dto.buy_qty)}" />
+						<c:set var="sum_discount_amt" value="${sum_discount_amt + ( (dto.md_price - dto.sale_price) * dto.buy_qty )}" />
+						
+						<tr>
+							<!-- 상품 이미지 -->
+							<td>
+								<img src="${dto.md_thumbnail_path}" class="img-thumbnail">
+							</td>
 							
-						</td>
-						<td width="15%">
-                                    <div id="qty_btn">
-                                        <button class="minus_btn">-</button>
-                                        <input type="text" value="${dto.buy_qty}" class="quantity_input" readonly>
-                                        <button class="plus_btn" data-max-qty="${dto.md_stock}">+</button>
-                                    </div>
-                                    <a class="qty_chg_btn" data-cart_id="${dto.cart_id}">변경</a>
-                                <td width="30%"> ${dto.md_price * dto.buy_qty - ( (dto.md_price - dto.sale_price) *
-                                    dto.buy_qty )} 원 </td>
-                                    <button style = "display:none;" class="cart_delete_btn "  value="${dto.cart_id}"> 
-                                    </button>
-					</tr>
-				</c:forEach>
-				<c:choose>
-					<c:when test = "${sum_buy_amt-sum_discount_amt >=30000 || sum_buy_amt-sum_discount_amt <= 0}"  >
-						 <c:set var="delivery_cost" value="0"/> 
-                    </c:when>
-                    <c:otherwise>
-                        <c:set var="delivery_cost" value="3000"/> 
-                    </c:otherwise>
-				</c:choose>	
-				<td colspan="6">
-                        <button id="delete_btn" class="btn btn-large btn-default"> 선택상품 삭제 </button>
-                    </td>
-			</tbody>
-		</table>
-		<hr>
-		<div class="row">
-			<div class="col-6">
-				<table class="table table-hover table-borderless">
-					<tr>
-						<td>
-							<a href="javascript:void(0);" onclick="goAddDelivery();">
-								<button type="button" class="btn btn-primary btn-sm">
-									배 송 지 추 가
-								</button>
-							</a>
-							<button id="delivery_btn" type="button" class="btn btn-primary btn-sm"
-							 		data-toggle="modal" data-target="#delivery_choice_modal">
-								배 송 지 선 택
-							</button>
-						</td>
-					</tr>
-					<tr>
-						<td id="td_delivery">
-							<c:choose>
-								<c:when test="${deliverylist != null && deliverylist[0] != null}">
-									<div class="card">
-										<div class="card-body">
-											<h5 class="card-title">배송지 : ${deliverylist[0].addr_name}</h5>
-											<p class="card-text">받는 분 : ${deliverylist[0].receiver} ( 연락처 : ${deliverylist[0].member_phone} )</p>
-											<p class="card-text">( ${deliverylist[0].post_code} ) ${deliverylist[0].delivery_addr1} ${deliverylist[0].delivery_addr2}</p>
-										</div>
-									</div>
-								</c:when>
-								<c:otherwise>
-									<h5> 등록된 배송지가 없습니다. </h5>
-								</c:otherwise>
-							</c:choose>
-						</td>
-					</tr>
+							<!-- 상품 이름 -->
+							<td>
+								<a href="${pageContext.request.contextPath}/md/detail?md_id=${dto.md_id}">
+									${dto.md_name}
+									<input type=hidden id="md_name" value="${dto.md_name}">
+								</a>
+							</td>
+							
+							<!-- 수량 -->
+	                        <td>${dto.buy_qty}개</td>
+	                        
+	                        <!-- 가격 -->
+	                        <td width="30%"> ${dto.md_price * dto.buy_qty - ( (dto.md_price - dto.sale_price) *dto.buy_qty )} 원 </td>
+						</tr>
+						
+					</c:forEach>
+					
+					<!-- 배송비 -->
+					<c:choose>
+						<c:when test = "${sum_buy_amt-sum_discount_amt >=30000 || sum_buy_amt-sum_discount_amt <= 0}"  >
+							 <c:set var="delivery_cost" value="0"/> 
+	                    </c:when>
+	                    <c:otherwise>
+	                        <c:set var="delivery_cost" value="3000"/> 
+	                    </c:otherwise>
+					</c:choose>	
+					
+					<!-- <td colspan="6">
+	                        <button id="delete_btn" class="btn btn-large btn-default"> 선택상품 삭제 </button>
+	                 	</td> -->
+						</tbody>
 				</table>
-				<input type="hidden" id="delivery_id" name="delivery_id"
-					<c:if test="${deliverylist != null && deliverylist[0] != null}">
-						value="${deliverylist[0].delivery_id}"
-					</c:if>
-				>
+				<hr>
 			</div>
+<!-- 상품 정보 끝 -->		
+
+<br><br>
+
+<!-- 구매자 정보 시작 -->	
+			<div class="container col-sm-8">	
+				<h4>구매자 정보</h4>
+				<table class="table table-hover">
+						<tr>
+						<th>이름  </th> <td>${memberdto.member_name} </td> 
+						</tr>
+						<tr>
+						<th>이메일</th> <td>${memberdto.member_email}</td> 
+						</tr>
+						<tr>
+						<th> 휴대폰 번호 </th>	<td>${memberdto.member_phone}  </td> 
+						</tr>
+				</table>
+				<hr>
+			</div>
+<!-- 구매자 정보 끝 -->
+
+<br><br>
+
+<!-- 받는 사람 정보 시작 -->		
+		<div class="container col-sm-8">
+			<h4>받는 사람정보</h4> <hr>
+				<div class="col-6">
+				
+					<table class="table table-hover table-borderless">
+						<tr>
+							<td id="td_delivery">
+								<c:choose>
+									<c:when test="${deliverylist != null && deliverylist[0] != null}">
+										<div class="card">
+											<div class="card-body">
+												<h5 class="card-title">배송지 : ${deliverylist[0].addr_name}</h5>
+												<p class="card-text">받는 분 : ${deliverylist[0].receiver} ( 연락처 : ${deliverylist[0].member_phone} )</p>
+												<p class="card-text">( ${deliverylist[0].post_code} ) ${deliverylist[0].delivery_addr1} ${deliverylist[0].delivery_addr2}</p>
+											</div>
+										</div>
+									</c:when>
+									<c:otherwise>
+										<h5> 등록된 배송지가 없습니다. </h5>
+									</c:otherwise>
+								</c:choose>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<a href="javascript:void(0);" onclick="goAddDelivery();">
+									<button type="button" class="btn btn-primary btn-sm">
+										배 송 지 추 가
+									</button>
+								</a>
+								<button id="delivery_btn" type="button" class="btn btn-primary btn-sm"
+								 		data-toggle="modal" data-target="#delivery_choice_modal">
+									배 송 지 선 택
+								</button>
+							</td>
+						</tr>
+					</table>
+					
+						<input type="hidden" id="delivery_id" name="delivery_id"
+							<c:if test="${deliverylist != null && deliverylist[0] != null}">
+								value="${deliverylist[0].delivery_id}"
+							</c:if>
+						>
+			</div>
+			<hr>
+		</div>
+<!-- 받는 사람 정보 끝 -->
+
+<br><br>
+
+<!-- 쿠폰 /적립금 시작 -->
+<div class="container col-sm-8">
+	<form>
+	<h4>쿠폰 / 적립금</h4> <hr>
+		<div id="couponUse" class="form-info">
+			<label class="pull-left">쿠폰 적용</label>
+				<div>
+					<ul>
+						<li id="coupon"><select id="couponUse">
+								<option value="0">사용할 쿠폰을 선택 하세요.</option>
+								<option value="10">10% 할인쿠폰</option>
+								<option value="30">30% 할인쿠폰</option>
+								<option value="50">50% 할인쿠폰</option>
+						</select> <span><button id="couponButton" type="button"
+									class="btn btn-warning">적용</button></span></li>
+					</ul>
+				</div>
+		</div>
+		
+		<div id="save" class="form-info clearfix">
+			<label class="pull-left">적립금</label>
+				<div class="pull-right">
+					<ul>
+						<li>보유 적립금<input id="savePossible" type="text"
+							disabled="disabled" value="2000" />원
+						</li>
+					</ul>
+					<ul>
+						<li><span><input id="saveUse" type="text" value="0" /></span>
+							<button id="saveButton" type="button" class="btn btn-warning">적용</button></li>
+					</ul>
+				</div>
+		</div>
+	</form>
+    <hr>
+</div>
+<!-- 쿠폰/적립금 종료 -->
+
+
+<!-- 결제 정보 시작 -->
+ <div class="container col-sm-8">
+		
 			<div class="col-6">
 				<table class="table table-hover">
 					<tr>
@@ -155,8 +243,11 @@
 			</div>
 		</div>
 		<hr>
+<!-- 결제 정보 끝 -->		
+
 <%-- 	<%@ include file="/WEB-INF/views/footer.jsp" %> --%>
-	<!-- delivery modal start -->
+
+<!-- delivery modal start -->
 	<div class="modal" id="delivery_choice_modal">
 		<div class="modal-dialog">
 			<div class="modal-content" >
@@ -209,154 +300,49 @@
 		</div>
 	</div>
 	<!-- delivery modal end -->
+	
+<!-- # 구매 수량 변경 -->	
  <script type="text/javascript">
-                        $(document).ready(function () {
-                            $(".plus_btn").click(function () {
-                                let quantity = $(this).parent("div").find("input").val();
-                                let maxQty = $(this).data("maxQty");
-                                if (maxQty >= parseInt(quantity) + 1) {
-                                    $(this).parent("div").find("input").val(++quantity);
-                                }
-                            });
-                            $(".minus_btn").click(function () {
-                                let quantity = $(this).parent("div").find("input").val();
-                                if (1 < quantity) {
-                                    $(this).parent("div").find("input").val(--quantity);
-                                }
-                            });
-                            $(".qty_chg_btn").click(function () {
-                                //alert( $(this).val() + " : " + $(this).prev().val() );
-                                $.get(
-                                    "${pageContext.request.contextPath}/cart/update_buy_qty"
-                                    , {
-                                        cart_id: $(this).data("cart_id")
-                                        , buy_qty: $("#qty_btn").find("input").val()
-                                    }
-                                    , function (data, status) {
-                                        if (data >= 1) {
-                                            alert("구매 수량을 수정 하였습니다.");
-                                            location.href = "${pageContext.request.contextPath}/order/order_list?arr_cart_id=" + arr_cart_id;
+    $(document).ready(function () {
+        $(".plus_btn").click(function () {
+            let quantity = $(this).parent("div").find("input").val();
+            let maxQty = $(this).data("maxQty");
+            if (maxQty >= parseInt(quantity) + 1) {
+                $(this).parent("div").find("input").val(++quantity);
+            }
+        });
+        $(".minus_btn").click(function () {
+            let quantity = $(this).parent("div").find("input").val();
+            if (1 < quantity) {
+                $(this).parent("div").find("input").val(--quantity);
+            }
+        });
+        $(".qty_chg_btn").click(function () {
+            //alert( $(this).val() + " : " + $(this).prev().val() );
+            $.get(
+                "${pageContext.request.contextPath}/cart/update_buy_qty"
+                , {
+                    cart_id: $(this).data("cart_id")
+                    , buy_qty: $("#qty_btn").find("input").val()
+                }
+                , function (data, status) {
+                    if (data >= 1) {
+                        alert("구매 수량을 수정 하였습니다.");
+                        location.href = "${pageContext.request.contextPath}/order/order_list?arr_cart_id=" + arr_cart_id;
 
-                                        } else {
-                                            alert("구매 수량 수정을 실패 하였습니다.");
-                                        }
-                                    }//call back function
-                                );//get
+                    } else {
+                        alert("구매 수량 수정을 실패 하였습니다.");
+                    }
+                }//call back function
+            );//get
 
-                            });//click
-                        });//ready
-                    </script>
-                    <script type="text/javascript">
-                        $(document).ready(function () {
-                            $("#cbx_chkAll").click(function () {
-                            	var $checkBoxList = $(".order_check_box");
-                                   if ($("#cbx_chkAll").is(":checked")) {
-                                   	   $(".order_check_box").prop("checked", true);
-                                   	$("#span_sum_md_class_qty").text(${sum_md_class_qty});
-                                        $("#span_sum_buy_amt").text(${sum_buy_amt});
-                                        $("#span_sum_discount_amt").text(${sum_discount_amt});                                    
-                                        $("#span_delivery_cost").text(${delivery_cost});
-                                        $("#span_sum_total_buy_amt").text(${sum_buy_amt - sum_discount_amt+delivery_cost});
-                                   } else {
-                                   	   $(".order_check_box").prop("checked", false);
-                                   		$("#span_sum_md_class_qty").text(0);
-                                        $("#span_sum_buy_amt").text(0);
-                                        $("#span_sum_discount_amt").text(0);
-                                        $("#span_delivery_cost").text(0);
-                                        $("#span_sum_total_buy_amt").text(0);
-                                   }
-                            });
+        });//click
+    });//ready
+</script>
 
-                            $(".order_check_box").click(function () {
-                                var total = $(".order_check_box").length;
-                                var checked = $(".order_check_box:checked").length;
 
-                                if (total != checked) $("#cbx_chkAll").prop("checked", false);
-                                else $("#cbx_chkAll").prop("checked", true);
-                            });
-                        });
-                    </script>
-                    <script type="text/javascript">
-                        $(document).ready(function () {
-                            $(".order_check_box").click(function () {
-                                //alert($(this).val() + " : " + $(this).attr("name") + " : " + $(this).attr("id"));
-
-                                if ($(this).prop("checked") == true) {
-                                    $("#span_sum_md_class_qty").text(
-                                        parseInt($("#span_sum_md_class_qty").text()) + 1
-                                    );
-                                    $("#span_sum_buy_amt").text(
-                                        parseInt($("#span_sum_buy_amt").text()) + ($(this).attr("id") * $(this).val())
-                                    );
-                                    $("#span_sum_discount_amt").text(
-                                        parseInt($("#span_sum_discount_amt").text())
-                                        + (($(this).attr("id") - $(this).attr("name")) * $(this).val())
-                                    );
-                                    $("#span_sum_total_buy_amt").text(
-                                        parseInt($("#span_sum_total_buy_amt").text())
-                                        + ($(this).attr("name") * $(this).val())
-                                    );
-                                    let totalAmt = parseInt($("#span_sum_total_buy_amt").text());
-                                    let deliveryCost = totalAmt >= 30000 || totalAmt <= 0 ? 0 : 3000;
-                                    $("#span_delivery_cost").text(deliveryCost);
-                                } else if ($(this).prop("checked") == false) {
-                                    $("#span_sum_md_class_qty").text(
-                                        $("#span_sum_md_class_qty").text() - 1
-                                    );
-                                    $("#span_sum_buy_amt").text(
-                                        $("#span_sum_buy_amt").text() - ($(this).attr("id") * $(this).val())
-                                    );
-                                    $("#span_sum_discount_amt").text(
-                                        parseInt($("#span_sum_discount_amt").text())
-                                        - (($(this).attr("id") - $(this).attr("name")) * $(this).val())
-                                    );
-                                    $("#span_sum_total_buy_amt").text(
-                                        $("#span_sum_total_buy_amt").text()
-                                        - ($(this).attr("name") * $(this).val())
-                                    );
-                                    let totalAmt = parseInt($("#span_sum_total_buy_amt").text());
-                                    let deliveryCost = totalAmt >= 30000 || totalAmt <= 0 ? 0 : 3000;
-                                    $("#span_delivery_cost").text(deliveryCost);
-                                }//if
-
-                            });//click
-                        });//ready
-                    </script>
-					 <script type="text/javascript">
-                        $(document).ready(function () {
-                            $(".cart_delete_btn").click(function () {
-
-                                $.get(
-                                    "${pageContext.request.contextPath}/cart/delete"
-                                    , {
-                                        cart_id: $(this).val()
-                                    }
-                                    , function (data, status) {
-                                        if (data >= 1) {
-                                        	location.href = "${pageContext.request.contextPath}/order/order_list?arr_cart_id=" + arr_cart_id;
-                                        } else {
-                                            alert("상품 삭제를 실패 하였습니다.");
-                                        }
-                                    }//call back function
-                                );//get
-
-                            });//click
-                            $("#delete_btn").click(function () {
-
-                                let checks = $("input[type=checkbox]");
-                                for (let i = 0; i < checks.length; i++) {
-                                	if(i == 0) continue;
-                                    if (checks[i].checked == true) {
-                                    	 $(".cart_delete_btn")[i-1].click();
-                                    }//if
-
-                                }//for
-
-                            });//click
-                        });//ready
-                    </script>
-
-	<script type="text/javascript">
+<!-- # 배송지 모달 선택 버튼  -->
+<script type="text/javascript">
 	$(document).ready(function() {
 		$(".addr_choice_btn").click(function() {
 
@@ -366,9 +352,10 @@
 
 		});//click
 	});//ready
-	</script>
+</script>
 
-	<script type="text/javascript">
+<!-- # 배송지 모달 주소 삭제 버튼 -->
+<script type="text/javascript">
 	$(document).ready(function() {
 		$(".addr_delete_btn").click(function() {
 
@@ -408,10 +395,10 @@
            location.href = "${pageContext.request.contextPath}/delivery/form?arr_cart_id=" + str_cart_id;
         }
      }
-	</script>
+</script>
 
 
-<!-- 카카오페이 -->
+<!-- # 카카오페이 -->
 <script type="text/javascript">
 	    $(document).ready(function(){$("#kakao_btn").click(function() {
 	    	kakaoPay();
@@ -475,6 +462,7 @@
 	            alert(msg);
 	        });
 	    };
-	</script>
+</script>
+	
 	</body>
 </html>

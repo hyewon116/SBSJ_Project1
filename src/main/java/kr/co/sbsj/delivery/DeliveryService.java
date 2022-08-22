@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.sbsj.util.dto.MemberDTO;
+
 @Service
 public class DeliveryService {
 
@@ -28,5 +30,5 @@ public class DeliveryService {
 		list = dao.list( member_id );
 		return list;
 	}//list
-
+	
 }//class

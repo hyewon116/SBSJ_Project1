@@ -76,10 +76,11 @@
 			} else { $("#notice_content_label").text(""); }
 			
 			$.post(
-					"${pageContext.request.contextPath}/notice/insert"
+					"${pageContext.request.contextPath}/notice/update"
 					, {
 						notice_title : $("#notice_title").val()
 						,member_id : $("#member_id").val()
+						,notice_id : $("#notice_id").val()
 						, notice_content : CKEDITOR.instances.notice_content.getData()
 					}
 					, function(data, status) {

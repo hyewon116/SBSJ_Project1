@@ -182,6 +182,8 @@
 				<button id="delete_btn" class="btn btn-danger float-left" onclick="deleteValue();"> 상 품 삭 제 </button> --%>
 		</div>
 		<hr>
+		
+		<!-- 페이징 -->
 		<ul class="pagination">
 			<c:if test="${startPageNum > 10}">
 				<li class="page-item mx-auto">

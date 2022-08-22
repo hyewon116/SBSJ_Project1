@@ -36,7 +36,7 @@
 				</select>
 			</div>
 			
-			<input type="text" id="searchWord" name="searchWord"
+			<input class="form-control" type="text" id="searchWord" name="searchWord"
 					value="${search_dto.searchWord}">
 			<div class="input-group-append">
 				<button type="submit" class="btn btn-info"> 검색 </button>
@@ -64,8 +64,8 @@
 				<a href="${pageContext.request.contextPath}/notice/detail?notice_id=${dto.notice_id}">
 						${dto.notice_title}</a>
 				</td> 
-				<td>${dto.notice_write_date}</td> 
 				<td>${dto.notice_view_cnt}</td> 
+				<td>${dto.notice_write_date}</td> 
 			</tr>			
 			</c:forEach>
 		</tbody>
@@ -73,6 +73,7 @@
 	
 
 	<!-- 작성 버튼 : 관리자만 보임 -->
+		<div class="clearfix">
 			<c:if test="${login_info.admin_yn eq 'Y'}"> 
 				<div class="float-right">
 					<c:if test="${login_info.admin_yn eq 'Y'}"> 
@@ -82,11 +83,12 @@
 					</c:if>
 				</div>
 			</c:if>
+	</div>
+	<hr>
 	<!-- 페이징 -->
-			<div>
 				<ul class="pagination">
 					<c:if test="${startPageNum > 10}">
-						<li class="page-item">
+						<li class="page-item mx-auto">
 							<a class="page-link"
 								href="${pageContext.request.contextPath}/notice/list?userWantPage=${startPageNum-1}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
 								Previous
@@ -96,12 +98,12 @@
 					<c:forEach var="page_no" begin="${startPageNum}" end="${endPageNum}">
 						<c:choose>
 							<c:when test="${page_no == userWantPage}">
-								<li class="page-item active">
+								<li class="page-item active mx-auto">
 									<a class="page-link">${page_no}</a>
 								</li>
 							</c:when>
 							<c:otherwise>
-								<li class="page-item">
+								<li class="page-item mx-auto">
 									<a class="page-link"
 										href="${pageContext.request.contextPath}/notice/list?userWantPage=${page_no}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
 										${page_no}
@@ -111,7 +113,7 @@
 						</c:choose>
 					</c:forEach>
 					<c:if test="${lastPageNum > endPageNum}">
-						<li class="page-item">
+						<li class="page-item mx-auto">
 							<a class="page-link"
 								href="${pageContext.request.contextPath}/notice/list?userWantPage=${endPageNum+1}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
 								Next
@@ -119,6 +121,7 @@
 						</li>
 					</c:if>
 				</ul>
+					  	
 			</div>
 	</div>
 	
