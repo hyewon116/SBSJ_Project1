@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.sbsj.md.MdDTO;
+import kr.co.sbsj.util.dto.MemberDTO;
 
 @Repository
 public class OrderDAO {
 
 	@Autowired
 	private SqlSession sqlSession;
+	private List<Object> list;
 
 	public int updateDeliveryAddrUsedDate( OrderMainDTO dto ) {
 		int successCount = 0;
@@ -56,5 +58,12 @@ public class OrderDAO {
 		list = sqlSession.selectList("OrderMapper.orderList", arr_cart_id);
 		return list;
 	}//orderList
+
+
+	public MemberDTO memberdto(String member_id) {
+		MemberDTO memberdto = null;
+		memberdto = sqlSession.selectOne("OrderMapper.getMemberDto", member_id);
+		return memberdto;
+	}
 
 }//class

@@ -34,7 +34,10 @@ public class HistoryDTO {
 	private String post_code;
 	private String delivery_addr1;
 	private String delivery_addr2;
-
+	
+	private String member_name;
+	private String member_email;
+	private String code_name;
 	@Override
 	public String toString() {
 		return order_id
@@ -66,9 +69,12 @@ public class HistoryDTO {
 				+ " : " + receiver
 				+ " : " + post_code
 				+ " : " + delivery_addr1
-				+ " : " + delivery_addr2;
+				+ " : " + delivery_addr2
+				+ " : " + member_name
+				+ " : " + member_email
+				+ " : " + code_name;
 	}
-
+	
 	public String getOrder_id() {
 		return order_id;
 	}
@@ -284,5 +290,30 @@ public class HistoryDTO {
 	public void setDelivery_addr2(String delivery_addr2) {
 		this.delivery_addr2 = delivery_addr2;
 	}
+
+	public String getMember_name() {
+		return member_name;
+	}
+
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
+	}
+
+	public String getMember_email() {
+		return member_email;
+	}
+
+	public void setMember_email(String member_email) {
+		this.member_email = member_email;
+	}
+
+	public String getCode_name() {
+		return code_name;
+	}
+
+	public void setCode_name(String code_name) {
+		this.code_name = code_name;
+	}
+	
 	
 }//class
