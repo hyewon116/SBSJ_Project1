@@ -26,11 +26,14 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 
 import kr.co.sbsj.md.MdDTO;
+import kr.co.sbsj.mdquestion.MdQuestionDTO;
 import kr.co.sbsj.mdreview.MdReviewDTO;
 import kr.co.sbsj.util.dto.MemberDTO;
 import kr.co.sbsj.util.dto.SearchDTO;
 import kr.co.sbsj.util.dto.UpdateDTO;
 import kr.co.sbsj.admin.AdminReviewDTO;
+import kr.co.sbsj.cs.NoticeDTO;
+import kr.co.sbsj.cs.NoticeService;
 import kr.co.sbsj.history.HistoryDTO;
 
 
@@ -47,6 +50,203 @@ public class AdminController {
 	@Autowired
 	private AdminService service;
 	
+	@Autowired
+	   private NoticeService Notice_service;
+	
+	
+	//문의 답변 등록
+	@RequestMapping( value = "/questionReply", method = RequestMethod.POST )
+	public void replyInsert( MdQuestionDTO dto, PrintWriter out, Model model ) {				
+		int successCount = 0;
+		int changeCount = 0;
+		successCount = service.replyInsert(dto);
+		if (successCount >= 1) {
+			changeCount = service.stateChange(dto); //md_question 테이블 답변대기->답변완료 변경 쿼리
+		}
+		out.print(successCount);
+		out.close();
+	}//replyInsert
+	
+	
+	@RequestMapping( value = "/question_on")
+	private String questionOn(HttpServletRequest request) {
+		
+		String[] ajaxMsg = request.getParameterValues("valueArr");
+		int size = ajaxMsg.length;
+		for(int i=0; i<size; i++) {
+			service.questionOn(ajaxMsg[i]);
+		}
+		
+		return "/admin/admin_question_list";//
+	}//reviewOn
+	
+	@RequestMapping( value = "/question_off")
+	private String questionOff(HttpServletRequest request) {
+		
+		String[] ajaxMsg = request.getParameterValues("valueArr");
+		int size = ajaxMsg.length;
+		for(int i=0; i<size; i++) {
+			service.questionOff(ajaxMsg[i]);
+		}
+		
+		return "/admin/admin_question_list";//
+	}//reviewOn
+	
+	
+	//문의 삭제
+	@RequestMapping( value = "/question_delete")
+	private String questionDelete(HttpServletRequest request) {
+		
+		String[] ajaxMsg = request.getParameterValues("valueArr");
+		int size = ajaxMsg.length;
+		for(int i=0; i<size; i++) {
+			service.questionDelete(ajaxMsg[i]);
+		}
+		
+		return "/admin/admin_question_list";
+	}//question_delete
+	
+	
+	//문의 상세 보기
+	@RequestMapping( value = "/question_detail", method = RequestMethod.GET )
+	public String questionDetail( String md_question_id, Model model, MemberDTO mdto ) {
+		MdQuestionDTO dto = null;
+		dto = service.questionDetail( md_question_id );//문의 상세
+		model.addAttribute("detail_dto", dto);
+		
+		dto = service.replyDetail( md_question_id );//답변 상세
+		model.addAttribute("reply_dto", dto);
+		model.addAttribute("md_question_id", md_question_id); 
+		return "admin/admin_question_detail";//jsp file name
+	}//question_detail
+	
+	
+	//상품 문의 관리 (리스트)
+	@RequestMapping( value = "/admin_question_list", method = RequestMethod.GET )
+	public String questionList( Model model, String userWantPage, SearchDTO dto ) {
+		if( userWantPage == null || userWantPage.equals("") ) userWantPage = "1";
+		int totalCount = 0, startPageNum = 1, endPageNum = 10, lastPageNum = 1;
+		totalCount = service.searchQuestionCount( dto );
+
+		if(totalCount > 10) {
+			lastPageNum = (totalCount / 10) + (totalCount % 10 > 0 ? 1 : 0);
+		}//if
+
+		if(userWantPage.length() >= 2) { 
+			String frontNum = userWantPage.substring(0, userWantPage.length() - 1);
+			startPageNum = Integer.parseInt(frontNum) * 10 + 1;
+			endPageNum = ( Integer.parseInt(frontNum) + 1 ) * 10;
+
+			String backNum = userWantPage.substring(userWantPage.length() - 1, userWantPage.length());
+			if(backNum.equals("0")) {
+				startPageNum = startPageNum - 10;
+				endPageNum = endPageNum - 10;
+			}//if
+		}//if
+
+		if(endPageNum > lastPageNum) endPageNum = lastPageNum;
+
+		model.addAttribute("startPageNum", startPageNum);
+		model.addAttribute("endPageNum", endPageNum);
+		model.addAttribute("lastPageNum", lastPageNum);
+		model.addAttribute("userWantPage", userWantPage);
+
+		dto.setLimitNum( ( Integer.parseInt(userWantPage) - 1 ) * 10  );
+
+		List<MdQuestionDTO> list = null;
+		list = service.searchQuestion( dto );
+		System.out.println("===========================================================");
+		System.out.println(list.toString());
+		System.out.println("===========================================================");
+		model.addAttribute("list", list); 
+		model.addAttribute("search_dto", dto);
+		 
+		return "/admin/admin_question_list";//jsp file name
+	}//admin_question_list
+	
+	
+	@RequestMapping( value = "/review_on")
+	private String reviewOn(HttpServletRequest request) {
+		
+		String[] ajaxMsg = request.getParameterValues("valueArr");
+		int size = ajaxMsg.length;
+		for(int i=0; i<size; i++) {
+			service.reviewOn(ajaxMsg[i]);
+		}
+		
+		return "/admin/admin_review_list";//
+	}//reviewOn
+	
+	@RequestMapping( value = "/review_off")
+	private String reviewOff(HttpServletRequest request) {
+		
+		String[] ajaxMsg = request.getParameterValues("valueArr");
+		int size = ajaxMsg.length;
+		for(int i=0; i<size; i++) {
+			service.reviewOff(ajaxMsg[i]);
+		}
+		
+		return "/admin/admin_review_list";//
+	}//review_off
+	
+	
+	@RequestMapping( value = "/review_delete")//리뷰 삭제
+	private String reviewDelete(HttpServletRequest request) {
+		
+		String[] ajaxMsg = request.getParameterValues("valueArr");
+		int size = ajaxMsg.length;
+		for(int i=0; i<size; i++) {
+			service.reviewDelete(ajaxMsg[i]);
+		}
+		
+		return "/admin/admin_review_list";
+	}//review_delete
+	
+	
+	// 리뷰리스트에서의 검색
+	@RequestMapping( value = "/admin_review_list", method = RequestMethod.GET )
+	public String reViewList( Model model, String userWantPage, SearchDTO dto ) {
+		if( userWantPage == null || userWantPage.equals("") ) userWantPage = "1";
+		int totalCount = 0, startPageNum = 1, endPageNum = 10, lastPageNum = 1;
+		totalCount = service.searchReviewCount( dto );
+		//System.out.println("상품의 총개수는 : ?" + totalCount);
+
+		if(totalCount > 10) {//201 -> (201 /10) + (201 % 10 > 0 ? 1 : 0) -> 20 + 1
+			lastPageNum = (totalCount / 10) + (totalCount % 10 > 0 ? 1 : 0);
+		}//if
+
+		if(userWantPage.length() >= 2) { //userWantPage가 12인 경우 startPageNum는 11, endPageNum는 20.
+			String frontNum = userWantPage.substring(0, userWantPage.length() - 1);//12 -> 1
+			startPageNum = Integer.parseInt(frontNum) * 10 + 1;// 1 * 10 + 1 -> 11
+			endPageNum = ( Integer.parseInt(frontNum) + 1 ) * 10;// (1 + 1) * 10 -> 20
+			//userWantPage가 10인 경우, startPageNum는 11, endPageNum는 20.
+			String backNum = userWantPage.substring(userWantPage.length() - 1, userWantPage.length());
+			if(backNum.equals("0")) {
+				startPageNum = startPageNum - 10;// 11 - 10 -> 1
+				endPageNum = endPageNum - 10;// 20 - 10 -> 10
+			}//if
+		}//if
+
+		//endPageNum이 20이고, lastPageNum이 17이라면, endPageNum을 17로 수정해라
+		if(endPageNum > lastPageNum) endPageNum = lastPageNum;
+
+		model.addAttribute("startPageNum", startPageNum);
+		model.addAttribute("endPageNum", endPageNum);
+		model.addAttribute("lastPageNum", lastPageNum);
+		model.addAttribute("userWantPage", userWantPage);
+
+		dto.setLimitNum( ( Integer.parseInt(userWantPage) - 1 ) * 10  );
+
+		List<AdminReviewDTO> list = null;
+		list = service.searchReview( dto );
+		System.out.println("===========================================================");
+		System.out.println(list.toString());
+		System.out.println("===========================================================");
+		model.addAttribute("list", list); 
+		model.addAttribute("search_dto", dto);
+		 
+		return "/admin/admin_review_list";//jsp file name
+	}//admin_review_list
 	
 	
 	@RequestMapping(value = "/admin_order_list", method = RequestMethod.GET)
@@ -96,13 +296,14 @@ public class AdminController {
 
 	}//oderList
 	
-	
-	
-	
-	
-	
-	
-	
+	@RequestMapping( value = "/admin_order_detail", method = RequestMethod.GET )
+	   private String admin_order_Detail(  Model model, HttpSession session, HistoryDTO dto ) {
+	      List<HistoryDTO> list = null;
+	      list = service.orderDetail(dto);
+	      model.addAttribute("list", list);
+	      
+	      return "/admin/admin_order_detail";//
+	   }
 	
 	@RequestMapping( value = "/admin_member_detail", method = RequestMethod.GET )
 	private String admin_member_Detail( String member_email, Model model, HttpSession session, MemberDTO dto ) {
@@ -114,10 +315,7 @@ public class AdminController {
 		
 		return "/admin/admin_member_detail";//
 	}
-	
-	
-	
-	
+
 	@RequestMapping( value = "/admin_member_list", method = RequestMethod.GET )
 	public String memberList( Model model, String userWantPage, SearchDTO dto ) {
 		if( userWantPage == null || userWantPage.equals("") ) userWantPage = "1";
@@ -276,17 +474,7 @@ public class AdminController {
 		return "/admin/admin_md_list";//
 	}//delete
 	
-	@RequestMapping( value = "/review_delete")//상품 삭제
-	private String reviewDelete(HttpServletRequest request) {
-		
-		String[] ajaxMsg = request.getParameterValues("valueArr");
-		int size = ajaxMsg.length;
-		for(int i=0; i<size; i++) {
-			service.reviewDelete(ajaxMsg[i]);
-		}
-		
-		return "/admin/admin_review_list";//
-	}//review_delete
+
 	
 	@RequestMapping( value = "/offsale")
 	private String md_disable(HttpServletRequest request) {
@@ -300,32 +488,7 @@ public class AdminController {
 		return "/admin/admin_md_list";//
 	}//md_disable
 	
-	@RequestMapping( value = "/review_on")
-	private String reviewOn(HttpServletRequest request) {
-		
-		String[] ajaxMsg = request.getParameterValues("valueArr");
-		int size = ajaxMsg.length;
-		for(int i=0; i<size; i++) {
-			service.reviewOn(ajaxMsg[i]);
-		}
-		
-		return "/admin/admin_review_list";//
-	}//reviewOn
-	
-	@RequestMapping( value = "/review_off")
-	private String reviewOff(HttpServletRequest request) {
-		
-		String[] ajaxMsg = request.getParameterValues("valueArr");
-		int size = ajaxMsg.length;
-		for(int i=0; i<size; i++) {
-			service.reviewOff(ajaxMsg[i]);
-		}
-		
-		return "/admin/admin_review_list";//
-	}//reviewOn
-	
-	
-	
+
 	
 	@RequestMapping( value = "/off_account")
 	private String offAccount(HttpServletRequest request) {
@@ -351,6 +514,7 @@ public class AdminController {
 		return "/admin/admin_member_list";//
 	}//onaccount
 	
+
 	@RequestMapping( value = "/onsale")
 	private String onsale(HttpServletRequest request) {
 		
@@ -368,8 +532,6 @@ public class AdminController {
 	private String admin() {
 		return "/admin/admin";//
 	}//admin
-	
-	
 	
 	
 	@RequestMapping( value = "/admin_md_list", method = RequestMethod.GET )
@@ -414,32 +576,28 @@ public class AdminController {
 	}//admin_md_list
 	
 	
-	// 리뷰리스트에서의 검색
-		
-	@RequestMapping( value = "/admin_review_list", method = RequestMethod.GET )
-	public String reViewList( Model model, String userWantPage, SearchDTO dto ) {
-		if( userWantPage == null || userWantPage.equals("") ) userWantPage = "1";
+	//공지사항 관리
+	@RequestMapping( value = "/admin_notice_list", method = RequestMethod.GET )
+	public String list(Model model, String userWantPage, SearchDTO dto) {
+		if(userWantPage == null || userWantPage.equals("")) userWantPage = "1";
 		int totalCount = 0, startPageNum = 1, endPageNum = 10, lastPageNum = 1;
-		totalCount = service.searchReviewCount( dto );
-		//System.out.println("상품의 총개수는 : ?" + totalCount);
-
-		if(totalCount > 10) {//201 -> (201 /10) + (201 % 10 > 0 ? 1 : 0) -> 20 + 1
+		totalCount = Notice_service.searchListCount(dto);
+		
+		if(totalCount > 10) {
 			lastPageNum = (totalCount / 10) + (totalCount % 10 > 0 ? 1 : 0);
 		}//if
-
-		if(userWantPage.length() >= 2) { //userWantPage가 12인 경우 startPageNum는 11, endPageNum는 20.
-			String frontNum = userWantPage.substring(0, userWantPage.length() - 1);//12 -> 1
-			startPageNum = Integer.parseInt(frontNum) * 10 + 1;// 1 * 10 + 1 -> 11
-			endPageNum = ( Integer.parseInt(frontNum) + 1 ) * 10;// (1 + 1) * 10 -> 20
-			//userWantPage가 10인 경우, startPageNum는 11, endPageNum는 20.
+		
+		if(userWantPage.length() >= 2) { 
+			String frontNum = userWantPage.substring(0, userWantPage.length() - 1);
+			startPageNum = Integer.parseInt(frontNum) * 10 + 1;
+			endPageNum = ( Integer.parseInt(frontNum) + 1 ) * 10;
 			String backNum = userWantPage.substring(userWantPage.length() - 1, userWantPage.length());
 			if(backNum.equals("0")) {
-				startPageNum = startPageNum - 10;// 11 - 10 -> 1
-				endPageNum = endPageNum - 10;// 20 - 10 -> 10
+				startPageNum = startPageNum - 10;
+				endPageNum = endPageNum - 10;
 			}//if
 		}//if
 
-		//endPageNum이 20이고, lastPageNum이 17이라면, endPageNum을 17로 수정해라
 		if(endPageNum > lastPageNum) endPageNum = lastPageNum;
 
 		model.addAttribute("startPageNum", startPageNum);
@@ -448,24 +606,60 @@ public class AdminController {
 		model.addAttribute("userWantPage", userWantPage);
 
 		dto.setLimitNum( ( Integer.parseInt(userWantPage) - 1 ) * 10  );
-
-		List<AdminReviewDTO> list = null;
-		list = service.searchReview( dto );
-		System.out.println("===========================================================");
-		System.out.println(list.toString());
-		System.out.println("===========================================================");
-		model.addAttribute("list", list); 
+		
+		List<NoticeDTO> list = null;
+		list = Notice_service.searchList( dto );
+		model.addAttribute("list", list);
 		model.addAttribute("search_dto", dto);
-		 
-		return "/admin/admin_review_list";//jsp file name
-	}//admin_md_list	
-		
-		
-		
-		
-		
+		return "/admin/admin_notice_list";//jsp file name
+	}//admin_notice_list
+	
+	
+	@RequestMapping( value = "/admin_notice_detail", method = RequestMethod.GET )
+	public String detail( String notice_id, Model model ) {
+		NoticeDTO dto = null;
+		dto = Notice_service.detail( notice_id );
+		model.addAttribute("detail_dto", dto);
+		return "/admin/admin_notice_detail";//jsp file name
+	}//detail
+	
+	@RequestMapping(value = "/admin_notice_write_form", method = RequestMethod.GET)
+	public String writeForm() {
+		return "/admin/admin_notice_write";
+	}//writeForm
+	
+	@RequestMapping( value = "/admin_notice_insert", method = RequestMethod.POST )
+	public void write( NoticeDTO dto, PrintWriter out ) {
+		int successCount = 0;
+		successCount = Notice_service.write( dto );
+		out.print(successCount);
+		out.close();
+	}//write
+	
+	@RequestMapping( value = "/admin_notice_uform", method = RequestMethod.GET )
+	public String uform (String notice_id, Model model) {
+		NoticeDTO dto = null;
+		dto = Notice_service.detail(notice_id);//notice_id에 맞는 디테일 정보를 가져와서 수정폼에 자동 입력
+		model.addAttribute("detail_dto", dto);
+		return "/admin/admin_notice_uform";
+	}//uform
+	
+	@RequestMapping( value = "/admin_notice_update", method = RequestMethod.POST )
+	public void update (NoticeDTO dto, PrintWriter out) {
+		int successCount = 0;
+		successCount = Notice_service.update(dto);
+		out.print(successCount);
+		out.close();
+	}//update
+	
+	@RequestMapping( value = "/delete", method = RequestMethod.GET )
+	public void delete (NoticeDTO dto, PrintWriter out) {
+		int successCount = 0;
+		successCount = Notice_service.delete(dto);
+		out.print(successCount);
+		out.close();
+	}//delete
 	
 	// 아래부분은 미사용 부분//
-	
 	
 }//class

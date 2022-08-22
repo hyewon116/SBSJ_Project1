@@ -4,6 +4,12 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="QuestionMapper">
+
+	<select id="replyDetail" parameterType="java.lang.String" resultType="kr.co.sbsj.mdquestion.MdQuestionDTO">
+	select md_answer_id, md_answer_member, md_answer_content, md_answer_date, md_question_id
+    from md_question_reply
+	where md_question_id = #{md_question_id}
+	</select>
 	
 	<delete id="delete" parameterType="kr.co.sbsj.mdquestion.MdQuestionDTO">
 	delete from md_question where md_question_id = #{md_question_id}
@@ -18,7 +24,8 @@
 	</update>
 	
 	<select id="detail" parameterType="java.lang.String" resultType="kr.co.sbsj.mdquestion.MdQuestionDTO">
-	select md_question_id, md_id, member_id, member_nick, md_question_title, md_question_content, md_question_date, md_question_type
+	select md_question_id, md_id, member_id, member_nick, md_question_title, md_question_content, md_question_date
+	, md_question_type, md_question_answer
     from md_question
 	where md_question_id = #{md_question_id}
 	</select>
@@ -30,17 +37,16 @@
 
 	<select id="pagingList" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="kr.co.sbsj.mdquestion.MdQuestionDTO"> 
 	select md_question_id, md_id, member_id, member_nick, md_question_title, md_question_content
-	, md_question_date, md_question_answer, md_question_type, md_answer_id, md_answer_member
-	, md_answer_content, md_answer_date
+	, md_question_date, md_question_answer, md_question_type
 	from md_question
-	where md_id = #{md_id}
+	where md_id = #{md_id} and question_enable = "Y"
 	order by md_question_id desc
 	limit #{limitNum}, 10
 	</select>
 	
 	<select id="totalCount" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="int">
 	select count(md_question_id) cnt from md_question
-	where md_id = #{md_id}
+	where md_id = #{md_id} and question_enable = "Y"
 	</select>
 
 </mapper>

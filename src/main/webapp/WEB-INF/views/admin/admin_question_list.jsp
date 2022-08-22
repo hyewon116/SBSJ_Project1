@@ -90,7 +90,7 @@
 				
 				<!-- section 시작--------------------------------------------------------------------------------- -->
 				<section class="col-10 h-100 bg-white float-left">
-					<h3> 상 품 후 기 관 리</h3>
+					<h3> 상 품 문 의 관 리</h3>
 					  <hr style="width:100%;height:1px;border:none;background-color:black;">
 					  	
 					  	
@@ -98,25 +98,14 @@
 					  	
 					  	
 					  	
-		<form action="${pageContext.request.contextPath}/admin/admin_review_list" method="get">
+		<form action="${pageContext.request.contextPath}/admin/admin_question_list" method="get">
 			<div class="input-group">
 				<div class="input-group-prepend">
 					<select class="form-control" id="searchOption1" name="searchOption1">
 						
-						
-						
 						<option value="md_name"
 							<c:if test="${search_dto.searchOption1 == 'md_name'}">selected="selected"</c:if>
 						> 상 품 이 름 </option>
-						
-						
-						
-						<option value="review_star"
-							<c:if test="${search_dto.searchOption1 == 'review_star'}">selected="selected"</c:if>
-						> 별점 </option>
-						
-						
-						
 						
 					</select>
 				</div>
@@ -131,18 +120,18 @@
 			<thead>
 				<tr>
 					<th><input id="allCheck" type="checkbox" name="allCheck"></th><th> 번호 </th> 
-					<th> Image </th> <th> 상품명 </th> <th> 제목 </th> <th> 작성자 </th> 
-					<th> 작성일 </th> <th> 별점 </th> <th> 공개여부 </th>
+					<th> Image </th> <th> 상품명 </th> <th> 제목 </th> <th> 작성자 </th> <th> 작성일 </th>
+					<th> 문의유형 </th> <th> 답변상태 </th> <th> 공개여부 </th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="dto" items="${list}">
 					<tr>
 						<td class="col-1">
-							<input name="RowCheck" type="checkbox" value="${dto.review_id}">
+							<input name="RowCheck" type="checkbox" value="${dto.md_question_id}">
 						</td>
 						<td class="col-1">
-						${dto.review_id}
+						${dto.md_question_id}
 						</td>
 					
 						<td class="col-1">
@@ -154,24 +143,24 @@
 							</a>
 						</td>
 						<td class="col-2">
-							<a href="${pageContext.request.contextPath}/mdreview/detail_admin?review_id=${dto.review_id}">
-							${dto.review_title}
+							<a href="${pageContext.request.contextPath}/admin/question_detail?md_question_id=${dto.md_question_id}">
+							${dto.md_question_title}
 							</a>
 						</td>
 						<td class="col-1">
 							${dto.member_nick}님
 						</td>
 						<td class="col-1">
-							${dto.review_date}
+							${dto.md_question_date}
 						</td>
 						<td class="col-1">
-						
-							<c:set var="star" value="${dto.review_star}" />
-							${ fn:substring(star, 0, star.length()-2) }점
-							
+							${dto.md_question_type}
 						</td>
 						<td class="col-1">
-							${dto.review_enable} 
+							${dto.md_question_answer}
+						</td>
+						<td class="col-1">
+							${dto.question_enable} 
 						</td>
 						
 					</tr>
@@ -180,17 +169,17 @@
 		</table>
 		<hr>
 		<div class="clearfix">
-				<button id="able_btn" class="btn btn-info float-right" onclick="onReview();"> 후 기 공 개 </button>
-				<button id="disable_btn" class="btn btn-warning float-right" onclick="offReview();"> 후 기 비 공 개 </button>
+				<button id="able_btn" class="btn btn-info float-right" onclick="onQuestion();"> 문 의 공 개 </button>
+				<button id="disable_btn" class="btn btn-warning float-right" onclick="offQuestion();"> 문 의 비 공 개 </button>
 			
-				<button id="delete_btn" class="btn btn-danger float-left" onclick="deleteReview();"> 후 기 삭 제 </button>
+				<button id="delete_btn" class="btn btn-danger float-left" onclick="deleteQuestion();"> 문 의 삭 제 </button>
 		</div>
 		<hr>
 		<ul class="pagination">
 			<c:if test="${startPageNum > 10}">
 				<li class="page-item mx-auto">
 					<a class="page-link"
-						href="${pageContext.request.contextPath}/admin/admin_md_list?userWantPage=${startPageNum-1}&searchOption1=${search_dto.searchOption1}&searchWord1=${search_dto.searchWord1}">
+						href="${pageContext.request.contextPath}/admin/admin_question_list?userWantPage=${startPageNum-1}&searchOption1=${search_dto.searchOption1}">
 						Previous
 					</a>
 				</li>
@@ -205,7 +194,7 @@
 					<c:otherwise>
 						<li class="page-item mx-auto">
 							<a class="page-link"
-								href="${pageContext.request.contextPath}/admin/admin_md_list?userWantPage=${page_no}&searchOption1=${search_dto.searchOption1}&searchWord1=${search_dto.searchWord1}">
+								href="${pageContext.request.contextPath}/admin/admin_question_list?userWantPage=${page_no}&searchOption1=${search_dto.searchOption1}">
 								${page_no}
 							</a>
 						</li>
@@ -215,20 +204,13 @@
 			<c:if test="${lastPageNum > endPageNum}">
 				<li class="page-item mx-auto">
 					<a class="page-link"
-						href="${pageContext.request.contextPath}/admin/admin_md_list?userWantPage=${endPageNum+1}&searchOption1=${search_dto.searchOption1}&searchWord1=${search_dto.searchWord1}">
+						href="${pageContext.request.contextPath}/admin/admin_question_list?userWantPage=${endPageNum+1}&searchOption1=${search_dto.searchOption1}">
 						Next
 					</a>
 				</li>
 			</c:if>
 		</ul>
-					  	
-					  	
-					  	
-					  	
-					  	
-					  
-					  
-					  
+					 
 				</section>
 				<!-- section 끝---------------------------------------------------------------------------- -->
 			</main>
@@ -259,8 +241,8 @@
 			});//click
 		});//function
 		
-		function deleteReview(){
-			var url = "${pageContext.request.contextPath}/admin/review_delete"; // Controller로 보내고자하는 URL
+		function deleteQuestion(){
+			var url = "${pageContext.request.contextPath}/admin/question_delete"; // Controller로 보내고자하는 URL
 			var valueArr = new Array();
 			var list = $("input[name='RowCheck']");
 			
@@ -271,14 +253,14 @@
 			}
 		
 			if (valueArr.length == 0){
-				alert("선택된 후기가 없습니다.");
+				alert("선택된 문의가 없습니다.");
 			}
 			else{
 				var chk = confirm("정말 삭제하시겠습니까?");
 					if(chk == true) {
 						
 						$.ajax({
-							url : "${pageContext.request.contextPath}/admin/review_delete"//전송 URL
+							url : "${pageContext.request.contextPath}/admin/question_delete"//전송 URL
 							, type : 'POST' //POST 방식
 							, traditional : true
 							, data : {
@@ -286,25 +268,25 @@
 							},
 							success : function(jdata){
 								if(jdata = 1) {
-									alert("후기 삭제 성공");
-									location.href = "${pageContext.request.contextPath}/admin/admin_review_list";
+									alert("문의 삭제 성공");
+									location.href = "${pageContext.request.contextPath}/admin/admin_question_list";
 								}
 								else {
-									alert("후기 삭제 실패");
+									alert("문의 삭제 실패");
 								}
 							}
 						});
 					
 					} else {
-						alert(" 후기 삭제를 취소하셨습니다.")
+						alert("문의 삭제를 취소하셨습니다.")
 					}
 				
 			}//else
 			
 		}//deleteValue
 		
-		function offReview(){
-			var url = "${pageContext.request.contextPath}/admin/review_off"; // Controller로 보내고자하는 URL
+		function offQuestion(){
+			var url = "${pageContext.request.contextPath}/admin/question_off"; // Controller로 보내고자하는 URL
 			var valueArr = new Array();
 			var list = $("input[name='RowCheck']");
 			
@@ -315,14 +297,14 @@
 			}
 		
 			if (valueArr.length == 0){
-				alert("선택된 후기가 없습니다.");
+				alert("선택된 문의가 없습니다.");
 			}
 			else{
-				var chk = confirm("정말 후기를 비공개하시겠습니까?");
+				var chk = confirm("정말 문의를 비공개하시겠습니까?");
 				if(chk == true) {
 				
 						$.ajax({
-							url : "${pageContext.request.contextPath}/admin/review_off"//전송 URL
+							url : "${pageContext.request.contextPath}/admin/question_off"//전송 URL
 							, type : 'POST' //POST 방식
 							, traditional : true
 							, data : {
@@ -330,27 +312,25 @@
 							},
 							success : function(jdata){
 								if(jdata = 1) {
-									alert("후기 비공개 성공");
-									location.href = "${pageContext.request.contextPath}/admin/admin_review_list";
+									alert("문의 비공개 성공");
+									location.href = "${pageContext.request.contextPath}/admin/admin_question_list";
 								}
 								else {
-									alert("후기 비공개 실패");
+									alert("문의 비공개 실패");
 								}
 							}
 						});
 							
 					} else {
-						alert("후기 비공개를 취소하셨습니다.")
+						alert("문의 비공개를 취소하셨습니다.")
 					}		
-						
-						
 				
 			}//else
 			
 		}//disableValue
 		
-		function onReview(){
-			var url = "${pageContext.request.contextPath}/admin/review_on"; // Controller로 보내고자하는 URL
+		function onQuestion(){
+			var url = "${pageContext.request.contextPath}/admin/question_on"; // Controller로 보내고자하는 URL
 			var valueArr = new Array();
 			var list = $("input[name='RowCheck']");
 			
@@ -361,16 +341,16 @@
 			}
 		
 			if (valueArr.length == 0){
-				alert("선택된 후기가 없습니다.");
+				alert("선택된 문의가 없습니다.");
 			}
 			else{
-				var chk = confirm("정말 후기를 공개하시겠습니까?");
+				var chk = confirm("정말 문의를 공개하시겠습니까?");
 					
 					if(chk == true) {
 				
 				
 						$.ajax({
-							url : "${pageContext.request.contextPath}/admin/review_on"//전송 URL
+							url : "${pageContext.request.contextPath}/admin/question_on"//전송 URL
 							, type : 'POST' //POST 방식
 							, traditional : true
 							, data : {
@@ -378,38 +358,23 @@
 							},
 							success : function(jdata){
 								if(jdata = 1) {
-									alert("후기 공개 성공");
-									location.href = "${pageContext.request.contextPath}/admin/admin_review_list";
+									alert("문의 공개 성공");
+									location.href = "${pageContext.request.contextPath}/admin/admin_question_list";
 								}
 								else {
-									alert("후기 공개 실패");
+									alert("문의 공개 실패");
 								}
 							}
 						});
 						
 						
 					} else {
-						alert("후기 공개를 취소하셨습니다.")
+						alert("문의 공개를 취소하셨습니다.")
 					}
 				
 			}//else
 			
 		}//ableValue
 		
-		
-		$(document).ready(function() {
-			
-			$("#searchOption1").keyup(function() {
-					let tmp = $("#searchOption1").val().replace(/[^  0-9  \.]/g,"");
-					$("#searchOption1").val(tmp);
-			});//keyup
-		
-		});//ready
-		//
-		
-// 				if(   $("#searchOption1").val() == "review_star" ){
-// 					let tmp = $("#searchOption1").val().replace(/[^  0-9  \.]/g,"");
-// 					$("#searchOption1").val(tmp);
-// 				}
 	</script>
 </html>

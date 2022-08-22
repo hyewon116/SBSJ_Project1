@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.sbsj.history.HistoryDTO;
 import kr.co.sbsj.md.MdDTO;
+import kr.co.sbsj.mdquestion.MdQuestionDTO;
+import kr.co.sbsj.mdreview.MdReviewDTO;
 import kr.co.sbsj.util.dto.MemberDTO;
 import kr.co.sbsj.util.dto.SearchDTO;
 import kr.co.sbsj.util.dto.UpdateDTO;
@@ -20,6 +22,78 @@ public class AdminDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	public MdQuestionDTO replyDetail( String md_question_id ) {
+		MdQuestionDTO dto = null;
+		dto = sqlSession.selectOne("AdminMapper.replyDetail", md_question_id);
+		return dto;
+	}//replyDetail - 답변 상세
+	
+	public int stateChange( MdQuestionDTO dto ) {
+		int changeCount = 0;
+		changeCount = sqlSession.update("AdminMapper.stateChange", dto);
+		return changeCount;
+	}//stateChange
+
+	public int replyInsert( MdQuestionDTO dto ) {
+		int successCount = 0;
+		successCount = sqlSession.insert("AdminMapper.replyInsert", dto);
+		return successCount;
+	}//replyInsert
+	
+	public void questionOn(String no) {
+		sqlSession.update("AdminMapper.questionOn", no);
+	}//reviewOn
+	
+	public void questionOff(String no) {
+		sqlSession.update("AdminMapper.questionOff", no);	
+	}//reviewOff
+	
+	public void questionDelete( String no ) {
+		sqlSession.delete("AdminMapper.questionDelete", no);
+	}//questionDelete - 문의 삭제
+	
+	public MdQuestionDTO questionDetail( String md_question_id ) {
+		MdQuestionDTO dto = null;
+		dto = sqlSession.selectOne("AdminMapper.questionDetail", md_question_id);
+		return dto;
+	}//questionDetail - 문의 상세
+	
+	public List<MdQuestionDTO> searchQuestion(SearchDTO dto) {
+		List<MdQuestionDTO> list = null;
+		list = sqlSession.selectList("AdminMapper.selectQuestion", dto);
+		return list;
+	}//searchQuestion - 문의 리스트
+
+	public int searchQuestionCount(SearchDTO dto) {
+		int totalCount = 0;
+		totalCount = sqlSession.selectOne("AdminMapper.searchQuestionCount", dto);
+		return totalCount;
+	}//searchQuestionCount - 문의 리스트
+	
+	
+	public void reviewOn(String no) {
+		sqlSession.update("AdminMapper.reviewOn", no);
+	}//reviewOn
+	
+	public void reviewOff(String no) {
+		sqlSession.update("AdminMapper.reviewOff", no);	
+	}//reviewOff
+	
+	public void reviewDelete( String no ) {
+		sqlSession.delete("AdminMapper.reviewDelete", no);
+	}//reviewDelete - 후기 삭제
+	
+	public List<AdminReviewDTO> searchReview( SearchDTO dto ) {
+		List<AdminReviewDTO> list = null;
+		list = sqlSession.selectList("AdminMapper.selectReview", dto);
+		return list;
+	}//searchReview - 후기 리스트 
+	
+	public int searchReviewCount( SearchDTO dto ) {
+		int totalCount = 0;
+		totalCount = sqlSession.selectOne("AdminMapper.searchReviewCount", dto);
+		return totalCount;
+	}//searchReviewCount - 후기 리스트
 	
 	
 	public List<HistoryDTO> searchOrderList( SearchDTO dto ) {
@@ -28,6 +102,11 @@ public class AdminDAO {
 		return list;
 	}//searchOrderList
 	
+	public List<HistoryDTO> orderDetail(HistoryDTO dto) {
+	      List<HistoryDTO> list = null;
+	      list = sqlSession.selectList("AdminMapper.orderDetail", dto);
+	      return list;
+	   }//orderDetail
 	
 	public int searchOrderListCount( SearchDTO dto ) {
 		int totalCount = 0;
@@ -42,9 +121,6 @@ public class AdminDAO {
 		return list;
 	}//admin_member_updateList
 	
-	
-	
-	
 	public int fileDelete( AdminDTO dto ) {
 		int successCount = 0;
 		successCount = sqlSession.update("AdminMapper.fileDelete", dto);
@@ -57,21 +133,11 @@ public class AdminDAO {
 		return successCount;
 	}//update
 	
-	
-	
 	public AdminDTO detail( String md_id ) {
 		AdminDTO dto = null;
 		dto = sqlSession.selectOne("AdminMapper.detail", md_id);
 		return dto;
 	}//detail
-	
-	
-	public int searchReviewCount( SearchDTO dto ) {
-		int totalCount = 0;
-		totalCount = sqlSession.selectOne("AdminMapper.searchReviewCount", dto);
-		return totalCount;
-	}//searchListCount
-	
 	
 	public int searchListCount( SearchDTO dto ) {
 		int totalCount = 0;
@@ -85,13 +151,6 @@ public class AdminDAO {
 		return totalCount;
 	}//searchListCount
 
-
-	public List<AdminReviewDTO> searchReview( SearchDTO dto ) {
-		 List<AdminReviewDTO> list = null;
-		list = sqlSession.selectList("AdminMapper.selectReview", dto);
-		return list;
-	}//searchList
-	
 	public List<MdDTO> searchList( SearchDTO dto ) {
 		List<MdDTO> list = null;
 		list = sqlSession.selectList("AdminMapper.selectList", dto);
@@ -103,10 +162,7 @@ public class AdminDAO {
 		list = sqlSession.selectList("AdminMapper.selectMemberList", dto);
 		return list;
 	}//selectMemberList
-	
-	public void reviewDelete( String no ) {
-		sqlSession.delete("AdminMapper.reviewDelete", no);
-	}//reviewDelete
+
 	
 	public void delete( String no ) {
 		sqlSession.delete("AdminMapper.delete", no);
@@ -116,16 +172,6 @@ public class AdminDAO {
 		sqlSession.update("AdminMapper.offsale", no);
 		
 	}
-	public void reviewOn(String no) {
-		sqlSession.update("AdminMapper.reviewOn", no);
-		
-	}
-	
-	public void reviewOff(String no) {
-		sqlSession.update("AdminMapper.reviewOff", no);
-		
-	}
-	
 	
 	public void onsale(String no) {
 		sqlSession.update("AdminMapper.onsale", no);
@@ -139,5 +185,7 @@ public class AdminDAO {
 		sqlSession.update("AdminMapper.off_account", no);
 		
 	}
-	
+
+
+
 }//JoinDAO

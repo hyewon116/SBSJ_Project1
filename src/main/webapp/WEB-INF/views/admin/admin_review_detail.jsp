@@ -116,33 +116,17 @@
 			</tbody>
 		</table>
 		
-		<!-- 후기 목록가기 버튼 : 누구나 보임 -->
+		<!-- 후기 목록가기 버튼  -->
 		<div class="text-center">
 			<a href="${pageContext.request.contextPath}/admin/admin_review_list">
 				<button type="button" class="btn btn-info float-left" id="back"> 뒤로 가기  </button> 
 			</a>
-		<!-- 후기 수정&삭제 버튼 : 내 게시글에서만 보임 -->
-			<c:if test="${login_info.member_id == detail_dto.member_id}"> <!-- 내 게시글만 수정&삭제 -->
-				<a href="${pageContext.request.contextPath}/mdreview/uform?review_id=${review_id}">
-					<button type="button" class="btn btn-warning" id="update"> 수정 </button> 
-				</a>
-				<button type="button" class="btn btn-danger" id="delete_btn"> 삭제 </button>
-			</c:if>
 		</div>
 		<br>
 		<br>
 	</div>
 					  	
-					  	
-					  	
-		  	
-					  	
-					  	
-					  	
-					  	
-					  
-					  
-					  
+	  
 				</section>
 				<!-- section 끝---------------------------------------------------------------------------- -->
 			</main>
@@ -150,32 +134,4 @@
 			
 		</div><!-- container -->
 	</body>
-	
-	
-	<script type="text/javascript">
-	$(document).ready(function() {
-		$("#delete_btn").click(function() {
-			
-			//삭제 버튼 get 전송
-			$.get(
-					"${pageContext.request.contextPath}/mdreview/delete"
-					, {
-						review_id : ${review_id}
-					}
-					, function(data, status) {
-						if( data >= 1 ){
-							alert("후기가 삭제 되었습니다.");
-							location.href="${pageContext.request.contextPath}/mdreview/review_list?md_id=${detail_dto.md_id}";
-						} else if( data <= 0 ) {
-							alert("후기 삭제를 실패하였습니다.");
-						} else {
-							alert("잠시 후 다시 시도해 주세요.");
-						}
-					}//call back function
-			);//get
-		});//click
-	});//ready
-	
-		
-	</script>
 </html>

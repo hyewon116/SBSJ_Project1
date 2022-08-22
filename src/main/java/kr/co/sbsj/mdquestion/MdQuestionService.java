@@ -15,6 +15,12 @@ public class MdQuestionService {
 	@Autowired
 	private MdQuestionDAO dao;
 	
+	public MdQuestionDTO replyDetail( String md_question_id ) {
+		MdQuestionDTO dto = null;
+		dto = dao.replyDetail( md_question_id );
+		return dto;
+	}//replyDetail
+	
 	public int delete( MdQuestionDTO dto ) {
 		int successCount = 0;
 		successCount = dao.delete( dto );

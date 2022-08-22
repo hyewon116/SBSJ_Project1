@@ -17,6 +17,7 @@ public class MdQuestionDTO {
 	private String md_answer_date;
 	private String md_name;
 	private String md_thumbnail_path;
+	private String question_enable;
 	
 
 	public String getMd_id() {
@@ -109,6 +110,11 @@ public class MdQuestionDTO {
 	public void setMd_thumbnail_path(String md_thumbnail_path) {
 		this.md_thumbnail_path = md_thumbnail_path;
 	}
-	
+	public String getQuestion_enable() {
+		return question_enable;
+	}
+	public void setQuestion_enable(String question_enable) {
+		this.question_enable = question_enable;
+	}
 	
 }

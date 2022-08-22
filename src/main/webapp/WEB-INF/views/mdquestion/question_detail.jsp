@@ -26,10 +26,12 @@
 					<td>${detail_dto.member_nick}</td>
 				</tr>
 				<tr>
-					<th> 문의 제목 </th>
-					<td>${detail_dto.md_question_title}</td>
 					<th> 문의 유형 </th>
-					<td>${detail_dto.md_question_type}</td>
+					<td colspan="3">${detail_dto.md_question_type}</td>
+				</tr>
+				<tr>
+					<th> 문의 제목 </th>
+					<td colspan="3">${detail_dto.md_question_title}</td>
 				</tr>
 				<tr>
 					<th> 문의 내용 </th>
@@ -54,6 +56,31 @@
 			</div>
 		</c:if>
 		<br>
+		<br>
+		
+		<!-- 관리자 답변 출력 (답변 완료일 때만) -->
+		<c:if test="${detail_dto.md_question_answer == '답변완료'}"> 
+			<h5><b> ▶ 답변 내역</b></h5>
+			<br>
+			<div style = "background-color: whitesmoke;"> 
+			<table class="table table-hover" id="table2">
+			<col class="w-25">
+				<tbody>
+					<tr>
+						<th>답변일자</th>
+						<td>${reply_dto.md_answer_date}</td>
+						<th>답변자</th> 
+						<td>${reply_dto.md_answer_member}</td>
+					</tr>
+					<tr>
+						<th> 답변 내용 </th>
+						<td colspan="3">${reply_dto.md_answer_content}</td>
+					</tr>
+				</tbody>
+			</table>
+			</div>
+		</c:if>
+
 		<br>
 	</div>
 	</body>

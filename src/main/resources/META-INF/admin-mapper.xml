@@ -4,8 +4,80 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="AdminMapper">
+	
+	<update id="stateChange" parameterType="kr.co.sbsj.mdquestion.MdQuestionDTO">
+	update md_question 
+	set md_question_answer = "답변완료"
+	where md_question_id = #{md_question_id}
+	</update>
 
+	<insert id="replyInsert" parameterType="kr.co.sbsj.mdquestion.MdQuestionDTO">
+	INSERT INTO md_question_reply (md_answer_member, md_answer_content, md_answer_date, md_question_id)
+	VALUES(#{md_answer_member}, #{md_answer_content}, now(), #{md_question_id})
+	</insert>
 
+	<delete id="questionDelete">
+	delete from md_question
+	where md_question_id=#{no}
+	</delete>
+	
+	<update id="questionOn">
+	update md_question
+	set question_enable = "Y"
+	where md_question_id=#{no}
+	</update>
+	
+	<update id="questionOff">
+	update md_question
+	set question_enable = "N"
+	where md_question_id=#{no}
+	</update>
+	
+	<select id="replyDetail" parameterType="java.lang.String" resultType="kr.co.sbsj.mdquestion.MdQuestionDTO">
+	select md_answer_id, md_answer_member, md_answer_content, md_answer_date, md_question_id
+    from md_question_reply
+	where md_question_id = #{md_question_id}
+	</select>
+	
+	<select id="questionDetail" parameterType="java.lang.String" resultType="kr.co.sbsj.mdquestion.MdQuestionDTO">
+	select md_question_id, md_id, member_id, member_nick, md_question_title, md_question_content
+	, md_question_date, md_question_type, md_question_answer
+    from md_question
+	where md_question_id = #{md_question_id}
+	</select>
+	
+	<select id="searchQuestionCount" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="int">
+		select count(q.md_question_id) cnt
+		from md_question q
+		
+		<if test="searchOption1 != null and searchOption1 != ''
+					and searchWord1 != null and searchWord1 !=''">
+			<choose>
+				<when test="searchOption1 == 'md_name'">
+				, md m	where r.md_id = m.md_id and  m.md_name like concat('%', #{searchWord1}, '%')
+				</when>
+			</choose>
+		</if>
+	</select>
+	
+	<select id="selectQuestion" parameterType="kr.co.sbsj.util.dto.SearchDTO"
+			resultType="kr.co.sbsj.mdquestion.MdQuestionDTO">
+		select q.md_question_id, q.md_id, q.member_id, q.member_nick, q.md_question_title,  
+		q.md_question_content, q.md_question_date, q.md_question_answer, q.md_question_type, 
+		q.question_enable, m.md_name, m.md_thumbnail_path
+    	from md_question q, md m
+    	where q.md_id = m.md_id
+		<if test="searchOption1 != null and searchOption1 != ''
+					and searchWord1 != null and searchWord1 !=''">
+			<choose>
+				<when test="searchOption1 == 'md_name'">
+					and m.md_name like concat('%', #{searchWord1}, '%')
+				</when>
+			</choose>
+		</if>
+		order by md_question_id desc
+		limit #{limitNum}, 10
+	</select>
 	
 
 	<select id="searchOrderList" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="kr.co.sbsj.history.HistoryDTO">
@@ -40,9 +112,6 @@
 	limit #{limitNum}, 10
 	</select>
 	
-	
-	
-	
 	<select id="searchOrderListCount" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="int">
 	SELECT count(om.order_id) cnt
 	FROM order_main om, order_detail od, md md,  delivery da, member m
@@ -63,11 +132,31 @@
 	and coco.code_class = 'order_status'
 	and om.order_status = coco.code_id
 	</select>
+	
+	<select id="orderDetail" parameterType="kr.co.sbsj.history.HistoryDTO" resultType="kr.co.sbsj.history.HistoryDTO">
+   SELECT om.order_id, om.member_id,   om.delivery_id
+         , om.order_md_cnt, om.order_amt, om.discount_amt, om.pay_amt,m.member_name, m.member_email
+         , om.order_date, om.order_status
+            , coco.code_name order_status_name
+         , od.order_detail_id, od.md_id
+         , od.order_detail_qty, od.order_detail_price, od.order_detail_amt
+         , od.order_detail_discount, od.order_detail_discount_amt, od.order_detail_pay_amt
+         , md.md_name 
+         , md.md_thumbnail_name, md.md_thumbnail_path
+         , da.receiver, da.member_phone, da.post_code, da.delivery_addr1, da.delivery_addr2
+   FROM order_main om, order_detail od, md md, delivery da, member m
+      , common_code coco
+   where 
+   om.order_id = #{order_id} 
 
-
-
-
-
+   and om.member_id = m.member_id
+   and om.order_id = od.order_id
+   and od.md_id = md.md_id
+   and om.delivery_id = da.delivery_id
+   and coco.code_class = 'order_status'
+   and om.order_status = coco.code_id
+   order by od.order_detail_id desc
+   </select>
 
 	<select id="admin_member_updateList" parameterType="java.lang.String"
 			resultType="kr.co.sbsj.util.dto.MemberDTO">
@@ -76,8 +165,6 @@
     	from member m
     	where m.member_email = #{member_email}
 	</select>
-
-
 
 
 	<update id="fileDelete" parameterType="kr.co.sbsj.admin.AdminDTO">

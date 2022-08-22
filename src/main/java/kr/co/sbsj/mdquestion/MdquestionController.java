@@ -59,8 +59,12 @@ public class MdquestionController {
 	@RequestMapping( value = "/detail", method = RequestMethod.GET )
 	public String detail( String md_question_id, Model model ) {
 		MdQuestionDTO dto = null;
-		dto = service.detail( md_question_id );
+		dto = service.detail( md_question_id );//문의 상세
 		model.addAttribute("detail_dto", dto);
+		
+		dto = service.replyDetail( md_question_id );//답변 상세
+		model.addAttribute("reply_dto", dto);
+		
 		model.addAttribute("md_question_id", md_question_id);
 		return "/mdquestion/question_detail";//jsp file name
 	}//detail

@@ -16,6 +16,12 @@ public class MdQuestionDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	public MdQuestionDTO replyDetail( String md_question_id ) {
+		MdQuestionDTO dto = null;
+		dto = sqlSession.selectOne("QuestionMapper.replyDetail", md_question_id);
+		return dto;
+	}//replyDetail - 답변 상세
+	
 	public int delete( MdQuestionDTO dto ) {
 		int successCount = 0;
 		successCount = sqlSession.delete("QuestionMapper.delete", dto);

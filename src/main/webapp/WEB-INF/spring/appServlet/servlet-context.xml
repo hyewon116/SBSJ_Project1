@@ -29,11 +29,8 @@
 			<mapping path="/cart/*"/>
 			<mapping path="/delivery/*"/>
 			<mapping path="/history/*"/>
-			<mapping path="/mdquestion/*"/>
-			<mapping path="/mdreview/*"/>
 			<mapping path="/member/*"/>
 			<mapping path="/order/*"/>
-			<exclude-mapping path="/md/list_cate*"/>
 			<beans:bean class="kr.co.sbsj.login.LoginCheckInterceptor_member" />
 		</interceptor>
 		
