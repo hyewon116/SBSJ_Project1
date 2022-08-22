@@ -27,7 +27,7 @@ body {
         background-size : cover;
       }
 
-#age {
+#center {
 		height: 100px;
         width: 100px;
 		margin-top: 300px;
@@ -64,18 +64,6 @@ body {
 			<footer>
 			
 				<center>
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
 								<a href="${pageContext.request.contextPath}/">
 										<img align="bottom" src="${pageContext.request.contextPath}/resources/login/img/home.png" style="cursor:pointer" onclick="popup_19.close();" > 
 								</a>
