@@ -19,6 +19,7 @@ import kr.co.sbsj.cart.CartController;
 import kr.co.sbsj.delivery.DeliveryDTO;
 import kr.co.sbsj.delivery.DeliveryService;
 import kr.co.sbsj.md.MdDTO;
+import kr.co.sbsj.member.MemberService;
 import kr.co.sbsj.util.dto.MemberDTO;
 
 @Controller
@@ -32,7 +33,10 @@ public class OrderController {
 
 	@Autowired
 	private DeliveryService deliveryService;
-
+	
+	@Autowired
+	private MemberService memberService;
+	
 	@RequestMapping( value = "/paySuccess", method = RequestMethod.GET )
 	public String paySuccess() {
 		return "/order/paySuccess";
@@ -73,6 +77,12 @@ public class OrderController {
 		model.addAttribute("deliverylist", deliverylist);
 
 		model.addAttribute( "arr_cart_id", new Gson().toJson( arr_cart_id ) );
+
+		MemberDTO memberdto = null;
+		String member_id = ( (MemberDTO) session.getAttribute("login_info") ).getMember_id() ;
+		memberdto = service.memberdto(member_id);
+		model.addAttribute("memberdto", memberdto);
+
 
 		return "/order/order_list";//jsp file name
 	}//orderList

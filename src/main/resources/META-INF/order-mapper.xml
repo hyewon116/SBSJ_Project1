@@ -92,5 +92,9 @@
 	and c.md_id = md.md_id
 	order by c.reg_date desc
 	</select>
-
+	
+	<select id="getMemberDto" resultType="kr.co.sbsj.util.dto.MemberDTO">
+	select member_name,member_email,member_phone from member
+	where member_id= #{member_id};
+	</select>
 </mapper>

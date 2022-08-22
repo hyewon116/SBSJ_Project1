@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.sbsj.md.MdDTO;
+import kr.co.sbsj.util.dto.MemberDTO;
 
 @Service
 public class OrderService {
@@ -48,5 +49,10 @@ public class OrderService {
 		list = dao.orderList(arr_cart_id);
 		return list;
 	}//orderList
+	public MemberDTO memberdto( String member_id ) {
+		MemberDTO dto = null;
+		dto = dao.memberdto( member_id );
+		return dto;
+	}//list
 
 }//class
