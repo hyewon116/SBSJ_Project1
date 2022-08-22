@@ -15,87 +15,28 @@
 	<body>
 	<%@ include file="/WEB-INF/views/headerMain.jsp" %>
 		<hr>
-		<h3> 주 문 서 </h3>
+		<h3> 주 문  / 결제 </h3>
 		<hr>
+		<h4>구매자 정보</h4>
 		<table class="table table-hover">
 			<col class="col-1">
 			<thead>
 				<tr>
-				 <th> <input type="checkbox" id="cbx_chkAll" checked="checked">선택 </input> </th>
-					<th> </th>	<th> 상품 </th>
-						<th> 수량 </th>	
-					<th> 가격 </th>
+				 <td>이름  </td> <td>${memberdto.member_name} </td> 
 				</tr>
+				<tr>
+				<td>이메일</td> <td>${memberdto.member_email}</td> 
+				</tr>
+				<tr>
+				 <td> 휴대폰 번호 </td>	<td>${memberdto.member_phone}  </td> 
+				</tr>
+		
 			</thead>
-			<tbody>
-				<c:set var="sum_md_class_qty" value="0" />
-				<c:set var="sum_buy_amt" value="0" />
-				<c:set var="sum_discount_amt" value="0" />
-				<c:set var="delivery_cost" value="0" />
-				<c:forEach var="dto" items="${list}" varStatus="status">
-					<c:set var="sum_md_class_qty" value="${sum_md_class_qty + 1}" />
-					<c:set var="sum_buy_amt" value="${sum_buy_amt + (dto.md_price * dto.buy_qty)}" />
-					<c:set var="sum_discount_amt" value="${sum_discount_amt + ( (dto.md_price - dto.sale_price) * dto.buy_qty )}" />
-					<tr>
-					<td width="8%">
-                                    <input type="checkbox" class="order_check_box form-control" checked="checked"
-                                        id="${dto.md_price}" name="${dto.sale_price}" value="${dto.buy_qty}">
-                                    <input type="hidden" id="cart_id${status.index}" name="cart_id${status.index}"
-                                        value="${dto.cart_id}">
-                                </td>
-						<td width="10%">
-							<img src="${dto.md_thumbnail_path}" class="img-thumbnail">
-						</td>
-						<td>
-							<a href="${pageContext.request.contextPath}/md/detail?md_id=${dto.md_id}">
-								${dto.md_name}
-								<input type=hidden id="md_name" value="${dto.md_name}">
-							</a>
-							
-						</td>
-						<td width="15%">
-                                    <div id="qty_btn">
-                                        <button class="minus_btn">-</button>
-                                        <input type="text" value="${dto.buy_qty}" class="quantity_input" readonly>
-                                        <button class="plus_btn" data-max-qty="${dto.md_stock}">+</button>
-                                    </div>
-                                    <a class="qty_chg_btn" data-cart_id="${dto.cart_id}">변경</a>
-                                <td width="30%"> ${dto.md_price * dto.buy_qty - ( (dto.md_price - dto.sale_price) *
-                                    dto.buy_qty )} 원 </td>
-                                    <button style = "display:none;" class="cart_delete_btn "  value="${dto.cart_id}"> 
-                                    </button>
-					</tr>
-				</c:forEach>
-				<c:choose>
-					<c:when test = "${sum_buy_amt-sum_discount_amt >=30000 || sum_buy_amt-sum_discount_amt <= 0}"  >
-						 <c:set var="delivery_cost" value="0"/> 
-                    </c:when>
-                    <c:otherwise>
-                        <c:set var="delivery_cost" value="3000"/> 
-                    </c:otherwise>
-				</c:choose>	
-				<td colspan="6">
-                        <button id="delete_btn" class="btn btn-large btn-default"> 선택상품 삭제 </button>
-                    </td>
-			</tbody>
-		</table>
-		<hr>
 		<div class="row">
 			<div class="col-6">
 				<table class="table table-hover table-borderless">
-					<tr>
-						<td>
-							<a href="javascript:void(0);" onclick="goAddDelivery();">
-								<button type="button" class="btn btn-primary btn-sm">
-									배 송 지 추 가
-								</button>
-							</a>
-							<button id="delivery_btn" type="button" class="btn btn-primary btn-sm"
-							 		data-toggle="modal" data-target="#delivery_choice_modal">
-								배 송 지 선 택
-							</button>
-						</td>
-					</tr>
+			<h4>받는 사람정보</h4>
+					
 					<tr>
 						<td id="td_delivery">
 							<c:choose>
@@ -114,6 +55,19 @@
 							</c:choose>
 						</td>
 					</tr>
+					<tr>
+						<td>
+							<a href="javascript:void(0);" onclick="goAddDelivery();">
+								<button type="button" class="btn btn-primary btn-sm">
+									배 송 지 추 가
+								</button>
+							</a>
+							<button id="delivery_btn" type="button" class="btn btn-primary btn-sm"
+							 		data-toggle="modal" data-target="#delivery_choice_modal">
+								배 송 지 선 택
+							</button>
+						</td>
+					</tr>
 				</table>
 				<input type="hidden" id="delivery_id" name="delivery_id"
 					<c:if test="${deliverylist != null && deliverylist[0] != null}">
@@ -121,6 +75,57 @@
 					</c:if>
 				>
 			</div>
+		
+		</table>
+		
+		<table class="table table-hover">
+			<col class="col-1">
+			<thead>
+				<tr>
+					<th> </th>	<th> 상품 </th>
+						<th> 수량 </th>	
+					<th> 가격 </th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:set var="sum_md_class_qty" value="0" />
+				<c:set var="sum_buy_amt" value="0" />
+				<c:set var="sum_discount_amt" value="0" />
+				<c:set var="delivery_cost" value="0" />
+				<c:forEach var="dto" items="${list}" varStatus="status">
+					<c:set var="sum_md_class_qty" value="${sum_md_class_qty + 1}" />
+					<c:set var="sum_buy_amt" value="${sum_buy_amt + (dto.md_price * dto.buy_qty)}" />
+					<c:set var="sum_discount_amt" value="${sum_discount_amt + ( (dto.md_price - dto.sale_price) * dto.buy_qty )}" />
+					<tr>
+						<td>
+							<img src="${dto.md_thumbnail_path}" class="img-thumbnail">
+						</td>
+						<td>
+							<a href="${pageContext.request.contextPath}/md/detail?md_id=${dto.md_id}">
+								${dto.md_name}
+								<input type=hidden id="md_name" value="${dto.md_name}">
+							</a>
+							
+						</td>
+                        <td>${dto.buy_qty}개</td>
+                        <td width="30%"> ${dto.md_price * dto.buy_qty - ( (dto.md_price - dto.sale_price) *dto.buy_qty )} 원 </td>
+					</tr>
+				</c:forEach>
+				<c:choose>
+					<c:when test = "${sum_buy_amt-sum_discount_amt >=30000 || sum_buy_amt-sum_discount_amt <= 0}"  >
+						 <c:set var="delivery_cost" value="0"/> 
+                    </c:when>
+                    <c:otherwise>
+                        <c:set var="delivery_cost" value="3000"/> 
+                    </c:otherwise>
+				</c:choose>	
+				<td colspan="6">
+                        <button id="delete_btn" class="btn btn-large btn-default"> 선택상품 삭제 </button>
+                    </td>
+			</tbody>
+		</table>
+		<hr>
+		
 			<div class="col-6">
 				<table class="table table-hover">
 					<tr>
