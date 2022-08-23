@@ -126,15 +126,25 @@
 			                  <form id="change_status_form">
 			                  	<input type="hidden" id="order_id" name="order_id" value="${dto.order_id }">
 									<select class="form-control" id= "order_status" name="order_status">
-										<option value="3"
+										<option value="1"
+											<c:if test="${dto.order_status == '1'}">selected="selected"</c:if>
+											> 주 문 완 료 </option>
+											<option value="3"
 											<c:if test="${dto.order_status == '3'}">selected="selected"</c:if>
 											> 결 제 완 료 </option>
+											<option value="5"
+											<c:if test="${dto.order_status == '3'}">selected="selected"</c:if>
+											> 발 송 대 기 </option>
+											<option value="7"
+											<c:if test="${dto.order_status == '3'}">selected="selected"</c:if>
+											> 발 송 완 료 </option>
+											<option value="9"
+											<c:if test="${dto.order_status == '3'}">selected="selected"</c:if>
+											> 배 송 완 료 </option>
 										<option value="11"
 											<c:if test="${dto.order_status == '11'}">selected="selected"</c:if>
-											> 배송완료 </option>
-										<option value="15"
-											<c:if test="${dto.order_status == '15'}">selected="selected"</c:if>
-											> 자동구매 결정완료 </option>
+											> 구매확정완료 </option>
+										
 									</select>
 								</form>
 							</td>
@@ -187,6 +197,41 @@
 					<button id="update_btn" name="update_btn" class="btn btn-warning float-info"> 뒤 로 가 기 </button>
 				</div>
 		<hr>
+		<ul class="pagination">
+			<c:if test="${startPageNum > 10}">
+				<li class="page-item mx-auto">
+					<a class="page-link"
+						href="${pageContext.request.contextPath}/admin/admin_order_detail?userWantPage=${startPageNum-1}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
+						Previous
+					</a>
+				</li>
+			</c:if>
+			<c:forEach var="page_no" begin="${startPageNum}" end="${endPageNum}">
+				<c:choose>
+					<c:when test="${page_no == userWantPage}">
+						<li class="page-item active mx-auto">
+							<a class="page-link">${page_no}</a>
+						</li>
+					</c:when>
+					<c:otherwise>
+						<li class="page-item mx-auto">
+							<a class="page-link"
+								href="${pageContext.request.contextPath}/admin/admin_order_detail?userWantPage=${page_no}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
+								${page_no}
+							</a>
+						</li>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+			<c:if test="${lastPageNum > endPageNum}">
+				<li class="page-item mx-auto">
+					<a class="page-link"
+						href="${pageContext.request.contextPath}/history/my_order_list?userWantPage=${endPageNum+1}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
+						Next
+					</a>
+				</li>
+			</c:if>
+		</ul>
 		</section>
 				<!-- section 끝---------------------------------------------------------------------------- -->
 <%-- 	<%@ include file="/WEB-INF/views/footer.jsp" %> --%>
