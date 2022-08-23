@@ -66,7 +66,11 @@
 							
 							<!-- member_id 정보 넘기기 -->
 							<td><input id="member_id" name="member_id" type="hidden" 
-								value="${login_info.member_id}" cols="100" style="width:500px;"></td>
+								value="${login_info.member_id}" ></td>
+								
+							<!-- 질문자 email 넘기기 -->
+							<td><input id="member_email" name="member_email" type="hidden" 
+								value="${detail_dto.member_email}"></td>
 						</tr>
 						<tr>
 							<th>공개 여부&nbsp;</th>
@@ -124,6 +128,7 @@ $(document).ready(function() {
 				,qa_question_category : $("#qa_question_category").val()
 				,member_id : $("#member_id").val()
 				,member_nick : $("#member_nick").val()
+				,member_email : $("#member_email").val()
 				,open_yn: $("#open_yn").prop("checked")
 				,originNo: $("#originNo").val()
 				,groupOrd: $("#groupOrd").val()

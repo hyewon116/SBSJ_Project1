@@ -139,6 +139,11 @@
 							<!-- member_id 정보 넘기기 -->
 							<td><input id="member_id" name="member_id" type="hidden"
 								value="${login_info.member_id}" cols="100" style="width: 500px;"></td>
+								
+							<!-- 질문자 email 넘기기 -->
+							<td><input id="member_email" name="member_email" type="hidden" 
+								value="${detail_dto.member_email}"></td>
+								
 						</tr>
 						<tr>
 							<th>공개 여부&nbsp;</th>

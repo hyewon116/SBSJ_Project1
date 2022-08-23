@@ -7,10 +7,10 @@
 
 	<!-- 그룹 순서 증가-->
 	<insert id="replyInsert" parameterType="kr.co.sbsj.cs.QnaDTO">
-	insert into qa_question ( qa_question_title, member_id, member_nick, qa_question_content, qa_question_viewcnt
+	insert into qa_question ( qa_question_title, member_id, member_nick, member_email, qa_question_content, qa_question_viewcnt
 								, qa_question_date, open_yn, qa_question_category
 								, originNo, groupOrd, groupLayer, qa_question_answer)
-	values ( #{qa_question_title}, #{member_id}, #{member_nick}, #{qa_question_content}, 0
+	values ( #{qa_question_title}, #{member_id}, #{member_nick}, #{member_email}, #{qa_question_content}, 0
 								, now(), #{open_yn}, #{qa_question_category}
 								, #{originNo}, #{groupOrd}+1, #{groupLayer}+1, 'Y')
 	</insert>
@@ -106,7 +106,7 @@
 	</update>
 
 	<select id="detail" parameterType="java.lang.String" resultType="kr.co.sbsj.cs.QnaDTO">
-	select qa_question_id, qa_question_category, qa_question_title, qa.member_id, qa.member_nick
+	select qa_question_id, qa_question_category, qa_question_title, qa.member_id, qa.member_nick, qa.member_email
 			,qa_question_content, qa_question_date, qa_question_viewcnt, open_yn
 			,originNo, groupOrd, groupLayer
 	from qa_question qa, member m
@@ -115,7 +115,7 @@
 	</select>
 
 	<select id="selectList" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="kr.co.sbsj.cs.QnaDTO">
-	select qa_question_id, qa_question_category, qa_question_title, qa.member_id, qa.member_nick
+	select qa_question_id, qa_question_category, qa_question_title, qa.member_id, qa.member_nick, qa.member_email
 			,qa_question_date, qa_question_viewcnt, open_yn  
 			, originNo, groupOrd, groupLayer
 	from qa_question qa, member m
@@ -153,10 +153,10 @@
 	</select>
 	
 	<insert id="write" parameterType="kr.co.sbsj.cs.QnaDTO">
-	insert into qa_question ( qa_question_id, qa_question_title, member_id, member_nick
+	insert into qa_question ( qa_question_id, qa_question_title, member_id, member_nick, member_email
 							, qa_question_content, qa_question_viewcnt, qa_question_date, open_yn, qa_question_category
 							, originNo, groupOrd, groupLayer )
-	values ( #{qa_question_id}, #{qa_question_title}, #{member_id}, #{member_nick}
+	values ( #{qa_question_id}, #{qa_question_title}, #{member_id}, #{member_nick}, #{member_email}
 							, #{qa_question_content}, 0, now(), #{open_yn}, #{qa_question_category}
 							, (SELECT IFNULL(max(qa_question_id),0)+1 FROM qa_question AS temp), 0, 0 )
 	
