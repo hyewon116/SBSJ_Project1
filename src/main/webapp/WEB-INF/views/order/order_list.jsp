@@ -201,31 +201,31 @@
 				<table class="table table-hover">
 					<tr>
 						<th> 총 상 품 수 </th>
-						<td class="text-right"> <span id="span_sum_md_class_qty">${sum_md_class_qty}</span> 개 </td>
+						<td class="text-right"><span id="span_sum_md_class_qty">${sum_md_class_qty}</span> 개 </td>
 					</tr>
 					<tr>
 						<th> 총 구 매 금 액 </th>
-						<td class="text-right"><input id="span_sum_buy_amt" type="text" value="${sum_buy_amt}" disabled="disabled">원</td>
+						<td class="text-right"><span id="span_sum_buy_amt">${sum_buy_amt}</span>원</td>
 					</tr>
 					<tr>
 						<th>상 품 할 인 금 액</th>
-						<td class="text-right text-danger"><input id="span_sum_discount_amt" class="sum" type="text" disabled="disabled">원 </td>
+						<td class="text-right text-danger"> - <span id="span_sum_discount_amt"></span>원 </td>
 					</tr>
 					<tr>
 						<th>쿠 폰 할 인 금 액</th>
-						<td class="text-right text-danger"><input id="onlyCoupon" type="text" disabled="disabled">원</td>
+						<td class="text-right text-danger"> - <span id="onlyCoupon"></span>원 </td>
 					</tr>
 					
 					
 					<tr>
                         <th> 배 송 비 </th>
                         <td class="text-right">
-                        	<input id="span_delivery_cost" type="text" disabled="disabled" value="${delivery_cost}">원
+                        	<span id="span_delivery_cost">${delivery_cost}</span>원
                         </td>
                     </tr>
 					<tr>
 						<th> <h3>총 결 제 금 액</h3> </th>
-						<td class="text-right"> <input id="span_sum_total_buy_amt" name="span_sum_total_buy_amt" type="text" disabled="disabled" >원</td>
+						<td class="text-right"><span id="span_sum_total_buy_amt"></span>원</td>
 					</tr>
 					<tr>
 						<td colspan="2" class="text-center">
@@ -259,13 +259,13 @@ $(function() {
 				
 				if (coupon == 0) {
 					use = 0;
-					$("#span_sum_discount_amt").attr("value", sale); 
-					$("#span_sum_total_buy_amt").attr("value", real);
-					$("#onlyCoupon").attr("value", onlyCoupon);
+					$("#span_sum_discount_amt").text(sale); 
+					$("#span_sum_total_buy_amt").text(real);
+					$("#onlyCoupon").text(onlyCoupon);
 				} else {
-					$("#span_sum_discount_amt").attr("value", sale);
-					$("#span_sum_total_buy_amt").attr("value", real);
-					$("#onlyCoupon").attr("value", onlyCoupon);
+					$("#span_sum_discount_amt").text(sale);
+					$("#span_sum_total_buy_amt").text(real);
+					$("#onlyCoupon").text(onlyCoupon);
 				}
 			});
 });
@@ -286,7 +286,7 @@ $(function() {
 		    ,pay_method: "card" //결제시 카드결제만 해야함. 카카오포인트로 결제 불가.
 	        ,merchant_uid:'merchant_'+new Date().getTime() //상점에서 관리하는 주문 번호
 	        ,name: $("#md_name").val()			
-	        ,amount: $("#span_sum_total_buy_amt").val()
+	        ,amount: $("#span_sum_total_buy_amt").text()
 	        ,buyer_name: '${login_info.member_name}'  			
 	        ,buyer_tel:'${login_info.member_phone}' 		
 	        ,buyer_email: '${login_info.member_email}'		
@@ -309,9 +309,9 @@ $(function() {
         					, {
         						delivery_id : $("#delivery_id").val()
         						, order_md_cnt : $("#span_sum_md_class_qty").text()
-        						, order_amt : $("#span_sum_buy_amt").val()
-        						, discount_amt : $("#span_sum_discount_amt").val()
-        						, coupon_dis : $("#onlyCoupon").val()
+        						, order_amt : $("#span_sum_buy_amt").text()
+        						, discount_amt : $("#span_sum_discount_amt").text()
+        						, coupon_dis : $("#onlyCoupon").text()
         						, pay_amt : rsp.paid_amount
         						, str_cart_id : str_cart_id
         						, buy_now_md_id : buy_now_md_id
