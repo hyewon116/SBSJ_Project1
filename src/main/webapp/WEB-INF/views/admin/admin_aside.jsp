@@ -33,7 +33,6 @@
 					  <li><a href="${pageContext.request.contextPath}/admin/admin_question_list">상품문의 관리</a></li>
 					  <li><a href="${pageContext.request.contextPath}/admin/admin_md_list">상품 관리</a></li>
 					  <li><a href="${pageContext.request.contextPath}/admin/admin_order_list">주문 관리</a></li>
-					  <li><a href="#">쿠폰 관리</a></li>
 					</ul>
 				
 				
