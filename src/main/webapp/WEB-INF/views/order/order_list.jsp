@@ -26,7 +26,6 @@
 		<h3> 주문  / 결제 </h3>
 		<hr>
 	</div>	
-	
 <!-- 상품 정보 시작 -->		
 		<div class="container col-sm-8">
 <!-- 		<div class="border rounded p-3 mb-3"></div>
@@ -167,7 +166,7 @@
 
 <br><br>
 
-<!-- 쿠폰 /적립금 시작 -->
+<!-- ============================ [쿠폰 /적립금 시작] ======================= -->
 <div class="container col-sm-8">
 	<form>
 	<h4>쿠폰 / 적립금</h4> <hr>
@@ -175,32 +174,21 @@
 			<label class="pull-left">쿠폰 적용</label>
 				<div>
 					<ul>
-						<li id="coupon"><select id="couponUse">
-								<option value="0">사용할 쿠폰을 선택 하세요.</option>
-								<option value="10">10% 할인쿠폰</option>
-								<option value="30">30% 할인쿠폰</option>
-								<option value="50">50% 할인쿠폰</option>
-						</select> <span><button id="couponButton" type="button"
-									class="btn btn-warning">적용</button></span></li>
+						<li id="coupon">						
+						<select name="couponList" id="couponList">
+							<option value="0">[ 쿠폰 선택 ]</option>
+								<c:forEach var="coupon" items="${couponList}">
+									<option value="${coupon.coupon_dis}">[ ${coupon.coupon_name} ] ${coupon.coupon_dis}%할인</option>	
+								</c:forEach>
+						</select>						
+						<span><button id="couponBtn" type="button" class="btn btn-warning">적용</button></span></li>
+						
 					</ul>
 				</div>
 		</div>
-		
-		<div id="save" class="form-info clearfix">
-			<label class="pull-left">적립금</label>
-				<div class="pull-right">
-					<ul>
-						<li>보유 적립금<input id="savePossible" type="text"
-							disabled="disabled" value="2000" />원
-						</li>
-					</ul>
-					<ul>
-						<li><span><input id="saveUse" type="text" value="0" /></span>
-							<button id="saveButton" type="button" class="btn btn-warning">적용</button></li>
-					</ul>
-				</div>
-		</div>
+
 	</form>
+
     <hr>
 </div>
 <!-- 쿠폰/적립금 종료 -->
@@ -217,25 +205,25 @@
 					</tr>
 					<tr>
 						<th> 총 구 매 금 액 </th>
-						<td class="text-right"> <span id="span_sum_buy_amt">${sum_buy_amt}</span> 원 </td>
+						<td class="text-right"><input id="span_sum_buy_amt" type="text" value="${sum_buy_amt}" disabled="disabled">원</td>
 					</tr>
 					<tr>
-						<th> 총 할 인 금 액 </th>
-						<td class="text-right text-danger"> -<span id="span_sum_discount_amt">${sum_discount_amt}</span> 원 </td>
+					<th>총 할인 금액</th>
+						<td class="text-right text-danger"><input id="span_sum_discount_amt" class="sum" type="text" disabled="disabled">원 </td>
 					</tr>
+					<tr>
 					<tr>
                         <th> 배송비 </th>
                         <td class="text-right">
-                            <span class="text-right" id="span_delivery_cost">${delivery_cost}</span>원
+                        	<input id="span_delivery_cost" type="text" disabled="disabled" value="${delivery_cost}">원
                         </td>
                     </tr>
 					<tr>
 						<th> <h3>총 결 제 금 액</h3> </th>
-						<td class="text-right"> <h3><span id="span_sum_total_buy_amt">${sum_buy_amt - sum_discount_amt+delivery_cost}</span> 원</h3> </td>
+						<td class="text-right"> <input id="span_sum_total_buy_amt" name="span_sum_total_buy_amt" type="text" disabled="disabled" >원</td>
 					</tr>
 					<tr>
 						<td colspan="2" class="text-center">
-							<button id="order_btn" class="btn btn-danger btn-lg"> 결 제 하 기 </button>
 							<button id="kakao_btn" class="btn btn-warning btn-lg"> 카카오페이 </button>
 						</td>
 					</tr>
@@ -246,6 +234,102 @@
 <!-- 결제 정보 끝 -->		
 
 <%-- 	<%@ include file="/WEB-INF/views/footer.jsp" %> --%>
+
+
+<!-- # 쿠폰 적용 -->
+<script type="text/javascript">
+$(function() {
+	var total = ${sum_buy_amt};
+	var sale = ${sum_discount_amt};
+	var delivery = ${delivery_cost};
+	var use = 0;
+	var real = 0;
+
+	$("#couponBtn").click(
+			function() {
+				var coupon = parseInt(($("#couponList option:selected").val()));
+				use = total * (coupon / 100) + sale;  
+				real = total - use + delivery;
+				
+				if (coupon == 0) {
+					use = 0;
+					$("#span_sum_discount_amt").attr("value", use); 
+					$("#span_sum_total_buy_amt").attr("value", real);
+				} else {
+					$("#span_sum_discount_amt").attr("value", use);
+					$("#span_sum_total_buy_amt").attr("value", real);
+				}
+			});
+});
+
+</script>
+
+<!-- # 카카오페이 -->
+<script type="text/javascript">
+	    $(document).ready(function(){
+	    	$("#kakao_btn").click(function() {
+	    	kakaoPay();
+	     });
+	    })
+	    function kakaoPay() {
+	    	IMP.init('imp82628187');
+	    	
+		    IMP.request_pay({
+		    pg: "kakaopay"
+		    ,pay_method: "card" //결제시 카드결제만 해야함. 카카오포인트로 결제 불가.
+	        ,merchant_uid:'merchant_'+new Date().getTime() //상점에서 관리하는 주문 번호
+	        ,name: $("#md_name").val()			
+	        ,amount: $("#span_sum_total_buy_amt").val()
+	        ,buyer_name: '${login_info.member_name}'  			
+	        ,buyer_tel:'${login_info.member_phone}' 		
+	        ,buyer_email: '${login_info.member_email}'		
+		    }
+	        , function(rsp) { //callback
+                let _delivery_id = $("#delivery_id").val();
+
+	        	if (rsp.success) {
+	                var msg = '결제가 완료 되었습니다.';
+                    msg += ' 고유ID : ' + rsp.imp_uid;
+                    msg += ' 상점 거래ID : ' + rsp.merchant_uid;
+                    msg += ' 결제 금액 : ' + rsp.paid_amount;
+                    msg += ' 결제 수단 : ' + rsp.pay_method;
+                    msg += ' 카드 승인번호 : ' + rsp.apply_num;
+                    msg += ' 결제 승인 시간 : ' + rsp.paid_at;
+                    msg += ' 구매자 이름 : ' + rsp.buyer_name;
+                    msg += ' 구매자 전화번호 : ' + rsp.buyer_tel;
+                    $.post(
+        					"${pageContext.request.contextPath}/order/insert"
+        					, {
+        						delivery_id : $("#delivery_id").val()
+        						, order_md_cnt : $("#span_sum_md_class_qty").text()
+        						, order_amt : $("#span_sum_buy_amt").text()
+        						, discount_amt : $("#span_sum_discount_amt").val()
+        						, pay_amt : rsp.paid_amount
+        						, str_cart_id : str_cart_id
+        						, buy_now_md_id : buy_now_md_id
+        						, buy_now_qty : buy_now_qty
+        					},
+        					function(data, status) {
+        						if(data >= 1){
+        							alert("주문을 성공적으로 등록 하였습니다.");
+        							location.href="${pageContext.request.contextPath}/order/paySuccess";
+        						} else if(data <= 0){
+        							alert("주문 등록을 실패 하였습니다.");
+        						} else {
+        							alert("잠시 후 다시 시도해 주세요.");
+        						}
+        					}//call back function
+        			);//post
+                    
+	            } else {
+	            	var msg = '결제에 실패 하였습니다.';
+                    msg += ' 에러내용 : ' + rsp.error_msg;
+                    msg += ' 에러코드: ' + rsp.error_code;
+	            }
+	            alert(msg);
+	        });
+	    };
+</script>
 
 <!-- delivery modal start -->
 	<div class="modal" id="delivery_choice_modal">
@@ -398,71 +482,5 @@
 </script>
 
 
-<!-- # 카카오페이 -->
-<script type="text/javascript">
-	    $(document).ready(function(){$("#kakao_btn").click(function() {
-	    	kakaoPay();
-	     });
-	    })
-	    function kakaoPay() {
-	        IMP.init('imp82628187');
-	        
-		    IMP.request_pay({
-		    pg: "kakaopay"
-		    ,pay_method: "card" //결제시 카드결제만 해야함. 카카오포인트로 결제 불가.
-	        ,merchant_uid:'merchant_'+new Date().getTime() //상점에서 관리하는 주문 번호
-	        ,name: $("#md_name").val()			//'${dto.md_name}'이거 하면 "item_name can't be null." 에러가 뜸.
-	        ,amount: '${sum_buy_amt - sum_discount_amt+delivery_cost}' //가격정보는 잘 뜸.
-	        ,buyer_name: '${login_info.member_name}'  			//'${dto.receiver}' 인식 안됨.
-	        ,buyer_tel:'${login_info.member_phone}' 		//'${dto.member_phone}' 인식 안됨.
-	        ,buyer_email: '${login_info.member_email}'		//왜 login_info만 인식하는가....
-		    }
-	        , function(rsp) { //callback
-                let _delivery_id = $("#delivery_id").val();
-
-	        	if (rsp.success) {
-	                var msg = '결제가 완료 되었습니다.';
-                    msg += ' 고유ID : ' + rsp.imp_uid;
-                    msg += ' 상점 거래ID : ' + rsp.merchant_uid;
-                    msg += ' 결제 금액 : ' + rsp.paid_amount;
-                    msg += ' 결제 수단 : ' + rsp.pay_method;
-                    msg += ' 카드 승인번호 : ' + rsp.apply_num;
-                    msg += ' 결제 승인 시간 : ' + rsp.paid_at;
-                    msg += ' 구매자 이름 : ' + rsp.buyer_name;
-                    msg += ' 구매자 전화번호 : ' + rsp.buyer_tel;
-                    $.post(
-        					"${pageContext.request.contextPath}/order/insert"
-        					, {
-        						delivery_id : $("#delivery_id").val()
-        						, order_md_cnt : $("#span_sum_md_class_qty").text()
-        						, order_amt : $("#span_sum_buy_amt").text()
-        						, discount_amt : $("#span_sum_discount_amt").text()
-        						, pay_amt : rsp.paid_amount
-        						, str_cart_id : str_cart_id
-        						, buy_now_md_id : buy_now_md_id
-        						, buy_now_qty : buy_now_qty
-        					},
-        					function(data, status) {
-        						if(data >= 1){
-        							alert("주문을 성공적으로 등록 하였습니다.");
-        							location.href="${pageContext.request.contextPath}/order/paySuccess";
-        						} else if(data <= 0){
-        							alert("주문 등록을 실패 하였습니다.");
-        						} else {
-        							alert("잠시 후 다시 시도해 주세요.");
-        						}
-        					}//call back function
-        			);//post
-                    
-	            } else {
-	            	var msg = '결제에 실패 하였습니다.';
-                    msg += ' 에러내용 : ' + rsp.error_msg;
-                    msg += ' 에러코드: ' + rsp.error_code;
-	            }
-	            alert(msg);
-	        });
-	    };
-</script>
-	
 	</body>
 </html>

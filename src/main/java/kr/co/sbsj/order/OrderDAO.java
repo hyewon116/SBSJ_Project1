@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.sbsj.md.CouponDTO;
 import kr.co.sbsj.md.MdDTO;
 import kr.co.sbsj.util.dto.MemberDTO;
 
@@ -64,6 +65,13 @@ public class OrderDAO {
 		MemberDTO memberdto = null;
 		memberdto = sqlSession.selectOne("OrderMapper.getMemberDto", member_id);
 		return memberdto;
+	}
+
+
+	public List<CouponDTO> couponList(CouponDTO coupondto) {
+		List<CouponDTO> couponList = null;
+		couponList = sqlSession.selectList("OrderMapper.couponList", coupondto);
+		return couponList;
 	}
 
 }//class

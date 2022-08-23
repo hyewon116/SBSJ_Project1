@@ -5,6 +5,14 @@
 
 <mapper namespace="OrderMapper">
 
+
+	<select id="couponList" parameterType="kr.co.sbsj.md.CouponDTO" resultType="kr.co.sbsj.md.CouponDTO">
+	select coupon_id, member_id, coupon_name, coupon_dis, coupon_start, coupon_end, coupon_yn
+	from coupon
+	where member_id = #{member_id}
+	</select>
+
+
 	<update id="updateDeliveryAddrUsedDate" parameterType="kr.co.sbsj.order.OrderMainDTO">
 	update delivery
 	set used_date = now()
@@ -12,7 +20,6 @@
 	and member_id = #{member_id}
 	</update>
 
-	
 	<delete id="deleteCartByArray">
 	delete from cart c
 	where c.cart_id in
@@ -37,11 +44,13 @@
 	<insert id="insertOrderDetail" parameterType="kr.co.sbsj.order.OrderMainDTO">
 	insert into order_detail (order_id, md_id
 							, order_detail_qty, order_detail_price, order_detail_amt
-	                        , order_detail_discount, order_detail_discount_amt
+	                        , order_detail_discount
+	                        , order_detail_discount_amt
 							, order_detail_pay_amt)
 	select #{order_id}, md.md_id
 			, c.buy_qty, md.md_price, c.buy_qty * md.md_price
-			, md.md_discount, c.buy_qty * md.md_price / 100 * md.md_discount
+			, md.md_discount
+			, c.buy_qty * md.md_price / 100 * md.md_discount
 			, (c.buy_qty * md.md_price) - (c.buy_qty * md.md_price / 100 * md.md_discount)
 	from cart c, md md
 	where c.cart_id in

@@ -57,7 +57,7 @@
 		<tr>	
 			<td>	
 				<div>
-					<h4><b>3,000원</b></h4>
+					<h4><b>30%</b></h4>
 					<h5 style="color:brown;"><b>가입 축하 쿠폰</b></h5>
 					<h6>사용기간 ~2022.09.30.</h6>
 					<br><button id="coupon1" class="btn btn-warning" type="button"> 발급 받기 </button>
@@ -65,7 +65,7 @@
 			<td>
 			<td>
 				<div>
-					<h4><b>2,000원</b></h4>
+					<h4><b>10%</b></h4>
 					<h5 style="color:brown;"><b>추천인 쿠폰</b></h5>
 					<h6>사용기간 ~2022.09.30.</h6>
 					<br><button id="coupon2" class="btn btn-warning" type="button"> 발급 받기 </button>
@@ -73,7 +73,7 @@
 			<td>
 			<td>
 				<div>
-					<h4><b>2,000원</b></h4>
+					<h4><b>10%</b></h4>
 					<h5 style="color:brown;"><b>추석맞이 쿠폰</b></h5>
 					<h6>사용기간 ~2022.09.30.</h6>
 					<br><button id="coupon3" class="btn btn-warning" type="button"> 발급 받기 </button>
@@ -103,7 +103,7 @@
 	               , {
 	                  member_id : ${login_info.member_id}
 	               	  , coupon_name : "가입축하 쿠폰"
-	               	  , coupon_dis : "3000"
+	               	  , coupon_dis : "30"
 	               	  , coupon_end : "2022-09-30"
 	               }
 	               , function(data, status) {
@@ -137,7 +137,7 @@
 	               , {
 	                  member_id : ${login_info.member_id}
 	               	  , coupon_name : "추천인 쿠폰"
-	               	  , coupon_dis : "2000"
+	               	  , coupon_dis : "10"
 	               	  , coupon_end : "2022-09-30"
 	               }
 	               , function(data, status) {
@@ -170,7 +170,7 @@
 	               , {
 	                  member_id : ${login_info.member_id}
 	               	  , coupon_name : "추석맞이 쿠폰"
-	               	  , coupon_dis : "2000"
+	               	  , coupon_dis : "10"
 	               	  , coupon_end : "2022-09-30"
 	               }
 	               , function(data, status) {

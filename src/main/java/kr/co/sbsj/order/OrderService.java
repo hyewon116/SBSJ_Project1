@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.co.sbsj.md.CouponDTO;
 import kr.co.sbsj.md.MdDTO;
 import kr.co.sbsj.util.dto.MemberDTO;
 
@@ -54,5 +55,11 @@ public class OrderService {
 		dto = dao.memberdto( member_id );
 		return dto;
 	}//list
+
+	public List<CouponDTO> couponList(CouponDTO coupondto) {
+		List<CouponDTO> couponList = null;
+		couponList = dao.couponList(coupondto);
+		return couponList;
+	}
 
 }//class

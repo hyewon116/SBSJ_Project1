@@ -5,8 +5,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,28 +13,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.google.gson.Gson;
 
-import kr.co.sbsj.cart.CartController;
 import kr.co.sbsj.delivery.DeliveryDTO;
 import kr.co.sbsj.delivery.DeliveryService;
+import kr.co.sbsj.md.CouponDTO;
 import kr.co.sbsj.md.MdDTO;
-import kr.co.sbsj.member.MemberService;
 import kr.co.sbsj.util.dto.MemberDTO;
 
 @Controller
 @RequestMapping( value = "/order" )
 public class OrderController {
 
-	private final static Logger logger = LoggerFactory.getLogger(CartController.class);
 
 	@Autowired
 	private OrderService service;
 
 	@Autowired
 	private DeliveryService deliveryService;
-	
-	@Autowired
-	private MemberService memberService;
-	
+
 	@RequestMapping( value = "/paySuccess", method = RequestMethod.GET )
 	public String paySuccess() {
 		return "/order/paySuccess";
@@ -60,8 +53,9 @@ public class OrderController {
 	}//insert
 
 	@RequestMapping( value = "/order_list", method = RequestMethod.GET )
-	public String orderList( String [] arr_cart_id, MdDTO dto, Model model, HttpSession session ) {
+	public String orderList( String [] arr_cart_id, MdDTO dto, Model model, HttpSession session, CouponDTO coupondto ) {
 		dto.setMember_id( ( (MemberDTO) session.getAttribute("login_info") ).getMember_id() );
+		
 		List<MdDTO> list = null;
 		if(arr_cart_id != null && arr_cart_id.length > 0) {//장바구니 -> 주문 목록
 			list = service.orderList( arr_cart_id );
@@ -83,7 +77,11 @@ public class OrderController {
 		memberdto = service.memberdto(member_id);
 		model.addAttribute("memberdto", memberdto);
 
-
+		//쿠폰 리스트
+		List<CouponDTO> couponList = null;
+		coupondto.setMember_id( ( (MemberDTO) session.getAttribute("login_info") ).getMember_id() );
+		couponList = service.couponList(coupondto);
+		model.addAttribute("couponList", couponList);
 		return "/order/order_list";//jsp file name
 	}//orderList
 
