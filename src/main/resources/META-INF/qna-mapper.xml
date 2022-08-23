@@ -9,12 +9,49 @@
 	<insert id="replyInsert" parameterType="kr.co.sbsj.cs.QnaDTO">
 	insert into qa_question ( qa_question_title, member_id, member_nick, qa_question_content, qa_question_viewcnt
 								, qa_question_date, open_yn, qa_question_category
-								, originNo, groupOrd, groupLayer)
+								, originNo, groupOrd, groupLayer, qa_question_answer)
 	values ( #{qa_question_title}, #{member_id}, #{member_nick}, #{qa_question_content}, 0
 								, now(), #{open_yn}, #{qa_question_category}
-								, #{originNo}, #{groupOrd}+1, #{groupLayer}+1)
+								, #{originNo}, #{groupOrd}+1, #{groupLayer}+1, 'Y')
 	</insert>
+	
 
+
+
+
+
+
+	<update id="update_answerY" parameterType="kr.co.sbsj.cs.QnaDTO">
+	update qa_question 
+	set qa_question_answer = 'Y'
+		
+	where originNo = #{originNo} and groupOrd = '0' and groupLayer = '0'
+	</update>
+	
+	<select id="update_answerNcnt" parameterType="kr.co.sbsj.cs.QnaDTO" resultType="int">
+	select count(qa_question_id)
+	from qa_question
+	
+	where qa_question_answer = 'N';
+	</select>
+	
+	
+	<update id="update_answerN" parameterType="kr.co.sbsj.cs.QnaDTO">
+	update qa_question 
+	set qa_question_title = #{qa_question_title}
+		, qa_question_category = #{qa_question_category}
+		, qa_question_content = #{qa_question_content}
+		, open_yn = #{open_yn}
+	where qa_question_id = #{qa_question_id}
+	</update>
+	
+	
+	
+	
+	
+	
+	
+	
 	<update id="update" parameterType="kr.co.sbsj.cs.QnaDTO">
 	update qa_question 
 	set qa_question_title = #{qa_question_title}

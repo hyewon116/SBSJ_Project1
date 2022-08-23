@@ -39,7 +39,7 @@
 				</select>
 			</div>
 			
-			<input type="text" id="searchWord" name="searchWord"
+			<input class="form-control" type="text" id="searchWord" name="searchWord"
 					value="${search_dto.searchWord}">
 			<div class="input-group-append">
 				<button type="submit" class="btn btn-info"> 검색 </button>
@@ -101,7 +101,7 @@
 			<div>
 				<ul class="pagination">
 					<c:if test="${startPageNum > 10}">
-						<li class="page-item">
+						<li class="page-item mx-auto">
 							<a class="page-link"
 								href="${pageContext.request.contextPath}/qna/list?userWantPage=${startPageNum-1}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
 								Previous
@@ -111,12 +111,12 @@
 					<c:forEach var="page_no" begin="${startPageNum}" end="${endPageNum}">
 						<c:choose>
 							<c:when test="${page_no == userWantPage}">
-								<li class="page-item active">
+								<li class="page-item active mx-auto">
 									<a class="page-link">${page_no}</a>
 								</li>
 							</c:when>
 							<c:otherwise>
-								<li class="page-item">
+								<li class="page-item mx-auto">
 									<a class="page-link"
 										href="${pageContext.request.contextPath}/qna/list?userWantPage=${page_no}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
 										${page_no}
@@ -126,7 +126,7 @@
 						</c:choose>
 					</c:forEach>
 					<c:if test="${lastPageNum > endPageNum}">
-						<li class="page-item">
+						<li class="page-item mx-auto">
 							<a class="page-link"
 								href="${pageContext.request.contextPath}/qna/list?userWantPage=${endPageNum+1}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
 								Next

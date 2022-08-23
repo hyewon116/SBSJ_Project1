@@ -34,6 +34,8 @@ import kr.co.sbsj.util.dto.UpdateDTO;
 import kr.co.sbsj.admin.AdminReviewDTO;
 import kr.co.sbsj.cs.NoticeDTO;
 import kr.co.sbsj.cs.NoticeService;
+import kr.co.sbsj.cs.QnaDTO;
+import kr.co.sbsj.cs.QnaService;
 import kr.co.sbsj.history.HistoryDTO;
 
 
@@ -52,6 +54,9 @@ public class AdminController {
 	
 	@Autowired
 	   private NoticeService Notice_service;
+	
+	@Autowired
+	private QnaService Qna_service;
 	
 	
 	//문의 답변 등록
@@ -303,16 +308,6 @@ public class AdminController {
 	      model.addAttribute("list", list);
 	      
 	      return "/admin/admin_order_detail";//
-	   }
-	@RequestMapping( value = "/admin_change_status", method = RequestMethod.POST )
-	   private String admin_change_status(  Model model, HttpSession session, HistoryDTO dto ) {
-		List<HistoryDTO> list = null;
-		list = service.orderDetail(dto);
-		model.addAttribute("list", list);
-
-		int successCount = 0;
-		successCount = service.changeStatus( dto );
-		return "/admin/admin_order_detail";//
 	   }
 	
 	@RequestMapping( value = "/admin_member_detail", method = RequestMethod.GET )
@@ -586,9 +581,9 @@ public class AdminController {
 	}//admin_md_list
 	
 	
-	//공지사항 관리
+	//------------------------------------------------------------------------------------------------------공지사항 관리
 	@RequestMapping( value = "/admin_notice_list", method = RequestMethod.GET )
-	public String list(Model model, String userWantPage, SearchDTO dto) {
+	public String notice_list(Model model, String userWantPage, SearchDTO dto) {
 		if(userWantPage == null || userWantPage.equals("")) userWantPage = "1";
 		int totalCount = 0, startPageNum = 1, endPageNum = 10, lastPageNum = 1;
 		totalCount = Notice_service.searchListCount(dto);
@@ -662,7 +657,7 @@ public class AdminController {
 		out.close();
 	}//update
 	
-	@RequestMapping( value = "/delete", method = RequestMethod.GET )
+	@RequestMapping( value = "/admin_notice_delete", method = RequestMethod.GET )
 	public void delete (NoticeDTO dto, PrintWriter out) {
 		int successCount = 0;
 		successCount = Notice_service.delete(dto);
@@ -670,6 +665,116 @@ public class AdminController {
 		out.close();
 	}//delete
 	
-	// 아래부분은 미사용 부분//
+	//------------------------------------------------------------------------------------------------------1:1게시판 관리
 	
+	@RequestMapping( value = "/admin_qna_list", method = RequestMethod.GET )
+	public String qna_list(Model model, String userWantPage, SearchDTO dto) {
+		if(userWantPage == null || userWantPage.equals("")) userWantPage = "1";
+		int totalCount = 0, startPageNum = 1, endPageNum = 10, lastPageNum = 1;
+		totalCount = Qna_service.searchListCount(dto);
+		
+		if(totalCount > 10) {
+			lastPageNum = (totalCount / 10) + (totalCount % 10 > 0 ? 1 : 0);
+		}//if
+		
+		if(userWantPage.length() >= 2) { 
+			String frontNum = userWantPage.substring(0, userWantPage.length() - 1);
+			startPageNum = Integer.parseInt(frontNum) * 10 + 1;
+			endPageNum = ( Integer.parseInt(frontNum) + 1 ) * 10;
+			String backNum = userWantPage.substring(userWantPage.length() - 1, userWantPage.length());
+			if(backNum.equals("0")) {
+				startPageNum = startPageNum - 10;
+				endPageNum = endPageNum - 10;
+			}//if
+		}//if
+
+		if(endPageNum > lastPageNum) endPageNum = lastPageNum;
+
+		model.addAttribute("startPageNum", startPageNum);
+		model.addAttribute("endPageNum", endPageNum);
+		model.addAttribute("lastPageNum", lastPageNum);
+		model.addAttribute("userWantPage", userWantPage);
+
+		dto.setLimitNum( ( Integer.parseInt(userWantPage) - 1 ) * 10  );
+		
+		
+		List<QnaDTO> list = null;
+		list = Qna_service.searchList( dto );
+		model.addAttribute("list", list);
+		model.addAttribute("search_dto", dto);
+		return "/admin/admin_qna_list";//jsp file name
+	}//list
+	
+	@RequestMapping( value = "/admin_qna_detail", method = RequestMethod.GET )
+	public String qna_detail( String qa_question_id, Model model ) {
+		QnaDTO dto = null;
+		dto = Qna_service.detail( qa_question_id );
+		model.addAttribute("detail_dto", dto);
+		return "/admin/admin_qna_detail";//jsp file name
+	}//detail
+	
+	@RequestMapping( value = "/admin_qna_delete", method = RequestMethod.GET )
+	public void delete (QnaDTO dto, PrintWriter out) {
+		int successCount = 0;
+		successCount = Qna_service.delete(dto);
+		out.print(successCount);
+		out.close();
+	}//delete
+	
+	@RequestMapping( value = "/admin_qna_uform", method = RequestMethod.GET )
+	public String qna_uform (String qa_question_id, Model model) {
+		QnaDTO dto = null;
+		dto = Qna_service.detail(qa_question_id);//qa_question_id에 맞는 디테일 정보를 가져와서 수정폼에 자동 입력
+		model.addAttribute("detail_dto", dto);
+		return "/admin/admin_qna_uform";
+	}//uform
+	
+	
+	@RequestMapping( value = "/admin_qna_rform", method = RequestMethod.GET )
+	public String rform (String qa_question_id, Model model) {
+		QnaDTO dto = null;
+		dto = Qna_service.detail(qa_question_id);//qa_question_id에 맞는 디테일 정보를 가져와서 수정폼에 자동 입력
+		model.addAttribute("detail_dto", dto);
+		return "/admin/admin_qna_replyform";
+	}//rform
+	
+	
+	@RequestMapping( value = "/admin_qna_update", method = RequestMethod.POST )
+	public void update (QnaDTO dto, PrintWriter out) {
+		int successCount = 0;
+		int successCount2 = 0;
+		successCount2 = Qna_service.update_answerNcnt(dto);
+		System.out.println(" 미답변 게시글 갯수 ===================================================" + successCount2);
+		successCount = Qna_service.update(dto);
+		out.print(successCount);
+		out.close();
+	}//update
+	
+	
+	@RequestMapping( value = "/admin_qna_replyInsert", method = RequestMethod.POST )
+	public void replyInsert(QnaDTO dto, PrintWriter out) {
+		int successCount = 0;
+		int successCount1 = 0;
+		successCount = Qna_service.replyInsert(dto);
+		successCount1 = Qna_service.update_answerY(dto);
+		//if(successCount == successCount1)
+		System.out.println("답변달기 성공여부 ===================================================" + successCount);
+		System.out.println("원래글 속성 변경여부 ===================================================" + successCount1);
+		out.print(successCount);
+		out.close();
+	}//replyInsert
+	
+	//------------------------------------------------------------------------------------------------------ 관라지 페이지 nav 갱신문
+	
+	@RequestMapping( value = "/admin_nav_qnaNcnt", method = RequestMethod.POST )
+	public String update_answerNcnt (QnaDTO dto, PrintWriter out, Model model) {
+		int successCount = 0;
+		successCount = Qna_service.update_answerNcnt(dto);
+		System.out.println(" 미답변 게시글 갯수 ===================================================>>>>>>>" + successCount);
+		model.addAttribute("successCount", successCount);
+		out.print(successCount);
+		out.close();
+		return "/admin/admin_nav";
+	}//update
+		
 }//class

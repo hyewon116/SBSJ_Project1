@@ -19,6 +19,19 @@ public class QnaDAO {
 		return successCount;
 	}//replyInsert
 
+	public int update_answerY(QnaDTO dto) {
+		int successCount = 0;
+		successCount = sqlSession.update("QnaMapper.update_answerY", dto);
+		return successCount;
+	}//update_answerY
+	
+	public int update_answerNcnt(QnaDTO dto) {
+		int successCount = 0;
+		successCount = sqlSession.selectOne("QnaMapper.update_answerNcnt", dto);
+		return successCount;
+	}//update_answerNcnt
+	
+	
 	public int update(QnaDTO dto) {
 		int successCount = 0;
 		successCount = sqlSession.update("QnaMapper.update", dto);

@@ -91,7 +91,8 @@
 
 			<!-- section 시작--------------------------------------------------------------------------------- -->
 			<section class="col-10 h-100 bg-white float-left">
-				<h3 class="text-center">공 지 사 항</h3>
+				<h3 class="text-center">1:1 문의</h3>
+				<hr>
 				<table class="table table-hover">
 					<input type="hidden" id="member_id" name="member_id"
 						value="${detail_dto.member_id}">
@@ -99,101 +100,68 @@
 
 						<tr>
 							<th>번호</th>
-							<td>${detail_dto.notice_id}</td>
+							<td>${detail_dto.qa_question_id}</td>
+							<th>문의유형</th>
+							<td>${detail_dto.qa_question_category}</td>
 							<th>제목</th>
-							<td>${detail_dto.notice_title}</td>
-							<th>작성일</th>
-							<td>${detail_dto.notice_write_date}</td>
+							<td>${detail_dto.qa_question_title}</td>
 						</tr>
-
+						<tr>
+							<th>작성자</th>
+							<td>${detail_dto.member_nick}</td>
+							<th>작성일</th>
+							<td>${detail_dto.qa_question_date}</td>
+						</tr>
 						<tr>
 							<th>내용</th>
-							<td colspan="10">${detail_dto.notice_content}</td>
+							<td colspan="3">${detail_dto.qa_question_content}</td>
 						</tr>
 					</tbody>
 				</table>
 				<hr>
 				<!-- 목록으로 가기 버튼 : 누구나 보임 -->
 				<div>
-					<a
-						href="${pageContext.request.contextPath}/admin/admin_notice_list">
+					<a href="${pageContext.request.contextPath}/admin/admin_qna_list">
 						<button type="button" class="btn btn-info float-left" id="list">
 							목록으로 가기</button>
 					</a>
 
 					<!-- 수정&삭제 버튼 : 내 게시글에서만 보임 -->
-					<c:if test="${login_info.admin_yn eq 'Y'}">
+					<c:if
+						test="${login_info.member_id == detail_dto.member_id || login_info.admin_yn eq 'Y'}">
 						<div class="float-right">
+							<c:if test="${login_info.admin_yn eq 'Y'}">
+								<a
+									href="${pageContext.request.contextPath}/admin/admin_qna_rform?qa_question_id=${detail_dto.qa_question_id}">
+									<button type="button" class="btn btn-info" id="update">
+										답변</button>
+								</a>
+							</c:if>
 							<a
-								href="${pageContext.request.contextPath}/admin/admin_notice_uform?notice_id=${detail_dto.notice_id}">
+								href="${pageContext.request.contextPath}/admin/admin_qna_uform?qa_question_id=${detail_dto.qa_question_id}">
 								<button type="button" class="btn btn-warning" id="update">
 									수정</button>
 							</a>
-							<button type="button" class="btn btn-danger" id="delete_btn"
-								name="delete_btn">삭제</button>
+							<button type="button" class="btn btn-danger" id="delete_btn">
+								삭제</button>
 						</div>
 					</c:if>
 
 				</div>
 	</div>
-
-
-
-
-	<!-- 페이징 -->
-	<div>
-		<ul class="pagination">
-			<c:if test="${startPageNum > 10}">
-				<li class="page-item"><a class="page-link"
-					href="${pageContext.request.contextPath}/notice/list?userWantPage=${startPageNum-1}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
-						Previous </a></li>
-			</c:if>
-			<c:forEach var="page_no" begin="${startPageNum}" end="${endPageNum}">
-				<c:choose>
-					<c:when test="${page_no == userWantPage}">
-						<li class="page-item active"><a class="page-link">${page_no}</a>
-						</li>
-					</c:when>
-					<c:otherwise>
-						<li class="page-item"><a class="page-link"
-							href="${pageContext.request.contextPath}/notice/list?userWantPage=${page_no}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
-								${page_no} </a></li>
-					</c:otherwise>
-				</c:choose>
-			</c:forEach>
-			<c:if test="${lastPageNum > endPageNum}">
-				<li class="page-item"><a class="page-link"
-					href="${pageContext.request.contextPath}/notice/list?userWantPage=${endPageNum+1}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
-						Next </a></li>
-			</c:if>
-		</ul>
-	</div>
-
-
-
-
-
-	</section>
-	<!-- section 끝---------------------------------------------------------------------------- -->
-	</main>
-
-
-	</div>
-	<!-- container -->
-</body>
-<script type="text/javascript">
+	<script type="text/javascript">
 	$(document).ready(function() {
 		$("#delete_btn").click(function() {
 			if(confirm("삭제 하시겠습니까?")) {
 				$.get(
-						"${pageContext.request.contextPath}/admin/admin_notice_delete"
+						"${pageContext.request.contextPath}/admin/admin_qna_delete"
 						, {
-							notice_id : ${detail_dto.notice_id}
+							qa_question_id : ${detail_dto.qa_question_id}
 						}
 						, function(data, status) {
 							if( data >= 1 ){
 								alert("게시글이 삭제 되었습니다.");
-								location.href="${pageContext.request.contextPath}/admin/admin_notice_list";
+								location.href="${pageContext.request.contextPath}/admin/admin_qna_list";
 							} else if( data <= 0 ) {
 								alert("게시글 삭제를 실패 하였습니다.");
 							} else {
@@ -204,7 +172,16 @@
 			}//if
 		});//click
 	}); //ready
-	
-		
 	</script>
+
+
+
+
+	</section>
+	<!-- section 끝---------------------------------------------------------------------------- -->
+	</main>
+
+
+</body>
+
 </html>
