@@ -174,7 +174,9 @@
 						<select name="couponList" id="couponList">
 							<option value="none">[ 쿠폰 선택 ]</option>
 								<c:forEach var="coupon" items="${couponList}">
+									<c:if test = "${coupon.coupon_yn eq 'N'}">
 									<option value="${coupon.coupon_dis}#${coupon.coupon_id}#${coupon.coupon_yn}">[ ${coupon.coupon_name} ] ${coupon.coupon_dis}%할인</option>	
+									</c:if>
 								</c:forEach>
 						</select>						
 						<span><button id="couponBtn" type="button" class="btn btn-warning">적용</button></span></li>
