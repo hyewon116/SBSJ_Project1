@@ -5,6 +5,7 @@ public class QnaDTO {
 	private String qa_question_title;
 	private String member_id;
 	private String member_nick;
+	private String member_email;
 	private String qa_question_content;
 	private String qa_question_viewcnt;
 	private String qa_question_date;
@@ -33,6 +34,12 @@ public class QnaDTO {
 	}
 	public void setMember_id(String member_id) {
 		this.member_id = member_id;
+	}
+	public String getMember_email() {
+		return member_email;
+	}
+	public void setMember_email(String member_email) {
+		this.member_email = member_email;
 	}
 	public String getMember_nick() {
 		return member_nick;
@@ -89,5 +96,7 @@ public class QnaDTO {
 		this.groupLayer = groupLayer;
 	}
     
+	
+	
 	
 }

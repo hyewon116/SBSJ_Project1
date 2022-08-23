@@ -94,8 +94,7 @@
 				<h3 class="text-center">1:1 문의</h3>
 				<hr>
 				<table class="table table-hover">
-					<input type="hidden" id="member_id" name="member_id"
-						value="${detail_dto.member_id}">
+					<input type="hidden" id="member_id" name="member_id" class="form-control" value="${detail_dto.member_id}">
 					<tbody>
 
 						<tr>
@@ -111,6 +110,7 @@
 							<td>${detail_dto.member_nick}</td>
 							<th>작성일</th>
 							<td>${detail_dto.qa_question_date}</td>
+							
 						</tr>
 						<tr>
 							<th>내용</th>

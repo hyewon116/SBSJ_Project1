@@ -46,17 +46,13 @@
 								<label for="qa_question_title" id="qa_question_title_label" class="write_label"></label>
 							</td>
 						</tr>
-						<tr>
-		                   <th>문자메세지</th> <!--수정하거나 삭제할 예정-->
-		                   <td>
-		                       <input readonly type="text" placeholder="${login_info.member_phone }" cols="100" style="width:200px;">
-		                       <input type="checkbox" id="sms_yn" value="Y" >&nbsp;답변 수신을 문자메세지로 받겠습니다.
-		                    </td>        
-		                </tr>
+						
 						<tr>
 							<th> 작성자 </th>
 							<td><input id="member_nick" name="member_nick" type="text" readonly="readonly"
 										value="${login_info.member_nick}" cols="100" style="width:200px;"></td>
+							<td><input id="member_email" name="member_email" type="hidden" readonly="readonly"
+										value="${login_info.member_email}" cols="100" style="width:200px;"></td>
 							
 							<!-- member_id 정보 넘기기 -->
 							<td><input id="member_id" name="member_id" type="hidden" 

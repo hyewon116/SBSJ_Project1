@@ -25,6 +25,12 @@ public class QnaDAO {
 		return successCount;
 	}//update_answerY
 	
+	public int update_answerN(QnaDTO dto) {
+		int successCount = 0;
+		successCount = sqlSession.update("QnaMapper.update_answerN", dto);
+		return successCount;
+	}//update_answerN
+	
 	public int update_answerNcnt(QnaDTO dto) {
 		int successCount = 0;
 		successCount = sqlSession.selectOne("QnaMapper.update_answerNcnt", dto);
@@ -73,4 +79,16 @@ public class QnaDAO {
 		return successCount;
 	}//write
 
-}
+	public int searchAnswerNCount( SearchDTO dto ) {//미답변 게시글 숫자
+		int totalCount = 0;
+		totalCount = sqlSession.selectOne("QnaMapper.searchAnswerNCount", dto);
+		return totalCount;
+	}//searchListCount
+	
+	public List<QnaDTO> searchAnswerNlist( SearchDTO dto ) {//미답변 게시글
+		List<QnaDTO> list = null;
+		list = sqlSession.selectList("QnaMapper.searchAnswerNlist", dto);
+		return list;
+	}//searchList
+	
+}//class

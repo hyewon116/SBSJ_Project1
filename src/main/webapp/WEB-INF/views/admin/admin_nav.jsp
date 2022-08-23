@@ -27,27 +27,14 @@ $(document).ready(function() {
 					alert("미답변 문의가 없습니다.")
 					
 				} else if(data >= 1){
-					alert(data);
-					$("#qna_reply").attr("value", data);
-					$("#data_small1").text(data);
-					
+					$("#qna_answer").text(data);
 				} else {
 					alert("잠시 후 다시 시도해 주세요.");
 				}
 			}//call back function
 	);//get
 	
-	
-	
-	
-	
-	
 });//ready 
-
-
-
-
-
 
 </script>
 </head>
@@ -59,12 +46,10 @@ $(document).ready(function() {
 					<dd class="nav_menu">
 						<strong class="nav_menu_name">1:1 미답변 게시글</strong>
 						<div class="nav_menu_data">
-							<a href="#" data-clicklog-type="/click_side_menu_1911" data-log-type="click" data-log-id="1911" data-log-version="3" data-has-log-group="menu" data-log-payload="{&quot;pageName&quot; : &quot;my_navigation&quot;, &quot;eventName&quot;: &quot;ticket_unused&quot;, &quot;currentPage&quot;: &quot;&quot; }">
+							<a href="${pageContext.request.contextPath}/admin/admin_qna_answerN_list" data-clicklog-type="/click_side_menu_1911" data-log-type="click" data-log-id="1911" data-log-version="3" data-has-log-group="menu" data-log-payload="{&quot;pageName&quot; : &quot;my_navigation&quot;, &quot;eventName&quot;: &quot;ticket_unused&quot;, &quot;currentPage&quot;: &quot;&quot; }">
 								<span class="i18n-wrapper">
-									<span class="data_big" id="unusedTicketCount"></span>
+									<span id="qna_answer" class="data_big" id="unusedTicketCount"></span>
 									<span class="data_small1">개</span>
-									 
-									<input id="qna_reply" class="data_small">개
 								</span>
 							</a>
 						</div>

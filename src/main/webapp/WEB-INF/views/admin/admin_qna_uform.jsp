@@ -126,13 +126,7 @@ write_label {
 								<label for="qa_question_title" id="qa_question_title_label" class="write_label"></label>
 							</td>
 						</tr>
-						<tr>
-		                   <th>문자메세지</th> <!--수정하거나 삭제할 예정-->
-		                   <td>
-		                       <input readonly type="text" placeholder="${detail_dto.member_id}" cols="100" style="width:200px;">
-		                       <input type="checkbox" id="sms_yn" value="Y" >&nbsp;답변 수신을 문자메세지로 받겠습니다.
-		                    </td>        
-		                </tr>
+						
 						<tr>
 							<th> 작성자 </th>
 							<td><input id="member_nick" name="member_nick" type="text" readonly="readonly"

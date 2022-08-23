@@ -19,13 +19,18 @@
 
 
 
-
-
 	<update id="update_answerY" parameterType="kr.co.sbsj.cs.QnaDTO">
 	update qa_question 
 	set qa_question_answer = 'Y'
 		
 	where originNo = #{originNo} and groupOrd = '0' and groupLayer = '0'
+	</update>
+	
+	<update id="update_answerN" parameterType="kr.co.sbsj.cs.QnaDTO">
+	update qa_question 
+	set qa_question_answer = 'N', sgroupOrd = '0', groupLayer = '0'
+	
+	where originNo = #{originNo}
 	</update>
 	
 	<select id="update_answerNcnt" parameterType="kr.co.sbsj.cs.QnaDTO" resultType="int">
@@ -36,16 +41,44 @@
 	</select>
 	
 	
-	<update id="update_answerN" parameterType="kr.co.sbsj.cs.QnaDTO">
-	update qa_question 
-	set qa_question_title = #{qa_question_title}
-		, qa_question_category = #{qa_question_category}
-		, qa_question_content = #{qa_question_content}
-		, open_yn = #{open_yn}
-	where qa_question_id = #{qa_question_id}
-	</update>
 	
+	<select id="searchAnswerNCount" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="int">
+	select count(qa.qa_question_id) cnt
+	from qa_question qa, member m
+	where qa.member_nick = m.member_nick and qa_question_answer = "N"
+		<if test="searchOption != null and searchOption != ''
+					and searchWord != null and searchWord !=''">
+			<choose>
+				<when test="searchOption == 'qa_question_title'">
+					and qa.qa_question_title like concat('%', #{searchWord}, '%')
+				</when>
+				<when test="searchOption == 'writer'">
+					and m.member_nick like concat('%', #{searchWord}, '%')
+				</when>
+			</choose>
+		</if>
+	</select>
 	
+	<select id="searchAnswerNlist" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="kr.co.sbsj.cs.QnaDTO">
+	select qa_question_id, qa_question_category, qa_question_title, qa.member_id, qa.member_nick
+			,qa_question_date, qa_question_viewcnt, open_yn  
+			, originNo, groupOrd, groupLayer
+	from qa_question qa, member m
+	where qa.member_nick = m.member_nick and qa_question_answer = "N"
+		<if test="searchOption != null and searchOption != ''
+					and searchWord != null and searchWord != ''">
+			<choose>
+				<when test="searchOption == 'qa_question_title'">
+					and qa.qa_question_title like concat('%', #{searchWord}, '%')
+				</when>
+				<when test="searchOption == 'writer'">
+					and m.member_nick like concat('%', #{searchWord}, '%')
+				</when>
+			</choose>
+		</if>
+	order by originNo desc, groupOrd asc
+	limit #{limitNum}, 10
+	</select>
 	
 	
 	

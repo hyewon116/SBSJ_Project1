@@ -310,6 +310,19 @@ public class AdminController {
 	      return "/admin/admin_order_detail";//
 	   }
 	
+	
+	@RequestMapping( value = "/admin_change_status", method = RequestMethod.POST )
+    private String admin_change_status(  Model model, HttpSession session, HistoryDTO dto ) {
+    List<HistoryDTO> list = null;
+    list = service.orderDetail(dto);
+    model.addAttribute("list", list);
+
+    int successCount = 0;
+    successCount = service.changeStatus( dto );
+    return "/admin/admin_order_detail";//
+    }
+	
+	
 	@RequestMapping( value = "/admin_member_detail", method = RequestMethod.GET )
 	private String admin_member_Detail( String member_email, Model model, HttpSession session, MemberDTO dto ) {
 		System.out.println(member_email);
@@ -705,6 +718,7 @@ public class AdminController {
 		return "/admin/admin_qna_list";//jsp file name
 	}//list
 	
+	
 	@RequestMapping( value = "/admin_qna_detail", method = RequestMethod.GET )
 	public String qna_detail( String qa_question_id, Model model ) {
 		QnaDTO dto = null;
@@ -744,7 +758,6 @@ public class AdminController {
 		int successCount = 0;
 		int successCount2 = 0;
 		successCount2 = Qna_service.update_answerNcnt(dto);
-		System.out.println(" 미답변 게시글 갯수 ===================================================" + successCount2);
 		successCount = Qna_service.update(dto);
 		out.print(successCount);
 		out.close();
@@ -755,26 +768,67 @@ public class AdminController {
 	public void replyInsert(QnaDTO dto, PrintWriter out) {
 		int successCount = 0;
 		int successCount1 = 0;
+		
+		
 		successCount = Qna_service.replyInsert(dto);
 		successCount1 = Qna_service.update_answerY(dto);
 		//if(successCount == successCount1)
-		System.out.println("답변달기 성공여부 ===================================================" + successCount);
-		System.out.println("원래글 속성 변경여부 ===================================================" + successCount1);
 		out.print(successCount);
 		out.close();
 	}//replyInsert
 	
 	//------------------------------------------------------------------------------------------------------ 관라지 페이지 nav 갱신문
 	
+	//미답변한 게시글 숫자
 	@RequestMapping( value = "/admin_nav_qnaNcnt", method = RequestMethod.POST )
 	public String update_answerNcnt (QnaDTO dto, PrintWriter out, Model model) {
 		int successCount = 0;
 		successCount = Qna_service.update_answerNcnt(dto);
-		System.out.println(" 미답변 게시글 갯수 ===================================================>>>>>>>" + successCount);
 		model.addAttribute("successCount", successCount);
 		out.print(successCount);
 		out.close();
 		return "/admin/admin_nav";
-	}//update
+	}//admin_nav_qnaNcnt
 		
+	//미답변한 게시글 리스트
+	@RequestMapping( value = "/admin_qna_answerN_list", method = RequestMethod.GET )
+	public String qna_answerN_list(Model model, String userWantPage, SearchDTO dto) {
+		if(userWantPage == null || userWantPage.equals("")) userWantPage = "1";
+		int totalCount = 0, startPageNum = 1, endPageNum = 10, lastPageNum = 1;
+		totalCount = Qna_service.searchAnswerNCount(dto);
+		
+		if(totalCount > 10) {
+			lastPageNum = (totalCount / 10) + (totalCount % 10 > 0 ? 1 : 0);
+		}//if
+		
+		if(userWantPage.length() >= 2) { 
+			String frontNum = userWantPage.substring(0, userWantPage.length() - 1);
+			startPageNum = Integer.parseInt(frontNum) * 10 + 1;
+			endPageNum = ( Integer.parseInt(frontNum) + 1 ) * 10;
+			String backNum = userWantPage.substring(userWantPage.length() - 1, userWantPage.length());
+			if(backNum.equals("0")) {
+				startPageNum = startPageNum - 10;
+				endPageNum = endPageNum - 10;
+			}//if
+		}//if
+		
+		if(endPageNum > lastPageNum) endPageNum = lastPageNum;
+		
+		model.addAttribute("startPageNum", startPageNum);
+		model.addAttribute("endPageNum", endPageNum);
+		model.addAttribute("lastPageNum", lastPageNum);
+		model.addAttribute("userWantPage", userWantPage);
+		
+		dto.setLimitNum( ( Integer.parseInt(userWantPage) - 1 ) * 10  );
+		
+		
+		List<QnaDTO> list = null;
+		list = Qna_service.searchAnswerNlist( dto );
+		model.addAttribute("list", list);
+		model.addAttribute("search_dto", dto);
+		return "/admin/admin_qna_answerN_list";//jsp file name
+	}//qna_answerN_list
+	
+	
+	//================================================================================================= 배송상태
 }//class
