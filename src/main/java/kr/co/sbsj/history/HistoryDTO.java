@@ -13,7 +13,7 @@ public class HistoryDTO {
 	private String order_date;
 	private String order_status;
 	private String order_status_name;
-
+	
 	private String order_detail_id;
 	private String md_id;
 
@@ -38,6 +38,10 @@ public class HistoryDTO {
 	private String member_name;
 	private String member_email;
 	private String code_name;
+	
+	private String coupon_dis;
+	
+	
 	@Override
 	public String toString() {
 		return order_id
@@ -313,6 +317,14 @@ public class HistoryDTO {
 
 	public void setCode_name(String code_name) {
 		this.code_name = code_name;
+	}
+
+	public String getCoupon_dis() {
+		return coupon_dis;
+	}
+
+	public void setCoupon_dis(String coupon_dis) {
+		this.coupon_dis = coupon_dis;
 	}
 	
 	

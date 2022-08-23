@@ -200,7 +200,7 @@
 			<div class="col-6">
 				<table class="table table-hover">
 					<tr>
-						<th> 총 상품수 </th>
+						<th> 총 상 품 수 </th>
 						<td class="text-right"> <span id="span_sum_md_class_qty">${sum_md_class_qty}</span> 개 </td>
 					</tr>
 					<tr>
@@ -208,12 +208,17 @@
 						<td class="text-right"><input id="span_sum_buy_amt" type="text" value="${sum_buy_amt}" disabled="disabled">원</td>
 					</tr>
 					<tr>
-					<th>총 할인 금액</th>
+						<th>상 품 할 인 금 액</th>
 						<td class="text-right text-danger"><input id="span_sum_discount_amt" class="sum" type="text" disabled="disabled">원 </td>
 					</tr>
 					<tr>
+						<th>쿠 폰 할 인 금 액</th>
+						<td class="text-right text-danger"><input id="onlyCoupon" type="text" disabled="disabled">원</td>
+					</tr>
+					
+					
 					<tr>
-                        <th> 배송비 </th>
+                        <th> 배 송 비 </th>
                         <td class="text-right">
                         	<input id="span_delivery_cost" type="text" disabled="disabled" value="${delivery_cost}">원
                         </td>
@@ -248,20 +253,22 @@ $(function() {
 	$("#couponBtn").click(
 			function() {
 				var coupon = parseInt(($("#couponList option:selected").val()));
-				use = total * (coupon / 100) + sale;  
+				onlyCoupon = (total - sale) * (coupon / 100);  
+				/* use = total * (coupon / 100) + sale;  */ 
 				real = total - use + delivery;
 				
 				if (coupon == 0) {
 					use = 0;
-					$("#span_sum_discount_amt").attr("value", use); 
+					$("#span_sum_discount_amt").attr("value", sale); 
 					$("#span_sum_total_buy_amt").attr("value", real);
+					$("#onlyCoupon").attr("value", onlyCoupon);
 				} else {
-					$("#span_sum_discount_amt").attr("value", use);
+					$("#span_sum_discount_amt").attr("value", sale);
 					$("#span_sum_total_buy_amt").attr("value", real);
+					$("#onlyCoupon").attr("value", onlyCoupon);
 				}
 			});
 });
-
 </script>
 
 <!-- # 카카오페이 -->
@@ -304,6 +311,7 @@ $(function() {
         						, order_md_cnt : $("#span_sum_md_class_qty").text()
         						, order_amt : $("#span_sum_buy_amt").val()
         						, discount_amt : $("#span_sum_discount_amt").val()
+        						, coupon_dis : $("#onlyCoupon").val()
         						, pay_amt : rsp.paid_amount
         						, str_cart_id : str_cart_id
         						, buy_now_md_id : buy_now_md_id

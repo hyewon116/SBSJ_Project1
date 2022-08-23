@@ -63,9 +63,9 @@
 
 	<insert id="insertOrderMain" parameterType="kr.co.sbsj.order.OrderMainDTO">
 		insert into order_main (member_id,  delivery_id, order_md_cnt
-								, order_amt, discount_amt, pay_amt, order_date)
+								, order_amt, discount_amt, pay_amt, order_date, coupon_dis)
 		values (#{member_id},  #{delivery_id}, #{order_md_cnt}
-				, #{order_amt}, #{discount_amt}, #{pay_amt}, now());
+				, #{order_amt}, #{discount_amt}, #{pay_amt}, now(), #{coupon_dis});
 		<selectKey resultType="String" keyProperty="order_id" order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>

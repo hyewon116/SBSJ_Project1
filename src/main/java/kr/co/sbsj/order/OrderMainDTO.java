@@ -23,6 +23,8 @@ public class OrderMainDTO {
 	private String member_addr2;
 	private String member_addr3;
 	
+	private String coupon_dis;
+	
 	@Override
 	public String toString() {
 		return order_id
@@ -149,6 +151,14 @@ public class OrderMainDTO {
 	}
 	public void setOrder_status(String order_status) {
 		this.order_status = order_status;
+	}
+
+	public String getCoupon_dis() {
+		return coupon_dis;
+	}
+
+	public void setCoupon_dis(String coupon_dis) {
+		this.coupon_dis = coupon_dis;
 	}
 
 }//class

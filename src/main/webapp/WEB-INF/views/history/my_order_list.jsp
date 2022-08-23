@@ -243,6 +243,10 @@
 									<td class="text-right"> <span id="span_sum_buy_amt"></span> 원 </td>
 								</tr>
 								<tr>
+									<th> 쿠 폰 할 인 금 액 </th>
+									<td class="text-right text-danger"> -<span id="onlyCoupon"></span> 원 </td>
+								</tr>
+								<tr>
 									<th> 총 할 인 금 액 </th>
 									<td class="text-right text-danger"> -<span id="span_sum_discount_amt"></span> 원 </td>
 								</tr>
@@ -298,6 +302,7 @@
 								$("#span_addr").text("(" + dto.post_code + ")" + dto.delivery_addr1 + " " + dto.delivery_addr2);
 								$("#span_sum_md_class_qty").text(dto.order_md_cnt);
 								$("#span_sum_buy_amt").text(dto.order_amt);
+								$("#onlyCoupon").text(dto.coupon_dis);
 								$("#span_sum_discount_amt").text(dto.discount_amt);
 								
 								$("#span_sum_total_buy_amt").text(dto.pay_amt);

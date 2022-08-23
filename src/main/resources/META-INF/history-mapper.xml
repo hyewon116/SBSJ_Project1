@@ -7,7 +7,7 @@
 
 	<select id="payDetail" parameterType="kr.co.sbsj.history.HistoryDTO" resultType="kr.co.sbsj.history.HistoryDTO">
 	SELECT om.order_id, om.member_id,   om.delivery_id
-			, om.order_md_cnt, om.order_amt, om.discount_amt, om.pay_amt
+			, om.order_md_cnt, om.order_amt, om.discount_amt, om.pay_amt, om.coupon_dis
 			, om.order_date, om.order_status
             , coco.code_name order_status_name
 			, od.order_detail_id, od.md_id
