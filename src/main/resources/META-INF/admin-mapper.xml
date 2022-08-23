@@ -47,7 +47,7 @@
 	
 	<select id="questionDetail" parameterType="java.lang.String" resultType="kr.co.sbsj.mdquestion.MdQuestionDTO">
 	select md_question_id, md_id, member_id, member_nick, md_question_title, md_question_content
-	, md_question_date, md_question_type, md_question_answer
+	, md_question_date, md_question_type, md_question_answer, member_email
     from md_question
 	where md_question_id = #{md_question_id}
 	</select>

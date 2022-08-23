@@ -86,6 +86,8 @@ public class AdminController {
                        + "문의 내용 : " + dto.getMd_question_content() + "\n\n"
                        + ">> 답변 내용 : " + dto.getMd_answer_content(); //메일 내용
          
+         
+         
          try {
             MimeMessage message= mailSender.createMimeMessage(); //message를 보냅
             MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
@@ -97,7 +99,6 @@ public class AdminController {
             messageHelper.setText(contents);
       
             mailSender.send(message);
-            
          }
          
          catch (MessagingException e) {

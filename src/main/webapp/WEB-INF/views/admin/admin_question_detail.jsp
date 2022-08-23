@@ -171,6 +171,9 @@
 
 			<input id="md_question_title" name="md_question_title" type="hidden" 
 					value="${detail_dto.md_question_title}">
+			
+			<input id="member_email" name="member_email" type="hidden" 
+					value="${detail_dto.member_email}">
 					
 			<input id="md_question_content" name="md_question_content" type="hidden" 
 					value="${detail_dto.md_question_content}">
