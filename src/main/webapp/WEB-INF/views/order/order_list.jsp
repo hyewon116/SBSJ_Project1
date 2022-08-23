@@ -302,7 +302,7 @@ $(function() {
         					, {
         						delivery_id : $("#delivery_id").val()
         						, order_md_cnt : $("#span_sum_md_class_qty").text()
-        						, order_amt : $("#span_sum_buy_amt").text()
+        						, order_amt : $("#span_sum_buy_amt").val()
         						, discount_amt : $("#span_sum_discount_amt").val()
         						, pay_amt : rsp.paid_amount
         						, str_cart_id : str_cart_id
