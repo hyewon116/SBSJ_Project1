@@ -27,7 +27,7 @@
 	where md_question_id=#{no}
 	</update>
 	
-	<update id="changeStatus" parameterType="kr.co.sbsj.history.HistoryDTO">
+	<update id="changeStatus" parameterType="kr.co.sbsj.util.dto.SearchDTO">
 	update order_main
 	set order_status = #{order_status}
 	where order_id = #{order_id}
@@ -228,6 +228,21 @@
 	and coco.code_class = 'order_status'
 	and om.order_status = coco.code_id
 	</select>
+	<select id="searchOrderDetailCount" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="int">
+	SELECT count(om.order_id) cnt
+	FROM order_main om, order_detail od, md md, delivery da, member m
+      , common_code coco
+   where 
+   om.order_id = #{order_id} 
+
+   and om.member_id = m.member_id
+   and om.order_id = od.order_id
+   and od.md_id = md.md_id
+   and om.delivery_id = da.delivery_id
+   and coco.code_class = 'order_status'
+   and om.order_status = coco.code_id
+   order by od.order_detail_id desc
+	</select>
 	
 	<select id="Nsend_OrderListCount" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="int">
 	select count(order_id)
@@ -247,7 +262,7 @@
 	where order_date between date_add(now(), interval -1 day) and now();
 	</select>
 	
-	<select id="orderDetail" parameterType="kr.co.sbsj.history.HistoryDTO" resultType="kr.co.sbsj.history.HistoryDTO">
+	<select id="orderDetail" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="kr.co.sbsj.history.HistoryDTO">
    SELECT om.order_id, om.member_id,   om.delivery_id
          , om.order_md_cnt, om.order_amt, om.discount_amt, om.pay_amt,m.member_name, m.member_email
          , om.order_date, om.order_status
@@ -270,6 +285,7 @@
    and coco.code_class = 'order_status'
    and om.order_status = coco.code_id
    order by od.order_detail_id desc
+	limit #{limitNum}, 10
    </select>
 
 	<select id="admin_member_updateList" parameterType="java.lang.String"

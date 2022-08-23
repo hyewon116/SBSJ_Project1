@@ -25,6 +25,12 @@ public class OrderMainDTO {
 	
 	private String coupon_dis;
 	
+	private String sub_order_id;
+	private String sub_price;
+	private String sub_apply_date;
+	private String sub_cancel_yn;
+	private String sub_cancel_date;
+	
 	@Override
 	public String toString() {
 		return order_id
@@ -39,7 +45,12 @@ public class OrderMainDTO {
 				+ " : " + member_name 
 				+ " : " + member_addr1
 				+ " : " + member_addr2 
-				+ " : " + member_addr3;
+				+ " : " + member_addr3
+				+ " : " + sub_order_id
+				+ " : " + sub_price
+				+ " : " + sub_apply_date
+				+ " : " + sub_cancel_yn
+				+ " : " + sub_cancel_date;
 	}
 	
 	public String getMember_name() {
@@ -160,5 +171,46 @@ public class OrderMainDTO {
 	public void setCoupon_dis(String coupon_dis) {
 		this.coupon_dis = coupon_dis;
 	}
+
+	public String getSub_order_id() {
+		return sub_order_id;
+	}
+
+	public void setSub_order_id(String sub_order_id) {
+		this.sub_order_id = sub_order_id;
+	}
+
+	public String getSub_price() {
+		return sub_price;
+	}
+
+	public void setSub_price(String sub_price) {
+		this.sub_price = sub_price;
+	}
+
+	public String getSub_apply_date() {
+		return sub_apply_date;
+	}
+
+	public void setSub_apply_date(String sub_apply_date) {
+		this.sub_apply_date = sub_apply_date;
+	}
+
+	public String getSub_cancel_yn() {
+		return sub_cancel_yn;
+	}
+
+	public void setSub_cancel_yn(String sub_cancel_yn) {
+		this.sub_cancel_yn = sub_cancel_yn;
+	}
+
+	public String getSub_cancel_date() {
+		return sub_cancel_date;
+	}
+
+	public void setSub_cancel_date(String sub_cancel_date) {
+		this.sub_cancel_date = sub_cancel_date;
+	}
+	
 
 }//class

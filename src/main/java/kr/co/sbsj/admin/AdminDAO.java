@@ -120,12 +120,17 @@ public class AdminDAO {
 		return list;
 	}//Nsend_OrderList
 	
-	public List<HistoryDTO> orderDetail(HistoryDTO dto) {
+	public List<HistoryDTO> orderDetail(SearchDTO dto) {
 	      List<HistoryDTO> list = null;
 	      list = sqlSession.selectList("AdminMapper.orderDetail", dto);
 	      return list;
 	   }//orderDetail
-	public int changeStatus( HistoryDTO dto ) {
+	public int searchOrderDetailCount(SearchDTO dto) {
+		int totalCount = 0;
+		totalCount = sqlSession.selectOne("AdminMapper.searchOrderDetailCount", dto);
+		return totalCount;
+	}
+	public int changeStatus( SearchDTO dto ) {
 		int successCount = 0;
 		successCount = sqlSession.update("AdminMapper.changeStatus", dto);
 		return successCount;
@@ -225,6 +230,8 @@ public class AdminDAO {
 		sqlSession.update("AdminMapper.off_account", no);
 		
 	}
+
+	
 
 
 

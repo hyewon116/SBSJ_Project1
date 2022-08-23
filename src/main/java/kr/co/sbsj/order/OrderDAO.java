@@ -86,5 +86,10 @@ public class OrderDAO {
 		couponCount = sqlSession.selectOne("OrderMapper.updateCoupon", dto);
 		return couponCount;
 	}
+	public List<OrderMainDTO> subList(OrderMainDTO dto) {
+		List<OrderMainDTO> subList = null;
+		subList = sqlSession.selectList("OrderMapper.subList", dto);
+		return subList;
+	}
 
 }//class

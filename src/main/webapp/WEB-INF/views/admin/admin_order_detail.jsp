@@ -216,7 +216,7 @@
 					<c:otherwise>
 						<li class="page-item mx-auto">
 							<a class="page-link"
-								href="${pageContext.request.contextPath}/admin/admin_order_detail?userWantPage=${page_no}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
+								href="${pageContext.request.contextPath}/admin/admin_order_detail?order_id=${list[0].order_id}&userWantPage=${page_no}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
 								${page_no}
 							</a>
 						</li>
@@ -226,7 +226,7 @@
 			<c:if test="${lastPageNum > endPageNum}">
 				<li class="page-item mx-auto">
 					<a class="page-link"
-						href="${pageContext.request.contextPath}/history/my_order_list?userWantPage=${endPageNum+1}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
+						href="${pageContext.request.contextPath}/admin/admin_order_detail?order_id=${list[0].order_id}&userWantPage=${endPageNum+1}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
 						Next
 					</a>
 				</li>

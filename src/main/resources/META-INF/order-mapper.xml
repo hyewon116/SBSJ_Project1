@@ -19,6 +19,19 @@
 	</update>
 
 	<!-- 쿠폰 리스트 출력 -->
+
+	<select id="subList" resultType="kr.co.sbsj.order.OrderMainDTO">
+	select s.sub_id, s.member_id, m.member_name, s.sub_name, s.sub_date, s.sub_price,
+			d.delivery_id, d.post_code, d.delivery_addr1,d.delivery_addr2
+			
+	from subscribe s, member m, delivery d
+	where
+		
+	s.member_id = m.member_id
+	and m.member_id = d.member_id
+	
+	</select>
+	
 	<select id="couponList" parameterType="kr.co.sbsj.md.CouponDTO" resultType="kr.co.sbsj.md.CouponDTO">
 	select coupon_id, member_id, coupon_name, coupon_dis, coupon_start, coupon_end, coupon_yn
 	from coupon

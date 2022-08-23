@@ -72,6 +72,11 @@ public class OrderService {
 		int couponCount = 0;
 		couponCount = dao.updateCoupon(dto);
 		return couponCount;
+}
+	public List<OrderMainDTO> subList(OrderMainDTO dto) {
+		List<OrderMainDTO> subList = null;
+		subList= dao.subList(dto);
+		return subList;
 	}
 
 }//class

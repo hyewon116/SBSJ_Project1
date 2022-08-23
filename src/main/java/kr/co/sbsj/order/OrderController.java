@@ -97,9 +97,21 @@ public class OrderController {
 		coupondto.setMember_id( ( (MemberDTO) session.getAttribute("login_info") ).getMember_id() );
 		couponList = service.couponList(coupondto);
 		model.addAttribute("couponList", couponList);
-
 		return "/order/order_list";//jsp file name
 		
-	 }//orderList
+	}//orderList
+	
+	@RequestMapping( value = "/sub_order", method = RequestMethod.GET )
+	public String subList(  OrderMainDTO dto, Model model, HttpSession session ) {
+		dto.setMember_id( ( (MemberDTO) session.getAttribute("login_info") ).getMember_id() );
+		
+		List<OrderMainDTO> subList = null;
+		subList = service.subList(dto);
+		model.addAttribute("subList", subList);
+		
+
+		return "/order/sub_order";//jsp file name
+		
+	}//orderList
 }//class
 

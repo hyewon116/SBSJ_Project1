@@ -146,12 +146,17 @@ public class AdminService {
 		return totalCount;
 	}//admin_order_TodayAmt
 	
-	public List<HistoryDTO> orderDetail(HistoryDTO dto) {
+	public int searchOrderDetailCount( SearchDTO dto ) {
+		int totalCount = 0;
+		totalCount = dao.searchOrderDetailCount( dto );
+		return totalCount;
+	}//searchOrderListCount
+	public List<HistoryDTO> orderDetail(SearchDTO dto) {
 	      List<HistoryDTO> list = null;
 	      list = dao.orderDetail( dto );
 	      return list;
 	   }//orderDetail
-	public int changeStatus(HistoryDTO dto) {
+	public int changeStatus(SearchDTO dto) {
 		int successCount = 0;
 		successCount = dao.changeStatus( dto );
 		return successCount;
