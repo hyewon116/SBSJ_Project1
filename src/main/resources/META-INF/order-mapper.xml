@@ -5,6 +5,12 @@
 
 <mapper namespace="OrderMapper">
 
+	<update id="stockUpdate" parameterType="kr.co.sbsj.order.OrderMainDTO">
+	update md
+	set md_stock = md_stock - #{buy_now_qty}
+	where md_id = #{buy_now_md_id}
+	</update>
+
 	<!-- 사용완료된 쿠폰 업데이트 -->
 	<update id="updateCoupon" parameterType="kr.co.sbsj.md.CouponDTO">
 	update coupon

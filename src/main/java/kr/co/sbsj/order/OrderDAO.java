@@ -16,6 +16,12 @@ public class OrderDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	private List<Object> list;
+	
+	public int stockUpdate(OrderMainDTO dto) {
+		int successCount = 0;
+		successCount = sqlSession.delete("OrderMapper.stockUpdate", dto);
+		return successCount;
+	}//stockUpdate
 
 	public int updateDeliveryAddrUsedDate( OrderMainDTO dto ) {
 		int successCount = 0;

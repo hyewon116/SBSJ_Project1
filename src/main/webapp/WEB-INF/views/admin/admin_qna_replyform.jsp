@@ -217,6 +217,7 @@
 								qa_question_category : $("#qa_question_category").val(),
 								member_id : $("#member_id").val(),
 								member_nick : $("#member_nick").val(),
+								member_email : $("#member_email").val(),
 								open_yn : $("#open_yn").prop("checked"),
 								originNo : $("#originNo").val(),
 								groupOrd : $("#groupOrd").val(),

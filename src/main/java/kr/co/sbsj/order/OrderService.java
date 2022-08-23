@@ -38,6 +38,12 @@ public class OrderService {
 
 		return successCount;
 	}//insert
+	
+	public int stockUpdate( OrderMainDTO dto ) {
+		int stockCount = 0;
+		stockCount = dao.stockUpdate(dto);
+		return stockCount;
+	}//stockUpdate
 
 	public List<MdDTO> buyNowOrderList(MdDTO dto) {
 		List<MdDTO> list = null;

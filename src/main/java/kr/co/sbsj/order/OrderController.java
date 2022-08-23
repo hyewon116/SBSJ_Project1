@@ -52,6 +52,13 @@ public class OrderController {
 		out.print(successCount);
 		out.close();
 		
+		if ( successCount >= 1 ) { //주문시 md 재고 수정 쿼리
+			int stockCount = 0;
+			stockCount = service.stockUpdate(dto);
+			out.print(stockCount);
+			out.close();
+		}
+		
 		//결제 완료시 쿠폰사용 여부 Y로 변경
 		int couponCount = 0;
 		coupondto.setMember_id( ( (MemberDTO) session.getAttribute("login_info") ).getMember_id() );

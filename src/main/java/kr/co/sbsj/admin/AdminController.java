@@ -811,14 +811,14 @@ public class AdminController {
       //if(successCount == successCount1)
       out.print(successCount);
       out.close();
-      
+
       //답변 내역 이메일 전송
       String setFrom = "parkhyewon19@gmail.com"; //보내는 사람  이메일 주소
       String toMail = dto.getMember_email(); //받는 사람 이메일 주소
       String mailTitle = "[상부상주] 1:1 문의에 대한 답변이 등록되었습니다."; // 메일 제목
       String contents = dto.getMember_nick() + "님의 1:1 문의에 대한 답변이 등록되었습니다. \n---------------------------------- \n" 
                     + "문의 제목 : " + dto.getQa_question_title() + "\n\n"
-                    + ">> 문의 및 답변 내용 : " + dto.getQa_question_content();
+                    + "상부상주 바로가기 >> http://localhost:8081/sbsj";
       try {
          MimeMessage message= mailSender.createMimeMessage(); //message를 보냄
          MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
