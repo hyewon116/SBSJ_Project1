@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.sbsj.admin.AdminReviewDTO;
+import kr.co.sbsj.cs.QnaDTO;
 import kr.co.sbsj.md.CouponDTO;
 import kr.co.sbsj.md.MdDTO;
 import kr.co.sbsj.mdquestion.MdQuestionDTO;
@@ -21,6 +22,11 @@ public class MemberDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	public int qnaAnswerCnt(QnaDTO dto) {
+		int successCount = 0;
+		successCount = sqlSession.selectOne("MemberMapper.qnaAnswerCnt", dto);
+		return successCount;
+	}
 	public int unusedCouponCnt(CouponDTO dto) {
 		int successCount = 0;
 		successCount = sqlSession.selectOne("MemberMapper.unusedCouponCnt", dto);

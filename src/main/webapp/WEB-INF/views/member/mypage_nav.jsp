@@ -20,6 +20,22 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	$.post(
+			"${pageContext.request.contextPath}/member/qnaAnswerCnt"
+			, function(data, status) {
+				if(data == 0){
+					$("#qnaAnswerCnt").text(0);
+					
+				} else if(data >= 1){
+					$("#qnaAnswerCnt").text(data);
+				} else {
+					alert("nav_잠시 후 다시 시도해 주세요.");
+				}
+			}//call back function
+	);//post
+});//ready 
+
+$(document).ready(function() {
+	$.post(
 			"${pageContext.request.contextPath}/member/unusedCouponCnt"
 			, function(data, status) {
 				if(data == 0){
@@ -31,8 +47,9 @@ $(document).ready(function() {
 					alert("nav_잠시 후 다시 시도해 주세요.");
 				}
 			}//call back function
-	);//get
+	);//post
 });//ready 
+
 </script>
 </head>
 
@@ -40,11 +57,11 @@ $(document).ready(function() {
 	<dl class= "nav_total">
 				
 					<dd class="nav_menu">
-						<strong class="nav_menu_name">미사용티켓(css나눈 페이지 입니다.)</strong>
+						<strong class="nav_menu_name">1:1 문의 답변대기</strong>
 						<div class="nav_menu_data">
-							<a href="https://mc.coupang.com/ssr/desktop/order/list?orderType=TRAVEL" data-clicklog-type="/click_side_menu_1911" data-log-type="click" data-log-id="1911" data-log-version="3" data-has-log-group="menu" data-log-payload="{&quot;pageName&quot; : &quot;my_navigation&quot;, &quot;eventName&quot;: &quot;ticket_unused&quot;, &quot;currentPage&quot;: &quot;&quot; }">
+							<a href="${pageContext.request.contextPath}/qna/list" data-clicklog-type="/click_side_menu_1911" data-log-type="click" data-log-id="1911" data-log-version="3" data-has-log-group="menu" data-log-payload="{&quot;pageName&quot; : &quot;my_navigation&quot;, &quot;eventName&quot;: &quot;ticket_unused&quot;, &quot;currentPage&quot;: &quot;&quot; }">
 								<span class="i18n-wrapper">
-									<span class="data_big" id="unusedTicketCount">0</span>
+									<span class="data_big" id="qnaAnswerCnt"></span>
 									<span class="data_small">장</span>
 								</span>
 							</a>

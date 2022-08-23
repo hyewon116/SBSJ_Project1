@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.sbsj.admin.AdminReviewDTO;
+import kr.co.sbsj.cs.QnaDTO;
 import kr.co.sbsj.md.CouponDTO;
 import kr.co.sbsj.md.MdDTO;
 import kr.co.sbsj.mdquestion.MdQuestionDTO;
@@ -20,6 +21,12 @@ public class MemberService {
 
 	@Autowired
 	private MemberDAO dao;
+	
+	public int qnaAnswerCnt(QnaDTO dto) {
+		int successCount = 0;
+		successCount = dao.qnaAnswerCnt(dto);
+		return successCount;
+	}
 	
 	public int unusedCouponCnt(CouponDTO dto) {
 		int successCount = 0;

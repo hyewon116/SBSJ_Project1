@@ -5,13 +5,23 @@
 
 <mapper namespace="MemberMapper">
 
-	<!-- 미사용 쿠폰 개수 조회 -->
+	<!-- mypage_nav info start -->
+	
+	<select id="qnaAnswerCnt" parameterType="kr.co.sbsj.cs.QnaDTO" resultType="int">
+	select count(qa_question_answer)
+	from qa_question
+	where qa_question_answer = 'N' and member_id = #{member_id};
+	</select>
+	
 	<select id="unusedCouponCnt" parameterType="kr.co.sbsj.md.CouponDTO" resultType="int">
 	select count(coupon_yn)
 	from coupon
 	where coupon_yn = 'N' and member_id = #{member_id};
 	</select>
-
+	<!-- mypage_nav info end -->
+	
+	
+	
 	<select id="couponList" parameterType="kr.co.sbsj.md.CouponDTO" resultType="kr.co.sbsj.md.CouponDTO">
 	select coupon_id, member_id, coupon_name, coupon_dis, coupon_start, coupon_end, coupon_yn
 	from coupon
