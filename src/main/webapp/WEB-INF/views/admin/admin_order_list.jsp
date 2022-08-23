@@ -205,29 +205,6 @@
 		});//click
 	});//ready
 	 </script>
-	<script type="text/javascript">
-// 	   $(document).ready(function() {
-// 	      $(".order_detail_btn").click(function() {
-	      
-// 	         $.get(
-// 	               "${pageContext.request.contextPath}/admin/admin_order_detail"
-// 	               , {
-// 	                  order_id : $(this).val()
-	                 
-// 	               }
-// 	               , function(data, status) {
-// 	                  if(data >= 0){
-// 	                     location.href="${pageContext.request.contextPath}/admin/admin_order_detail";
-// 		                 } else {
-// 	                     alert("잠시후 다시 시도 해주세요");
-// 	                  }
-
-// 	               }//call back function
-// 	         );//get
-
-// 	      });//click
-// 	   });//ready
-	   </script>
 
 	</body>
 </html>
