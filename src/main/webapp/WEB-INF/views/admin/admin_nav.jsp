@@ -20,7 +20,7 @@
 
 $(document).ready(function() {
 	
-	$.post(
+	$.post(// 1:1 문의 답변대기 수
 			"${pageContext.request.contextPath}/admin/admin_nav_qnaNcnt"
 			, function(data, status) {
 				if(data == 0){
@@ -33,13 +33,54 @@ $(document).ready(function() {
 			}//call back function
 	);//post
 
-	$.post(
+	$.post(// 상품문의 답변대기 수
 			"${pageContext.request.contextPath}/admin/admin_nav_questionNcnt"
 			, function(data, status) {
 				if(data == 0){
 					$("#question_answer").text(0);
 				} else if(data >= 1){
 					$("#question_answer").text(data);
+				} else {
+					alert("nav_잠시 후 다시 시도해 주세요.");
+				}
+			}//call back function
+	);//post
+	
+	$.post(// 상품 발송대기 수
+			"${pageContext.request.contextPath}/admin/admin_order_NsendCnt"
+			, function(data, status) {
+				if(data == 0){
+					$("#Nsend_order_list").text(0);
+				} else if(data >= 1){
+					$("#Nsend_order_list").text(data);
+				} else {
+					alert("nav_잠시 후 다시 시도해 주세요.");
+				}
+			}//call back function
+	);//post
+	
+	$.post( // 이번달 총 매출금액 조회
+			"${pageContext.request.contextPath}/admin/admin_order_Total_amt"
+			, function(data, status) {
+				if(data == 0){
+					$("#total_amt_month").text(0);
+				} else if(data >= 1){
+					var tmp = data.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+						$("#total_amt_month").text(tmp);
+				} else {
+					alert("nav_잠시 후 다시 시도해 주세요.");
+				}
+			}//call back function
+	);//post
+	
+	$.post( // 금일 총 매출금액 조회
+			"${pageContext.request.contextPath}/admin/admin_order_TodayAmt"
+			, function(data, status) {
+				if(data == 0){
+					$("#total_amt_today").text(0);
+				} else if(data >= 1){
+					var tmp = data.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+						$("#total_amt_today").text(tmp);
 				} else {
 					alert("nav_잠시 후 다시 시도해 주세요.");
 				}
@@ -79,12 +120,12 @@ $(document).ready(function() {
 					</dd>
 						
 					<dd class="nav_menu">
-						<strong class="nav_menu_name">발송 대기</strong>
+						<strong class="nav_menu_name">결제 완료</strong>
 						<div class="nav_menu_data">
-							<a href="#" data-clicklog-type="/click_side_menu_1913" data-log-type="click" data-log-id="1913" data-log-version="3" data-has-log-group="menu" data-log-payload="{&quot;pageName&quot; : &quot;my_navigation&quot;, &quot;eventName&quot;: &quot;coupons_count&quot;, &quot;currentPage&quot;: &quot;&quot;}">
+							<a href="${pageContext.request.contextPath}/admin/admin_order_NsendList" data-clicklog-type="/click_side_menu_1913" data-log-type="click" data-log-id="1913" data-log-version="3" data-has-log-group="menu" data-log-payload="{&quot;pageName&quot; : &quot;my_navigation&quot;, &quot;eventName&quot;: &quot;coupons_count&quot;, &quot;currentPage&quot;: &quot;&quot;}">
 								<span class="i18n-wrapper">
-									<span class="data_big" id="usableDiscountCouponCount">0</span>
-									<span class="data_small">장</span>
+									<span id="Nsend_order_list" class="data_big" id="usableDiscountCouponCount"></span>
+									<span class="data_small">건</span>
 								</span>
 							</a>
 						</div>
@@ -92,19 +133,19 @@ $(document).ready(function() {
 						
 					<dd class="nav_menu4">
 					<div class="nav_menu2">
-						<span class="nav_menu2_name">쿠페이 머니</span>
+						<span class="nav_menu2_name">오늘의 총 매출</span>
 						<a href="#" data-clicklog-type="/click_side_menu_2206" data-log-type="click" data-log-id="2206" data-log-version="1" data-has-log-group="menu" data-log-payload="{&quot;pageName&quot; : &quot;my_navigation&quot;, &quot;eventName&quot;: &quot;rocketmoney_count&quot;, &quot;currentPage&quot;: &quot;&quot;}" class="nav_menu2_data">
 							<span class="i18n-wrapper">
-								<span class="data_big" id="coupayMoneyBalance">40</span>
+								<span id="total_amt_today" type="number" class="data_big" id="coupayMoneyBalance"></span>
 								<span class="data_small">원</span>
 							</span>
 						</a>
 					</div>
 					<div class="nav_menu2">
-					<span class="nav_menu2_name">쿠팡캐시</span>
+					<span class="nav_menu2_name">이번달 총 매출</span>
 					<a href="#" data-clicklog-type="/click_side_menu_1914" data-log-type="click" data-log-id="1914" data-log-version="3" data-has-log-group="menu" data-log-payload="{&quot;pageName&quot; : &quot;my_navigation&quot;, &quot;eventName&quot;: &quot;cash_count&quot;, &quot;currentPage&quot;: &quot;&quot;}" class="nav_menu2_data">
 						<span class="i18n-wrapper">
-							<span class="data_big" id="coupangCashBalance">4,390</span>
+							<span id="total_amt_month" type="number" class="data_big" id="coupangCashBalance"></span>
 							<span class="data_small">원</span>
 						</span>
 					</a>

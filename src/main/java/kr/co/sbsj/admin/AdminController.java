@@ -854,18 +854,6 @@ public class AdminController {
       return;
    }//admin_nav_qnaNcnt
       
-   @RequestMapping( value = "/admin_nav_questionNcnt", method = RequestMethod.POST )
-   public void update_question_answerNcnt (SearchDTO dto, PrintWriter out, Model model) {
-	   int successCount= 0;
-	   successCount = service.searchQuestionAnswerNCount(dto);
-	   model.addAttribute("successCount", successCount);
-	   System.out.println("==========================================================여기요~~~ 미답변 상품의 갯수입니다. : " + successCount );
-	   out.print(successCount);
-	   out.close();
-	   return;
-   }//update_question_answerNcnt
-   
-   
    //미답변한 1:1 문의 게시글 리스트
    @RequestMapping( value = "/admin_qna_answerN_list", method = RequestMethod.GET )
    public String qna_answerN_list(Model model, String userWantPage, SearchDTO dto) {
@@ -907,6 +895,16 @@ public class AdminController {
    
    
    //미답변한 상품문의 갯수
+   @RequestMapping( value = "/admin_nav_questionNcnt", method = RequestMethod.POST )
+   public void update_question_answerNcnt (SearchDTO dto, PrintWriter out, Model model) {
+	   int successCount= 0;
+	   successCount = service.searchQuestionAnswerNCount(dto);
+	   model.addAttribute("successCount", successCount);
+	   System.out.println("==========================================================여기요~~~ 미답변 상품의 갯수입니다. : " + successCount );
+	   out.print(successCount);
+	   out.close();
+	   return;
+   }//update_question_answerNcnt
    
    //미답변한 상품 문의
    @RequestMapping( value = "/admin_question_answerN_list", method = RequestMethod.GET )
@@ -954,4 +952,84 @@ public class AdminController {
    
    
    //================================================================================================= 배송상태
+   
+ //================================================================================================= 배송상태
+   @RequestMapping(value = "/admin_order_NsendList", method = RequestMethod.GET)
+   public String order_Nsend_List( Model model, String userWantPage, SearchDTO dto, HttpSession session, String member_id, PrintWriter out ) {
+      dto.setMember_id( member_id );
+
+      if( userWantPage == null || userWantPage.equals("") ) userWantPage = "1";
+      int totalCount = 0, startPageNum = 1, endPageNum = 10, lastPageNum = 1;
+      totalCount = service.Nsend_OrderListCount( dto );
+	  if(totalCount > 10) {//201 -> (201 /10) + (201 % 10 > 0 ? 1 : 0) -> 20 + 1
+         lastPageNum = (totalCount / 10) + (totalCount % 10 > 0 ? 1 : 0);
+      }//if
+
+      if(userWantPage.length() >= 2) { //userWantPage가 12인 경우 startPageNum는 11, endPageNum는 20.
+         String frontNum = userWantPage.substring(0, userWantPage.length() - 1);//12 -> 1
+         startPageNum = Integer.parseInt(frontNum) * 10 + 1;// 1 * 10 + 1 -> 11
+         endPageNum = ( Integer.parseInt(frontNum) + 1 ) * 10;// (1 + 1) * 10 -> 20
+         //userWantPage가 10인 경우, startPageNum는 11, endPageNum는 20.
+         String backNum = userWantPage.substring(userWantPage.length() - 1, userWantPage.length());
+         if(backNum.equals("0")) {
+            startPageNum = startPageNum - 10;// 11 - 10 -> 1
+            endPageNum = endPageNum - 10;// 20 - 10 -> 10
+         }//if
+      }//if
+
+      //endPageNum이 20이고, lastPageNum이 17이라면, endPageNum을 17로 수정해라
+      if(endPageNum > lastPageNum) endPageNum = lastPageNum;
+
+      model.addAttribute("startPageNum", startPageNum);
+      model.addAttribute("endPageNum", endPageNum);
+      model.addAttribute("lastPageNum", lastPageNum);
+      model.addAttribute("userWantPage", userWantPage);
+
+      dto.setLimitNum( ( Integer.parseInt(userWantPage) - 1 ) * 10  );
+      // 1 -> (1-1)*10 -> 0
+      // 2 -> (2-1)*10 -> 10
+      // 3 -> (3-1)*10 -> 20
+
+      List<HistoryDTO> list = null;
+      list = service.Nsend_OrderList( dto );
+
+      model.addAttribute("list", list);
+      model.addAttribute("search_dto", dto);
+
+      return "admin/admin_order_NsendList";//jsp file name
+
+   }//admin_order_NsendList
+   
+ // 미발송한 상품의 갯수
+   @RequestMapping( value = "/admin_order_NsendCnt", method = RequestMethod.POST )
+   public void admin_order_NsendCnt (SearchDTO dto, PrintWriter out, Model model) {
+	   int successCount= 0;
+	   successCount = service.Nsend_OrderListCount(dto);
+	   model.addAttribute("successCount", successCount);
+	   out.print(successCount);
+	   out.close();
+	   return;
+   }//admin_order_NsendCnt
+   
+// 이번달 총 매출 조회
+   @RequestMapping( value = "/admin_order_Total_amt", method = RequestMethod.POST )
+   public void admin_order_TotalAmt (SearchDTO dto, PrintWriter out, Model model) {
+	   int successCount= 0;
+	   successCount = service.order_TotalAmt(dto);
+	   model.addAttribute("successCount", successCount);
+	   out.print(successCount);
+	   out.close();
+	   return;
+   }//admin_order_TotalAmt
+   
+   @RequestMapping( value = "/admin_order_TodayAmt", method = RequestMethod.POST )
+   public void admin_order_TodayAmt (SearchDTO dto, PrintWriter out, Model model) {
+	   int successCount= 0;
+	   successCount = service.admin_order_TodayAmt(dto);
+	   model.addAttribute("successCount", successCount);
+	   out.print(successCount);
+	   out.close();
+	   return;
+   }//admin_order_TodayAmt
+   
 }//class

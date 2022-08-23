@@ -101,9 +101,6 @@
 						<option value="order_id"
 							<c:if test="${search_dto.searchOption == 'order_id'}">selected="selected"</c:if>
 						> 주 문 번 호</option>
-						<option value="order_status"
-							<c:if test="${search_dto.searchOption == 'order_status'}">selected="selected"</c:if>
-						> 주 문 상 태</option>
 					</select>
 				</div>
 				<input type="text" class="form-control" id="searchWord" name="searchWord"

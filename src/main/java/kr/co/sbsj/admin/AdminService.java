@@ -115,11 +115,36 @@ public class AdminService {
 		return list;
 	}//searchOrderList
 	
+	public List<HistoryDTO> Nsend_OrderList( SearchDTO dto ) {
+		List<HistoryDTO> list = null;
+		list = dao.Nsend_OrderList( dto );
+		return list;
+	}//searchOrderList
+	
 	public int searchOrderListCount( SearchDTO dto ) {
 		int totalCount = 0;
 		totalCount = dao.searchOrderListCount( dto );
 		return totalCount;
 	}//searchOrderListCount
+	
+	
+	public int Nsend_OrderListCount( SearchDTO dto ) {
+		int totalCount = 0;
+		totalCount = dao.Nsend_OrderListCount( dto );
+		return totalCount;
+	}//searchOrderListCount
+	
+	public int order_TotalAmt( SearchDTO dto ) {
+		int totalCount = 0;
+		totalCount = dao.order_TotalAmt( dto );
+		return totalCount;
+	}//order_TotalAmt
+	
+	public int admin_order_TodayAmt( SearchDTO dto ) {
+		int totalCount = 0;
+		totalCount = dao.admin_order_TodayAmt( dto );
+		return totalCount;
+	}//admin_order_TodayAmt
 	
 	public List<HistoryDTO> orderDetail(HistoryDTO dto) {
 	      List<HistoryDTO> list = null;

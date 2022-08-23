@@ -41,7 +41,7 @@
 						<tr>
 							<th>제목</th>
 							<td>
-								<input type="text" id="qa_question_title" name="qa_question_title" maxlength="20"
+								<input type="text" id="qa_question_title" name="qa_question_title" maxlength="50"
 										class="form-control">
 								<label for="qa_question_title" id="qa_question_title_label" class="write_label"></label>
 							</td>

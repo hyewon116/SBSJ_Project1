@@ -146,6 +146,9 @@
 				<when test="searchOption == 'order_id'">
 					om.order_id like concat('%', #{searchWord}, '%') and
 				</when>
+				<when test="searchOption == 'order_status'">
+					coco.code_name like concat('%', #{searchWord}, '%') and
+				</when>
 			</choose>
 		</if>
 	om.member_id = m.member_id
@@ -160,6 +163,50 @@
 	order by om.order_id desc
 	limit #{limitNum}, 10
 	</select>
+	
+	<select id="Nsend_OrderList" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="kr.co.sbsj.history.HistoryDTO">
+	SELECT om.order_id, om.member_id,   om.delivery_id, m.member_name, m.member_email,m.member_nick
+			, om.order_md_cnt, om.order_amt, om.discount_amt, om.pay_amt
+			, om.order_date, om.order_status
+            , coco.code_name order_status_name
+			, od.order_detail_id, od.md_id
+			, od.order_detail_qty, od.order_detail_price, od.order_detail_amt
+			, od.order_detail_discount, od.order_detail_discount_amt, od.order_detail_pay_amt
+			, md.md_name 
+			, md.md_thumbnail_name, md.md_thumbnail_path
+			, da.receiver, da.member_phone, da.post_code, da.delivery_addr1, da.delivery_addr2
+	FROM order_main om, order_detail od, md md, delivery da, member m
+		, common_code coco
+	 where 
+		<if test="searchOption != null and searchOption != ''
+					and searchWord != null and searchWord !=''">
+			<choose>
+				<when test="searchOption == 'md_name'">
+					md.md_name like concat('%', #{searchWord}, '%') and
+				</when>
+				<when test="searchOption == 'order_id'">
+					om.order_id like concat('%', #{searchWord}, '%') and
+				</when>
+			</choose>
+		</if>
+	om.member_id = m.member_id
+	and om.order_id = od.order_id
+	and od.md_id = md.md_id
+	and om.delivery_id = da.delivery_id
+	and coco.code_class = 'order_status'
+	and om.order_status = coco.code_id
+	and om.order_status = '3'
+	group by om.order_id
+		
+		
+	order by om.order_id desc
+	limit #{limitNum}, 10
+	</select>
+	
+	
+	
+	
+	
 	<select id="searchOrderListCount" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="int">
 	SELECT count(om.order_id) cnt
 	FROM order_main om, order_detail od, md md,  delivery da, member m
@@ -171,6 +218,7 @@
 				<when test="searchOption == 'md_name'">
 					and md.md_name like concat('%', #{searchWord}, '%')
 				</when>
+				
 			</choose>
 		</if>
 	and om.member_id = m.member_id
@@ -179,6 +227,24 @@
 	and om.delivery_id = da.delivery_id
 	and coco.code_class = 'order_status'
 	and om.order_status = coco.code_id
+	</select>
+	
+	<select id="Nsend_OrderListCount" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="int">
+	select count(order_id)
+	from order_main
+	where order_status = '3';
+	</select>
+	
+	<select id="order_TotalAmt" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="int">
+	select sum(pay_amt) pay_amt  
+	from order_main 
+	where order_date between LAST_DAY(NOW() - interval 2 month) + interval 1 DAY and now();
+	</select>
+	
+	<select id="admin_order_TodayAmt" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="int">
+	select sum(pay_amt) pay_amt  
+	from order_main 
+	where order_date between date_add(now(), interval -1 day) and now();
 	</select>
 	
 	<select id="orderDetail" parameterType="kr.co.sbsj.history.HistoryDTO" resultType="kr.co.sbsj.history.HistoryDTO">

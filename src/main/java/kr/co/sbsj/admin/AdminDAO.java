@@ -114,6 +114,12 @@ public class AdminDAO {
 		return list;
 	}//searchOrderList
 	
+	public List<HistoryDTO> Nsend_OrderList( SearchDTO dto ) {
+		List<HistoryDTO> list = null;
+		list = sqlSession.selectList("AdminMapper.Nsend_OrderList", dto);
+		return list;
+	}//Nsend_OrderList
+	
 	public List<HistoryDTO> orderDetail(HistoryDTO dto) {
 	      List<HistoryDTO> list = null;
 	      list = sqlSession.selectList("AdminMapper.orderDetail", dto);
@@ -129,6 +135,24 @@ public class AdminDAO {
 		totalCount = sqlSession.selectOne("AdminMapper.searchOrderListCount", dto);
 		return totalCount;
 	}//searchOrderListCount
+	
+	public int Nsend_OrderListCount( SearchDTO dto ) {
+		int totalCount = 0;
+		totalCount = sqlSession.selectOne("AdminMapper.Nsend_OrderListCount", dto);
+		return totalCount;
+	}//searchOrderListCount
+	
+	public int order_TotalAmt( SearchDTO dto ) {
+		int totalCount = 0;
+		totalCount = sqlSession.selectOne("AdminMapper.order_TotalAmt", dto);
+		return totalCount;
+	}//order_TotalAmt
+	
+	public int admin_order_TodayAmt( SearchDTO dto ) {
+		int totalCount = 0;
+		totalCount = sqlSession.selectOne("AdminMapper.admin_order_TodayAmt", dto);
+		return totalCount;
+	}//admin_order_TodayAmt
 	
 	
 	public List<MemberDTO> admin_member_updateList(String member_email) {
