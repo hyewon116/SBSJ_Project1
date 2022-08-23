@@ -79,7 +79,7 @@ $(document).ready(function() {
 					</dd>
 						
 					<dd class="nav_menu">
-						<strong class="nav_menu_name">할인쿠폰</strong>
+						<strong class="nav_menu_name">발송 대기</strong>
 						<div class="nav_menu_data">
 							<a href="#" data-clicklog-type="/click_side_menu_1913" data-log-type="click" data-log-id="1913" data-log-version="3" data-has-log-group="menu" data-log-payload="{&quot;pageName&quot; : &quot;my_navigation&quot;, &quot;eventName&quot;: &quot;coupons_count&quot;, &quot;currentPage&quot;: &quot;&quot;}">
 								<span class="i18n-wrapper">
