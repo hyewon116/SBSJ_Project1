@@ -46,9 +46,13 @@
 					value="${login_info.member_nick}" cols="100" style="width:500px;">
 				<br><br>
 				
+				<!-- member_email 정보 넘기기 -->
+				<input id="member_email" name="member_email" type="hidden" 
+					value="${login_info.member_email}">
+				
 				<!-- member_id 정보 넘기기 -->
 				<input id="member_id" name="member_id" type="hidden" 
-					value="${login_info.member_id}" cols="100" style="width:500px;">
+				value="${login_info.member_id}">
 				
 				내용 작성<br>
 				<textarea id="md_question_content" name="md_question_content" 

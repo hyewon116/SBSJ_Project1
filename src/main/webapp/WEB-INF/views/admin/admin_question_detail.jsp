@@ -165,7 +165,19 @@
 			<br>
 			<h5><b>관리자 답변</b></h5>
 			<hr><br>
-			<!-- 질문 아이디값 넘기기 -->
+			<!-- 질문자 닉네임, 제목, 내용, 이메일, 아이디 넘기기 -->
+			<input id="member_nick" name="member_nick" type="hidden" 
+					value="${detail_dto.member_nick}">
+
+			<input id="md_question_title" name="md_question_title" type="hidden" 
+					value="${detail_dto.md_question_title}">
+					
+			<input id="md_question_content" name="md_question_content" type="hidden" 
+					value="${detail_dto.md_question_content}">
+
+			<input id="member_email" name="member_email" type="hidden" 
+					value="${detail_dto.member_email}">
+
 			<input id="md_question_id" name="md_question_id" type="hidden" 
 					value="${detail_dto.md_question_id}">
 			작성자 <br>

@@ -72,6 +72,7 @@
                <td colspan="2"> 
                   <p style="font-size:27px; color:dimgray;"> 
                   <b>${detail_dto.md_name}</b>
+                  <h6>${detail_dto.md_oneline}</h6>
                   </p>  
                </td>
                
@@ -82,11 +83,7 @@
                   </button>
                </td>
             </tr>
-               <tr>
-               <td>
-                  <h6>${detail_dto.md_oneline}</h6>
-               </td>
-               </tr>            
+                         
             <tr>
                <th> 판 매 가 </th>
                <td colspan="3">

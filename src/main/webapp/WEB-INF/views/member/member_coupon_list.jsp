@@ -97,7 +97,7 @@
 		<tr>
 			<td>	
 				<div>
-					<h5><b><fmt:formatNumber value="${dto.coupon_dis}" pattern="#,###" />원</b></h5>
+					<h5><b><fmt:formatNumber value="${dto.coupon_dis}" pattern="#,###" />%</b></h5>
 					<h5 style="color:brown;" id="coupon_name"><b>${dto.coupon_name}</b></h5>
 					<h6>만료일자: ${dto.coupon_end}</h6><hr>
 					<c:if test = "${dto.coupon_yn == 'N'}">

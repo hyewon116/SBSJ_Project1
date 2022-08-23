@@ -18,6 +18,7 @@ public class MdQuestionDTO {
 	private String md_name;
 	private String md_thumbnail_path;
 	private String question_enable;
+	private String member_email;
 	
 
 	public String getMd_id() {
@@ -116,5 +117,13 @@ public class MdQuestionDTO {
 	public void setQuestion_enable(String question_enable) {
 		this.question_enable = question_enable;
 	}
+	public String getMember_email() {
+		return member_email;
+	}
+	public void setMember_email(String member_email) {
+		this.member_email = member_email;
+	}
+	
+	
 	
 }
