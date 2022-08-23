@@ -20,29 +20,24 @@
 <script type="text/javascript">
 /* 쿠폰 정보 */
 $(document).ready(function() {
-	
 	$.post(
-			"${pageContext.request.contextPath}/admin/admin_nav_qnaNcnt"
+			"${pageContext.request.contextPath}/member/unusedCouponCnt"
 			, function(data, status) {
 				if(data == 0){
 					alert("미답변 문의가 없습니다.")
 					
 				} else if(data >= 1){
-					$("#qna_answer").text(data);
+					$("#unusedCouponCnt").text(data);
 				} else {
 					alert("잠시 후 다시 시도해 주세요.");
 				}
 			}//call back function
 	);//get
-	
 });//ready 
-
 </script>
-
 </head>
 
 <nav>
-
 	<dl class= "nav_total">
 				
 					<dd class="nav_menu">
@@ -74,7 +69,7 @@ $(document).ready(function() {
 						<div class="nav_menu_data">
 							<a href="${pageContext.request.contextPath}/member/member_coupon_list" data-clicklog-type="/click_side_menu_1913" data-log-type="click" data-log-id="1913" data-log-version="3" data-has-log-group="menu" data-log-payload="{&quot;pageName&quot; : &quot;my_navigation&quot;, &quot;eventName&quot;: &quot;coupons_count&quot;, &quot;currentPage&quot;: &quot;&quot;}">
 								<span class="i18n-wrapper">
-									<span id = "coupon_count" class="data_big" id="usableDiscountCouponCount">0</span>
+									<span id="unusedCouponCnt" class="data_big"></span>
 									<span class="data_small">장</span>
 								</span>
 							</a>

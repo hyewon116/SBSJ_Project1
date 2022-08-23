@@ -1,8 +1,6 @@
 package kr.co.sbsj.member;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,6 @@ import kr.co.sbsj.md.MdDTO;
 import kr.co.sbsj.mdquestion.MdQuestionDTO;
 import kr.co.sbsj.mdreview.MdReviewDTO;
 import kr.co.sbsj.util.dto.MemberDTO;
-import kr.co.sbsj.util.dto.Naver_MemberDTO;
 import kr.co.sbsj.util.dto.SearchDTO;
 import kr.co.sbsj.util.dto.UpdateDTO;
 
@@ -24,7 +21,12 @@ public class MemberDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
-
+	public int unusedCouponCnt(CouponDTO dto) {
+		int successCount = 0;
+		successCount = sqlSession.selectOne("MemberMapper.unusedCouponCnt", dto);
+		return successCount;
+	}
+	
 	public List<CouponDTO> coupon_list(CouponDTO dto) {
 		List<CouponDTO> list = null;
 		list = sqlSession.selectList("MemberMapper.couponList", dto);

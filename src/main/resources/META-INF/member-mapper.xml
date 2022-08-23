@@ -5,6 +5,13 @@
 
 <mapper namespace="MemberMapper">
 
+	<!-- 미사용 쿠폰 개수 조회 -->
+	<select id="unusedCouponCnt" parameterType="kr.co.sbsj.md.CouponDTO" resultType="int">
+	select count(coupon_yn)
+	from coupon
+	where coupon_yn = 'N' and member_id = #{member_id};
+	</select>
+
 	<select id="couponList" parameterType="kr.co.sbsj.md.CouponDTO" resultType="kr.co.sbsj.md.CouponDTO">
 	select coupon_id, member_id, coupon_name, coupon_dis, coupon_start, coupon_end, coupon_yn
 	from coupon

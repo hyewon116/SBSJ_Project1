@@ -21,6 +21,12 @@ public class MemberService {
 	@Autowired
 	private MemberDAO dao;
 	
+	public int unusedCouponCnt(CouponDTO dto) {
+		int successCount = 0;
+		successCount = dao.unusedCouponCnt(dto);
+		return successCount;
+	}
+	
 	public List<CouponDTO> coupon_list(CouponDTO dto) {
 		List<CouponDTO> list = null;
 		list = dao.coupon_list( dto );

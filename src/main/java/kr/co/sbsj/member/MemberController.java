@@ -20,6 +20,7 @@ import kr.co.sbsj.md.CouponDTO;
 import kr.co.sbsj.md.MdDTO;
 import kr.co.sbsj.mdquestion.MdQuestionDTO;
 import kr.co.sbsj.mdreview.MdReviewDTO;
+import kr.co.sbsj.order.OrderService;
 import kr.co.sbsj.util.dto.MemberDTO;
 import kr.co.sbsj.util.dto.SearchDTO;
 import kr.co.sbsj.util.dto.UpdateDTO;
@@ -37,6 +38,18 @@ public class MemberController {
 	
 	@Autowired
 	private AdminService service2;
+		
+	//미사용 쿠폰 개수
+   @RequestMapping( value = "/unusedCouponCnt", method = RequestMethod.POST )
+   public void update_answerNcnt (CouponDTO dto, PrintWriter out, Model model, HttpSession session) {
+      int successCount = 0;
+      dto.setMember_id( ( (MemberDTO) session.getAttribute("login_info") ).getMember_id() );
+      successCount = service.unusedCouponCnt(dto);
+      out.print(successCount);
+      out.close();
+      return;
+   }//unusedCouponCnt
+	
 	
 	//내 쿠폰 목록
 	@RequestMapping( value = "/member_coupon_list", method = RequestMethod.GET )
