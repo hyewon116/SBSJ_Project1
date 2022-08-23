@@ -25,11 +25,9 @@ $(document).ready(function() {
 				if(data == 0){
 					$("#qnaAnswerCnt").text(0);
 					
-				} else if(data >= 1){
-					$("#qnaAnswerCnt").text(data);
 				} else {
-					alert("nav_잠시 후 다시 시도해 주세요.");
-				}
+					$("#qnaAnswerCnt").text(data);
+				} 
 			}//call back function
 	);//post
 });//ready 
@@ -41,10 +39,8 @@ $(document).ready(function() {
 				if(data == 0){
 					$("#orderStatusCnt").text(0);
 					
-				} else if(data >= 1){
-					$("#orderStatusCnt").text(data);
 				} else {
-					alert("nav_잠시 후 다시 시도해 주세요.");
+					$("#orderStatusCnt").text(data);
 				}
 			}//call back function
 	);//post
@@ -57,11 +53,9 @@ $(document).ready(function() {
 				if(data == 0){
 					$("#unusedCouponCnt").text(0);
 					
-				} else if(data >= 1){
-					$("#unusedCouponCnt").text(data);
 				} else {
-					alert("nav_잠시 후 다시 시도해 주세요.");
-				}
+					$("#unusedCouponCnt").text(data);
+				} 
 			}//call back function
 	);//post
 });//ready 
