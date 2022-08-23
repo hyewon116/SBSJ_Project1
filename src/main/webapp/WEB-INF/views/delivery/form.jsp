@@ -33,9 +33,10 @@
 	</head>
 	<body>
 	<%@ include file="/WEB-INF/views/headerMain.jsp" %>
+	<div class="container col-sm-8">
 		<hr>
 		<h3> 배 송 지 추 가 </h3>
-		<button type="button"  id="order_btn">주문페이지 바로가기</button> 
+		<button type="button" id="order_btn" class="btn btn-warning">주문페이지 바로가기</button> 
 		<hr>
 		<div class="row">
 			<div class="col-6">
@@ -87,7 +88,7 @@
 							<td>
 								<div class="form-inline">
 									<input type="text" id="post_code" name="post_code" readonly="readonly" class="form-control mb-1 mr-1">
-									<button id="addr_btn" type="button" class="btn btn-primary btn-sm mb-1">
+									<button id="addr_btn" type="button" class="btn btn-info btn-sm mb-1">
 										주 소 찾 기
 									</button>
 								</div>
@@ -98,7 +99,7 @@
 						</tr>
 						<tr>
 							<td colspan="2" class="text-center">
-								<button id="write_btn" type="button" class="btn btn-primary btn-block"> 저장 </button>
+								<button id="write_btn" type="button" class="btn btn-info btn-block"> 저장 </button>
 							</td>
 						</tr>
 					</tbody>
@@ -106,6 +107,7 @@
 			</div>
 		</div>
 		<hr>
+	</div>	
 <%-- 	<%@ include file="/WEB-INF/views/footer.jsp" %> --%>
 	               <script type="text/javascript">
                      let arr_cart_id = ${ arr_cart_id };

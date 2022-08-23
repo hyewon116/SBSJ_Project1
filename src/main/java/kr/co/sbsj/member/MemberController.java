@@ -21,6 +21,7 @@ import kr.co.sbsj.md.CouponDTO;
 import kr.co.sbsj.md.MdDTO;
 import kr.co.sbsj.mdquestion.MdQuestionDTO;
 import kr.co.sbsj.mdreview.MdReviewDTO;
+import kr.co.sbsj.order.OrderMainDTO;
 import kr.co.sbsj.order.OrderService;
 import kr.co.sbsj.util.dto.MemberDTO;
 import kr.co.sbsj.util.dto.SearchDTO;
@@ -41,14 +42,25 @@ public class MemberController {
 	private AdminService service2;
 		
 	//1:1문의 미답변 개수
-   @RequestMapping( value = "/qnaAnswerCnt", method = RequestMethod.POST )
-   public void qnaAnswerCnt (QnaDTO dto, PrintWriter out, Model model, HttpSession session) {
+   @RequestMapping( value = "/orderStatusCnt", method = RequestMethod.POST )
+   public void orderStatusCnt (OrderMainDTO dto, PrintWriter out, Model model, HttpSession session) {
       int successCount = 0;
       dto.setMember_id( ( (MemberDTO) session.getAttribute("login_info") ).getMember_id() );
-      successCount = service.qnaAnswerCnt(dto);
+      successCount = service.orderStatusCnt(dto);
       out.print(successCount);
       out.close();
       return;
+   }//orderStatusCnt
+   
+   //1:1문의 미답변 개수
+   @RequestMapping( value = "/qnaAnswerCnt", method = RequestMethod.POST )
+   public void qnaAnswerCnt (QnaDTO dto, PrintWriter out, Model model, HttpSession session) {
+	   int successCount = 0;
+	   dto.setMember_id( ( (MemberDTO) session.getAttribute("login_info") ).getMember_id() );
+	   successCount = service.qnaAnswerCnt(dto);
+	   out.print(successCount);
+	   out.close();
+	   return;
    }//qnaAnswerCnt
    
    //미사용 쿠폰 개수

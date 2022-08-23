@@ -11,6 +11,7 @@ import kr.co.sbsj.md.CouponDTO;
 import kr.co.sbsj.md.MdDTO;
 import kr.co.sbsj.mdquestion.MdQuestionDTO;
 import kr.co.sbsj.mdreview.MdReviewDTO;
+import kr.co.sbsj.order.OrderMainDTO;
 import kr.co.sbsj.util.dto.MemberDTO;
 import kr.co.sbsj.util.dto.Naver_MemberDTO;
 import kr.co.sbsj.util.dto.SearchDTO;
@@ -21,6 +22,12 @@ public class MemberService {
 
 	@Autowired
 	private MemberDAO dao;
+	
+	public int orderStatusCnt(OrderMainDTO dto) {
+		int successCount = 0;
+		successCount = dao.orderStatusCnt(dto);
+		return successCount;
+	}
 	
 	public int qnaAnswerCnt(QnaDTO dto) {
 		int successCount = 0;

@@ -146,7 +146,7 @@
 							<td>
 								<div class="form-inline">
 									<input type="text" id="post_code" name="post_code" readonly="readonly" class="form-control mb-1 mr-1">
-									<button id="addr_btn" type="button" class="btn btn-primary btn-sm mb-1">
+									<button id="addr_btn" type="button" class="btn btn-info btn-sm mb-1">
 										주 소 찾 기
 									</button>
 								</div>
@@ -157,7 +157,7 @@
 						</tr>
 						<tr>
 							<td colspan="2" class="text-center">
-								<button id="write_btn" type="button" class="btn btn-primary btn-block"> 배송지 추가 </button>
+								<button id="write_btn" type="button" class="btn btn-info btn-block"> 배송지 추가 </button>
 							</td>
 						</tr>
 					</tbody>

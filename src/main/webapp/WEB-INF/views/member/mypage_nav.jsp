@@ -36,6 +36,22 @@ $(document).ready(function() {
 
 $(document).ready(function() {
 	$.post(
+			"${pageContext.request.contextPath}/member/orderStatusCnt"
+			, function(data, status) {
+				if(data == 0){
+					$("#orderStatusCnt").text(0);
+					
+				} else if(data >= 1){
+					$("#orderStatusCnt").text(data);
+				} else {
+					alert("nav_잠시 후 다시 시도해 주세요.");
+				}
+			}//call back function
+	);//post
+});//ready 
+
+$(document).ready(function() {
+	$.post(
 			"${pageContext.request.contextPath}/member/unusedCouponCnt"
 			, function(data, status) {
 				if(data == 0){
@@ -62,7 +78,7 @@ $(document).ready(function() {
 							<a href="${pageContext.request.contextPath}/qna/list" data-clicklog-type="/click_side_menu_1911" data-log-type="click" data-log-id="1911" data-log-version="3" data-has-log-group="menu" data-log-payload="{&quot;pageName&quot; : &quot;my_navigation&quot;, &quot;eventName&quot;: &quot;ticket_unused&quot;, &quot;currentPage&quot;: &quot;&quot; }">
 								<span class="i18n-wrapper">
 									<span class="data_big" id="qnaAnswerCnt"></span>
-									<span class="data_small">장</span>
+									<span class="data_small">개</span>
 								</span>
 							</a>
 						</div>
@@ -70,9 +86,9 @@ $(document).ready(function() {
 					<dd class="nav_menu">
 						<strong class="nav_menu_name">배송중</strong>
 						<div class="nav_menu_data">
-							<a href="https://mc.coupang.com/ssr/desktop/order/list?orderType=DELIVERY" data-clicklog-type="/click_side_menu_1912" data-log-type="click" data-log-id="1912" data-log-version="3" data-has-log-group="menu" data-log-payload="{&quot;pageName&quot; : &quot;my_navigation&quot;, &quot;eventName&quot;: &quot;myorders_count&quot;, &quot;currentPage&quot;: &quot;&quot;}">
+							<a href="${pageContext.request.contextPath}/history/my_order_list" data-clicklog-type="/click_side_menu_1912" data-log-type="click" data-log-id="1912" data-log-version="3" data-has-log-group="menu" data-log-payload="{&quot;pageName&quot; : &quot;my_navigation&quot;, &quot;eventName&quot;: &quot;myorders_count&quot;, &quot;currentPage&quot;: &quot;&quot;}">
 								<span class="i18n-wrapper">
-									<span class="data_big" id="deliveringBoxCount">0</span>
+									<span class="data_big" id="orderStatusCnt"></span>
 									<span class="data_small">개</span>
 								</span>
 							</a>

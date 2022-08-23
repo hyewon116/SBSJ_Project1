@@ -45,6 +45,7 @@
 					<c:set var="sum_buy_amt" value="0" />
 					<c:set var="sum_discount_amt" value="0" />
 					<c:set var="delivery_cost" value="0" />
+					<c:set var="onlyCoupon" value="0" />
 					<c:forEach var="dto" items="${list}" varStatus="status">
 					
 						<c:set var="sum_md_class_qty" value="${sum_md_class_qty + 1}" />
@@ -167,20 +168,19 @@
 	<form>
 	<h4>쿠폰</h4> <hr>
 		<div id="couponUse" class="form-info">
-			<label class="pull-left">쿠폰 적용</label>
 				<div>
 					<ul>
 						<li id="coupon">						
 						<select name="couponList" id="couponList">
-							<option value="none">[ 쿠폰 선택 ]</option>
+							<option value="none">[ 사용할 쿠폰을 선택 해주세요. ]</option>
 								<c:forEach var="coupon" items="${couponList}">
 									<c:if test = "${coupon.coupon_yn eq 'N'}">
 									<option value="${coupon.coupon_dis}#${coupon.coupon_id}#${coupon.coupon_yn}">[ ${coupon.coupon_name} ] ${coupon.coupon_dis}%할인</option>	
 									</c:if>
 								</c:forEach>
 						</select>						
-						<span><button id="couponBtn" type="button" class="btn btn-warning">적용</button></span></li>
-						
+<!-- 						<span><button id="couponBtn" type="button" class="btn btn-warning">적용</button></span></li>
+ -->						
 					</ul>
 				</div>
 		</div>
@@ -207,11 +207,11 @@
 					</tr>
 					<tr>
 						<th>상 품 할 인 금 액</th>
-						<td class="text-right text-danger"> - <span id="span_sum_discount_amt"></span>원 </td>
+						<td class="text-right text-danger"> - <span id="span_sum_discount_amt">${sum_discount_amt}</span>원 </td>
 					</tr>
 					<tr>
 						<th>쿠 폰 할 인 금 액</th>
-						<td class="text-right text-danger"> - <span id="onlyCoupon"></span>원 </td>
+						<td class="text-right text-danger"> - <span id="onlyCoupon">${onlyCoupon}</span>원 </td>
 					</tr>
 					
 					
@@ -223,7 +223,7 @@
                     </tr>
 					<tr>
 						<th> <h3>총 결 제 금 액</h3> </th>
-						<td class="text-right"><span id="span_sum_total_buy_amt"></span>원</td>
+						<td class="text-right"><span id="span_sum_total_buy_amt">${sum_buy_amt - sum_discount_amt + delivery_cost}</span>원</td>
 					</tr>
 					<tr>
 						<td colspan="2" class="text-center">
@@ -241,29 +241,29 @@
 <!--  쿠폰 적용 -->
 <script type="text/javascript">
 $(function() {
-	var total = ${sum_buy_amt};
-	var sale = ${sum_discount_amt};
+	var total = ${sum_buy_amt};//상품 원래 금액
+	var sale = ${sum_discount_amt}; //상품 자체 할인금액
 	var delivery = ${delivery_cost};
 	var use = 0;
 	var real = 0;
 
-	$("#couponBtn").click(
+	$("#couponList").change(
 			function() {
 				
 				var couponValue = $("#couponList option:selected").val().split("#");
 //				alert(couponValue);
-				var coupon = couponValue[0];//coupon_dis
+				var coupon_dis = couponValue[0];//coupon_dis
 				var coupon_id = couponValue[1];
 				var coupon_yn = couponValue[2];
 //				alert(coupon); alert(coupon_id);  alert(coupon_yn);
 				
-				onlyCoupon = (total - sale) * (coupon / 100);  
-				real = total - use + delivery;
+				onlyCoupon = (total - sale) * (coupon_dis / 100); 
+				real = (total - sale) - onlyCoupon + delivery;
 				
-				if (coupon == 0) {
-					use = 0;
+				if ($(this).val() === 'none') {
+					onlyCoupon = 0;
 					$("#span_sum_discount_amt").text(sale); 
-					$("#span_sum_total_buy_amt").text(real);
+					$("#span_sum_total_buy_amt").text(${sum_buy_amt - sum_discount_amt + delivery_cost});
 					$("#onlyCoupon").text(onlyCoupon);
 				} else {
 					$("#span_sum_discount_amt").text(sale);
@@ -272,7 +272,7 @@ $(function() {
 				}
 			});
 });
-</script> 
+</script>
 
 <!-- # 카카오페이 -->
 <script type="text/javascript">
@@ -302,9 +302,7 @@ $(function() {
 	                
 					var couponValue = $("#couponList option:selected").val().split("#");
 //					alert(couponValue);
-					var coupon = couponValue[0];//coupon_dis
 					var coupon_id = couponValue[1];
-					var coupon_yn = couponValue[2];
 					
                     msg += ' 고유ID : ' + rsp.imp_uid;
                     msg += ' 상점 거래ID : ' + rsp.merchant_uid;
@@ -353,6 +351,7 @@ $(function() {
 </script>
 
 <!-- delivery modal start -->
+
 	<div class="modal" id="delivery_choice_modal">
 		<div class="modal-dialog">
 			<div class="modal-content" >
