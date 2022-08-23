@@ -18,18 +18,17 @@
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
 <script type="text/javascript">
-/* 쿠폰 정보 */
 $(document).ready(function() {
 	$.post(
 			"${pageContext.request.contextPath}/member/unusedCouponCnt"
 			, function(data, status) {
 				if(data == 0){
-					alert("미답변 문의가 없습니다.")
+					$("#unusedCouponCnt").text(0);
 					
 				} else if(data >= 1){
 					$("#unusedCouponCnt").text(data);
 				} else {
-					alert("잠시 후 다시 시도해 주세요.");
+					alert("nav_잠시 후 다시 시도해 주세요.");
 				}
 			}//call back function
 	);//get
