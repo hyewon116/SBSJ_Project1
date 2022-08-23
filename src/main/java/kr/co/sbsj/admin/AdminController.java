@@ -804,13 +804,40 @@ public class AdminController {
    public void replyInsert(QnaDTO dto, PrintWriter out) {
       int successCount = 0;
       int successCount1 = 0;
-      
-      
+    
       successCount = Qna_service.replyInsert(dto);
       successCount1 = Qna_service.update_answerY(dto);
       //if(successCount == successCount1)
       out.print(successCount);
       out.close();
+      
+      //답변 내역 이메일 전송
+      String setFrom = "parkhyewon19@gmail.com"; //보내는 사람  이메일 주소
+      String toMail = dto.getMember_email(); //받는 사람 이메일 주소
+      String mailTitle = "[상부상주] 1:1 문의에 대한 답변이 등록되었습니다."; // 메일 제목
+      String contents = dto.getMember_nick() + "님의 1:1 문의에 대한 답변이 등록되었습니다. \n---------------------------------- \n" 
+                    + "문의 제목 : " + dto.getQa_question_title() + "\n\n"
+                    + ">> 문의 및 답변 내용 : " + dto.getQa_question_content();
+      try {
+         MimeMessage message= mailSender.createMimeMessage(); //message를 보냄
+         MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+         
+         
+         messageHelper.setFrom(setFrom);
+         messageHelper.setTo(toMail);
+         messageHelper.setSubject(mailTitle);
+         messageHelper.setText(contents);
+   
+         mailSender.send(message);
+         
+      }
+      
+      catch (MessagingException e) {
+         logger.info("메일 전송 에러 start ==========");
+         e.printStackTrace();
+         logger.info("메일 전송 에러 end ==========");
+      }
+      
    }//replyInsert
    
    //------------------------------------------------------------------------------------------------------ 관라지 페이지 nav 갱신문
