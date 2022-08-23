@@ -5,13 +5,19 @@
 
 <mapper namespace="OrderMapper">
 
+	<!-- 사용완료된 쿠폰 업데이트 -->
+	<update id="updateCoupon" parameterType="kr.co.sbsj.md.CouponDTO">
+	update coupon
+	set coupon_yn = 'Y'
+	where coupon_id = #{coupon_id} and member_id = #{member_id};
+	</update>
 
+	<!-- 쿠폰 리스트 출력 -->
 	<select id="couponList" parameterType="kr.co.sbsj.md.CouponDTO" resultType="kr.co.sbsj.md.CouponDTO">
 	select coupon_id, member_id, coupon_name, coupon_dis, coupon_start, coupon_end, coupon_yn
 	from coupon
 	where member_id = #{member_id}
 	</select>
-
 
 	<update id="updateDeliveryAddrUsedDate" parameterType="kr.co.sbsj.order.OrderMainDTO">
 	update delivery

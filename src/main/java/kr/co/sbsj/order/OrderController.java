@@ -34,8 +34,9 @@ public class OrderController {
 	public String paySuccess() {
 		return "/order/paySuccess";
 	}
+	
 	@RequestMapping( value = "/insert", method = RequestMethod.POST )
-	public void insert( OrderMainDTO dto, HttpSession session, PrintWriter out ) {
+	public void insert( OrderMainDTO dto, HttpSession session, PrintWriter out, CouponDTO coupondto ) {
 		dto.setMember_id( ( (MemberDTO) session.getAttribute("login_info") ).getMember_id() );
 
 		String [] tmpArr = dto.getStr_cart_id().split(",");
@@ -50,10 +51,17 @@ public class OrderController {
 		}
 		out.print(successCount);
 		out.close();
+		
+		//결제 완료시 쿠폰사용 여부 Y로 변경
+		int couponCount = 0;
+		coupondto.setMember_id( ( (MemberDTO) session.getAttribute("login_info") ).getMember_id() );
+		couponCount = service.updateCoupon(coupondto);
+		out.print(couponCount);
+		out.close();
 	}//insert
 
 	@RequestMapping( value = "/order_list", method = RequestMethod.GET )
-	public String orderList( String [] arr_cart_id, MdDTO dto, Model model, HttpSession session, CouponDTO coupondto ) {
+	public String orderList( String [] arr_cart_id, MdDTO dto, Model model, HttpSession session, CouponDTO coupondto, PrintWriter out ) {
 		dto.setMember_id( ( (MemberDTO) session.getAttribute("login_info") ).getMember_id() );
 		
 		List<MdDTO> list = null;
@@ -80,10 +88,12 @@ public class OrderController {
 		//쿠폰 리스트
 		List<CouponDTO> couponList = null;
 		coupondto.setMember_id( ( (MemberDTO) session.getAttribute("login_info") ).getMember_id() );
+		//login_info에 있는 Member_id를 get해서, coupondto의 member_id에 set!
 		couponList = service.couponList(coupondto);
 		model.addAttribute("couponList", couponList);
-		return "/order/order_list";//jsp file name
-	}//orderList
 
+		return "/order/order_list";//jsp file name
+		
+	 }//orderList
 }//class
 

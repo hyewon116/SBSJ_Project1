@@ -83,10 +83,6 @@
 	                        <c:set var="delivery_cost" value="3000"/> 
 	                    </c:otherwise>
 					</c:choose>	
-					
-					<!-- <td colspan="6">
-	                        <button id="delete_btn" class="btn btn-large btn-default"> 선택상품 삭제 </button>
-	                 	</td> -->
 						</tbody>
 				</table>
 				<hr>
@@ -166,19 +162,19 @@
 
 <br><br>
 
-<!-- ============================ [쿠폰 /적립금 시작] ======================= -->
+<!-- ============================ [쿠폰  시작] ======================= -->
 <div class="container col-sm-8">
 	<form>
-	<h4>쿠폰 / 적립금</h4> <hr>
+	<h4>쿠폰</h4> <hr>
 		<div id="couponUse" class="form-info">
 			<label class="pull-left">쿠폰 적용</label>
 				<div>
 					<ul>
 						<li id="coupon">						
 						<select name="couponList" id="couponList">
-							<option value="0">[ 쿠폰 선택 ]</option>
+							<option value="none">[ 쿠폰 선택 ]</option>
 								<c:forEach var="coupon" items="${couponList}">
-									<option value="${coupon.coupon_dis}">[ ${coupon.coupon_name} ] ${coupon.coupon_dis}%할인</option>	
+									<option value="${coupon.coupon_dis}#${coupon.coupon_id}#${coupon.coupon_yn}">[ ${coupon.coupon_name} ] ${coupon.coupon_dis}%할인</option>	
 								</c:forEach>
 						</select>						
 						<span><button id="couponBtn" type="button" class="btn btn-warning">적용</button></span></li>
@@ -240,8 +236,7 @@
 
 <%-- 	<%@ include file="/WEB-INF/views/footer.jsp" %> --%>
 
-
-<!-- # 쿠폰 적용 -->
+<!--  쿠폰 적용 -->
 <script type="text/javascript">
 $(function() {
 	var total = ${sum_buy_amt};
@@ -252,9 +247,15 @@ $(function() {
 
 	$("#couponBtn").click(
 			function() {
-				var coupon = parseInt(($("#couponList option:selected").val()));
+				
+				var couponValue = $("#couponList option:selected").val().split("#");
+//				alert(couponValue);
+				var coupon = couponValue[0];//coupon_dis
+				var coupon_id = couponValue[1];
+				var coupon_yn = couponValue[2];
+//				alert(coupon); alert(coupon_id);  alert(coupon_yn);
+				
 				onlyCoupon = (total - sale) * (coupon / 100);  
-				/* use = total * (coupon / 100) + sale;  */ 
 				real = total - use + delivery;
 				
 				if (coupon == 0) {
@@ -269,7 +270,7 @@ $(function() {
 				}
 			});
 });
-</script>
+</script> 
 
 <!-- # 카카오페이 -->
 <script type="text/javascript">
@@ -296,6 +297,13 @@ $(function() {
 
 	        	if (rsp.success) {
 	                var msg = '결제가 완료 되었습니다.';
+	                
+					var couponValue = $("#couponList option:selected").val().split("#");
+//					alert(couponValue);
+					var coupon = couponValue[0];//coupon_dis
+					var coupon_id = couponValue[1];
+					var coupon_yn = couponValue[2];
+					
                     msg += ' 고유ID : ' + rsp.imp_uid;
                     msg += ' 상점 거래ID : ' + rsp.merchant_uid;
                     msg += ' 결제 금액 : ' + rsp.paid_amount;
@@ -316,10 +324,12 @@ $(function() {
         						, str_cart_id : str_cart_id
         						, buy_now_md_id : buy_now_md_id
         						, buy_now_qty : buy_now_qty
+        						, coupon_id : coupon_id
+        						
         					},
         					function(data, status) {
         						if(data >= 1){
-        							alert("주문을 성공적으로 등록 하였습니다.");
+        							alert("주문 등록을 성공 하였습니다.");
         							location.href="${pageContext.request.contextPath}/order/paySuccess";
         						} else if(data <= 0){
         							alert("주문 등록을 실패 하였습니다.");
@@ -328,6 +338,7 @@ $(function() {
         						}
         					}//call back function
         			);//post
+        			
                     
 	            } else {
 	            	var msg = '결제에 실패 하였습니다.';
@@ -392,45 +403,6 @@ $(function() {
 		</div>
 	</div>
 	<!-- delivery modal end -->
-	
-<!-- # 구매 수량 변경 -->	
- <script type="text/javascript">
-    $(document).ready(function () {
-        $(".plus_btn").click(function () {
-            let quantity = $(this).parent("div").find("input").val();
-            let maxQty = $(this).data("maxQty");
-            if (maxQty >= parseInt(quantity) + 1) {
-                $(this).parent("div").find("input").val(++quantity);
-            }
-        });
-        $(".minus_btn").click(function () {
-            let quantity = $(this).parent("div").find("input").val();
-            if (1 < quantity) {
-                $(this).parent("div").find("input").val(--quantity);
-            }
-        });
-        $(".qty_chg_btn").click(function () {
-            //alert( $(this).val() + " : " + $(this).prev().val() );
-            $.get(
-                "${pageContext.request.contextPath}/cart/update_buy_qty"
-                , {
-                    cart_id: $(this).data("cart_id")
-                    , buy_qty: $("#qty_btn").find("input").val()
-                }
-                , function (data, status) {
-                    if (data >= 1) {
-                        alert("구매 수량을 수정 하였습니다.");
-                        location.href = "${pageContext.request.contextPath}/order/order_list?arr_cart_id=" + arr_cart_id;
-
-                    } else {
-                        alert("구매 수량 수정을 실패 하였습니다.");
-                    }
-                }//call back function
-            );//get
-
-        });//click
-    });//ready
-</script>
 
 
 <!-- # 배송지 모달 선택 버튼  -->

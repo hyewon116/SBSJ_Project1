@@ -62,4 +62,10 @@ public class OrderService {
 		return couponList;
 	}
 
+	public int updateCoupon(CouponDTO dto) {
+		int couponCount = 0;
+		couponCount = dao.updateCoupon(dto);
+		return couponCount;
+	}
+
 }//class

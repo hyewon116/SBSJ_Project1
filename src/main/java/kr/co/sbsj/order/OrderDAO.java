@@ -74,4 +74,11 @@ public class OrderDAO {
 		return couponList;
 	}
 
+
+	public int updateCoupon(CouponDTO dto) {
+		int couponCount = 0;
+		couponCount = sqlSession.selectOne("OrderMapper.updateCoupon", dto);
+		return couponCount;
+	}
+
 }//class
