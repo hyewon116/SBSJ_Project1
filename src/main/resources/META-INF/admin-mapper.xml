@@ -47,7 +47,7 @@
 	
 	<select id="questionDetail" parameterType="java.lang.String" resultType="kr.co.sbsj.mdquestion.MdQuestionDTO">
 	select md_question_id, md_id, member_id, member_nick, md_question_title, md_question_content
-	, md_question_date, md_question_type, md_question_answer, member_email
+	, md_question_date, md_question_type, md_question_answer
     from md_question
 	where md_question_id = #{md_question_id}
 	</select>
@@ -66,6 +66,22 @@
 		</if>
 	</select>
 	
+	<select id="searchQuestionAnswerNCount" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="int">
+		select count(q.md_question_id) cnt
+		from md_question q
+		
+		<if test="searchOption1 != null and searchOption1 != ''
+					and searchWord1 != null and searchWord1 !=''">
+			<choose>
+				<when test="searchOption1 == 'md_name'">
+				, md m	where r.md_id = m.md_id and  m.md_name like concat('%', #{searchWord1}, '%')
+				</when>
+			</choose>
+		</if>
+		
+		where md_question_answer = '답변대기'
+	</select>
+	
 	<select id="selectQuestion" parameterType="kr.co.sbsj.util.dto.SearchDTO"
 			resultType="kr.co.sbsj.mdquestion.MdQuestionDTO">
 		select q.md_question_id, q.md_id, q.member_id, q.member_nick, q.md_question_title,  
@@ -73,6 +89,26 @@
 		q.question_enable, m.md_name, m.md_thumbnail_path
     	from md_question q, md m
     	where q.md_id = m.md_id
+		<if test="searchOption1 != null and searchOption1 != ''
+					and searchWord1 != null and searchWord1 !=''">
+			<choose>
+				<when test="searchOption1 == 'md_name'">
+					and m.md_name like concat('%', #{searchWord1}, '%')
+				</when>
+			</choose>
+		</if>
+		order by md_question_id desc
+		limit #{limitNum}, 10
+	</select>
+	
+	
+	<select id="searchQuestionAnswerNList" parameterType="kr.co.sbsj.util.dto.SearchDTO"
+			resultType="kr.co.sbsj.mdquestion.MdQuestionDTO">
+		select q.md_question_id, q.md_id, q.member_id, q.member_nick, q.md_question_title,  
+		q.md_question_content, q.md_question_date, q.md_question_answer, q.md_question_type, 
+		q.question_enable, m.md_name, m.md_thumbnail_path
+    	from md_question q, md m
+    	where q.md_id = m.md_id and md_question_answer = '답변대기'
 		<if test="searchOption1 != null and searchOption1 != ''
 					and searchWord1 != null and searchWord1 !=''">
 			<choose>

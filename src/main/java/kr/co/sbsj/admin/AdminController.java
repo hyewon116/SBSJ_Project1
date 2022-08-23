@@ -815,18 +815,30 @@ public class AdminController {
    
    //------------------------------------------------------------------------------------------------------ 관라지 페이지 nav 갱신문
    
-   //미답변한 게시글 숫자
+   //미답변한  1:1 문의 게시글 숫자
    @RequestMapping( value = "/admin_nav_qnaNcnt", method = RequestMethod.POST )
-   public String update_answerNcnt (QnaDTO dto, PrintWriter out, Model model) {
+   public void update_answerNcnt (QnaDTO dto, PrintWriter out, Model model) {
       int successCount = 0;
       successCount = Qna_service.update_answerNcnt(dto);
-      model.addAttribute("successCount", successCount);
+      System.out.println("==========================================================여기요~~~ 미답변 1:1문의 갯수입니다. : " + successCount );
       out.print(successCount);
       out.close();
-      return "/admin/admin_nav";
+      return;
    }//admin_nav_qnaNcnt
       
-   //미답변한 게시글 리스트
+   @RequestMapping( value = "/admin_nav_questionNcnt", method = RequestMethod.POST )
+   public void update_question_answerNcnt (SearchDTO dto, PrintWriter out, Model model) {
+	   int successCount= 0;
+	   successCount = service.searchQuestionAnswerNCount(dto);
+	   model.addAttribute("successCount", successCount);
+	   System.out.println("==========================================================여기요~~~ 미답변 상품의 갯수입니다. : " + successCount );
+	   out.print(successCount);
+	   out.close();
+	   return;
+   }//update_question_answerNcnt
+   
+   
+   //미답변한 1:1 문의 게시글 리스트
    @RequestMapping( value = "/admin_qna_answerN_list", method = RequestMethod.GET )
    public String qna_answerN_list(Model model, String userWantPage, SearchDTO dto) {
       if(userWantPage == null || userWantPage.equals("")) userWantPage = "1";
@@ -864,6 +876,53 @@ public class AdminController {
       model.addAttribute("search_dto", dto);
       return "/admin/admin_qna_answerN_list";//jsp file name
    }//qna_answerN_list
+   
+   
+   //미답변한 상품문의 갯수
+   
+   //미답변한 상품 문의
+   @RequestMapping( value = "/admin_question_answerN_list", method = RequestMethod.GET )
+   public String questionAnswerN_List( Model model, String userWantPage, SearchDTO dto ) {
+      if( userWantPage == null || userWantPage.equals("") ) userWantPage = "1";
+      int totalCount = 0, startPageNum = 1, endPageNum = 10, lastPageNum = 1;
+      totalCount = service.searchQuestionAnswerNCount( dto );
+
+      if(totalCount > 10) {
+         lastPageNum = (totalCount / 10) + (totalCount % 10 > 0 ? 1 : 0);
+      }//if
+
+      if(userWantPage.length() >= 2) { 
+         String frontNum = userWantPage.substring(0, userWantPage.length() - 1);
+         startPageNum = Integer.parseInt(frontNum) * 10 + 1;
+         endPageNum = ( Integer.parseInt(frontNum) + 1 ) * 10;
+
+         String backNum = userWantPage.substring(userWantPage.length() - 1, userWantPage.length());
+         if(backNum.equals("0")) {
+            startPageNum = startPageNum - 10;
+            endPageNum = endPageNum - 10;
+         }//if
+      }//if
+
+      if(endPageNum > lastPageNum) endPageNum = lastPageNum;
+
+      model.addAttribute("startPageNum", startPageNum);
+      model.addAttribute("endPageNum", endPageNum);
+      model.addAttribute("lastPageNum", lastPageNum);
+      model.addAttribute("userWantPage", userWantPage);
+
+      dto.setLimitNum( ( Integer.parseInt(userWantPage) - 1 ) * 10  );
+
+      List<MdQuestionDTO> list = null;
+      list = service.searchQuestionAnswerNList( dto );
+      System.out.println("===========================================================");
+      System.out.println(list.toString());
+      System.out.println("===========================================================");
+      model.addAttribute("list", list); 
+      model.addAttribute("search_dto", dto);
+       
+      return "/admin/admin_question_answerN_list";//jsp file name
+   }//admin_question_answerN_list
+   
    
    
    //================================================================================================= 배송상태

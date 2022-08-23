@@ -65,11 +65,23 @@ public class AdminService {
 		return list;
 	}//searchQuestion - 문의리스트
 	
+	public List<MdQuestionDTO> searchQuestionAnswerNList(SearchDTO dto) {
+		List<MdQuestionDTO> list = null;
+		list = dao.searchQuestionAnswerNList( dto );
+		return list;
+	}//searchQuestion - 상품문의 미답변 리스트
+	
 	public int searchQuestionCount( SearchDTO dto ) {
 		int totalCount = 0;
 		totalCount = dao.searchQuestionCount( dto );
 		return totalCount;	
 	}//searchQuestionCount - 문의리스트
+	
+	public int searchQuestionAnswerNCount( SearchDTO dto ) {
+		int totalCount = 0;
+		totalCount = dao.searchQuestionAnswerNCount( dto );
+		return totalCount;	
+	}//searchQuestionAnswerNCount - 상품문의 미답변 리스트 카운트
 		
 	
 	public void reviewOn(String no) {

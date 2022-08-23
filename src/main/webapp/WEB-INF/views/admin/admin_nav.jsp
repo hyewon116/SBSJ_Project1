@@ -19,20 +19,32 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
-	let chkQnaNcnt = "";
+	
 	$.post(
 			"${pageContext.request.contextPath}/admin/admin_nav_qnaNcnt"
 			, function(data, status) {
 				if(data == 0){
-					alert("미답변 문의가 없습니다.")
-					
+					$("#qna_answer").text(0);
 				} else if(data >= 1){
 					$("#qna_answer").text(data);
 				} else {
-					alert("잠시 후 다시 시도해 주세요.");
+					alert("nav_잠시 후 다시 시도해 주세요.");
 				}
 			}//call back function
-	);//get
+	);//post
+
+	$.post(
+			"${pageContext.request.contextPath}/admin/admin_nav_questionNcnt"
+			, function(data, status) {
+				if(data == 0){
+					$("#question_answer").text(0);
+				} else if(data >= 1){
+					$("#question_answer").text(data);
+				} else {
+					alert("nav_잠시 후 다시 시도해 주세요.");
+				}
+			}//call back function
+	);//post
 	
 });//ready 
 
@@ -44,7 +56,7 @@ $(document).ready(function() {
 	<dl class= "nav_total">
 				
 					<dd class="nav_menu">
-						<strong class="nav_menu_name">1:1 미답변 게시글</strong>
+						<strong class="nav_menu_name">1:1 문의 답변대기</strong>
 						<div class="nav_menu_data">
 							<a href="${pageContext.request.contextPath}/admin/admin_qna_answerN_list" data-clicklog-type="/click_side_menu_1911" data-log-type="click" data-log-id="1911" data-log-version="3" data-has-log-group="menu" data-log-payload="{&quot;pageName&quot; : &quot;my_navigation&quot;, &quot;eventName&quot;: &quot;ticket_unused&quot;, &quot;currentPage&quot;: &quot;&quot; }">
 								<span class="i18n-wrapper">
@@ -55,11 +67,11 @@ $(document).ready(function() {
 						</div>
 					</dd>
 					<dd class="nav_menu">
-						<strong class="nav_menu_name">배송중</strong>
+						<strong class="nav_menu_name">상품문의 답변대기</strong>
 						<div class="nav_menu_data">
-							<a href="#" data-clicklog-type="/click_side_menu_1912" data-log-type="click" data-log-id="1912" data-log-version="3" data-has-log-group="menu" data-log-payload="{&quot;pageName&quot; : &quot;my_navigation&quot;, &quot;eventName&quot;: &quot;myorders_count&quot;, &quot;currentPage&quot;: &quot;&quot;}">
+							<a href="${pageContext.request.contextPath}/admin/admin_question_answerN_list" data-clicklog-type="/click_side_menu_1912" data-log-type="click" data-log-id="1912" data-log-version="3" data-has-log-group="menu" data-log-payload="{&quot;pageName&quot; : &quot;my_navigation&quot;, &quot;eventName&quot;: &quot;myorders_count&quot;, &quot;currentPage&quot;: &quot;&quot;}">
 								<span class="i18n-wrapper">
-									<span class="data_big" id="deliveringBoxCount">0</span>
+									<span id="question_answer" class="data_big" id="deliveringBoxCount"></span>
 									<span class="data_small">개</span>
 								</span>
 							</a>

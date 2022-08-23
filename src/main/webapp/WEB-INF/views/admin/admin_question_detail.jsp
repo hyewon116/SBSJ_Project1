@@ -175,9 +175,6 @@
 			<input id="md_question_content" name="md_question_content" type="hidden" 
 					value="${detail_dto.md_question_content}">
 
-			<input id="member_email" name="member_email" type="hidden" 
-					value="${detail_dto.member_email}">
-
 			<input id="md_question_id" name="md_question_id" type="hidden" 
 					value="${detail_dto.md_question_id}">
 			작성자 <br>

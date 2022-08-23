@@ -91,7 +91,7 @@
 
 			<!-- section 시작--------------------------------------------------------------------------------- -->
 			<section class="col-10 h-100 bg-white float-left">
-				<h3 class="text-center">1:1 문의</h3>
+				<h3 class="text-center">1:1 문의 미답변 리스트</h3>
 
 				<hr>
 				<form

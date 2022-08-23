@@ -63,12 +63,24 @@ public class AdminDAO {
 		list = sqlSession.selectList("AdminMapper.selectQuestion", dto);
 		return list;
 	}//searchQuestion - 문의 리스트
+	
+	public List<MdQuestionDTO> searchQuestionAnswerNList(SearchDTO dto) {
+		List<MdQuestionDTO> list = null;
+		list = sqlSession.selectList("AdminMapper.searchQuestionAnswerNList", dto);
+		return list;
+	}//searchQuestionAnswerNList - 상품문의 미답변리스트
 
 	public int searchQuestionCount(SearchDTO dto) {
 		int totalCount = 0;
 		totalCount = sqlSession.selectOne("AdminMapper.searchQuestionCount", dto);
 		return totalCount;
 	}//searchQuestionCount - 문의 리스트
+	
+	public int searchQuestionAnswerNCount(SearchDTO dto) {
+		int totalCount = 0;
+		totalCount = sqlSession.selectOne("AdminMapper.searchQuestionAnswerNCount", dto);
+		return totalCount;
+	}//searchQuestionAnswerNCount - 상품문의 미답변 리스트 카운트
 	
 	
 	public void reviewOn(String no) {
