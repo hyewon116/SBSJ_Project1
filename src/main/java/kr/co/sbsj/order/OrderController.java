@@ -61,7 +61,7 @@ public class OrderController {
 	}//insert
 
 	@RequestMapping( value = "/order_list", method = RequestMethod.GET )
-	public String orderList( String [] arr_cart_id, MdDTO dto, Model model, HttpSession session, CouponDTO coupondto, PrintWriter out ) {
+	public String orderList( String [] arr_cart_id, MdDTO dto, Model model, HttpSession session, CouponDTO coupondto ) {
 		dto.setMember_id( ( (MemberDTO) session.getAttribute("login_info") ).getMember_id() );
 		
 		List<MdDTO> list = null;
@@ -88,7 +88,6 @@ public class OrderController {
 		//쿠폰 리스트
 		List<CouponDTO> couponList = null;
 		coupondto.setMember_id( ( (MemberDTO) session.getAttribute("login_info") ).getMember_id() );
-		//login_info에 있는 Member_id를 get해서, coupondto의 member_id에 set!
 		couponList = service.couponList(coupondto);
 		model.addAttribute("couponList", couponList);
 
