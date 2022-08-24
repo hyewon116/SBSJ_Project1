@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import kr.co.sbsj.admin.AdminReviewDTO;
 import kr.co.sbsj.admin.AdminService;
 import kr.co.sbsj.cs.QnaDTO;
+import kr.co.sbsj.history.HistoryDTO;
+import kr.co.sbsj.history.HistoryService;
 import kr.co.sbsj.md.CouponDTO;
 import kr.co.sbsj.md.MdDTO;
 import kr.co.sbsj.mdquestion.MdQuestionDTO;
@@ -40,6 +42,9 @@ public class MemberController {
 	
 	@Autowired
 	private AdminService service2;
+	
+	@Autowired
+	private HistoryService service3;
 		
 	//주문 개수
    @RequestMapping( value = "/orderCnt", method = RequestMethod.POST )
@@ -310,10 +315,48 @@ public class MemberController {
 		return "/member/member_wish_list";//jsp file name
 	}
 	
+	//마이 페이지 메인 - 바로 주문내역 뜨게 함.
 	@RequestMapping( value = "/member", method = RequestMethod.GET )
-	private String myPage() {
-		return "/member/member";//
-	}
+	private String myPage( Model model, String userWantPage, SearchDTO dto, HttpSession session ) {
+		
+		dto.setMember_id( ( (MemberDTO) session.getAttribute("login_info") ).getMember_id() );
+
+		if( userWantPage == null || userWantPage.equals("") ) userWantPage = "1";
+		int totalCount = 0, startPageNum = 1, endPageNum = 10, lastPageNum = 1;
+		totalCount = service3.searchOrderListCount( dto );
+
+		if(totalCount > 10) {
+			lastPageNum = (totalCount / 10) + (totalCount % 10 > 0 ? 1 : 0);
+		}//if
+
+		if(userWantPage.length() >= 2) { 
+			String frontNum = userWantPage.substring(0, userWantPage.length() - 1);
+			startPageNum = Integer.parseInt(frontNum) * 10 + 1;
+			endPageNum = ( Integer.parseInt(frontNum) + 1 ) * 10;
+			String backNum = userWantPage.substring(userWantPage.length() - 1, userWantPage.length());
+			if(backNum.equals("0")) {
+				startPageNum = startPageNum - 10;
+				endPageNum = endPageNum - 10;
+			}//if
+		}//if
+		
+		if(endPageNum > lastPageNum) endPageNum = lastPageNum;
+
+		model.addAttribute("startPageNum", startPageNum);
+		model.addAttribute("endPageNum", endPageNum);
+		model.addAttribute("lastPageNum", lastPageNum);
+		model.addAttribute("userWantPage", userWantPage);
+
+		dto.setLimitNum( ( Integer.parseInt(userWantPage) - 1 ) * 10  );
+
+		List<HistoryDTO> list = null;
+		list = service3.searchOrderList( dto );
+
+		model.addAttribute("list", list);
+		model.addAttribute("search_dto", dto);
+		
+		return "/history/my_order_list";
+	}//myPage
 
 	@RequestMapping( value = "/nick_chk", method = RequestMethod.GET )
 	public void nickCheck( String member_nick, PrintWriter out ) {
@@ -340,7 +383,7 @@ public class MemberController {
 		model.addAttribute("list", list);
 		
 		return "/member/member_detail";//
-	}
+	}//member_Detail
 	
 	@RequestMapping( value = "/member_update_form", method = RequestMethod.GET )
 	private String memberForm(HttpSession session, String member_email, Model model, UpdateDTO dto) {
@@ -348,8 +391,8 @@ public class MemberController {
 		list = service.member_updateList(member_email);
 		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + list);
 		model.addAttribute("list", list);
-		return "/member/member_update_form";//
-	}
+		return "/member/member_update_form";
+	}//memberForm
 	
 	@RequestMapping( value = "/member_update", method = RequestMethod.POST )
 	public void memberUpdate( MemberDTO dto, PrintWriter out, HttpSession session) {
@@ -357,7 +400,7 @@ public class MemberController {
 		int successCount = 0;
 		int successCount1 = 0;
 		successCount = service.update( dto );
-		successCount1 = service.update1( dto );//
+		successCount1 = service.update1( dto );
 		out.print(successCount);
 		out.close();
 		
@@ -366,10 +409,9 @@ public class MemberController {
 	
 	@RequestMapping( value = "/member_before_detail", method = RequestMethod.GET )
 	private String member_Before_Detail() {
-		return "/member/member_before_detail";//
-	}
+		return "/member/member_before_detail";
+	}//member_Before_Detail
 	
 	
-	
-	
+
 }//class

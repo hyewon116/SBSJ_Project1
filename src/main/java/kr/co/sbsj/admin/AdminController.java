@@ -65,7 +65,7 @@ public class AdminController {
    @Autowired
    private JavaMailSender mailSender;
    
-   //문의 답변 등록
+   	//문의 답변 등록
       @RequestMapping( value = "/questionReply", method = RequestMethod.POST )
       public void replyInsert( MdQuestionDTO dto, PrintWriter out, Model model ) {            
          int successCount = 0;
@@ -77,7 +77,7 @@ public class AdminController {
          out.print(successCount);
          out.close();
          
-         //============================================================== 이메일 ========================================
+         //============= 이메일 전송 =============
          String setFrom = "parkhyewon19@gmail.com"; //보내는 사람  이메일 주소
          String toMail = dto.getMember_email(); //받는 사람 이메일 주소
          String mailTitle = "[상부상주] 문의에 대한 답변이 등록되었습니다."; // 메일 제목
@@ -85,8 +85,6 @@ public class AdminController {
                        + "문의 제목 : " + dto.getMd_question_title() + "\n"
                        + "문의 내용 : " + dto.getMd_question_content() + "\n\n"
                        + ">> 답변 내용 : " + dto.getMd_answer_content(); //메일 내용
-         
-         
          
          try {
             MimeMessage message= mailSender.createMimeMessage(); //message를 보냅
@@ -119,7 +117,7 @@ public class AdminController {
          service.questionOn(ajaxMsg[i]);
       }
       
-      return "/admin/admin_question_list";//
+      return "/admin/admin_question_list";
    }//reviewOn
    
    @RequestMapping( value = "/question_off")
@@ -131,7 +129,7 @@ public class AdminController {
          service.questionOff(ajaxMsg[i]);
       }
       
-      return "/admin/admin_question_list";//
+      return "/admin/admin_question_list";
    }//reviewOn
    
    
@@ -197,13 +195,10 @@ public class AdminController {
 
       List<MdQuestionDTO> list = null;
       list = service.searchQuestion( dto );
-      System.out.println("===========================================================");
-      System.out.println(list.toString());
-      System.out.println("===========================================================");
       model.addAttribute("list", list); 
       model.addAttribute("search_dto", dto);
        
-      return "/admin/admin_question_list";//jsp file name
+      return "/admin/admin_question_list";
    }//admin_question_list
    
    
@@ -216,7 +211,7 @@ public class AdminController {
          service.reviewOn(ajaxMsg[i]);
       }
       
-      return "/admin/admin_review_list";//
+      return "/admin/admin_review_list";
    }//reviewOn
    
    @RequestMapping( value = "/review_off")
@@ -228,7 +223,7 @@ public class AdminController {
          service.reviewOff(ajaxMsg[i]);
       }
       
-      return "/admin/admin_review_list";//
+      return "/admin/admin_review_list";
    }//review_off
    
    
@@ -297,23 +292,21 @@ public class AdminController {
       int totalCount = 0, startPageNum = 1, endPageNum = 10, lastPageNum = 1;
       totalCount = service.searchOrderListCount( dto );
 
-      if(totalCount > 10) {//201 -> (201 /10) + (201 % 10 > 0 ? 1 : 0) -> 20 + 1
+      if(totalCount > 10) {
          lastPageNum = (totalCount / 10) + (totalCount % 10 > 0 ? 1 : 0);
       }//if
 
-      if(userWantPage.length() >= 2) { //userWantPage가 12인 경우 startPageNum는 11, endPageNum는 20.
-         String frontNum = userWantPage.substring(0, userWantPage.length() - 1);//12 -> 1
-         startPageNum = Integer.parseInt(frontNum) * 10 + 1;// 1 * 10 + 1 -> 11
-         endPageNum = ( Integer.parseInt(frontNum) + 1 ) * 10;// (1 + 1) * 10 -> 20
-         //userWantPage가 10인 경우, startPageNum는 11, endPageNum는 20.
+      if(userWantPage.length() >= 2) { 
+         String frontNum = userWantPage.substring(0, userWantPage.length() - 1);
+         startPageNum = Integer.parseInt(frontNum) * 10 + 1;
+         endPageNum = ( Integer.parseInt(frontNum) + 1 ) * 10;
          String backNum = userWantPage.substring(userWantPage.length() - 1, userWantPage.length());
          if(backNum.equals("0")) {
-            startPageNum = startPageNum - 10;// 11 - 10 -> 1
-            endPageNum = endPageNum - 10;// 20 - 10 -> 10
+            startPageNum = startPageNum - 10;
+            endPageNum = endPageNum - 10;
          }//if
       }//if
 
-      //endPageNum이 20이고, lastPageNum이 17이라면, endPageNum을 17로 수정해라
       if(endPageNum > lastPageNum) endPageNum = lastPageNum;
 
       model.addAttribute("startPageNum", startPageNum);
@@ -322,9 +315,6 @@ public class AdminController {
       model.addAttribute("userWantPage", userWantPage);
 
       dto.setLimitNum( ( Integer.parseInt(userWantPage) - 1 ) * 10  );
-      // 1 -> (1-1)*10 -> 0
-      // 2 -> (2-1)*10 -> 10
-      // 3 -> (3-1)*10 -> 20
 
       List<HistoryDTO> list = null;
       list = service.searchOrderList( dto );
@@ -332,7 +322,7 @@ public class AdminController {
       model.addAttribute("list", list);
       model.addAttribute("search_dto", dto);
 
-      return "admin/admin_order_list";//jsp file name
+      return "admin/admin_order_list";
 
    }//oderList
    
@@ -342,23 +332,21 @@ public class AdminController {
 	      int totalCount = 0, startPageNum = 1, endPageNum = 10, lastPageNum = 1;
 	      totalCount = service.searchOrderDetailCount( dto );
 
-	      if(totalCount > 10) {//201 -> (201 /10) + (201 % 10 > 0 ? 1 : 0) -> 20 + 1
+	      if(totalCount > 10) {
 	         lastPageNum = (totalCount / 10) + (totalCount % 10 > 0 ? 1 : 0);
 	      }//if
 
-	      if(userWantPage.length() >= 2) { //userWantPage가 12인 경우 startPageNum는 11, endPageNum는 20.
-	         String frontNum = userWantPage.substring(0, userWantPage.length() - 1);//12 -> 1
-	         startPageNum = Integer.parseInt(frontNum) * 10 + 1;// 1 * 10 + 1 -> 11
-	         endPageNum = ( Integer.parseInt(frontNum) + 1 ) * 10;// (1 + 1) * 10 -> 20
-	         //userWantPage가 10인 경우, startPageNum는 11, endPageNum는 20.
+	      if(userWantPage.length() >= 2) { 
+	         String frontNum = userWantPage.substring(0, userWantPage.length() - 1);
+	         startPageNum = Integer.parseInt(frontNum) * 10 + 1;
+	         endPageNum = ( Integer.parseInt(frontNum) + 1 ) * 10;
 	         String backNum = userWantPage.substring(userWantPage.length() - 1, userWantPage.length());
 	         if(backNum.equals("0")) {
-	            startPageNum = startPageNum - 10;// 11 - 10 -> 1
-	            endPageNum = endPageNum - 10;// 20 - 10 -> 10
+	            startPageNum = startPageNum - 10;
+	            endPageNum = endPageNum - 10;
 	         }//if
 	      }//if
 
-	      //endPageNum이 20이고, lastPageNum이 17이라면, endPageNum을 17로 수정해라
 	      if(endPageNum > lastPageNum) endPageNum = lastPageNum;
 
 	      model.addAttribute("startPageNum", startPageNum);
@@ -371,7 +359,7 @@ public class AdminController {
          list = service.orderDetail(dto);
          model.addAttribute("list", list);
          
-         return "/admin/admin_order_detail";//
+         return "/admin/admin_order_detail";
       }
    
    
@@ -383,7 +371,7 @@ public class AdminController {
 
     int successCount = 0;
     successCount = service.changeStatus( dto );
-    return "/admin/admin_order_detail";//
+    return "/admin/admin_order_detail";
     }
    
    
@@ -395,7 +383,7 @@ public class AdminController {
       System.out.println(list);
       model.addAttribute("list", list);
       
-      return "/admin/admin_member_detail";//
+      return "/admin/admin_member_detail";
    }
 
    @RequestMapping( value = "/admin_member_list", method = RequestMethod.GET )
@@ -403,25 +391,22 @@ public class AdminController {
       if( userWantPage == null || userWantPage.equals("") ) userWantPage = "1";
       int totalCount = 0, startPageNum = 1, endPageNum = 10, lastPageNum = 1;
       totalCount = service.searchMemberCount( dto );
-      //System.out.println("상품의 총개수는 : ?" + totalCount);
-
-      if(totalCount > 10) {//201 -> (201 /10) + (201 % 10 > 0 ? 1 : 0) -> 20 + 1
+     
+      if(totalCount > 10) {
          lastPageNum = (totalCount / 10) + (totalCount % 10 > 0 ? 1 : 0);
       }//if
 
-      if(userWantPage.length() >= 2) { //userWantPage가 12인 경우 startPageNum는 11, endPageNum는 20.
-         String frontNum = userWantPage.substring(0, userWantPage.length() - 1);//12 -> 1
-         startPageNum = Integer.parseInt(frontNum) * 10 + 1;// 1 * 10 + 1 -> 11
-         endPageNum = ( Integer.parseInt(frontNum) + 1 ) * 10;// (1 + 1) * 10 -> 20
-         //userWantPage가 10인 경우, startPageNum는 11, endPageNum는 20.
+      if(userWantPage.length() >= 2) { 
+         String frontNum = userWantPage.substring(0, userWantPage.length() - 1);
+         startPageNum = Integer.parseInt(frontNum) * 10 + 1;
+         endPageNum = ( Integer.parseInt(frontNum) + 1 ) * 10;
          String backNum = userWantPage.substring(userWantPage.length() - 1, userWantPage.length());
          if(backNum.equals("0")) {
-            startPageNum = startPageNum - 10;// 11 - 10 -> 1
-            endPageNum = endPageNum - 10;// 20 - 10 -> 10
+            startPageNum = startPageNum - 10;
+            endPageNum = endPageNum - 10;
          }//if
       }//if
-
-      //endPageNum이 20이고, lastPageNum이 17이라면, endPageNum을 17로 수정해라
+      
       if(endPageNum > lastPageNum) endPageNum = lastPageNum;
 
       model.addAttribute("startPageNum", startPageNum);
@@ -436,10 +421,8 @@ public class AdminController {
       model.addAttribute("list", list); 
       model.addAttribute("search_dto", dto);
        
-      return "/admin/admin_member_list";//jsp file name
+      return "/admin/admin_member_list";
    }//admin_member_list
-   
-   
    
    
    @RequestMapping( value = "/update", method = RequestMethod.POST )
@@ -477,7 +460,6 @@ public class AdminController {
 
       }
 
-
       MultipartFile detail_img = dto.getMd_detail_image();
       if(detail_img != null && !detail_img.getOriginalFilename().equals("")) {
          is = detail_img.getInputStream();
@@ -489,8 +471,6 @@ public class AdminController {
          dto.setMd_detail_path("/upload/md/" + todayNalja + "_" + todaySigan + "_" + detail_img.getOriginalFilename());
       }
 
-
-      //dto.setMno( ( (MemberDTO) session.getAttribute("login_info") ).getMno() );
       System.out.println("=============================================================" + dto);
       int successCount = 0;
       successCount = service.update(dto);
@@ -513,8 +493,6 @@ public class AdminController {
          dto.setMd_detail_path(path);
       }
 
-      //dto.setMd_id( ( (MemberDTO) session.getAttribute("login_info") ).getMember_id() );
-
       int successCount = 0;
       successCount = service.fileDelete( dto );
       out.print(successCount);
@@ -528,11 +506,10 @@ public class AdminController {
       AdminDTO dto = null;
       dto = service.detail(md_id);
       model.addAttribute("detail_dto", dto);
-      return "/admin/admin_md_update_form";//jsp file name
+      return "/admin/admin_md_update_form";
    }//updateForm
       
-   
-   
+  
    
    @RequestMapping( value = "/admin_md_detail", method = RequestMethod.GET )
    public String detail( String md_id, String userWantPage, Model model ) {
@@ -540,7 +517,7 @@ public class AdminController {
       dto = service.detail( md_id );
       model.addAttribute("detail_dto", dto);
       model.addAttribute("md_id", md_id);
-      return "/admin/admin_md_detail";//jsp file name
+      return "/admin/admin_md_detail";
    }//detail
    
    
@@ -553,11 +530,10 @@ public class AdminController {
          service.delete(ajaxMsg[i]);
       }
       
-      return "/admin/admin_md_list";//
+      return "/admin/admin_md_list";
    }//delete
    
 
-   
    @RequestMapping( value = "/offsale")
    private String md_disable(HttpServletRequest request) {
       
@@ -567,10 +543,9 @@ public class AdminController {
          service.offsale(ajaxMsg[i]);
       }
       
-      return "/admin/admin_md_list";//
+      return "/admin/admin_md_list";
    }//md_disable
-   
-
+  
    
    @RequestMapping( value = "/off_account")
    private String offAccount(HttpServletRequest request) {
@@ -581,7 +556,7 @@ public class AdminController {
          service.off_account(ajaxMsg[i]);
       }
       
-      return "/admin/admin_member_list";//
+      return "/admin/admin_member_list";
    }//off_account
    
    @RequestMapping( value = "/on_account")
@@ -593,7 +568,7 @@ public class AdminController {
          service.on_account(ajaxMsg[i]);
       }
       
-      return "/admin/admin_member_list";//
+      return "/admin/admin_member_list";
    }//onaccount
    
 
@@ -606,13 +581,13 @@ public class AdminController {
          service.onsale(ajaxMsg[i]);
       }
       
-      return "/admin/admin_md_list";//
+      return "/admin/admin_md_list";
    }//onsale
    
    
    @RequestMapping( value = "/admin", method = RequestMethod.GET )
    private String admin() {
-      return "/admin/admin";//
+      return "/admin/admin";
    }//admin
    
    
@@ -621,25 +596,23 @@ public class AdminController {
       if( userWantPage == null || userWantPage.equals("") ) userWantPage = "1";
       int totalCount = 0, startPageNum = 1, endPageNum = 10, lastPageNum = 1;
       totalCount = service.searchListCount( dto );
-      //System.out.println("상품의 총개수는 : ?" + totalCount);
 
-      if(totalCount > 10) {//201 -> (201 /10) + (201 % 10 > 0 ? 1 : 0) -> 20 + 1
+      if(totalCount > 10) {
          lastPageNum = (totalCount / 10) + (totalCount % 10 > 0 ? 1 : 0);
       }//if
 
-      if(userWantPage.length() >= 2) { //userWantPage가 12인 경우 startPageNum는 11, endPageNum는 20.
-         String frontNum = userWantPage.substring(0, userWantPage.length() - 1);//12 -> 1
-         startPageNum = Integer.parseInt(frontNum) * 10 + 1;// 1 * 10 + 1 -> 11
-         endPageNum = ( Integer.parseInt(frontNum) + 1 ) * 10;// (1 + 1) * 10 -> 20
-         //userWantPage가 10인 경우, startPageNum는 11, endPageNum는 20.
+      if(userWantPage.length() >= 2) {
+         String frontNum = userWantPage.substring(0, userWantPage.length() - 1);
+         startPageNum = Integer.parseInt(frontNum) * 10 + 1;
+         endPageNum = ( Integer.parseInt(frontNum) + 1 ) * 10;
+
          String backNum = userWantPage.substring(userWantPage.length() - 1, userWantPage.length());
          if(backNum.equals("0")) {
-            startPageNum = startPageNum - 10;// 11 - 10 -> 1
-            endPageNum = endPageNum - 10;// 20 - 10 -> 10
+            startPageNum = startPageNum - 10;
+            endPageNum = endPageNum - 10;
          }//if
       }//if
 
-      //endPageNum이 20이고, lastPageNum이 17이라면, endPageNum을 17로 수정해라
       if(endPageNum > lastPageNum) endPageNum = lastPageNum;
 
       model.addAttribute("startPageNum", startPageNum);
@@ -654,11 +627,11 @@ public class AdminController {
       model.addAttribute("list", list); 
       model.addAttribute("search_dto", dto);
        
-      return "/admin/admin_md_list";//jsp file name
+      return "/admin/admin_md_list";
    }//admin_md_list
    
    
-   //------------------------------------------------------------------------------------------------------공지사항 관리
+   //-----------------------------------공지사항 관리
    @RequestMapping( value = "/admin_notice_list", method = RequestMethod.GET )
    public String notice_list(Model model, String userWantPage, SearchDTO dto) {
       if(userWantPage == null || userWantPage.equals("")) userWantPage = "1";
@@ -693,7 +666,7 @@ public class AdminController {
       list = Notice_service.searchList( dto );
       model.addAttribute("list", list);
       model.addAttribute("search_dto", dto);
-      return "/admin/admin_notice_list";//jsp file name
+      return "/admin/admin_notice_list";
    }//admin_notice_list
    
    
@@ -702,7 +675,7 @@ public class AdminController {
       NoticeDTO dto = null;
       dto = Notice_service.detail( notice_id );
       model.addAttribute("detail_dto", dto);
-      return "/admin/admin_notice_detail";//jsp file name
+      return "/admin/admin_notice_detail";
    }//detail
    
    @RequestMapping(value = "/admin_notice_write_form", method = RequestMethod.GET)
@@ -742,7 +715,7 @@ public class AdminController {
       out.close();
    }//delete
    
-   //------------------------------------------------------------------------------------------------------1:1게시판 관리
+   //---------------------------------------------------1:1게시판 관리
    
    @RequestMapping( value = "/admin_qna_list", method = RequestMethod.GET )
    public String qna_list(Model model, String userWantPage, SearchDTO dto) {
@@ -779,7 +752,7 @@ public class AdminController {
       list = Qna_service.searchList( dto );
       model.addAttribute("list", list);
       model.addAttribute("search_dto", dto);
-      return "/admin/admin_qna_list";//jsp file name
+      return "/admin/admin_qna_list";
    }//list
    
    
@@ -788,7 +761,7 @@ public class AdminController {
       QnaDTO dto = null;
       dto = Qna_service.detail( qa_question_id );
       model.addAttribute("detail_dto", dto);
-      return "/admin/admin_qna_detail";//jsp file name
+      return "/admin/admin_qna_detail";
    }//detail
    
    @RequestMapping( value = "/admin_qna_delete", method = RequestMethod.GET )
@@ -868,19 +841,22 @@ public class AdminController {
       
    }//replyInsert
    
-   //------------------------------------------------------------------------------------------------------ 관라지 페이지 nav 갱신문
+   
+   //--------------------------------------- 관리자 페이지 nav 갱신문
+   
    
    //미답변한  1:1 문의 게시글 숫자
    @RequestMapping( value = "/admin_nav_qnaNcnt", method = RequestMethod.POST )
    public void update_answerNcnt (QnaDTO dto, PrintWriter out, Model model) {
       int successCount = 0;
       successCount = Qna_service.update_answerNcnt(dto);
-      System.out.println("==========================================================여기요~~~ 미답변 1:1문의 갯수입니다. : " + successCount );
+      System.out.println("======================================여기요~~~ 미답변 1:1문의 갯수입니다. : " + successCount );
       out.print(successCount);
       out.close();
       return;
    }//admin_nav_qnaNcnt
       
+   
    //미답변한 1:1 문의 게시글 리스트
    @RequestMapping( value = "/admin_qna_answerN_list", method = RequestMethod.GET )
    public String qna_answerN_list(Model model, String userWantPage, SearchDTO dto) {
@@ -917,7 +893,7 @@ public class AdminController {
       list = Qna_service.searchAnswerNlist( dto );
       model.addAttribute("list", list);
       model.addAttribute("search_dto", dto);
-      return "/admin/admin_qna_answerN_list";//jsp file name
+      return "/admin/admin_qna_answerN_list";
    }//qna_answerN_list
    
    
@@ -927,11 +903,12 @@ public class AdminController {
 	   int successCount= 0;
 	   successCount = service.searchQuestionAnswerNCount(dto);
 	   model.addAttribute("successCount", successCount);
-	   System.out.println("==========================================================여기요~~~ 미답변 상품의 갯수입니다. : " + successCount );
+	   System.out.println("===========================여기요~~~ 미답변 상품의 갯수입니다. : " + successCount );
 	   out.print(successCount);
 	   out.close();
 	   return;
    }//update_question_answerNcnt
+   
    
    //미답변한 상품 문의
    @RequestMapping( value = "/admin_question_answerN_list", method = RequestMethod.GET )
@@ -969,18 +946,14 @@ public class AdminController {
       list = service.searchQuestionAnswerNList( dto );
       System.out.println("===========================================================");
       System.out.println(list.toString());
-      System.out.println("===========================================================");
       model.addAttribute("list", list); 
       model.addAttribute("search_dto", dto);
        
-      return "/admin/admin_question_answerN_list";//jsp file name
+      return "/admin/admin_question_answerN_list";
    }//admin_question_answerN_list
    
    
-   
-   //================================================================================================= 배송상태
-   
- //================================================================================================= 배송상태
+   //배송상태
    @RequestMapping(value = "/admin_order_NsendList", method = RequestMethod.GET)
    public String order_Nsend_List( Model model, String userWantPage, SearchDTO dto, HttpSession session, String member_id, PrintWriter out ) {
       dto.setMember_id( member_id );
@@ -988,23 +961,23 @@ public class AdminController {
       if( userWantPage == null || userWantPage.equals("") ) userWantPage = "1";
       int totalCount = 0, startPageNum = 1, endPageNum = 10, lastPageNum = 1;
       totalCount = service.Nsend_OrderListCount( dto );
-	  if(totalCount > 10) {//201 -> (201 /10) + (201 % 10 > 0 ? 1 : 0) -> 20 + 1
+	  if(totalCount > 10) {
          lastPageNum = (totalCount / 10) + (totalCount % 10 > 0 ? 1 : 0);
       }//if
 
-      if(userWantPage.length() >= 2) { //userWantPage가 12인 경우 startPageNum는 11, endPageNum는 20.
-         String frontNum = userWantPage.substring(0, userWantPage.length() - 1);//12 -> 1
-         startPageNum = Integer.parseInt(frontNum) * 10 + 1;// 1 * 10 + 1 -> 11
-         endPageNum = ( Integer.parseInt(frontNum) + 1 ) * 10;// (1 + 1) * 10 -> 20
-         //userWantPage가 10인 경우, startPageNum는 11, endPageNum는 20.
+      if(userWantPage.length() >= 2) { 
+         String frontNum = userWantPage.substring(0, userWantPage.length() - 1);
+         startPageNum = Integer.parseInt(frontNum) * 10 + 1;
+         endPageNum = ( Integer.parseInt(frontNum) + 1 ) * 10;
+       
          String backNum = userWantPage.substring(userWantPage.length() - 1, userWantPage.length());
          if(backNum.equals("0")) {
-            startPageNum = startPageNum - 10;// 11 - 10 -> 1
-            endPageNum = endPageNum - 10;// 20 - 10 -> 10
+            startPageNum = startPageNum - 10;
+            endPageNum = endPageNum - 10;
          }//if
       }//if
 
-      //endPageNum이 20이고, lastPageNum이 17이라면, endPageNum을 17로 수정해라
+  
       if(endPageNum > lastPageNum) endPageNum = lastPageNum;
 
       model.addAttribute("startPageNum", startPageNum);
@@ -1013,9 +986,6 @@ public class AdminController {
       model.addAttribute("userWantPage", userWantPage);
 
       dto.setLimitNum( ( Integer.parseInt(userWantPage) - 1 ) * 10  );
-      // 1 -> (1-1)*10 -> 0
-      // 2 -> (2-1)*10 -> 10
-      // 3 -> (3-1)*10 -> 20
 
       List<HistoryDTO> list = null;
       list = service.Nsend_OrderList( dto );
@@ -1023,11 +993,11 @@ public class AdminController {
       model.addAttribute("list", list);
       model.addAttribute("search_dto", dto);
 
-      return "admin/admin_order_NsendList";//jsp file name
+      return "admin/admin_order_NsendList";
 
    }//admin_order_NsendList
    
- // 미발송한 상품의 갯수
+   // 미발송한 상품의 갯수
    @RequestMapping( value = "/admin_order_NsendCnt", method = RequestMethod.POST )
    public void admin_order_NsendCnt (SearchDTO dto, PrintWriter out, Model model) {
 	   int successCount= 0;
@@ -1038,7 +1008,8 @@ public class AdminController {
 	   return;
    }//admin_order_NsendCnt
    
-// 이번달 총 매출 조회
+   
+   // 이번달 총 매출 조회
    @RequestMapping( value = "/admin_order_Total_amt", method = RequestMethod.POST )
    public void admin_order_TotalAmt (SearchDTO dto, PrintWriter out, Model model) {
 	   int successCount= 0;

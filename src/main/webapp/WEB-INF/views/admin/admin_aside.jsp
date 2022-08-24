@@ -20,11 +20,9 @@
 </head>
 
 <!--  aside 시작 -->	
-					
-					
-					
+
 					<ul id="myMenu">
-					  <li ><h4>관리자 페이지</h4></li>
+					  <li><h2>Admin Page</h2></li>
 					  <br>
 					  <li><a href="${pageContext.request.contextPath}/admin/admin_member_list">회원 관리</a></li>
 					  <li><a href="${pageContext.request.contextPath}/admin/admin_notice_list">공지사항 관리</a></li>
@@ -34,8 +32,5 @@
 					  <li><a href="${pageContext.request.contextPath}/admin/admin_md_list">상품 관리</a></li>
 					  <li><a href="${pageContext.request.contextPath}/admin/admin_order_list">주문 관리</a></li>
 					</ul>
-				
-				
-				
 				
 			<!--  aside 끝 -->	

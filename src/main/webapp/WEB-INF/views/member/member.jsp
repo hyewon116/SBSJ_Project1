@@ -18,9 +18,6 @@
 
 		<!-- CSS 파일 -->
 		
-		
-		
-		
 <style type="text/css">
 		
 
@@ -46,9 +43,7 @@
 
 </style>	
 
-
 	</head>
-	
 	
 	<body>
 		<!-- header -->
@@ -58,7 +53,6 @@
 			
 		<div class="container">
 			
-			
 			<!-- nav 시작 -->
 			<nav>
 				<jsp:include page="/WEB-INF/views/member/mypage_nav.jsp"></jsp:include>
@@ -67,33 +61,25 @@
 			</nav>
 			
 			<!-- nav 끝 -->
-			<main class="clearfix mt-1" style="height:500px">
-				<!--  aside 시작 -->	
-				<aside class="col-3 h-100 bg-white float-left">
+	<main class="clearfix mt-1" style="height:500px">
+			
+			<!--  aside 시작 -->	
+			<aside class="col-3 h-100 bg-white float-left">
 					
-					
-				<jsp:include page="/WEB-INF/views/member/mypage_aside.jsp"></jsp:include>
-				<br>
-				<br>
-				
-				
-				
-				</aside>
+			<jsp:include page="/WEB-INF/views/member/mypage_aside.jsp"></jsp:include>
+			<br><br>
+			</aside>
 				
 			<!--  aside 끝 -->	
-				
-				
-				<!-- section 시작--------------------------------------------------------------------------------- -->
-				<section class="col-9 h-100 bg-white float-left">
-					<h1>My page Default 미정</h1>
-					  <hr style="width:100%;height:5px;border:none;background-color:black;">
-					  
-					  
-					  
-					  
-				</section>
-				<!-- section 끝---------------------------------------------------------------------------- -->
-			</main>
+			
+		<!-- section 시작--------------------------------------------------------------------------------- -->
+		<section class="col-9 h-100 bg-white float-left">
+			<h1>My page Default 미정</h1>
+			<hr style="width:100%;height:5px;border:none;background-color:black;">
+
+		</section>
+		<!-- section 끝---------------------------------------------------------------------------- -->
+	</main>
 			
 			
 		</div><!-- container -->

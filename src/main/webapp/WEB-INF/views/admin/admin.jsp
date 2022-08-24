@@ -8,7 +8,7 @@
 	<head>
 		<meta charset="UTF-8">
 	
-		<title>상부상酒  |  Admin page</title>
+		<title>상부상酒  | Admin page</title>
 		
 		<!-- CDN -->
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
@@ -17,9 +17,6 @@
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 
 		<!-- CSS 파일 -->
-		
-		
-		
 		
 <style type="text/css">
 		
@@ -43,12 +40,8 @@
   background-color: #eee;
 }
 
-
 </style>	
-
-
 	</head>
-	
 	
 	<body>
 			<!-- header -->
@@ -74,22 +67,16 @@
 				<jsp:include page="/WEB-INF/views/admin/admin_aside.jsp"></jsp:include>
 				<br>
 				<br>			
-				
-				
-				
+	
 				</aside>
 				
 			<!--  aside 끝 -->	
-				
-				
+	
 				<!-- section 시작--------------------------------------------------------------------------------- -->
 				<section class="col-9 h-100 bg-white float-left">
 					<h1>관리자 페이지 Default 미정</h1>
 					  <hr style="width:100%;height:5px;border:none;background-color:black;">
-					  
-					  
-					  
-					  
+
 				</section>
 				<!-- section 끝---------------------------------------------------------------------------- -->
 			</main>

@@ -33,7 +33,7 @@
 		
 		<c:when test="${login_info != null && login_info.member_name != null && login_info.admin_yn == 'Y'}">
 		${login_info.member_nick}님
-			<a id="loginBarText" href="${pageContext.request.contextPath}/admin/admin"> 관리자페이지 </a>
+			<a id="loginBarText" href="${pageContext.request.contextPath}/admin/admin_member_list"> 관리자페이지 </a>
 			<a id="loginBarText" href="${pageContext.request.contextPath}/login/logout"> 로그아웃 </a>
 		</c:when>
 		

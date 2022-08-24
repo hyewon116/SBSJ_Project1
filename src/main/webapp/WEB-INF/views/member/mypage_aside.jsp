@@ -22,7 +22,8 @@
 <!--  aside 시작 -->	
 
 					<ul id="myMenu">
-					  <li ><h1>My Page</h1></li>
+					  <li><h1>My Page</h1></li>
+					  <br>
 					  <li><a href="${pageContext.request.contextPath}/history/my_order_list">주문내역</a></li>
 					  <li><a href="${pageContext.request.contextPath}/member/member_wish_list">찜한 상품</a></li>
 					  <li><a href="${pageContext.request.contextPath}/delivery/form2">배송지 관리</a></li>
