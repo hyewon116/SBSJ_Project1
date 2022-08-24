@@ -10,12 +10,7 @@
             <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
             <style type="text/css">
-                #table1 {
-                    width: 800px;
-                    margin-left: 10px;
-                    margin-right: 10px;
-                }
-
+  
                 #qty {
                     position: relative;
                     display: inline-block;
@@ -56,42 +51,45 @@
                     vertical-align: top;
                 }
 
-                .qty_chg_btn {
-                    margin-left: 30px;
-                }
-
                 #total-table {
                     position: relative;
-                    width: 290px;
-                    right: 0;
+                    width: 400px;
+                    float:right;
                 }
+                th {
+				background: rgba(231,231,231,0.4)
+				}
+				#img-thumbnail{
+				width:150px;
+				height:200px;
+				}
             </style>
         </head>
 
         <body>
             <%@ include file="/WEB-INF/views/headerMain.jsp" %>
-            	<div class="container col-sm-8">
+            	<div class="container col-sm-7">
 	                <hr>
-	                <h3> 장바구니 </h3>
+	                <h3 style="text-align:center;"> 장바구니 </h3>
 	                <hr>
                 </div>
-                <div class="container col-sm-8">
-                <table class="table table-hover" id="table1" align="left">
+                <div class="container col-sm-7">
+                <table class="table table-hover" id="table1"  > <!-- align="left" -->
                     <col class="col-2">
                     <col class="col-3">
                     <col class="col-2">
                     <col class="col-2">
                     <col class="col-2">
                     <thead>
-                        <tr>
-                            <th> <input type="checkbox" id="cbx_chkAll" checked="checked">선택 </input> </th>
+                        <tr style="text-align:center;">
+                            <th> <input type="checkbox" id="cbx_chkAll" checked="checked" class="order_check_box"></input> </th>
                             <th></th>
                             <th id="md"> 상품</th>
                             <th id="count"> 수량 </th>
                             <th id="price"> 가격</th>
                         </tr>
                     </thead>
-                    <td>
+                    <tbody style="text-align:center;">
                         <c:set var="sum_md_class_qty" value="0" />
                         <c:set var="sum_buy_amt" value="0" />
                         <c:set var="sum_discount_amt" value="0" />
@@ -103,13 +101,13 @@
                                 value="${sum_discount_amt + ( (dto.md_price - dto.sale_price) * dto.buy_qty )}" />
                             <tr>
                                 <td>
-                                    <input type="checkbox" class="order_check_box form-control" checked="checked"
+                                    <input type="checkbox" class="order_check_box" checked="checked"
                                         id="${dto.md_price}" name="${dto.sale_price}" value="${dto.buy_qty}">
                                     <input type="hidden" id="cart_id${status.index}" name="cart_id${status.index}"
                                         value="${dto.cart_id}">
                                 </td>
                                 <td>
-                                    <img src="${dto.md_thumbnail_path}" class="img-thumbnail">
+                                    <img src="${dto.md_thumbnail_path}" class="img-thumbnail" id="img-thumbnail">
                                 </td>
                                 <td>
                                     <a href="${pageContext.request.contextPath}/md/detail?md_id=${dto.md_id}">
@@ -122,7 +120,7 @@
                                         <input type="text" value="${dto.buy_qty}" class="quantity_input" readonly>
                                         <button class="plus_btn" data-max-qty="${dto.md_stock}">+</button>
                                     </div>
-                                    <a class="qty_chg_btn" data-cart_id="${dto.cart_id}">변경</a>
+                                    <a class="qty_chg_btn" data-cart_id="${dto.cart_id}" >변경</a>
                                 <td> ${dto.md_price * dto.buy_qty - ( (dto.md_price - dto.sale_price) *
                                     dto.buy_qty )} 원 </td>
                                     <button style = "display:none;" class="cart_delete_btn "  value="${dto.cart_id}"> 
@@ -138,24 +136,26 @@
                                 <c:set var="delivery_cost" value="3000" />
                             </c:otherwise>
                         </c:choose>
-
-                    <td colspan="6">
-                        <button id="delete_btn" class="btn btn-large btn-default"> 선택상품 삭제 </button>
-                    </td>
-                    <tr>
-                        <td colspan="6" class="text-center">
-                            <button id="shop_btn" class="btn btn-danger btn-large"> 쇼핑 계속하기 </button>
-                        </td>
-                    </tr>
+                        </tbody>
+						<tr style="text-align:left;">
+	                    <td colspan="6">
+	                        <button id="delete_btn" class="btn btn-large btn-default" > 선택상품 삭제 </button>
+	                    </td>
+	                    </tr>
+	                    <tr>
+	                        <td colspan="6" class="text-center">
+	                            <button id="shop_btn" class="btn btn-danger btn-large"> 쇼핑 계속하기 </button>
+	                        </td>
+	                    </tr>
                 </table>
 
                 <table class="table table-hover" id="total-table">
                     <tr>
-                        <th> 총구매금액 </th>
+                        <th width="40%"> 총 구매 금액 </th>
                         <td class="text-right"> <span id="span_sum_buy_amt">${sum_buy_amt}</span> 원 </td>
                     </tr>
                     <tr>
-                        <th> 총할인금액 </th>
+                        <th> 총 할인 금액 </th>
                         <td class="text-right text-danger"> -<span id="span_sum_discount_amt">${sum_discount_amt}</span>
                             원 </td>
                     </tr>
@@ -167,7 +167,7 @@
                     </tr>
                     <tr>
                         <th>
-                            총결제금액
+                            총 결제 금액
                         </th>
                         <td class="text-right">
                             <span id="span_sum_total_buy_amt">${sum_buy_amt - sum_discount_amt+delivery_cost}</span> 원
