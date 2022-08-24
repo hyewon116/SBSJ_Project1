@@ -71,7 +71,7 @@
 			<c:forEach var="dto" items="${list}" varStatus="status">
 			<tr>
 				<td style="text-align: center;"><c:out value="${dto.qa_question_id}"/></td> 
-				<td><c:out value="${dto.qa_question_category}"/></td> 
+				<td style="text-align: center;"><c:out value="${dto.qa_question_category}"/></td> 
 				<td>
 				<c:if test="${dto.open_yn eq 'true'}">
 				<img src="${pageContext.request.contextPath}/resources/cs/padlock.png" width="16" height="16" alt="비밀글" />
