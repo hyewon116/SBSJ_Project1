@@ -15,6 +15,9 @@
 		ul {
 		list-style-type:none 
 		}
+		th {
+		background: rgba(231,231,231,0.4)
+		}
 		</style>
 	</head>
 	<body>
@@ -70,7 +73,7 @@
 	                        <td>${dto.buy_qty}개</td>
 	                        
 	                        <!-- 가격 -->
-	                        <td width="30%"> ${dto.md_price * dto.buy_qty - ( (dto.md_price - dto.sale_price) *dto.buy_qty )} 원 </td>
+	                        <td> ${dto.md_price * dto.buy_qty - ( (dto.md_price - dto.sale_price) *dto.buy_qty )} 원 </td>
 						</tr>
 						
 					</c:forEach>
@@ -97,7 +100,7 @@
 				<h4>구매자 정보</h4>
 				<table class="table table-hover">
 						<tr>
-						<th>이름  </th> <td>${memberdto.member_name} </td> 
+						<th  width="20%">이름  </th> <td>${memberdto.member_name} </td> 
 						</tr>
 						<tr>
 						<th>이메일</th> <td>${memberdto.member_email}</td> 
@@ -115,7 +118,7 @@
 <!-- 받는 사람 정보 시작 -->		
 		<div class="container col-sm-8">
 			<h4>받는 사람정보</h4> <hr>
-				<div class="col-6">
+				<div class="col-8" >
 				
 					<table class="table table-hover table-borderless">
 						<tr>
@@ -195,34 +198,33 @@
 <!-- 결제 정보 시작 -->
  <div class="container col-sm-8">
 		
-			<div class="col-6">
+			<div class="col-8">
 				<table class="table table-hover">
 					<tr>
-						<th> 총 상 품 수 </th>
+						<th width="40%"> 총 상품수 </th>
 						<td class="text-right"><span id="span_sum_md_class_qty">${sum_md_class_qty}</span> 개 </td>
 					</tr>
 					<tr>
-						<th> 총 구 매 금 액 </th>
+						<th> 총 구매 금액 </th>
 						<td class="text-right"><span id="span_sum_buy_amt">${sum_buy_amt}</span>원</td>
 					</tr>
 					<tr>
-						<th>상 품 할 인 금 액</th>
+						<th>상품 할인 금액</th>
 						<td class="text-right text-danger"> - <span id="span_sum_discount_amt">${sum_discount_amt}</span>원 </td>
 					</tr>
 					<tr>
-						<th>쿠 폰 할 인 금 액</th>
+						<th>쿠폰 할인 금액</th>
 						<td class="text-right text-danger"> - <span id="onlyCoupon">${onlyCoupon}</span>원 </td>
 					</tr>
 					
-					
 					<tr>
-                        <th> 배 송 비 </th>
+                        <th> 배송비 </th>
                         <td class="text-right">
                         	<span id="span_delivery_cost">${delivery_cost}</span>원
                         </td>
                     </tr>
 					<tr>
-						<th> <h3>총 결 제 금 액</h3> </th>
+						<th> <h3>총 결제 금액</h3> </th>
 						<td class="text-right"><span id="span_sum_total_buy_amt">${sum_buy_amt - sum_discount_amt + delivery_cost}</span>원</td>
 					</tr>
 					<tr>
@@ -251,11 +253,7 @@ $(function() {
 			function() {
 				
 				var couponValue = $("#couponList option:selected").val().split("#");
-//				alert(couponValue);
 				var coupon_dis = couponValue[0];//coupon_dis
-				var coupon_id = couponValue[1];
-				var coupon_yn = couponValue[2];
-//				alert(coupon); alert(coupon_id);  alert(coupon_yn);
 				
 				onlyCoupon = (total - sale) * (coupon_dis / 100); 
 				real = (total - sale) - onlyCoupon + delivery;
@@ -286,7 +284,7 @@ $(function() {
 	    	
 		    IMP.request_pay({
 		    pg: "kakaopay"
-		    ,pay_method: "card" //결제시 카드결제만 해야함. 카카오포인트로 결제 불가.
+		    ,pay_method: "card"
 	        ,merchant_uid:'merchant_'+new Date().getTime() //상점에서 관리하는 주문 번호
 	        ,name: $("#md_name").val()			
 	        ,amount: $("#span_sum_total_buy_amt").text()
@@ -301,7 +299,6 @@ $(function() {
 	                var msg = '결제가 완료 되었습니다.';
 	                
 					var couponValue = $("#couponList option:selected").val().split("#");
-//					alert(couponValue);
 					var coupon_id = couponValue[1];
 					
                     msg += ' 고유ID : ' + rsp.imp_uid;
