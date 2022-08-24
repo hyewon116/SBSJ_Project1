@@ -47,8 +47,13 @@
 }
 #insert {
 	margin-right : 30px;
+	
+	
 }
-		</style>
+th {
+background: rgba(231,231,231,0.4)
+}		
+</style>
 	</head>
 	
 	<body>
@@ -235,23 +240,24 @@
 						<table class="table table-hover table-borderless mr-5">
 							<tbody>
 								<tr>
-									<th> 총 상 품 수 </th>
+									<th width="40%"> 총 상품수 </th>
 									<td class="text-right"> <span id="span_sum_md_class_qty"></span> 개 </td>
 								</tr>
 								<tr>
-									<th> 총 구 매 금 액 </th>
+									<th> 총 구매 금액 </th>
 									<td class="text-right"> <span id="span_sum_buy_amt"></span> 원 </td>
 								</tr>
 								<tr>
-									<th> 쿠 폰 할 인 금 액 </th>
+									<th> 쿠폰 할인 금액 </th>
 									<td class="text-right text-danger"> -<span id="onlyCoupon"></span> 원 </td>
 								</tr>
 								<tr>
-									<th> 총 할 인 금 액 </th>
+									<th> 상품 할인 금액 </th>
 									<td class="text-right text-danger"> -<span id="span_sum_discount_amt"></span> 원 </td>
 								</tr>
+								
 								<tr>
-									<th> <h3>총 결 제 금 액</h3> </th>
+									<th> <h3>총 결제 금액</h3> </th>
 									<td class="text-right"> <h3><span id="span_sum_total_buy_amt"></span> 원</h3> </td>
 								</tr>
 							</tbody>
