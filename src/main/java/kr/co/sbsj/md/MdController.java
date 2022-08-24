@@ -158,19 +158,7 @@ public class MdController {
 		model.addAttribute("md_id", md_id); //상품후기&문의 게시판에 보낼 md_id 정보
 		return "/md/detail";//jsp file name
 	}//detail
-	
-	
-	//상품 리스트
-//	@RequestMapping( value = "/list", method = RequestMethod.GET )
-//	public String list( Model model, String userWantPage, SearchDTO dto, String md_id ) {
-//
-//		List<MdDTO> list = null;
-//		list = service.searchList( dto ); //limitNum, md_id가 담긴 dto
-//		model.addAttribute("list", list);
-//		model.addAttribute("search_dto", dto);//검색용 dto
-//		
-//		return "/md/list";//jsp file name
-//	}//list
+
 	
 	//베스트 상품 리스트
 	@RequestMapping( value = "/best_list", method = RequestMethod.GET )

@@ -123,8 +123,8 @@
 		<table class="text-center text-capitalize table table-hover" id="admin_md">
 			<thead>
 				<tr>
-					<th><input id="allCheck" type="checkbox" name="allCheck"></th> <th> 상품번호 </th> <th> image </th>  <th> 상품명 </th> 
-					<th> 가격 </th>	<th> 주종 </th> <th> 기준재고 </th> <th> 판매수량 </th> <th> 잔여재고 </th> <th> 판매여부 </th>
+					<th><input id="allCheck" type="checkbox" name="allCheck"></th> <th> 상품<br>번호 </th> <th> image </th>  <th> 상품명 </th> 
+					<th> 가격 </th>	<th> 주종 </th> <th> 기준<br>재고 </th> <th> 판매<br>수량 </th> <th> 잔여<br>재고 </th> <th> 판매<br>여부 </th>
 				</tr>
 			</thead>
 			<tbody>
@@ -178,9 +178,9 @@
 				<button id="delete_btn" class="btn btn-danger float-left" onclick="deleteValue();"> 상 품 삭 제 </button>
 		</div>
 		<hr>
-		<ul class="pagination">
+		<ul class="pagination justify-content-center">
 			<c:if test="${startPageNum > 10}">
-				<li class="page-item mx-auto">
+				<li class="page-item">
 					<a class="page-link"
 						href="${pageContext.request.contextPath}/admin/admin_md_list?userWantPage=${startPageNum-1}&searchOption1=${search_dto.searchOption1}&searchWord1=${search_dto.searchWord1}">
 						Previous
@@ -190,12 +190,12 @@
 			<c:forEach var="page_no" begin="${startPageNum}" end="${endPageNum}">
 				<c:choose>
 					<c:when test="${page_no == userWantPage}">
-						<li class="page-item active mx-auto">
+						<li class="page-item active">
 							<a class="page-link">${page_no}</a>
 						</li>
 					</c:when>
 					<c:otherwise>
-						<li class="page-item mx-auto">
+						<li class="page-item">
 							<a class="page-link"
 								href="${pageContext.request.contextPath}/admin/admin_md_list?userWantPage=${page_no}&searchOption1=${search_dto.searchOption1}&searchWord1=${search_dto.searchWord1}">
 								${page_no}
@@ -205,7 +205,7 @@
 				</c:choose>
 			</c:forEach>
 			<c:if test="${lastPageNum > endPageNum}">
-				<li class="page-item mx-auto">
+				<li class="page-item">
 					<a class="page-link"
 						href="${pageContext.request.contextPath}/admin/admin_md_list?userWantPage=${endPageNum+1}&searchOption1=${search_dto.searchOption1}&searchWord1=${search_dto.searchWord1}">
 						Next
