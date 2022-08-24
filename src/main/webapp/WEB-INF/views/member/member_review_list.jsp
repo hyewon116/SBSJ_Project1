@@ -148,9 +148,9 @@
 		<hr>
 		
 		<!-- 페이징 부분 -->
-		<ul class="pagination">
+		<ul class="pagination justify-content-center">
 			<c:if test="${startPageNum > 10}">
-				<li class="page-item mx-auto">
+				<li class="page-item">
 					<a class="page-link"
 						href="${pageContext.request.contextPath}/member/member_review_list?userWantPage=${startPageNum-1}&searchOption1=${search_dto.searchOption1}&searchWord1=${search_dto.searchWord1}">
 						Previous
@@ -160,12 +160,12 @@
 			<c:forEach var="page_no" begin="${startPageNum}" end="${endPageNum}">
 				<c:choose>
 					<c:when test="${page_no == userWantPage}">
-						<li class="page-item active mx-auto">
+						<li class="page-item active">
 							<a class="page-link">${page_no}</a>
 						</li>
 					</c:when>
 					<c:otherwise>
-						<li class="page-item mx-auto">
+						<li class="page-item">
 							<a class="page-link"
 								href="${pageContext.request.contextPath}/member/member_review_list?userWantPage=${page_no}&searchOption1=${search_dto.searchOption1}&searchWord1=${search_dto.searchWord1}">
 								${page_no}
@@ -175,7 +175,7 @@
 				</c:choose>
 			</c:forEach>
 			<c:if test="${lastPageNum > endPageNum}">
-				<li class="page-item mx-auto">
+				<li class="page-item">
 					<a class="page-link"
 						href="${pageContext.request.contextPath}/member/member_review_list?userWantPage=${endPageNum+1}&searchOption1=${search_dto.searchOption1}&searchWord1=${search_dto.searchWord1}">
 						Next

@@ -43,21 +43,27 @@
 
 	<select id="question_detail" parameterType="java.lang.String" resultType="kr.co.sbsj.mdquestion.MdQuestionDTO">
 		select md_question_id, md_id, member_id, member_nick, md_question_title,  
-		md_question_content, md_question_date, md_question_answer, md_question_type, 
-		md_answer_id, md_answer_member, md_answer_content, md_answer_date
+		md_question_content, md_question_date, md_question_answer, md_question_type, member_email
     	from md_question
 		where md_question_id = #{md_question_id} 
 	</select>
 
 	<select id="searchQuestionCount" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="int">
-		select count(q.md_question_id) cnt
-		from md_question q, md m
+		select count(q.md_id) cnt
+		from md_question q
+		<if test="searchOption1 != null and searchOption1 != ''">
+			<choose>
+				<when test="searchOption1 == 'md_name'">
+		, md m
+				</when>
+			</choose>
+		</if>
 		where q.member_id = #{member_id}
 		
 		<if test="searchOption1 != null and searchOption1 != ''">
 			<choose>
 				<when test="searchOption1 == 'md_name'">
-				and q.md_id = m.md_id and  m.md_name like concat('%', #{searchWord1}, '%')
+				and q.md_id = m.md_id and m.md_name like concat('%', #{searchWord1}, '%')
 				</when>
 			</choose>
 		</if>
@@ -66,8 +72,7 @@
 	<select id="searchQuestion" parameterType="kr.co.sbsj.util.dto.SearchDTO"
 			resultType="kr.co.sbsj.mdquestion.MdQuestionDTO">
 		select q.md_question_id, q.md_id, q.member_id, q.member_nick, q.md_question_title,  
-		q.md_question_content, q.md_question_date, q.md_question_answer, q.md_question_type, 
-		q.md_answer_id, q.md_answer_member, q.md_answer_content, q.md_answer_date,
+		q.md_question_content, q.md_question_date, q.md_question_answer, q.md_question_type, q.member_email,
 		m.md_name, m.md_thumbnail_path
     	from md_question q, md m
     	where q.md_id = m.md_id and q.member_id = #{member_id}
@@ -94,10 +99,20 @@
 	</select>
 
 	<select id="searchReviewCount" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="int">
-		select count(r.md_id) cnt
-		from review r, md m
+		select count(r.review_id) cnt
+		from review r
+		<if test="searchOption1 != null and searchOption1 != ''
+					and searchWord1 != null and searchWord1 !=''">
+			<choose>
+				<when test="searchOption1 == 'md_name'">
+					, md m
+				</when>
+				<when test="searchOption1 == 'review_star'">
+					, md m
+				</when>
+			</choose>
+		</if>
 		where r.member_id = #{member_id}
-		
 		<if test="searchOption1 != null and searchOption1 != ''
 					and searchWord1 != null and searchWord1 !=''">
 			<choose>
