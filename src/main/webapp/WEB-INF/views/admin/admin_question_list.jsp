@@ -18,9 +18,6 @@
 
 		<!-- CSS 파일 -->
 		
-		
-		
-		
 <style type="text/css">
 		
 
@@ -50,6 +47,9 @@
 	margin-right : 30px;
 }
 
+#admin_q th, #admin_q td {
+	vertical-align : middle; !important;
+}
 </style>	
 
 
@@ -106,50 +106,57 @@
 				</div>
 			</div>
 		</form>
-		<table class="text-center text-capitalize table table-hover">
+		<table class="text-center text-capitalize table table-hover" id="admin_q">
+			<col class="col-1">
+			<col class="col-1">
+			<col class="col-2">
+			<col class="col-2">
+			<col class="col-1">
+			<col class="col-2">
+			<col class="col-1">
+			<col class="col-2">
+			<col class="col-1">
 			<thead>
 				<tr>
-					<th><input id="allCheck" type="checkbox" name="allCheck"></th><th> 번호 </th> 
+					<th><input id="allCheck" type="checkbox" name="allCheck"> 번호</th>
 					<th> Image </th> <th> 상품명 </th> <th> 제목 </th> <th> 작성자 </th> <th> 작성일 </th>
-					<th> 문의유형 </th> <th> 답변상태 </th> <th> 공개여부 </th>
+					<th> 문의<br>유형 </th> <th> 답변<br>상태 </th> <th> 공개<br>여부 </th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="dto" items="${list}">
 					<tr>
-						<td class="col-1">
+						<td>
 							<input name="RowCheck" type="checkbox" value="${dto.md_question_id}">
-						</td>
-						<td class="col-1">
 						${dto.md_question_id}
 						</td>
 					
-						<td class="col-1">
+						<td>
 							<img src="${dto.md_thumbnail_path}" class="img-thumbnail">
 						</td>
-						<td class="col-1">
+						<td>
 							<a href="${pageContext.request.contextPath}/md/detail?md_id=${dto.md_id}">
 							${dto.md_name}
 							</a>
 						</td>
-						<td class="col-2">
+						<td>
 							<a href="${pageContext.request.contextPath}/admin/question_detail?md_question_id=${dto.md_question_id}">
 							${dto.md_question_title}
 							</a>
 						</td>
-						<td class="col-1">
+						<td>
 							${dto.member_nick}님
 						</td>
-						<td class="col-1">
+						<td>
 							${dto.md_question_date}
 						</td>
-						<td class="col-1">
+						<td>
 							${dto.md_question_type}
 						</td>
-						<td class="col-1">
+						<td>
 							${dto.md_question_answer}
 						</td>
-						<td class="col-1">
+						<td>
 							${dto.question_enable} 
 						</td>
 						
@@ -165,9 +172,11 @@
 				<button id="delete_btn" class="btn btn-danger float-left" onclick="deleteQuestion();"> 문 의 삭 제 </button>
 		</div>
 		<hr>
-		<ul class="pagination">
+		
+		<!-- 페이징 부분 -->
+		<ul class="pagination justify-content-center">
 			<c:if test="${startPageNum > 10}">
-				<li class="page-item mx-auto">
+				<li class="page-item">
 					<a class="page-link"
 						href="${pageContext.request.contextPath}/admin/admin_question_list?userWantPage=${startPageNum-1}&searchOption1=${search_dto.searchOption1}">
 						Previous
@@ -177,12 +186,12 @@
 			<c:forEach var="page_no" begin="${startPageNum}" end="${endPageNum}">
 				<c:choose>
 					<c:when test="${page_no == userWantPage}">
-						<li class="page-item active mx-auto">
+						<li class="page-item active">
 							<a class="page-link">${page_no}</a>
 						</li>
 					</c:when>
 					<c:otherwise>
-						<li class="page-item mx-auto">
+						<li class="page-item">
 							<a class="page-link"
 								href="${pageContext.request.contextPath}/admin/admin_question_list?userWantPage=${page_no}&searchOption1=${search_dto.searchOption1}">
 								${page_no}
@@ -192,7 +201,7 @@
 				</c:choose>
 			</c:forEach>
 			<c:if test="${lastPageNum > endPageNum}">
-				<li class="page-item mx-auto">
+				<li class="page-item">
 					<a class="page-link"
 						href="${pageContext.request.contextPath}/admin/admin_question_list?userWantPage=${endPageNum+1}&searchOption1=${search_dto.searchOption1}">
 						Next

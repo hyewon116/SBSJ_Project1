@@ -50,6 +50,9 @@
 .update_btn{
 	text-align: right;
 }
+#admin_order th, #admin_order td {
+	vertical-align : middle; !important;
+}
 
 
 		</style>
@@ -111,18 +114,18 @@
 				</div>
 			</div>
 		</form> 
-		<table class="table table-hover">
-			<col class="col-2">
+		
+		<table class="table table-hover" id="admin_order">
 			<col class="col-2">
 			<col class="col-1">
 			<col class="col-2">
+			<col class="col-3">
 			<col class="col-2">
 			<col class="col-2">
-			
 			
 			<thead>
 				<tr>
-					<th> 주문날짜 </th><th> 주문번호 </th> <th>이름</th>
+					<th> 주문날짜 </th><th> 주문<br>번호 </th> <th>이름</th>
 						<th>상품</th><th> 결제금액 </th> 
 						<th> 주문상태 </th>
 				</tr>

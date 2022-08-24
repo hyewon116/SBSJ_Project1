@@ -41,6 +41,10 @@
 		#delete_btn {
 			margin-right : 30px;
 		}
+		#q_table th, #q_table td {
+			vertical-align : middle; !important;
+		}
+		
 		
 	</style>	
 	</head>
@@ -95,7 +99,15 @@
 				</div>
 			</div>
 		</form>
-		<table class="text-center text-capitalize table table-hover">
+		<table class="text-center text-capitalize table table-hover" id="q_table">
+			<col class="col-1">
+			<col class="col-1">
+			<col class="col-2">
+			<col class="col-2">
+			<col class="col-2">
+			<col class="col-2">
+			<col class="col-2">
+			
 			<thead>
 				<tr>
 					<th><input id="allCheck" type="checkbox" name="allCheck"></th> 

@@ -6,7 +6,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title> 구매 내역 </title>
+		<title> 상부상酒  |  주문 내역 </title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -52,7 +52,16 @@
 }
 th {
 background: rgba(231,231,231,0.4)
-}		
+}
+
+#order_table img {
+	width : 70px;
+}
+
+#order_table th, #order_table td {
+	vertical-align : middle; !important;
+}
+		
 </style>
 	</head>
 	
@@ -61,7 +70,6 @@ background: rgba(231,231,231,0.4)
 			<jsp:include page="/WEB-INF/views/headerMain.jsp"></jsp:include>
 			<br>
 			<br>
-	
 	
 		<div class="container">
 			
@@ -76,19 +84,16 @@ background: rgba(231,231,231,0.4)
 				
 				<!--  aside 시작 -->	
 				<aside class="col-3 h-100 bg-white float-left">
-					
-					
+									
 				<jsp:include page="/WEB-INF/views/member/mypage_aside.jsp"></jsp:include>
-				<br>
-				<br>			
-				
-				
-				
+				<br><br>			
 				</aside>
 				
-			<!--  aside 끝 -->	
-			<!-- section 시작--------------------------------------------------------------------------------- -->
-				<section class="col-9 h-100 bg-white float-left">
+				<!--  aside 끝 -->	
+				
+				
+	<!-- section 시작--------------------------------------------------------------------------------- -->
+	<section class="col-9 h-100 bg-white float-left">
 		<hr>
 		<h3> 주문 내역 </h3>
 		<hr>
@@ -108,19 +113,18 @@ background: rgba(231,231,231,0.4)
 				</div>
 			</div>
 		</form>
-		<table class="table table-hover">
+		<table class="table table-hover" id="order_table">
 			<col class="col-2">
-			<col class="col-2">
-			<col class="col-2">
-			<col class="col-2">
+			<col class="col-1">
 			<col class="col-2">
 			<col class="col-3">
+			<col class="col-2">
+			<col class="col-2">
 			
 			<thead>
 				<tr>
-					<th> 결제일 </th> <th>주문번호</th>
-					<th> 상품 이미지 </th>	<th> 상품명 </th> <th> 결제금액 </th> 
-						<th> 주문상태 </th>
+					<th> 결제일 </th> <th>주문번호</th> <th> 상품 이미지 </th>	<th> 상품명 </th> 
+					<th> 결제금액 </th> <th> 주문상태 </th>
 				</tr>
 			</thead>
 			<tbody>

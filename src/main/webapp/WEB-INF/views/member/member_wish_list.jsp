@@ -41,6 +41,9 @@
 		#delete_btn {
 			margin-right : 30px;
 		}
+		#wish_table th, #wish_table td {
+			vertical-align : middle; !important;
+		}
 		
 	</style>	
 	</head>

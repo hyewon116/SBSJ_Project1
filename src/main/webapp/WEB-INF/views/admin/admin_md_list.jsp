@@ -50,6 +50,10 @@
 	margin-right : 30px;
 }
 
+#admin_md th, #admin_md td {
+	vertical-align : middle; !important;
+}
+
 </style>	
 
 
@@ -93,7 +97,8 @@
 		<hr>
 		<h3> 상품 관리 </h3>
 		<hr>
-					  	
+		
+		<!-- 검색창 -->  	
 		<form action="${pageContext.request.contextPath}/admin/admin_md_list" method="get">
 			<div class="input-group">
 				<div class="input-group-prepend">
@@ -113,7 +118,9 @@
 				</div>
 			</div>
 		</form>
-		<table class="text-center text-capitalize table table-hover">
+		
+		<!-- 테이블 시작 -->
+		<table class="text-center text-capitalize table table-hover" id="admin_md">
 			<thead>
 				<tr>
 					<th><input id="allCheck" type="checkbox" name="allCheck"></th> <th> 상품번호 </th> <th> image </th>  <th> 상품명 </th> 
@@ -132,12 +139,12 @@
 						<td class="col-1">
 							<img src="${dto.md_thumbnail_path}" class="img-thumbnail">
 						</td>
-						<td class="col-1">
+						<td class="col-2">
 							<a href="${pageContext.request.contextPath}/admin/admin_md_detail?md_id=${dto.md_id}">
 							${dto.md_name}	
 							</a>
 						</td>
-						<td class="col-1">
+						<td class="col-2">
 							${dto.md_price} 원
 						</td>
 						<td class="col-1">

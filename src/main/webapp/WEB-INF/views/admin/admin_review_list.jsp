@@ -49,6 +49,9 @@
 #insert {
 	margin-right : 30px;
 }
+#admin_review th, #admin_review td {
+	vertical-align : middle; !important;
+}
 
 </style>	
 
@@ -93,7 +96,8 @@
 			<hr>
 			<h3> 상품 후기 관리 </h3>
 			<hr>
-				  	
+		
+		<!-- 검색창 -->		  	
 		<form action="${pageContext.request.contextPath}/admin/admin_review_list" method="get">
 			<div class="input-group">
 				<div class="input-group-prepend">
@@ -116,50 +120,56 @@
 				</div>
 			</div>
 		</form>
-		<table class="text-center text-capitalize table table-hover">
+		
+		<!-- 테이블 시작 -->
+		<table class="text-center text-capitalize table table-hover" id="admin_review">
+			<col class="col-1">
+			<col class="col-1">
+			<col class="col-2">
+			<col class="col-2">
+			<col class="col-2">
+			<col class="col-2">
+			<col class="col-1">
+			<col class="col-1">
 			<thead>
 				<tr>
-					<th><input id="allCheck" type="checkbox" name="allCheck"></th><th> 번호 </th> 
+					<th><input id="allCheck" type="checkbox" name="allCheck"> 번호</th>
 					<th> Image </th> <th> 상품명 </th> <th> 제목 </th> <th> 작성자 </th> 
-					<th> 작성일 </th> <th> 별점 </th> <th> 공개여부 </th>
+					<th> 작성일 </th> <th> 별점 </th> <th> 공개<br>여부 </th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="dto" items="${list}">
 					<tr>
-						<td class="col-1">
+						<td>
 							<input name="RowCheck" type="checkbox" value="${dto.review_id}">
-						</td>
-						<td class="col-1">
 						${dto.review_id}
 						</td>
 					
-						<td class="col-1">
+						<td>
 							<img src="${dto.md_thumbnail_path}" class="img-thumbnail">
 						</td>
-						<td class="col-1">
+						<td>
 							<a href="${pageContext.request.contextPath}/md/detail?md_id=${dto.md_id}">
 							${dto.md_name}
 							</a>
 						</td>
-						<td class="col-2">
+						<td>
 							<a href="${pageContext.request.contextPath}/mdreview/detail_admin?review_id=${dto.review_id}">
 							${dto.review_title}
 							</a>
 						</td>
-						<td class="col-1">
+						<td>
 							${dto.member_nick}님
 						</td>
-						<td class="col-1">
+						<td>
 							${dto.review_date}
 						</td>
-						<td class="col-1">
-						
+						<td>
 							<c:set var="star" value="${dto.review_star}" />
 							${ fn:substring(star, 0, star.length()-2) }점
-							
 						</td>
-						<td class="col-1">
+						<td>
 							${dto.review_enable} 
 						</td>
 						

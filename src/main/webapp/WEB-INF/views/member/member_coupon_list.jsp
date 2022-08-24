@@ -12,7 +12,6 @@
 		<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-
 	
 	<style type="text/css">
 
@@ -33,6 +32,11 @@
 		
 		#myMenu li a:hover {
 		  background-color: #eee;
+		}
+		
+		#coupon_table {
+			border-collapse: separate;
+			border-spacing : 0 15px;
 		}
 		
 		#coupon_table td{
@@ -85,13 +89,12 @@
 				</aside>
 				<!--  aside 끝 -->	
 				
-		<!-- section 시작---------------------------------------------------------------------------->
+	<!-- section 시작---------------------------------------------------------------------------->
 	<section class="col-9 h-100 bg-white float-left">
 		<hr>
 		<h3> 쿠폰 목록 </h3>
 		<hr>
 					 
-		<hr> 	
 		<table id="coupon_table">
 		
 		<c:forEach var="dto" items="${coupon_list}">
