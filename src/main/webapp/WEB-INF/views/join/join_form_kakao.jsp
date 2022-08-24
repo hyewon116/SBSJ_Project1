@@ -45,29 +45,10 @@
 			<header class="jumbotron bg-white mt-1 mb-1">
 				<h1 class="text-center"> 회원 가입</h1>
 			</header>
-			<!-- <nav class="navbar navbar-expand-sm bg-secondary navbar-dark">
-				<a class="navbar-band"> L O G O </a>
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item"><a class="nav-link"> 메뉴 1 </a></li>
-					<li class="nav-item"><a class="nav-link"> 메뉴 2 </a></li>
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle"
-							data-toggle="dropdown" href="#"> Dropdown 메뉴 </a>
-						<div class="dropdown-menu">
-							<a class="dropdown-item"> Menu Botton 1 </a>
-							<a class="dropdown-item"> Menu Botton 2 </a>
-						</div>
-					</li>
-				</ul>
-				<form class="form-inline">
-					<input type="text" class="form-control mr-sm-2" placeholder="S E A R C H">
-					<button class="btn btn-success">SEARCH</button>
-				</form>
-			</nav> -->
 			
 			<main class="clearfix mt-1" style="height:900px">
 				<!-- 차후 aside col-1 을 0로 변경 및 색상 white로 변경하여 눈에 보지이 않게 조치에정 -->
-				<aside class="col-1 h-100 bg-warning float-left">aside</aside>
+				<aside class="col-1 h-100 bg-white float-left"></aside>
 				<section class="col-9 h-100 bg-white float-left">
 					<table class="table table-hover">
 			<hr size="30" noshade>
@@ -409,7 +390,7 @@
 
 	</script>
 				</section>
-				<aside class="col-1  h-100 bg-warning float-right">aside</aside>
+				<aside class="col-1  h-100 bg-white float-right"></aside>
 			</main>
 			
 		</div><!-- container -->
