@@ -50,7 +50,7 @@
 			and md_sparkling = #{md_sparkling}
 		</if>
 		<if test="md_use != null and md_use != ''">
-			and where md_use = #{md_use}
+			and md_use = #{md_use}
 		</if>
 
 		order by md_id desc
@@ -63,6 +63,18 @@
 		where md_onsale = "Y"
 		<if test="md_category != null and md_category != ''">
 			and md_category = #{md_category}
+		</if>
+		<if test="md_sweet != null and md_sweet != ''">
+			and md_sweet = #{md_sweet}
+		</if>
+		<if test="md_sour != null and md_sour != ''">
+			and md_sour = #{md_sour}
+		</if>
+		<if test="md_sparkling != null and md_sparkling != ''">
+			and md_sparkling = #{md_sparkling}
+		</if>
+		<if test="md_use != null and md_use != ''">
+			and md_use = #{md_use}
 		</if>
 	</select>
 
