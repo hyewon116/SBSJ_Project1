@@ -52,6 +52,9 @@
 		<if test="md_use != null and md_use != ''">
 			and md_use = #{md_use}
 		</if>
+		<if test="searchWord != null and searchWord != ''">
+			and md_name like concat('%', #{searchWord}, '%')
+		</if>
 
 		order by md_id desc
 		limit #{limitNum}, 4
@@ -76,6 +79,10 @@
 		<if test="md_use != null and md_use != ''">
 			and md_use = #{md_use}
 		</if>
+		<if test="searchWord != null and searchWord != ''">
+			and md_name like concat('%', #{searchWord}, '%')
+		</if>
+		
 	</select>
 
 	<select id="selectList" parameterType="kr.co.sbsj.util.dto.SearchDTO"
@@ -88,7 +95,7 @@
     	from md
     	where md_onsale = "Y"
     	<if test="searchWord != null and searchWord != ''">
-			and where md_name like concat('%', #{searchWord}, '%')
+			and md_name like concat('%', #{searchWord}, '%')
 		</if>
 		order by md_id desc
 		limit #{limitNum}, 4
@@ -102,7 +109,6 @@
 			and md_name like concat('%', #{searchWord}, '%')
 		</if>
 	</select>
-
 
 	<select id="bestListCount" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="int">
 		select count(m.md_id) cnt

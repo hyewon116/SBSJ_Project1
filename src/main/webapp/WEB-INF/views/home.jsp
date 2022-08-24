@@ -99,7 +99,7 @@
 		<div class="col-2">
 		</div>
 		<div class="col">
-			상부상酒의 이 달의 추천 상품
+			상부상酒의 추천 상품
 		</div>
 		<div class="col-2">
 		</div>

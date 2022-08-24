@@ -117,6 +117,7 @@ public class MdController {
 		
 		List<MdDTO> list = null;
 		list = service.searchList2( dto ); //주종~상황별 속성 + limitNum 담은 dto
+		model.addAttribute("search_dto", dto);//검색용 dto
 		model.addAttribute("list", list);
 		return "/md/list";//jsp file name
 	}//list_cate
