@@ -204,7 +204,7 @@
                     $.post(
         					"${pageContext.request.contextPath}/order/sub_insert"
         					, {
-        						delivery_id : $("#sub_id").val()
+        						delivery_id : $("#delivery_id").val()
         						, sub_price : rsp.paid_amount
         						, sub_name : rsp.name
         						, sub_id : $("#sub_id").val()

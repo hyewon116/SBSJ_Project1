@@ -95,7 +95,7 @@ public class OrderDAO {
 	
 	public int subInsert( OrderMainDTO dto) {
 		int successCount = 0;
-		successCount = sqlSession.insert("NoticeMapper.subInsert", dto);
+		successCount = sqlSession.insert("OrderMapper.subInsert", dto);
 		return successCount;
 	}//subInsert
 
