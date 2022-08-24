@@ -49,12 +49,24 @@ public class MdService {
 		list = dao.searchList( dto );
 		return list;
 	}//searchList
+	
+	public List<MdDTO> bestList( SearchDTO dto ) {
+		List<MdDTO> list = null;
+		list = dao.bestList( dto );
+		return list;
+	}//bestList
 
 	public int searchListCount( SearchDTO dto ) {
 		int totalCount = 0;
 		totalCount = dao.searchListCount( dto );
 		return totalCount;
 	}//searchListCount
+	
+	public int bestListCount( SearchDTO dto ) {
+		int totalCount = 0;
+		totalCount = dao.bestListCount( dto );
+		return totalCount;
+	}//bestListCount
 	
 	public int insert( MdDTO dto ) {
 		int successCount = 0;

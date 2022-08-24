@@ -82,7 +82,7 @@
               <a class="nav-link" href="/event/toEvent">신상품</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="/event/toEvent">베스트</a>
+              <a class="nav-link" href="${pageContext.request.contextPath}/md/best_list">베스트</a>
           </li>
           <li class="nav-item">
               <a class="nav-link" href="${pageContext.request.contextPath}/md/subs_list">정기구독</a>

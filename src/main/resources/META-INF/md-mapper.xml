@@ -35,21 +35,22 @@
 		, md_content, md_thumbnail_name, md_thumbnail_path, md_detail_name,
 		md_detail_path, md_content, md_standard_stock, md_sales_rate, md_stock
 		, md_sweet, md_sour, md_sparkling, md_use, md_ratingAvg, md_onsale
-    	from md
+    	from md 
+    	where md_onsale = "Y"
 		<if test="md_category != null and md_category != ''">
-			where md_category = #{md_category} and md_onsale = "Y"
+			and md_category = #{md_category}
 		</if>
 		<if test="md_sweet != null and md_sweet != ''">
-			where md_sweet = #{md_sweet} and md_onsale = "Y"
+			and md_sweet = #{md_sweet}
 		</if>
 		<if test="md_sour != null and md_sour != ''">
-			where md_sour = #{md_sour} and md_onsale = "Y"
+			and md_sour = #{md_sour}
 		</if>
 		<if test="md_sparkling != null and md_sparkling != ''">
-			where md_sparkling = #{md_sparkling} and md_onsale = "Y"
+			and md_sparkling = #{md_sparkling}
 		</if>
 		<if test="md_use != null and md_use != ''">
-			where md_use = #{md_use} and md_onsale = "Y"
+			and where md_use = #{md_use}
 		</if>
 
 		order by md_id desc
@@ -70,8 +71,9 @@
 		md_detail_path, md_content, md_standard_stock, md_sales_rate, md_stock
 		, md_sweet, md_sour, md_sparkling, md_use, #{md_ratingAvg}
     	from md
+    	where md_onsale = "Y"
     	<if test="searchWord != null and searchWord != ''">
-			where md_name like concat('%', #{searchWord}, '%') and md_onsale = "Y"
+			and where md_name like concat('%', #{searchWord}, '%')
 		</if>
 		order by md_id desc
 		limit #{limitNum}, 4
@@ -80,10 +82,43 @@
 	<select id="searchListCount" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="int">
 		select count(md_id) cnt
 		from md
+		where md_onsale = "Y"
 		<if test="searchWord != null and searchWord != ''">
-			where md_name like concat('%', #{searchWord}, '%') and md_onsale = "Y"
+			and md_name like concat('%', #{searchWord}, '%')
 		</if>
 	</select>
+
+
+	<select id="bestListCount" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="int">
+		select count(m.md_id) cnt
+		from md m, review r
+		where m.md_id = r.md_id and review_star >= "3.5"
+		
+		<if test="searchWord != null and searchWord != ''">
+			and m.md_name like concat('%', #{searchWord}, '%') and m.md_onsale = "Y"
+		</if>
+	</select>
+	
+	<select id="bestList" parameterType="kr.co.sbsj.util.dto.SearchDTO"
+			resultType="kr.co.sbsj.md.MdDTO">
+		select md.md_id, md.md_name, md.md_oneline, md.md_price, md.md_category, md.md_abv, md.md_discount
+		, truncate( md.md_price - (md.md_price / 100 * md.md_discount), 0 ) sale_price
+		, md.md_content, md.md_thumbnail_name, md.md_thumbnail_path, md.md_detail_name,
+		md.md_detail_path, md.md_content, md.md_standard_stock, md.md_sales_rate, md.md_stock
+		, md.md_sweet, md.md_sour, md.md_sparkling, md.md_use, avg(r.review_star) md_avg
+    	from md md, review r
+		where md.md_id = r.md_id and md.md_onsale = "Y"
+        group by md_name
+        having md_avg >= "3.5"
+    	<if test="searchWord != null and searchWord != ''">
+			and md.md_name like concat('%', #{searchWord}, '%')
+		</if>
+		order by md.md_id desc
+		limit #{limitNum}, 4
+	</select>
+
+
+
 
 	<insert id="insert" parameterType="kr.co.sbsj.md.MdDTO">
 	INSERT INTO md (md_name, md_oneline, md_price, md_category, md_abv

@@ -50,12 +50,24 @@ public class MdDAO {
 		list = sqlSession.selectList("MdMapper.selectList", dto);
 		return list;
 	}//searchList
+	
+	public List<MdDTO> bestList( SearchDTO dto ) {
+		List<MdDTO> list = null;
+		list = sqlSession.selectList("MdMapper.bestList", dto);
+		return list;
+	}//searchList
 
 	public int searchListCount( SearchDTO dto ) {
 		int totalCount = 0;
 		totalCount = sqlSession.selectOne("MdMapper.searchListCount", dto);
 		return totalCount;
 	}//searchListCount
+	
+	public int bestListCount( SearchDTO dto ) {
+		int totalCount = 0;
+		totalCount = sqlSession.selectOne("MdMapper.bestListCount", dto);
+		return totalCount;
+	}//bestListCount
 	
 	public int insert( MdDTO dto ) {
 		int successCount = 0;

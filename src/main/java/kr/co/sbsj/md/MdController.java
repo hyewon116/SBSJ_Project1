@@ -161,14 +161,26 @@ public class MdController {
 	//상품 리스트
 	@RequestMapping( value = "/list", method = RequestMethod.GET )
 	public String list( Model model, String userWantPage, SearchDTO dto, String md_id ) {
+
+		List<MdDTO> list = null;
+		list = service.searchList( dto ); //limitNum, md_id가 담긴 dto
+		model.addAttribute("list", list);
+		model.addAttribute("search_dto", dto);//검색용 dto
+		
+		return "/md/list";//jsp file name
+	}//list
+	
+	//상품 리스트
+	@RequestMapping( value = "/best_list", method = RequestMethod.GET )
+	public String bestList( Model model, String userWantPage, SearchDTO dto, String md_id ) {
 		if( userWantPage == null || userWantPage.equals("") ) userWantPage = "1";
 		int totalCount = 0, startPageNum = 1, endPageNum = 10, lastPageNum = 1;
-		totalCount = service.searchListCount( dto ); //md_id를 넘기기 위한 dto
-
+		totalCount = service.bestListCount( dto ); //md_id를 넘기기 위한 dto
+		
 		if(totalCount > 4) {
 			lastPageNum = (totalCount / 4) + (totalCount % 4 > 0 ? 1 : 0);
 		}//if
-
+		
 		if(userWantPage.length() >= 2) { 
 			String frontNum = userWantPage.substring(0, userWantPage.length() - 1);//12 -> 1
 			startPageNum = Integer.parseInt(frontNum) * 10 + 1;
@@ -179,23 +191,23 @@ public class MdController {
 				endPageNum = endPageNum - 10;
 			}//if
 		}//if
-
+		
 		if(endPageNum > lastPageNum) endPageNum = lastPageNum;
-
+		
 		model.addAttribute("startPageNum", startPageNum);
 		model.addAttribute("endPageNum", endPageNum);
 		model.addAttribute("lastPageNum", lastPageNum);
 		model.addAttribute("userWantPage", userWantPage);
-
+		
 		dto.setLimitNum( ( Integer.parseInt(userWantPage) - 1 ) * 4  );
 		
 		List<MdDTO> list = null;
-		list = service.searchList( dto ); //limitNum, md_id가 담긴 dto
+		list = service.bestList( dto ); //limitNum, md_id가 담긴 dto
 		model.addAttribute("list", list);
 		model.addAttribute("search_dto", dto);//검색용 dto
 		
-		return "/md/list";//jsp file name
-	}//list
+		return "/md/best_list";//jsp file name
+	}//btest_list
 	
 	
 	//게시글 등록
