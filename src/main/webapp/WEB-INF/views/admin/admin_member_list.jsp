@@ -49,6 +49,9 @@
 #insert {
 	margin-right : 30px;
 }
+#member_table th, #member_table td {
+	vertical-align : middle; !important;
+}
 
 </style>	
 
@@ -114,7 +117,7 @@
 		
 		<!-- 리스트  -->
 		
-		<table class="text-center text-capitalize table table-hover">
+		<table class="text-center text-capitalize table table-hover" id="member_table">
 			<thead>
 				<tr>
 					<th> <input id="allCheck" type="checkbox" name="allCheck">&nbsp; 회원 번호 </th> <th> 이름 </th> <th> 닉네임 </th> 
