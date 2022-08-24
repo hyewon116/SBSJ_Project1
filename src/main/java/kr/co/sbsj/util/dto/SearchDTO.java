@@ -13,6 +13,7 @@ public class SearchDTO {
 	private String md_use;
 	private double md_ratingAvg;
 	private String member_id;
+	private String member_name;
 	
 	private String searchOption1;
 	private String searchWord1;
@@ -126,8 +127,14 @@ public class SearchDTO {
 	public String getSearchWord1() {
 		return searchWord1;
 	}
-	
-	
+
+	public String getMember_name() {
+		return member_name;
+	}
+
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
+	}
 	
 	
 	

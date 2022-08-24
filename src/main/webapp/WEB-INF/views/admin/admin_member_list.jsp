@@ -95,16 +95,13 @@
 			<hr>
 	  	
 		<!-- 검색창 -->			  	
-		<form action="${pageContext.request.contextPath}/admin/admin_md_list" method="get">
+		<form action="${pageContext.request.contextPath}/admin/admin_member_list" method="get">
 			<div class="input-group">
 				<div class="input-group-prepend">
 					<select class="form-control" id="searchOption1" name="searchOption1">
-						<option value="md_name"
-							<c:if test="${search_dto.searchOption1 == 'pay_amt'}">selected="selected"</c:if>
-						> 고 민 중 </option>
-						<option value="md_category"
-							<c:if test="${search_dto.searchOption1 == 'order_id'}">selected="selected"</c:if>
-						> 주 문 </option>
+						<option value="member_name"
+							<c:if test="${search_dto.searchOption1 == 'member_name'}">selected="selected"</c:if>
+						> 이 름 </option>
 					</select>
 				</div>
 				<input type="text" class="form-control" id="searchWord1" name="searchWord1"

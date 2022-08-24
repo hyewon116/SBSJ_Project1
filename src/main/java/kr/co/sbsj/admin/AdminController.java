@@ -375,15 +375,17 @@ public class AdminController {
     }
    
    
+
+   
    @RequestMapping( value = "/admin_member_detail", method = RequestMethod.GET )
    private String admin_member_Detail( String member_email, Model model, HttpSession session, MemberDTO dto ) {
-      System.out.println(member_email);
-      List<MemberDTO> list = null;
-      list = service.admin_member_updateList(member_email);
-      System.out.println(list);
-      model.addAttribute("list", list);
-      
-      return "/admin/admin_member_detail";
+	   System.out.println(member_email);
+	   List<MemberDTO> list = null;
+	   list = service.admin_member_updateList(member_email);
+	   System.out.println(list);
+	   model.addAttribute("list", list);
+	   
+	   return "/admin/admin_member_detail";
    }
 
    @RequestMapping( value = "/admin_member_list", method = RequestMethod.GET )

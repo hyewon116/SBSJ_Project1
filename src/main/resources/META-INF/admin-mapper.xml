@@ -464,12 +464,10 @@
 		<if test="searchOption1 != null and searchOption1 != ''
 					and searchWord1 != null and searchWord1 !=''">
 			<choose>
-				<when test="searchOption1 == 'pay_amt'">
-					where m.md_name like concat('%', #{searchWord1}, '%')
+				<when test="searchOption1 == 'member_name'">
+					where m.member_name like concat('%', #{searchWord1}, '%')
 				</when>
-				<when test="searchOption1 == 'order_id'">
-					where md_category like concat('%', #{searchWord1}, '%')
-				</when>
+				
 			</choose>
 		</if>
 	
@@ -506,12 +504,10 @@
 		<if test="searchOption1 != null and searchOption1 != ''
 					and searchWord1 != null and searchWord1 !=''">
 			<choose>
-				<when test="searchOption1 == 'order_id'">
-					where m.md_name like concat('%', #{searchWord1}, '%')
+				<when test="searchOption1 == 'member_name'">
+					and m.member_name like concat('%', #{searchWord1}, '%')
 				</when>
-				<when test="searchOption1 == 'pay_amt'">
-					where md_category like concat('%', #{searchWord1}, '%')
-				</when>
+				
 			</choose>
 		</if>
 		group by member_name
