@@ -121,13 +121,13 @@ background: rgba(231,231,231,0.4)
 			<col class="col-2">
 			<col class="col-2">
 			
-			<thead>
+			<thead style="text-align:center;">
 				<tr>
 					<th> 결제일 </th> <th>주문번호</th> <th> 상품 이미지 </th>	<th> 상품명 </th> 
 					<th> 결제금액 </th> <th> 주문상태 </th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody style="text-align:center;"> 
 				<c:forEach var="dto" items="${list}">
 					<tr>
 						<td>
@@ -209,15 +209,15 @@ background: rgba(231,231,231,0.4)
 
 				<!-- Modal body -->
 				<div class="modal-body">
-					<table class="table table-hover">
+					<table class="table table-hover" style="text-align:center;">
 						<thead>
-							<tr>
-								<th> 주문상세번호 </th>	<th> 상품명 </th>	<th> 수량 </th>	<th> 단가 </th>
+							<tr style="font-size:14px;">
+								<th> 주문번호 </th>	<th> 상품명 </th>	<th> 수량 </th>	<th> 단가 </th>
 								<th> 구매금액 </th>	<th> 할인율 </th>	<th> 할인금액 </th>	<th> 결제금액 </th>
 									<th> 주문상태 </th>
 							</tr>
 						</thead>
-						<tbody id="tbody_pay_detail_modal">
+						<tbody id="tbody_pay_detail_modal" >
 						</tbody>
 					</table>
 				</div>
