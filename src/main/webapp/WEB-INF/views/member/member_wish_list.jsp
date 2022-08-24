@@ -72,9 +72,10 @@
 				<!--  aside 끝 -->	
 				
 		<!-- section 시작---------------------------------------------------------------------------->
-			<section class="col-9 h-100 bg-white float-left">
-				<h1> 찜 목록 </h1>
-					<hr style="width:100%;height:5px;border:none;background-color:black;">
+		<section class="col-9 h-100 bg-white float-left">
+		<hr>
+		<h3> 찜 목록 </h3>
+		<hr>
 					  	
 		<table id="wish_table" class="text-center text-capitalize table table-hover">
 			<thead>

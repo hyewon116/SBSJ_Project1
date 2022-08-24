@@ -112,13 +112,12 @@
 			<!--  aside 끝 -->	
 				
 				
-				<!-- section 시작--------------------------------------------------------------------------------- -->
-				<section class="col-9 h-100 bg-white float-left">
-					<h1>개인정보 수정</h1>
-					  <hr style="width:100%;height:5px;border:none;background-color:black;">
-					  
-					  
-					  
+		<!-- section 시작--------------------------------------------------------------------------------- -->
+		<section class="col-9 h-100 bg-white float-left">
+			<hr>
+			<h3> 개인정보 수정 </h3>
+			<hr>
+			<br>  
 			<c:forEach var="dto" items="${list}">
 				<div class="member_info">			  
 				 <h5>이름</h5>

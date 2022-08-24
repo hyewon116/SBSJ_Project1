@@ -104,12 +104,13 @@
 				
 			<!--  aside 끝 -->	
 				
-				<!-- section 시작--------------------------------------------------------------------------------- -->
-				<section class="col-9 h-100 bg-white float-left">
-					<h1>개인정보 수정</h1>
-					  <hr style="width:100%;height:5px;border:none;background-color:black;">
-					  	
-		           	<h3>회원정보확인</h3>
+			<!-- section 시작--------------------------------------------------------------------------------- -->
+			<section class="col-9 h-100 bg-white float-left">
+				<hr>
+				<h3> 개인정보 수정 </h3>
+				<hr>
+					<br>
+		           	<h4><b>회원정보확인</b></h4>
 		            <p>
 		                <strong class="usermodify-auth-mail" style="color: #0185da;">${login_info.member_nick}</strong>님의 정보를 안전하게 보호하기 위해 비밀번호를 다시 한번 확인 합니다.
 		            </p>

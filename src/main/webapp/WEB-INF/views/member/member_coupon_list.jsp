@@ -87,8 +87,9 @@
 				
 		<!-- section 시작---------------------------------------------------------------------------->
 	<section class="col-9 h-100 bg-white float-left">
-		<h1> 쿠폰 목록 </h1>
-		<hr style="width:100%;height:5px;border:none;background-color:black;">
+		<hr>
+		<h3> 쿠폰 목록 </h3>
+		<hr>
 					 
 		<hr> 	
 		<table id="coupon_table">
