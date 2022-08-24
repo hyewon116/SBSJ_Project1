@@ -86,6 +86,7 @@ public class MdController {
 	//상품 리스트 - 필터링  적용 
 	@RequestMapping( value = "/list_cate", method = RequestMethod.GET )
 	public String list_cate( Model model, String userWantPage, SearchDTO dto ) {
+		
 		if( userWantPage == null || userWantPage.equals("") ) userWantPage = "1";
 		int totalCount = 0, startPageNum = 1, endPageNum = 10, lastPageNum = 1;
 		totalCount = service.searchListCount2( dto ); //주종~상황별 속성 + limitNum 담은 dto
@@ -170,7 +171,7 @@ public class MdController {
 		return "/md/list";//jsp file name
 	}//list
 	
-	//상품 리스트
+	//베스트 상품 리스트
 	@RequestMapping( value = "/best_list", method = RequestMethod.GET )
 	public String bestList( Model model, String userWantPage, SearchDTO dto, String md_id ) {
 		if( userWantPage == null || userWantPage.equals("") ) userWantPage = "1";

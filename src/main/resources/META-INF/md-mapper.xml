@@ -60,7 +60,10 @@
 	<select id="searchListCount2" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="int">
 		select count(md_id) cnt
 		from md
-		where md_category = #{md_category} and md_onsale = "Y"
+		where md_onsale = "Y"
+		<if test="md_category != null and md_category != ''">
+			and md_category = #{md_category}
+		</if>
 	</select>
 
 	<select id="selectList" parameterType="kr.co.sbsj.util.dto.SearchDTO"

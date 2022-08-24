@@ -172,7 +172,7 @@
 			<c:if test="${startPageNum > 10}">
 				<li class="page-item">
 					<a class="page-link"
-						href="${pageContext.request.contextPath}/md/list?userWantPage=${startPageNum-1}">
+						href="${pageContext.request.contextPath}/md/list_cate?userWantPage=${startPageNum-1}">
 						Previous
 					</a>
 				</li>
@@ -187,7 +187,7 @@
 					<c:otherwise>
 						<li class="page-item">
 							<a class="page-link"
-								href="${pageContext.request.contextPath}/md/list?userWantPage=${page_no}">
+								href="${pageContext.request.contextPath}/md/list_cate?userWantPage=${page_no}">
 								${page_no}
 							</a>
 						</li>
@@ -197,7 +197,7 @@
 			<c:if test="${lastPageNum > endPageNum}">
 				<li class="page-item">
 					<a class="page-link"
-						href="${pageContext.request.contextPath}/md/list?userWantPage=${endPageNum+1}">
+						href="${pageContext.request.contextPath}/md/list_cate?userWantPage=${endPageNum+1}">
 						Next
 					</a>
 				</li>
