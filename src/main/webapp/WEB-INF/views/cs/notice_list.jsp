@@ -24,8 +24,9 @@
 <!-- body 시작 -->
 
 <div class="container col-sm-8">
-		<h3 class="text-center">공 지 사 항</h3>
-		<hr>
+	<hr>
+	<h3 class="text-center">공 지 사 항</h3>
+	<hr>
 	<form action="${pageContext.request.contextPath}/notice/list" method="get">
 		<div class="input-group">
 			<div class="input-group-prepend">

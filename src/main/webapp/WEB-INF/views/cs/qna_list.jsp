@@ -24,6 +24,7 @@
 <!-- body 시작 -->
 
 <div class="container col-sm-8">
+		<hr>
 		<h3 class="text-center">1:1 맞춤상담</h3>
 		<hr>
 	<form action="${pageContext.request.contextPath}/qna/list" method="get">

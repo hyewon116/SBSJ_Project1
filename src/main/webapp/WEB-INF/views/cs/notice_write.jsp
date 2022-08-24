@@ -22,7 +22,9 @@
 
 <!-- body 시작 -->
 <div class="container col-sm-8">
+		<hr>
 	<h3 class="text-center">공 지 사 항</h3>
+	<hr>
 	<form id="write_form">
 		<table class="table table-boardered">
 			<tbody>

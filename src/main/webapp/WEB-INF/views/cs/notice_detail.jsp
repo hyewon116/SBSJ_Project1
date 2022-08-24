@@ -15,8 +15,9 @@
 <body>
 <!-- body 시작 -->
 	<div class="container col-sm-8">
+	<hr>
 	<h3 class="text-center">공 지 사 항</h3>
-		<hr>
+	<hr>
 		<table class="table table-hover">
 					<input type="hidden" id="member_id" name="member_id" value="${detail_dto.member_id}">	
 			<tbody>

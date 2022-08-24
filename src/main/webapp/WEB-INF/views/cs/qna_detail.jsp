@@ -15,7 +15,8 @@
 <body>
 <!-- body 시작 -->
 	<div class="container col-sm-8">
-	<h3 class="text-center">1:1 문의</h3>
+		<hr>
+		<h3 class="text-center">1:1 맞춤상담</h3>
 		<hr>
 		<table class="table table-hover">
 					<input type="hidden" id="member_id" name="member_id" value="${detail_dto.member_id}">	
@@ -44,11 +45,6 @@
 		<!-- 수정&삭제 버튼 : 내 게시글에서만 보임 -->
 		<c:if test="${login_info.member_id == detail_dto.member_id || login_info.admin_yn eq 'Y'}"> 
 			<div class="float-right">
-				<c:if test="${login_info.admin_yn eq 'Y'}"> 
-					<a href="${pageContext.request.contextPath}/qna/rform?qa_question_id=${detail_dto.qa_question_id}">
-						<button type="button" class="btn btn-info" id="update"> 답변 </button> 
-					</a>
-				</c:if>
 				<a href="${pageContext.request.contextPath}/qna/uform?qa_question_id=${detail_dto.qa_question_id}">
 					<button type="button" class="btn btn-warning" id="update"> 수정 </button> 
 				</a>

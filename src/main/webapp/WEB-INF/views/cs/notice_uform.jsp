@@ -22,7 +22,9 @@
 
 <!-- body 시작 -->
 <div class="container col-sm-8">
+		<hr>
 	<h3 class="text-center">공 지 사 항</h3>
+	<hr>
 	<form id="write_form">
 			<input type="hidden" id="notice_id" name="notice_id" value="${detail_dto.notice_id}">	
 			<input type="hidden" id="member_id" name="member_id" value="${detail_dto.member_id}">
