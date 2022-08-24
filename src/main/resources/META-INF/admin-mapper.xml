@@ -56,11 +56,10 @@
 		select count(q.md_question_id) cnt
 		from md_question q
 		
-		<if test="searchOption1 != null and searchOption1 != ''
-					and searchWord1 != null and searchWord1 !=''">
+		<if test="searchOption1 != null and searchOption1 != ''">
 			<choose>
 				<when test="searchOption1 == 'md_name'">
-				, md m	where r.md_id = m.md_id and  m.md_name like concat('%', #{searchWord1}, '%')
+				, md m	where q.md_id = m.md_id and m.md_name like concat('%', #{searchWord1}, '%')
 				</when>
 			</choose>
 		</if>

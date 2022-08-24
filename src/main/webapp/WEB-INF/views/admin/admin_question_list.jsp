@@ -53,6 +53,11 @@
 th {
 	background: rgba(231,231,231,0.4)
 }
+
+#admin_q img { 
+	width : 50px;
+}
+
 </style>	
 
 
@@ -122,7 +127,6 @@ th {
 					<tr>
 						<td>
 							<input name="RowCheck" type="checkbox" value="${dto.md_question_id}">
-						${dto.md_question_id}
 						</td>
 					
 						<td>

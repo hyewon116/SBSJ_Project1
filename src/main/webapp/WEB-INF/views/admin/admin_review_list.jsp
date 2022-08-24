@@ -145,7 +145,6 @@ th {
 					<tr>
 						<td>
 							<input name="RowCheck" type="checkbox" value="${dto.review_id}">
-						${dto.review_id}
 						</td>
 					
 						<td>

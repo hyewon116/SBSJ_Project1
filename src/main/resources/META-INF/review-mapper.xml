@@ -18,13 +18,13 @@
 	</update>
 
 	<select id="detail_admin" parameterType="java.lang.String" resultType="kr.co.sbsj.mdreview.MdReviewDTO">
-		select review_id, md_id, member_id, member_nick, review_title, review_date, review_star
+		select review_id, md_id, member_id, member_nick, review_title, review_content, review_date, review_star
     	from review
 		where review_id = #{review_id}
 	</select>
 	
 	<select id="detail" parameterType="java.lang.String" resultType="kr.co.sbsj.mdreview.MdReviewDTO">
-		select review_id, md_id, member_id, member_nick, review_title, review_date, review_star
+		select review_id, md_id, member_id, member_nick, review_title, review_content, review_date, review_star
     	from review
 		where review_id = #{review_id}
 	</select>
