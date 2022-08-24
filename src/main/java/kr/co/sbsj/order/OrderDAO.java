@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.sbsj.cs.NoticeDTO;
 import kr.co.sbsj.md.CouponDTO;
 import kr.co.sbsj.md.MdDTO;
 import kr.co.sbsj.util.dto.MemberDTO;
@@ -91,11 +92,11 @@ public class OrderDAO {
 		subList = sqlSession.selectList("OrderMapper.subList", dto);
 		return subList;
 	}
-
-	public int insertSubOrder(OrderMainDTO dto) {
+	
+	public int subInsert( OrderMainDTO dto) {
 		int successCount = 0;
-		successCount =sqlSession.insert("OrderMapper.insertSubOrder",dto);
+		successCount = sqlSession.insert("OrderMapper.subInsert", dto);
 		return successCount;
-	}
+	}//subInsert
 
 }//class

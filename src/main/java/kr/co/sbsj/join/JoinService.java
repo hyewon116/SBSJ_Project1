@@ -13,7 +13,6 @@ public class JoinService {
 
 	public int join( MemberDTO dto ) {
 		int successCount = 0;
-
 		successCount = dao.join( dto );
 		return successCount;
 	}//join

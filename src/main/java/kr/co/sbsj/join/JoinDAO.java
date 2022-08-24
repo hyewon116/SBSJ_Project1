@@ -21,6 +21,8 @@ public class JoinDAO {
 
         successCount = sqlSession.insert("JoinMapper.addDelivery", dto);
         return successCount;
+        
+        
     }
 	
 	

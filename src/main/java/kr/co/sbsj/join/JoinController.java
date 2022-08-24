@@ -77,29 +77,3 @@ public class JoinController {
 
 
 }//class
-
-/*
-
-drop table member;
-CREATE TABLE `member` (
-  `mno` int NOT NULL AUTO_INCREMENT,
-  `mid` varchar(20) NOT NULL,
-  `mpwd` varchar(20) NOT NULL,
-  `tel` varchar(15) DEFAULT NULL,
-  `email` varchar(50) DEFAULT NULL,
-  `mdate` datetime NOT NULL,
-  `service_agree` varchar(5) NOT NULL DEFAULT 'true',
-  `info_agree` varchar(5) NOT NULL DEFAULT 'true',
-  `sms_agree` varchar(5) NOT NULL DEFAULT 'false',
-  `email_agree` varchar(5) NOT NULL DEFAULT 'false',
-  `post_code` varchar(10) DEFAULT NULL,
-  `addr1` varchar(150) DEFAULT NULL,
-  `addr2` varchar(150) DEFAULT NULL,
-  PRIMARY KEY (`mno`)
-);
-
-insert into member(mid, mpwd, tel, email, mdate)
-values('tea', '1111', '010-9999-8888', 'aaa@bbb.com', now());
-commit;
-
-*/

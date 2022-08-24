@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.co.sbsj.cs.NoticeDTO;
 import kr.co.sbsj.md.CouponDTO;
 import kr.co.sbsj.md.MdDTO;
 import kr.co.sbsj.util.dto.MemberDTO;
@@ -78,11 +79,11 @@ public class OrderService {
 		subList= dao.subList(dto);
 		return subList;
 	}
-
-	public int insertSubOrder(OrderMainDTO dto) {
+	
+	public int subInsert(OrderMainDTO dto) {
 		int successCount = 0;
-		successCount = dao.insertSubOrder(dto);
+		successCount = dao.subInsert(dto);
 		return successCount;
-	}
+	}//subInsert
 
 }//class

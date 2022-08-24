@@ -14,6 +14,7 @@
     insert into delivery (addr_name, member_id, receiver, member_phone, post_code, delivery_addr1, delivery_addr2, used_date, isdefault )
     VALUES ( "기본 배송지", #{member_id}, #{member_name}, #{member_phone}, #{member_addr1}, #{member_addr2}, #{member_addr3}, now(), 1)
     </insert>
+  
 
 	<select id="passwordCheck" parameterType="kr.co.sbsj.util.dto.MemberDTO" resultType="int">
 	select count(*)
