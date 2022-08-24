@@ -122,7 +122,7 @@ th {
 		<table class="text-center text-capitalize table table-hover" id="member_table">
 			<thead>
 				<tr>
-					<th> <input id="allCheck" type="checkbox" name="allCheck">&nbsp; 회원 번호 </th> <th> 이름 </th> <th> 닉네임 </th> 
+					<th> <input id="allCheck" type="checkbox" name="allCheck"> </th> <th> 이름 </th> <th> 닉네임 </th> 
 					<th> 가입일 </th>	<th> 이메일<br>수신동의 </th> <th> SMS<br>수신동의 </th> <th> 구독여부 </th><th> 총구매액 </th> <th> 계정<br>활성화 </th>
 				</tr>
 			</thead>
