@@ -12,10 +12,14 @@
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 		<script src="//cdn.ckeditor.com/4.19.1/standard/ckeditor.js"></script>	
+		
 		<style type="text/css">
 		.write_label {
 			font-size : 0.7em;
 			color : red;
+		}
+		th {
+		background: rgba(231,231,231,0.4)
 		}
 		</style>
 	</head>
@@ -50,9 +54,9 @@
 	</form>
 	<hr>
 	
-	<table class="table table-hover" style="text-align: center;">
+	<table class="table table-hover">
 		<thead>
-			<tr>
+			<tr style="text-align: center;">
 				<th>번호</th>
 				<th>문의 유형</th>
 				<th>제목</th>
@@ -66,7 +70,7 @@
 			
 			<c:forEach var="dto" items="${list}" varStatus="status">
 			<tr>
-				<td><c:out value="${dto.qa_question_id}"/></td> 
+				<td style="text-align: center;"><c:out value="${dto.qa_question_id}"/></td> 
 				<td><c:out value="${dto.qa_question_category}"/></td> 
 				<td>
 				<c:if test="${dto.open_yn eq 'true'}">
@@ -83,9 +87,9 @@
 				</c:if>
 				</td>
 				
-				 <td><c:out value="${dto.member_nick}"/></td> 
-				 <td><c:out value="${dto.qa_question_viewcnt}"/></td> 
-				 <td><c:out value="${dto.qa_question_date}"/></td> 
+				 <td  style="text-align: center;"><c:out value="${dto.member_nick}"/></td> 
+				 <td style="text-align: center;"><c:out value="${dto.qa_question_viewcnt}"/></td> 
+				 <td style="text-align: center;"><c:out value="${dto.qa_question_date}"/></td> 
 			</tr>			
 			</c:forEach>
 		</tbody>
