@@ -9,7 +9,7 @@
 	SELECT om.order_id, om.member_id,   om.delivery_id
 			, om.order_md_cnt, om.order_amt, om.discount_amt, om.pay_amt, om.coupon_dis
 			, om.order_date, om.order_status
-            , coco.code_name, order_status_name
+            , coco.code_name order_status_name
 			, od.order_detail_id, od.md_id
 			, od.order_detail_qty, od.order_detail_price, od.order_detail_amt
 			, od.order_detail_discount, od.order_detail_discount_amt, od.order_detail_pay_amt
