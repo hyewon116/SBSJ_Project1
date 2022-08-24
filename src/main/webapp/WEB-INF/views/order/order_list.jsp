@@ -15,22 +15,34 @@
 		ul {
 		list-style-type:none 
 		}
+		
 		th {
 		background: rgba(231,231,231,0.4)
 		}
+		
+        #total-table {
+            position: relative;
+            width: 500px;
+            float:right;
+        }		
+        #couponList{
+        	width:250px;
+        	height:35px;
+        	
+        }
 		</style>
 	</head>
 	<body>
 	<%@ include file="/WEB-INF/views/headerMain.jsp" %>
 
 <!-- 타이틀 -->	
-	<div class="container col-sm-8">
+	<div class="container col-sm-7">
 		<hr>
-		<h3> 주문  / 결제 </h3>
+		<h3 style="text-align:center;"> 주문  / 결제 </h3>
 		<hr>
 	</div>	
 <!-- 상품 정보 시작 -->		
-		<div class="container col-sm-8">
+		<div class="container col-sm-7">
 <!-- 		<div class="border rounded p-3 mb-3"></div>
  -->		<table class="table table-hover">
 				<col class="col-1">
@@ -96,7 +108,7 @@
 <br><br>
 
 <!-- 구매자 정보 시작 -->	
-			<div class="container col-sm-8">	
+			<div class="container col-sm-7">	
 				<h4>구매자 정보</h4>
 				<table class="table table-hover">
 						<tr>
@@ -116,7 +128,7 @@
 <br><br>
 
 <!-- 받는 사람 정보 시작 -->		
-		<div class="container col-sm-8">
+		<div class="container col-sm-7">
 			<h4>받는 사람정보</h4> <hr>
 				<div class="col-8" >
 				
@@ -166,42 +178,42 @@
 
 <br><br>
 
+
 <!-- ============================ [쿠폰  시작] ======================= -->
-<div class="container col-sm-8">
+<div class="container col-sm-7">
 	<form>
-	<h4>쿠폰</h4> <hr>
+	<h4>쿠폰</h4> 
 		<div id="couponUse" class="form-info">
-				<div>
-					<ul>
-						<li id="coupon">						
-						<select name="couponList" id="couponList">
-							<option value="none">[ 사용할 쿠폰을 선택 해주세요. ]</option>
-								<c:forEach var="coupon" items="${couponList}">
-									<c:if test = "${coupon.coupon_yn eq 'N'}">
-									<option value="${coupon.coupon_dis}#${coupon.coupon_id}#${coupon.coupon_yn}">[ ${coupon.coupon_name} ] ${coupon.coupon_dis}%할인</option>	
-									</c:if>
-								</c:forEach>
-						</select>						
-<!-- 						<span><button id="couponBtn" type="button" class="btn btn-warning">적용</button></span></li>
- -->						
-					</ul>
+				<div> 
+					<table class="table">
+						<tr>
+							<th width="200px" class="text-center">쿠폰 목록</th>
+							<td>
+							<select name="couponList" id="couponList">
+								<option value="none">[ 사용할 쿠폰을 선택 해주세요. ]</option>
+									<c:forEach var="coupon" items="${couponList}">
+										<c:if test = "${coupon.coupon_yn eq 'N'}">
+										<option value="${coupon.coupon_dis}#${coupon.coupon_id}#${coupon.coupon_yn}">[ ${coupon.coupon_name} ] ${coupon.coupon_dis}%할인</option>	
+										</c:if>
+									</c:forEach>
+							</select>						
+	 						<!-- <span><button id="couponBtn" type="button" class="btn btn-warning">적용</button></span> --></li>
+							</td>
+						</tr>	
+					</table>
 				</div>
 		</div>
-
 	</form>
-
     <hr>
 </div>
 <!-- 쿠폰/적립금 종료 -->
 
 
 <!-- 결제 정보 시작 -->
- <div class="container col-sm-8">
-		
-			<div class="col-8">
-				<table class="table table-hover">
+<div class="container col-sm-7">		
+				<table class="table table-hover" id="total-table">
 					<tr>
-						<th width="40%"> 총 상품수 </th>
+						<th width="45%"> 총 상품수 </th>
 						<td class="text-right"><span id="span_sum_md_class_qty">${sum_md_class_qty}</span> 개 </td>
 					</tr>
 					<tr>
@@ -224,18 +236,16 @@
                         </td>
                     </tr>
 					<tr>
-						<th> <h3>총 결제 금액</h3> </th>
+						<th> <h4>총 결제 금액</h4> </th>
 						<td class="text-right"><span id="span_sum_total_buy_amt">${sum_buy_amt - sum_discount_amt + delivery_cost}</span>원</td>
 					</tr>
 					<tr>
 						<td colspan="2" class="text-center">
-							<button id="kakao_btn" class="btn btn-warning btn-lg"> 카카오페이 </button>
+							<button id="kakao_btn" class="btn btn-warning btn-lg" >카카오페이<img src="${pageContext.request.contextPath}/resources/img/kakaopay_btn.png" style="height:20px;"></button>
 						</td>
 					</tr>
 				</table>
 			</div>
-		</div>
-		<hr>
 <!-- 결제 정보 끝 -->		
 
 <%-- 	<%@ include file="/WEB-INF/views/footer.jsp" %> --%>
