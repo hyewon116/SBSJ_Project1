@@ -72,9 +72,10 @@
 				<!--  aside 끝 -->	
 				
 		<!-- section 시작---------------------------------------------------------------------------->
-			<section class="col-9 h-100 bg-white float-left">
-				<h1> 상품 후기 관리 </h1>
-					<hr style="width:100%;height:5px;border:none;background-color:black;">
+		<section class="col-9 h-100 bg-white float-left">
+		<hr>
+		<h3> 상품 후기 관리 </h3>
+		<hr>
 					  	
 		<form action="${pageContext.request.contextPath}/member/member_review_list" method="get">
 			<div class="input-group">

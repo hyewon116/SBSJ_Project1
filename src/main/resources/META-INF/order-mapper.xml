@@ -7,7 +7,7 @@
 
 	<update id="stockUpdate" parameterType="kr.co.sbsj.order.OrderMainDTO">
 	update md
-	set md_stock = md_stock - #{buy_now_qty}
+	set md_stock = md_stock - #{buy_now_qty}, md_sales_rate = md_sales_rate + #{buy_now_qty}
 	where md_id = #{buy_now_md_id}
 	</update>
 
