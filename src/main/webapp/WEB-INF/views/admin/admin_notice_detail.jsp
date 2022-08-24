@@ -53,6 +53,10 @@
 #insert {
 	margin-right: 30px;
 }
+
+th {
+text-align:center;
+}
 </style>
 
 

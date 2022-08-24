@@ -50,6 +50,9 @@
 #admin_q th, #admin_q td {
 	vertical-align : middle; !important;
 }
+th {
+	background: rgba(231,231,231,0.4)
+}
 </style>	
 
 
@@ -107,20 +110,11 @@
 			</div>
 		</form>
 		<table class="text-center text-capitalize table table-hover" id="admin_q">
-			<col class="col-1">
-			<col class="col-1">
-			<col class="col-2">
-			<col class="col-2">
-			<col class="col-1">
-			<col class="col-2">
-			<col class="col-1">
-			<col class="col-2">
-			<col class="col-1">
 			<thead>
 				<tr>
-					<th><input id="allCheck" type="checkbox" name="allCheck"> 번호</th>
+					<th><input id="allCheck" type="checkbox" name="allCheck"></th>
 					<th> Image </th> <th> 상품명 </th> <th> 제목 </th> <th> 작성자 </th> <th> 작성일 </th>
-					<th> 문의<br>유형 </th> <th> 답변<br>상태 </th> <th> 공개<br>여부 </th>
+					<th> 문의<br>유형 </th> <th> 답변<br>상태 </th> <th> 공개 </th>
 				</tr>
 			</thead>
 			<tbody>

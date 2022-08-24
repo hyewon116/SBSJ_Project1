@@ -11,6 +11,13 @@
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+		<style type="text/css">
+		
+		th {
+		text-align:center;
+		}
+		</style>
+	
 	</head>
 <body>
 <!-- body 시작 -->
@@ -20,18 +27,22 @@
 	<hr>
 		<table class="table table-hover">
 					<input type="hidden" id="member_id" name="member_id" value="${detail_dto.member_id}">	
-			<tbody>
-			
-				<tr>
-					<th> 번호 </th>	<td>${detail_dto.notice_id}</td>
-					<th> 제목 </th>	<td>${detail_dto.notice_title}</td>
-					<th> 작성일 </th>	<td>${detail_dto.notice_write_date}</td>
-				</tr>
-				
-				<tr>
-					<th> 내용 </th>		<td colspan="3">${detail_dto.notice_content}</td>
-				</tr>
-			</tbody>
+					<tbody>
+
+						<tr>
+							<th>번호</th>
+							<td>${detail_dto.notice_id}</td>
+							<th>제목</th>
+							<td>${detail_dto.notice_title}</td>
+							<th>작성일</th>
+							<td>${detail_dto.notice_write_date}</td>
+						</tr>
+
+						<tr>
+							<th>내용</th>
+							<td colspan="10">${detail_dto.notice_content}</td>
+						</tr>
+					</tbody>
 		</table>
 		<hr>
 		<!-- 목록으로 가기 버튼 : 누구나 보임 -->

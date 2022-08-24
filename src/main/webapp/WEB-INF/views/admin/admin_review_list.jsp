@@ -52,7 +52,9 @@
 #admin_review th, #admin_review td {
 	vertical-align : middle; !important;
 }
-
+th {
+	background: rgba(231,231,231,0.4)
+}
 </style>	
 
 
@@ -133,7 +135,7 @@
 			<col class="col-1">
 			<thead>
 				<tr>
-					<th><input id="allCheck" type="checkbox" name="allCheck"> 번호</th>
+					<th><input id="allCheck" type="checkbox" name="allCheck"> </th>
 					<th> Image </th> <th> 상품명 </th> <th> 제목 </th> <th> 작성자 </th> 
 					<th> 작성일 </th> <th> 별점 </th> <th> 공개<br>여부 </th>
 				</tr>

@@ -127,11 +127,11 @@ $(document).ready(function() {
 						</a>
 					</div>
 					<div class="nav_menu2">
-					<span class="nav_menu2_name">쿠팡캐시</span>
-					<a href="https://cash.coupang.com/coupang-cash/home" data-clicklog-type="/click_side_menu_1914" data-log-type="click" data-log-id="1914" data-log-version="3" data-has-log-group="menu" data-log-payload="{&quot;pageName&quot; : &quot;my_navigation&quot;, &quot;eventName&quot;: &quot;cash_count&quot;, &quot;currentPage&quot;: &quot;&quot;}" class="nav_menu2_data">
+					<span class="nav_menu2_name"></span>
+					<a href="${pageContext.request.contextPath}/member/member_before_detail" data-clicklog-type="/click_side_menu_1914" data-log-type="click" data-log-id="1914" data-log-version="3" data-has-log-group="menu" data-log-payload="{&quot;pageName&quot; : &quot;my_navigation&quot;, &quot;eventName&quot;: &quot;cash_count&quot;, &quot;currentPage&quot;: &quot;&quot;}" class="nav_menu2_data">
 						<span class="i18n-wrapper">
-							<span class="data_big" id="coupangCashBalance">4,390</span>
-							<span class="data_small">원</span>
+							<span class="data_big" id="coupangCashBalance"></span>
+							<span class="data_small">개인정보 수정</span>
 						</span>
 					</a>
 					</div>

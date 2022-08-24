@@ -45,6 +45,10 @@
 			vertical-align : middle; !important;
 		}
 		
+		th {
+		background: rgba(231,231,231,0.4)
+		}
+		
 	</style>	
 	</head>
 	

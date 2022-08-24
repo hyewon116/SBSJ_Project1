@@ -52,9 +52,13 @@
 }
 #admin_order th, #admin_order td {
 	vertical-align : middle; !important;
+
+	
 }
 
-
+th {
+	background: rgba(231,231,231,0.4)
+}
 		</style>
 	</head>
 	
