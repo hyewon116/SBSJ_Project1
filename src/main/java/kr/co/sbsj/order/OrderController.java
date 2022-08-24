@@ -105,13 +105,27 @@ public class OrderController {
 	public String subList(  OrderMainDTO dto, Model model, HttpSession session ) {
 		dto.setMember_id( ( (MemberDTO) session.getAttribute("login_info") ).getMember_id() );
 		
+		List<DeliveryDTO> deliverylist = null;
+		deliverylist = deliveryService.list( ( (MemberDTO) session.getAttribute("login_info") ).getMember_id() );
+		model.addAttribute("deliverylist", deliverylist);
+		
+		if(deliverylist !=null && deliverylist.get(0) !=null) {
+			dto.setDelivery_id(deliverylist.get(0).getDelivery_id()); 
+		}
+		
+		MemberDTO memberdto = null;
+		String member_id = ( (MemberDTO) session.getAttribute("login_info") ).getMember_id() ;
+		memberdto = service.memberdto(member_id);
+		model.addAttribute("memberdto", memberdto);
+
+		
 		List<OrderMainDTO> subList = null;
 		subList = service.subList(dto);
 		model.addAttribute("subList", subList);
-		
 
 		return "/order/sub_order";//jsp file name
 		
 	}//orderList
+	
 }//class
 

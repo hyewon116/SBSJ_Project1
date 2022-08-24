@@ -25,7 +25,7 @@ public class OrderMainDTO {
 	
 	private String coupon_dis;
 	
-	private String sub_order_id;
+	private String sub_id;
 	private String sub_price;
 	private String sub_apply_date;
 	private String sub_cancel_yn;
@@ -46,7 +46,7 @@ public class OrderMainDTO {
 				+ " : " + member_addr1
 				+ " : " + member_addr2 
 				+ " : " + member_addr3
-				+ " : " + sub_order_id
+				+ " : " + sub_id
 				+ " : " + sub_price
 				+ " : " + sub_apply_date
 				+ " : " + sub_cancel_yn
@@ -172,12 +172,12 @@ public class OrderMainDTO {
 		this.coupon_dis = coupon_dis;
 	}
 
-	public String getSub_order_id() {
-		return sub_order_id;
+	public String getSub_id() {
+		return sub_id;
 	}
 
-	public void setSub_order_id(String sub_order_id) {
-		this.sub_order_id = sub_order_id;
+	public void setSub_id(String sub_id) {
+		this.sub_id = sub_id;
 	}
 
 	public String getSub_price() {

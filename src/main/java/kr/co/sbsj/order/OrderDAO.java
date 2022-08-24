@@ -92,4 +92,10 @@ public class OrderDAO {
 		return subList;
 	}
 
+	public int insertSubOrder(OrderMainDTO dto) {
+		int successCount = 0;
+		successCount =sqlSession.insert("OrderMapper.insertSubOrder",dto);
+		return successCount;
+	}
+
 }//class

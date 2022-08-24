@@ -50,13 +50,13 @@
 		<table class="subs_table" id="subs_table">
 		<tr>
 			<td>
-				<a href="${pageContext.request.contextPath}/md/subs_detail">
-					<img src=${pageContext.request.contextPath}/resources/mdList/images/subs_thum.jpg>
-				<br><br></a>
-				<b><a href="${pageContext.request.contextPath}/md/subs_detail" id="one_year">상부상酒 한 달 체험권</a></b>
-					<br>
-				<a id="cost">36,000원 / 월</a>
-			<td>
+<%-- 				<a href="${pageContext.request.contextPath}/md/subs_detail"> --%>
+<!-- 					<img src=${pageContext.request.contextPath}/resources/mdList/images/subs_thum.jpg> -->
+<!-- 				<br><br></a> -->
+<%-- 				<b><a href="${pageContext.request.contextPath}/md/subs_detail" id="one_year">상부상酒 한 달 체험권</a></b> --%>
+<!-- 					<br> -->
+<!-- 				<a id="cost">36,000원 / 월</a> -->
+<!-- 			<td> -->
 				<div class="subs_box">
 				<a href="${pageContext.request.contextPath}/md/subs_detail">
 					<img src=${pageContext.request.contextPath}/resources/mdList/images/subs_thum.jpg>

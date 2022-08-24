@@ -79,4 +79,10 @@ public class OrderService {
 		return subList;
 	}
 
+	public int insertSubOrder(OrderMainDTO dto) {
+		int successCount = 0;
+		successCount = dao.insertSubOrder(dto);
+		return successCount;
+	}
+
 }//class
