@@ -88,15 +88,11 @@
 			<!--  aside 끝 -->	
 				
 				
-				<!-- section 시작--------------------------------------------------------------------------------- -->
-				<section class="col-10 h-100 bg-white float-left">
-					<h3> 상 품 관 리</h3>
-					  <hr style="width:100%;height:1px;border:none;background-color:black;">
-					  	
-					  	
-					  	
-					  	
-					  	
+	<!-- section 시작--------------------------------------------------------------------------------- -->
+	<section class="col-10 h-100 bg-white float-left">
+		<hr>
+		<h3> 상품 관리 </h3>
+		<hr>
 					  	
 		<form action="${pageContext.request.contextPath}/admin/admin_md_list" method="get">
 			<div class="input-group">

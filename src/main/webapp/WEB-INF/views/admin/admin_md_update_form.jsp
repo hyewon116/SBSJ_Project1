@@ -17,10 +17,7 @@
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 		<script src="//cdn.ckeditor.com/4.19.0/full/ckeditor.js"></script>
 		<!-- CSS 파일 -->
-		
-		
-		
-		
+
 <style type="text/css">
 		
 
@@ -59,13 +56,9 @@ table img {
     resize: none;
   }
 
-
-	
 </style>	
 
-
 	</head>
-	
 	
 	<body>
 			<!-- header -->
@@ -86,27 +79,18 @@ table img {
 			<main class="clearfix mt-1" style="height:500px">
 				<!--  aside 시작 -->	
 				<aside class="col-2 h-100 bg-white float-left">
-					
-					
 				<jsp:include page="/WEB-INF/views/admin/admin_aside.jsp"></jsp:include>
 				<br>
 				<br>			
-				
-				
-				
 				</aside>
-				
 			<!--  aside 끝 -->	
-				
-				
-				<!-- section 시작--------------------------------------------------------------------------------- -->
-				<section class="col-10 h-100 bg-white float-left">
-					<h3> 상 품 수 정</h3>
-					  <!-- <hr style="width:100%;height:2px;border:none;background-color:black;"> -->
-					  	
-					  	
-					  	
-					  	
+					
+	<!-- section 시작--------------------------------------------------------------------------------- -->
+	<section class="col-10 h-100 bg-white float-left">
+		<hr>
+		<h3> 상품 수정 </h3>
+		<hr>
+					  		  	
 	<div class="container">
 		<form id="write_form">
 			<table class="table table-hover">
@@ -449,11 +433,6 @@ table img {
 			});//click
 		});//ready
 		
-		
-		
-		
-		
-		
 		$(document).ready(function() {
 			$("#write_btn").click(function() {
 	
@@ -528,24 +507,10 @@ table img {
 	</script>
 	</div>
 					
-					
-					
-					
-					
-					
-					  	
-					  	
-					  	
-					  	
-					  	
-					  
-					  
-					  
-				</section>
-				<!-- section 끝---------------------------------------------------------------------------- -->
-			</main>
-			
-			
+	</section>
+	<!-- section 끝---------------------------------------------------------------------------- -->
+	</main>
+	
 		</div><!-- container -->
 	</body>
 	

@@ -99,7 +99,8 @@ write_label {
 
 			<!-- section 시작--------------------------------------------------------------------------------- -->
 			<section class="col-10 h-100 bg-white float-left">
-				<h3 class="text-center"> 1:1 문의 </h3>
+				<hr>
+				<h3> 1:1 문의 수정 </h3>
 				<hr>
 				
 				<form id="write_form">

@@ -89,9 +89,11 @@
 			<!--  aside 끝 -->
 
 
-			<!-- section 시작--------------------------------------------------------------------------------- -->
-			<section class="col-10 h-100 bg-white float-left">
-				<h3 class="text-center">공 지 사 항</h3>
+	<!-- section 시작--------------------------------------------------------------------------------- -->
+	<section class="col-10 h-100 bg-white float-left">
+		<hr>
+		<h3> 공지사항 관리 </h3>
+		<hr>
 				<table class="table table-hover">
 					<input type="hidden" id="member_id" name="member_id"
 						value="${detail_dto.member_id}">
@@ -132,55 +134,16 @@
 							<button type="button" class="btn btn-danger" id="delete_btn"
 								name="delete_btn">삭제</button>
 						</div>
-					</c:if>
-
-				</div>
-	</div>
-
-
-
-
-	<!-- 페이징 -->
-	<div>
-		<ul class="pagination">
-			<c:if test="${startPageNum > 10}">
-				<li class="page-item"><a class="page-link"
-					href="${pageContext.request.contextPath}/notice/list?userWantPage=${startPageNum-1}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
-						Previous </a></li>
-			</c:if>
-			<c:forEach var="page_no" begin="${startPageNum}" end="${endPageNum}">
-				<c:choose>
-					<c:when test="${page_no == userWantPage}">
-						<li class="page-item active"><a class="page-link">${page_no}</a>
-						</li>
-					</c:when>
-					<c:otherwise>
-						<li class="page-item"><a class="page-link"
-							href="${pageContext.request.contextPath}/notice/list?userWantPage=${page_no}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
-								${page_no} </a></li>
-					</c:otherwise>
-				</c:choose>
-			</c:forEach>
-			<c:if test="${lastPageNum > endPageNum}">
-				<li class="page-item"><a class="page-link"
-					href="${pageContext.request.contextPath}/notice/list?userWantPage=${endPageNum+1}&searchOption=${search_dto.searchOption}&searchWord=${search_dto.searchWord}">
-						Next </a></li>
-			</c:if>
-		</ul>
-	</div>
-
-
-
-
+					</c:if>	
 
 	</section>
 	<!-- section 끝---------------------------------------------------------------------------- -->
 	</main>
 
-
 	</div>
-	<!-- container -->
+	<!-- container -->	
 </body>
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#delete_btn").click(function() {

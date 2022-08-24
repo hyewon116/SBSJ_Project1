@@ -88,35 +88,24 @@
 			<!--  aside 끝 -->	
 				
 				
-				<!-- section 시작--------------------------------------------------------------------------------- -->
-				<section class="col-10 h-100 bg-white float-left">
-					<h3> 상 품 후 기 관 리</h3>
-					  <hr style="width:100%;height:1px;border:none;background-color:black;">
-					  	
-					  	
-					  	
-					  	
-					  	
-					  	
+		<!-- section 시작--------------------------------------------------------------------------------- -->
+		<section class="col-10 h-100 bg-white float-left">
+			<hr>
+			<h3> 상품 후기 관리 </h3>
+			<hr>
+				  	
 		<form action="${pageContext.request.contextPath}/admin/admin_review_list" method="get">
 			<div class="input-group">
 				<div class="input-group-prepend">
-					<select class="form-control" id="searchOption1" name="searchOption1">
-						
-						
-						
+					<select class="form-control" id="searchOption1" name="searchOption1">		
+
 						<option value="md_name"
 							<c:if test="${search_dto.searchOption1 == 'md_name'}">selected="selected"</c:if>
 						> 상 품 이 름 </option>
-						
-						
-						
+
 						<option value="review_star"
 							<c:if test="${search_dto.searchOption1 == 'review_star'}">selected="selected"</c:if>
 						> 별점 </option>
-						
-						
-						
 						
 					</select>
 				</div>
@@ -221,21 +210,13 @@
 				</li>
 			</c:if>
 		</ul>
-					  	
-					  	
-					  	
-					  	
-					  	
-					  
-					  
-					  
-				</section>
-				<!-- section 끝---------------------------------------------------------------------------- -->
-			</main>
-			
-			
-		</div><!-- container -->
-	</body>
+
+		</section>
+		<!-- section 끝---------------------------------------------------------------------------- -->
+	</main>
+				
+</div><!-- container -->
+</body>
 	<script type="text/javascript">
 		$(function () {
 			var chkObj = document.getElementsByName("RowCheck");
@@ -342,9 +323,6 @@
 					} else {
 						alert("후기 비공개를 취소하셨습니다.")
 					}		
-						
-						
-				
 			}//else
 			
 		}//disableValue
@@ -386,8 +364,7 @@
 								}
 							}
 						});
-						
-						
+
 					} else {
 						alert("후기 공개를 취소하셨습니다.")
 					}
@@ -395,8 +372,7 @@
 			}//else
 			
 		}//ableValue
-		
-		
+
 		$(document).ready(function() {
 			
 			$("#searchOption1").keyup(function() {
@@ -405,11 +381,5 @@
 			});//keyup
 		
 		});//ready
-		//
-		
-// 				if(   $("#searchOption1").val() == "review_star" ){
-// 					let tmp = $("#searchOption1").val().replace(/[^  0-9  \.]/g,"");
-// 					$("#searchOption1").val(tmp);
-// 				}
 	</script>
 </html>

@@ -91,13 +91,13 @@
 			<!--  aside 끝 -->	
 				
 				
-				<!-- section 시작--------------------------------------------------------------------------------- -->
-				<section class="col-10 h-100 bg-white float-left">
-					<h3> 상 품 문 의 관 리</h3>
-					  <hr style="width:100%;height:1px;border:none;background-color:black;">
-					  	
-			<div class="container">
+	<!-- section 시작--------------------------------------------------------------------------------- -->
+	<section class="col-10 h-100 bg-white float-left">
+		<hr>
+		<h3> 상품 문의 관리 </h3>
+		<hr>
 		
+	<div class="container">
 		<!-- 문의 디테일 -->
 		<table class="table table-hover" id="table1">
 			<col class="w-25">
@@ -195,14 +195,12 @@
 		</c:if>
 		<br><br><br><br><br>
 		</div>
-		
-	</div>
-		  	  
-			</section>
-			<!-- section 끝---------------------------------------------------------------------------- -->
-		</main>
+
+	</section>
+	<!-- section 끝---------------------------------------------------------------------------- -->
+	</main>
 			
-		</div><!-- container -->
+	</div><!-- container -->
 	</body>
 	
 	<script type="text/javascript">

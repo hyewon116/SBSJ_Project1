@@ -88,15 +88,12 @@
 			<!--  aside 끝 -->	
 				
 				
-				<!-- section 시작--------------------------------------------------------------------------------- -->
-				<section class="col-10 h-100 bg-white float-left">
-					<h3> 회 원 관 리</h3>
-					  <hr style="width:100%;height:1px;border:none;background-color:black;">
-					  	
-					  	
-					  	
-					  	
-					  	
+		<!-- section 시작--------------------------------------------------------------------------------- -->
+		<section class="col-10 h-100 bg-white float-left">
+			<hr>
+			<h3> 회원 관리 </h3>
+			<hr>
+	  	
 		<!-- 검색창 -->			  	
 		<form action="${pageContext.request.contextPath}/admin/admin_md_list" method="get">
 			<div class="input-group">
@@ -123,8 +120,8 @@
 		<table class="text-center text-capitalize table table-hover">
 			<thead>
 				<tr>
-					<th><input id="allCheck" type="checkbox" name="allCheck">회 원 번    호 </th> <th> 이름 </th> <th> 닉네임 </th> 
-					<th> 가입일 </th>	<th> 이메일수신동의 </th> <th> SMS수신동의 </th> <th> 구독여부 </th><th> 총구매액 </th> <th> 계정활성화 </th>
+					<th> <input id="allCheck" type="checkbox" name="allCheck">&nbsp; 회원 번호 </th> <th> 이름 </th> <th> 닉네임 </th> 
+					<th> 가입일 </th>	<th> 이메일<br>수신동의 </th> <th> SMS<br>수신동의 </th> <th> 구독여부 </th><th> 총구매액 </th> <th> 계정<br>활성화 </th>
 				</tr>
 			</thead>
 			<tbody>
@@ -132,7 +129,7 @@
 					<tr>
 						<td class="col-1">
 							<input name="RowCheck" type="checkbox" value="${dto.member_id}">
-							${dto.member_id}
+							 &nbsp; ${dto.member_id}
 						</td>
 						<td class="col-1">
 							${dto.member_name}

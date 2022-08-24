@@ -91,8 +91,10 @@
 
 			<!-- section 시작--------------------------------------------------------------------------------- -->
 			<section class="col-10 h-100 bg-white float-left">
-				<h3 class="text-center">공 지 사 항</h3>
 				<hr>
+				<h3> 공지사항 관리 </h3>
+				<hr>
+				
 				<form
 					action="${pageContext.request.contextPath}/admin/admin_notice_list"
 					method="get">
@@ -182,15 +184,9 @@
 								Next </a></li>
 					</c:if>
 				</ul>
-
-
-
-
-
 			</section>
 			<!-- section 끝---------------------------------------------------------------------------- -->
 		</main>
-
 
 	</div>
 	<!-- container -->

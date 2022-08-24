@@ -98,7 +98,9 @@
 			<!-- section 시작--------------------------------------------------------------------------------- -->
 			<section class="col-10 h-100 bg-white float-left">
 				<hr>
-				<h3 class="text-center">공 지 사 항 수 정</h3>
+				<h3> 공지사항 수정 </h3>
+				<hr>
+				
 				<form id="write_form">
 					<input type="hidden" id="notice_id" name="notice_id"
 						value="${detail_dto.notice_id}"> <input type="hidden"

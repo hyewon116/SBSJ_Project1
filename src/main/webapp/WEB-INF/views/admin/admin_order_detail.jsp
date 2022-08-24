@@ -90,6 +90,8 @@
 				<section class="col-10 h-100 bg-white float-left">
 		<hr>
 		<h3> 주문 관리 </h3>
+		<hr>
+		
 		<!-- 검색창 비활성화 -->
 <%-- 		 <form action="${pageContext.request.contextPath}/admin/admin_order_list" method="get"> --%>
 <!-- 			<div class="input-group"> -->

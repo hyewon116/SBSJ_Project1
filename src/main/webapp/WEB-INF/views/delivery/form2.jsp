@@ -94,7 +94,7 @@
 			<!-- section 시작--------------------------------------------------------------------------------- -->
 				<section class="col-9 h-100 bg-white float-left">
 		<hr>
-		<h3> 배 송 지 관 리 </h3>
+		<h3> 배송지 관리 </h3>
 		<hr>
 		<div class="row">
 			<div class="col-6">

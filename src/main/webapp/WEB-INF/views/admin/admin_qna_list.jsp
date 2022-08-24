@@ -91,9 +91,10 @@
 
 			<!-- section 시작--------------------------------------------------------------------------------- -->
 			<section class="col-10 h-100 bg-white float-left">
-				<h3 class="text-center">1:1 문의</h3>
-
 				<hr>
+				<h3> 1:1 문의 관리 </h3>
+				<hr>
+
 				<form
 					action="${pageContext.request.contextPath}/admin/admin_qna_list"
 					method="get">
@@ -196,9 +197,8 @@
 					</ul>
 				</div>
 				<!-- container -->
+			</section>
+		</main>
+	</div>
 </body>
-<script type="text/javascript">
-		
-		
-	</script>
 </html>

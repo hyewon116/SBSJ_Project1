@@ -93,10 +93,11 @@
 			<!--  aside 끝 -->	
 				
 				
-				<!-- section 시작--------------------------------------------------------------------------------- -->
-				<section class="col-10 h-100 bg-white float-left">
+		<!-- section 시작--------------------------------------------------------------------------------- -->
+		<section class="col-10 h-100 bg-white float-left">
 		<hr>
-	<h3 class="text-center">공 지 사 항 작 성</h3>
+		<h3> 공지사항 작성 </h3>
+		<hr>
 	<form id="write_form">
 		<table class="table table-boardered">
 			<tbody>

@@ -17,13 +17,9 @@
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 
 		<!-- CSS 파일 -->
-		
-		
-		
-		
+
 <style type="text/css">
 		
-
 /* Style the navigation menu */
 #myMenu {
   list-style-type: none;
@@ -52,10 +48,8 @@
 
 </style>	
 
-
 	</head>
-	
-	
+
 	<body>
 			<!-- header -->
 			<jsp:include page="/WEB-INF/views/headerMain.jsp"></jsp:include>
@@ -75,24 +69,18 @@
 			<main class="clearfix mt-1" style="height:500px">
 				<!--  aside 시작 -->	
 				<aside class="col-2 h-100 bg-white float-left">
-					
-					
+
 				<jsp:include page="/WEB-INF/views/admin/admin_aside.jsp"></jsp:include>
-				<br>
-				<br>			
-				
-				
-				
+				<br><br>			
 				</aside>
 				
 			<!--  aside 끝 -->	
-				
-				
-				<!-- section 시작--------------------------------------------------------------------------------- -->
-				<section class="col-10 h-100 bg-white float-left">
-					<h3> 상 품 후 기 관 리</h3>
-					  <hr style="width:100%;height:1px;border:none;background-color:black;">
-					  	
+					
+	<!-- section 시작--------------------------------------------------------------------------------- -->
+	<section class="col-10 h-100 bg-white float-left">
+			<hr>
+			<h3> 상품 후기 관리 </h3>
+			<hr>
 			<div class="container">
 		
 		<!-- 후기 디테일 -->
@@ -122,16 +110,13 @@
 				<button type="button" class="btn btn-info float-left" id="back"> 뒤로 가기  </button> 
 			</a>
 		</div>
-		<br>
-		<br>
+		<br><br>
 	</div>
-					  	
-	  
-				</section>
-				<!-- section 끝---------------------------------------------------------------------------- -->
-			</main>
-			
-			
-		</div><!-- container -->
+					  
+		</section>
+		<!-- section 끝---------------------------------------------------------------------------- -->
+	</main>
+					
+	</div><!-- container -->
 	</body>
 </html>

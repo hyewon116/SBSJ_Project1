@@ -91,7 +91,8 @@
 
 			<!-- section 시작--------------------------------------------------------------------------------- -->
 			<section class="col-10 h-100 bg-white float-left">
-				<h3 class="text-center">1:1 문의</h3>
+				<hr>
+				<h3> 1:1 문의 </h3>
 				<hr>
 				<table class="table table-hover">
 					<input type="hidden" id="member_id" name="member_id" class="form-control" value="${detail_dto.member_id}">
@@ -146,9 +147,11 @@
 								삭제</button>
 						</div>
 					</c:if>
+			</section>
+			<!-- section 끝---------------------------------------------------------------------------- -->
+		</main>
 
-				</div>
-	</div>
+</body>
 	<script type="text/javascript">
 	$(document).ready(function() {
 		$("#delete_btn").click(function() {
@@ -173,15 +176,4 @@
 		});//click
 	}); //ready
 	</script>
-
-
-
-
-	</section>
-	<!-- section 끝---------------------------------------------------------------------------- -->
-	</main>
-
-
-</body>
-
 </html>

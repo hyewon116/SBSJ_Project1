@@ -85,32 +85,22 @@
 			<main class="clearfix mt-1" style="height:500px">
 				<!--  aside 시작 -->	
 				<aside class="col-2 h-100 bg-white float-left">
-					
-					
+		
 				<jsp:include page="/WEB-INF/views/admin/admin_aside.jsp"></jsp:include>
 				<br>
 				<br>			
-				
-				
-				
+
 				</aside>
 				
 			<!--  aside 끝 -->	
-				
-				
-				<!-- section 시작--------------------------------------------------------------------------------- -->
-				<section class="col-10 h-100 bg-white float-left">
-					<h3> 상 품 관 리</h3>
-					  <!-- <hr style="width:100%;height:2px;border:none;background-color:black;"> -->
-					  	
-					  	
-					  	
-					  	
-					
-					
-					
-					<div class="container">
+
+	<!-- section 시작--------------------------------------------------------------------------------- -->
+	<section class="col-10 h-100 bg-white float-left">
+		<hr>
+		<h3> 상품 관리 </h3>
+		<hr>
 		
+	<div class="container">
 		<!-- 상품 정보 + 구매 버튼 -->		
 		<table class="table" id="table1">
 			<col class="w-25">
@@ -122,8 +112,7 @@
 						<b>${detail_dto.md_name}</b>
 						</p>  
 					</td>
-					
-					
+
 					<!-- 찜 버튼 -->
 					<td colspan="2">
 						<button type="button" id="wish_btn" class="btn btn-danger btn-sm"> 
@@ -179,30 +168,14 @@
 			</a>
 		</div>
 		<br>
-		
-	</div>
+	</div>	
+	</section>
+	<!-- section 끝---------------------------------------------------------------------------- -->
+	</main>
 					
-					
-					
-					
-					
-					
-					
-					  	
-					  	
-					  	
-					  	
-					  	
-					  
-					  
-					  
-				</section>
-				<!-- section 끝---------------------------------------------------------------------------- -->
-			</main>
-			
-			
-		</div><!-- container -->
-	</body>
+</div><!-- container -->
+</body>
+
 	<script type="text/javascript">
 		$(function () {
 			var chkObj = document.getElementsByName("RowCheck");
@@ -261,14 +234,6 @@
 				});
 				
 			}//else
-			
 		}//deleteValue
-		
-		
-		
-		
-		
-		
-		
 	</script>
 </html>
