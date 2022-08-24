@@ -117,9 +117,9 @@
 
 				</form>
 
-				<table class="table table-hover" style="text-align: center;">
+				<table class="table table-hover">
 					<thead>
-						<tr>
+						<tr style="text-align: center;">
 							<th>번호</th>
 							<th>제목</th>
 							<th>조회</th>
@@ -129,12 +129,12 @@
 					<tbody>
 						<c:forEach var="dto" items="${list}" varStatus="status">
 							<tr>
-								<td>${dto.notice_id}</td>
+								<td style="text-align: center;">${dto.notice_id}</td>
 								<td><a
 									href="${pageContext.request.contextPath}/admin/admin_notice_detail?notice_id=${dto.notice_id}">
 										${dto.notice_title}</a></td>
-								<td>${dto.notice_view_cnt}</td>
-								<td>${dto.notice_write_date}</td>
+								<td style="text-align: center;">${dto.notice_view_cnt}</td>
+								<td style="text-align: center;">${dto.notice_write_date}</td>
 							</tr>
 						</c:forEach>
 					</tbody>
