@@ -259,7 +259,7 @@
 	<select id="admin_order_TodayAmt" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="int">
 	select sum(pay_amt) pay_amt  
 	from order_main 
-	where order_date between date_add(now(), interval -1 day) and now();
+	where order_date> Current_date()
 	</select>
 	
 	<select id="orderDetail" parameterType="kr.co.sbsj.util.dto.SearchDTO" resultType="kr.co.sbsj.history.HistoryDTO">
