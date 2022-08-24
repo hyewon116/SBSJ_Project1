@@ -23,6 +23,11 @@ public class MemberDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	public int orderCnt(OrderMainDTO dto) {
+		int successCount = 0;
+		successCount = sqlSession.selectOne("MemberMapper.orderCnt", dto);
+		return successCount;
+	}
 	public int orderStatusCnt(OrderMainDTO dto) {
 		int successCount = 0;
 		successCount = sqlSession.selectOne("MemberMapper.orderStatusCnt", dto);

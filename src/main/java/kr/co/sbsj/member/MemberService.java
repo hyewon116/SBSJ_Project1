@@ -23,6 +23,11 @@ public class MemberService {
 	@Autowired
 	private MemberDAO dao;
 	
+	public int orderCnt(OrderMainDTO dto) {
+		int successCount = 0;
+		successCount = dao.orderCnt(dto);
+		return successCount;
+	}
 	public int orderStatusCnt(OrderMainDTO dto) {
 		int successCount = 0;
 		successCount = dao.orderStatusCnt(dto);

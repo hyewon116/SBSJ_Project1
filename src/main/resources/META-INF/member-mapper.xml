@@ -6,6 +6,11 @@
 <mapper namespace="MemberMapper">
 
 	<!-- mypage_nav info start -->
+	<select id="orderCnt" parameterType="kr.co.sbsj.order.OrderMainDTO" resultType="int">
+	select count(order_id)
+	from order_main
+	where member_id = #{member_id};
+	</select>
 	
 	<select id="orderStatusCnt" parameterType="kr.co.sbsj.order.OrderMainDTO" resultType="int">
 	select count(order_status)

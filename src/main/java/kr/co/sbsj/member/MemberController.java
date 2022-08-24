@@ -41,15 +41,26 @@ public class MemberController {
 	@Autowired
 	private AdminService service2;
 		
-	//1:1문의 미답변 개수
-   @RequestMapping( value = "/orderStatusCnt", method = RequestMethod.POST )
-   public void orderStatusCnt (OrderMainDTO dto, PrintWriter out, Model model, HttpSession session) {
+	//주문 개수
+   @RequestMapping( value = "/orderCnt", method = RequestMethod.POST )
+   public void orderCnt (OrderMainDTO dto, PrintWriter out, Model model, HttpSession session) {
       int successCount = 0;
       dto.setMember_id( ( (MemberDTO) session.getAttribute("login_info") ).getMember_id() );
-      successCount = service.orderStatusCnt(dto);
+      successCount = service.orderCnt(dto);
       out.print(successCount);
       out.close();
       return;
+   }//orderCnt
+   
+   //주문 상태 개수
+   @RequestMapping( value = "/orderStatusCnt", method = RequestMethod.POST )
+   public void orderStatusCnt (OrderMainDTO dto, PrintWriter out, Model model, HttpSession session) {
+	   int successCount = 0;
+	   dto.setMember_id( ( (MemberDTO) session.getAttribute("login_info") ).getMember_id() );
+	   successCount = service.orderStatusCnt(dto);
+	   out.print(successCount);
+	   out.close();
+	   return;
    }//orderStatusCnt
    
    //1:1문의 미답변 개수

@@ -60,6 +60,20 @@ $(document).ready(function() {
 	);//post
 });//ready 
 
+$(document).ready(function() {
+	$.post(
+			"${pageContext.request.contextPath}/member/orderCnt"
+			, function(data, status) {
+				if(data == 0){
+					$("#orderCnt").text(0);
+					
+				} else {
+					$("#orderCnt").text(data);
+				} 
+			}//call back function
+	);//post
+});//ready 
+
 </script>
 </head>
 
@@ -104,11 +118,11 @@ $(document).ready(function() {
 						
 					<dd class="nav_menu4">
 					<div class="nav_menu2">
-						<span class="nav_menu2_name">쿠페이 머니</span>
-						<a href="https://payment.coupang.com/rocketpay/mypage" data-clicklog-type="/click_side_menu_2206" data-log-type="click" data-log-id="2206" data-log-version="1" data-has-log-group="menu" data-log-payload="{&quot;pageName&quot; : &quot;my_navigation&quot;, &quot;eventName&quot;: &quot;rocketmoney_count&quot;, &quot;currentPage&quot;: &quot;&quot;}" class="nav_menu2_data">
+						<span class="nav_menu2_name">주문내역</span>
+						<a href="${pageContext.request.contextPath}/history/my_order_list" data-clicklog-type="/click_side_menu_2206" data-log-type="click" data-log-id="2206" data-log-version="1" data-has-log-group="menu" data-log-payload="{&quot;pageName&quot; : &quot;my_navigation&quot;, &quot;eventName&quot;: &quot;rocketmoney_count&quot;, &quot;currentPage&quot;: &quot;&quot;}" class="nav_menu2_data">
 							<span class="i18n-wrapper">
-								<span class="data_big" id="coupayMoneyBalance">40</span>
-								<span class="data_small">원</span>
+								<span class="data_big" id="orderCnt"></span>
+								<span class="data_small">건</span>
 							</span>
 						</a>
 					</div>
