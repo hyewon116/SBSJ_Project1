@@ -40,9 +40,10 @@
 						<tr>
 							<!-- 상품 이미지 -->
 							<td>
-								<a>
-									<img src=${pageContext.request.contextPath}/resources/mdList/images/subs_detail.png>
-								</a>
+								
+								<a href="${pageContext.request.contextPath}/md/subs_detail">
+					<img src=${pageContext.request.contextPath}/resources/mdList/images/subs_thum.jpg>
+				<br><br></a>
 							</td>
 						</tr>
 					

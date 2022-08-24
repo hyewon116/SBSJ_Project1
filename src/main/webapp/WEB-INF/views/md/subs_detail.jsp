@@ -51,9 +51,9 @@
 		<table class="subs_table" id="subs_table">
 		<tr>
 			<td>
-				<a href="${pageContext.request.contextPath}/md/subs_detail">
-					<img src=${pageContext.request.contextPath}/resources/mdList/images/subs_thum.jpg>
-				<br><br></a>
+					<a>
+									<img src=${pageContext.request.contextPath}/resources/mdList/images/subs_detail.png>
+								<br><br></a>
 				<b><a id="one_year">
 								1. 매월 컨셉에 맞춘 술 2~3개<br>
 								2. 큐레이션 카드 <br>
