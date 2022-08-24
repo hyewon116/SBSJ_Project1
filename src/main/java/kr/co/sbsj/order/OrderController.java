@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.google.gson.Gson;
 
+import kr.co.sbsj.cs.NoticeDTO;
 import kr.co.sbsj.delivery.DeliveryDTO;
 import kr.co.sbsj.delivery.DeliveryService;
 import kr.co.sbsj.md.CouponDTO;
@@ -125,7 +126,17 @@ public class OrderController {
 
 		return "/order/sub_order";//jsp file name
 		
-	}//orderList
+	}//sub_order
 	
+	@RequestMapping( value = "/sub_insert", method = RequestMethod.POST )
+	public void sub_insert( OrderMainDTO dto, HttpSession session, PrintWriter out ) {
+		dto.setMember_id( ( (MemberDTO) session.getAttribute("login_info") ).getMember_id() );
+			int successCount = 0;
+			successCount = service.subInsert( dto );
+			out.print(successCount);
+			out.close();
+	}//sub_insert
+	
+
 }//class
 

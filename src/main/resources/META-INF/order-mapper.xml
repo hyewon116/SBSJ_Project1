@@ -18,23 +18,16 @@
 	where coupon_id = #{coupon_id} and member_id = #{member_id};
 	</update>
 	
-	 <insert id="insertSubOrder" parameterType="kr.co.sbsj.order.OrderMainDTO" >
+	<!-- 정기 구독 -->  
+   <insert id="subInsert" parameterType="kr.co.sbsj.order.OrderMainDTO" >
    insert into subscribe (sub_id, member_id, sub_name, sub_price, delivery_id, sub_date)
-   select s.sub_id, #{member_id}, s.sub_name, s.sub_price, #{delivery_id}, now()
-   from subscription s
-   where s.sub_id= #{sub_id}
+   values(#{sub_id}, #{member_id}, #{sub_name}, #{sub_price}, #{delivery_id}, now())
    </insert>
    
 	<select id="subList" parameterType="kr.co.sbsj.order.OrderMainDTO" resultType="kr.co.sbsj.order.OrderMainDTO">
-	select s.sub_id, s.member_id, m.member_name, s.sub_name, s.sub_date, s.sub_price,
-			d.delivery_id, d.post_code, d.delivery_addr1,d.delivery_addr2
-			
-	from subscribe s, member m, delivery d
-	where
-	s.member_id= #{member_id}
-	and s.member_id = m.member_id
-	and m.member_id = d.member_id
-	and sub_id = #{sub_id}
+	select sub_id, sub_name, sub_price
+	from subscription 
+	where sub_id = #{sub_id}
 	</select>
 	
 	<!-- 쿠폰 리스트 출력 -->
