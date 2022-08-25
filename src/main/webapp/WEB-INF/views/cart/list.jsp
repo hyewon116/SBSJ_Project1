@@ -181,7 +181,7 @@
                     </tr>
                 </table>
                 </div>
-<%--                 <%@ include file="/WEB-INF/views/footer.jsp" %> --%>
+                
 
 
                     <script type="text/javascript">
@@ -313,7 +313,7 @@
                     <script type="text/javascript">
                         $(document).ready(function () {
                             $("#shop_btn").click(function () {
-                                location.href = "${pageContext.request.contextPath}/md/list";
+                                location.href = "${pageContext.request.contextPath}/md/list_cate";
                             });//click
                         });//ready
                     </script>
@@ -367,5 +367,4 @@
 
 
         </body>
-
         </html>
