@@ -66,9 +66,8 @@
 			<button class="yearbtn btn-info" type="button" onclick="location.href='${pageContext.request.contextPath}/order/sub_order?sub_id=2' ">결제하기</button>
 		</tr>
 		</table>
-				
-		
-		<hr class="my-150">
+		<br>
 		
 	</body>
+	<%@ include file="/WEB-INF/views/footerMain.jsp" %>
 </html>

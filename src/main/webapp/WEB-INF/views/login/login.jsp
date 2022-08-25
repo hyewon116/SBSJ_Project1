@@ -98,6 +98,7 @@
 				</div>
 	        </div>
 	</body>
+	<%@ include file="/WEB-INF/views/footerMain.jsp" %>
 </html>
 
 

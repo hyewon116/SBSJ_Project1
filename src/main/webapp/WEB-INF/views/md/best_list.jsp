@@ -169,7 +169,7 @@
 	<!-- 페이징 부분 -->
     
 	</body>
-
+<%@ include file="/WEB-INF/views/footerMain.jsp" %>
 </html>
 
 

@@ -81,8 +81,7 @@
 			<td>
 		</tr>
 		</table>
-		
-		<hr class="my-150">
+		<br>
 		
 	</body>
 	
@@ -185,4 +184,6 @@
    });//ready
    
    </script>
+   
+   <%@ include file="/WEB-INF/views/footerMain.jsp" %>
 </html>

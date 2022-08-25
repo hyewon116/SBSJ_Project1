@@ -374,7 +374,6 @@
 		});//click
 	});//ready
 
-
 	</script>
 				</section>
 				<aside class="col-1  h-100 bg-white float-right"></aside>
@@ -382,4 +381,5 @@
 			
 		</div><!-- container -->
 	</body>
+	<%@ include file="/WEB-INF/views/footerMain.jsp" %>
 </html>

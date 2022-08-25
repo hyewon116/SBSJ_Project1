@@ -109,7 +109,7 @@
 		<div class="col-2">
 		</div>
 		<div class="col-2">
-	                <a href="/md/detail/page?md_id=60">
+	                <a href="#">
 	                    <img class="hover:grow hover:shadow-lg" src="${pageContext.request.contextPath}/resources/home/img/mark_1.jpg">
 	                    <p class="pt-3" style="text-align:center; text-decoration:none !important" id="main-md-name">마크 홀리</p>
 	                    <p class="pt-1" style="text-align:center; text-decoration:none !important" id="main-md-price">11,500원</p>
@@ -117,21 +117,21 @@
 	                </a>
 	            </div>
 		<div class="col-2">
-	                <a href="/md/detail/page?md_id=17">
+	                <a href="#">
 	                    <img class="hover:grow hover:shadow-lg" src="${pageContext.request.contextPath}/resources/home/img/dam_1.jpg">
 	                 <p class="pt-3" style="text-align:center; text-decoration:none !important" id="main-md-name">담은</p>
 	                 <p class="pt-1" style="text-align:center; text-decoration:none !important" id="main-md-price">12,000원</p>
 	                </a>
 		</div>
 		<div class="col-2">
-	                <a href="/md/detail/page?md_id=6">
+	                <a href="#">
 	                    <img class="hover:grow hover:shadow-lg" src="${pageContext.request.contextPath}/resources/home/img/straw_1.jpg">
 	                 <p class="pt-3" style="text-align:center; text-decoration:none !important" id="main-md-name">편백숲 딸기 스파클링</p>
 	                 <p class="pt-1" style="text-align:center; text-decoration:none !important" id="main-md-price">14,000원</p>
 	                </a>
 		</div>
 		<div class="col-2">
-	                <a href="/md/detail/page?md_id=29">
+	                <a href="#">
 	                    <img class="hover:grow hover:shadow-lg" src="${pageContext.request.contextPath}/resources/home/img/boksun_1.jpg">
 	                 <p class="pt-3" style="text-align:center; text-decoration:none !important" id="main-md-name">복순도가 손 막걸리</p>
 	                 <p class="pt-1" style="text-align:center; text-decoration:none !important" id="main-md-price">13,000원</p>
