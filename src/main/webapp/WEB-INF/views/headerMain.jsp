@@ -93,7 +93,7 @@
             </a>
             <div class="dropdown-menu sm-menu">
               <a class="dropdown-item" href="${pageContext.request.contextPath}/notice/list">공지사항</a>
-              <c:if test="${login_info.admin_yn == 'N'}">
+              <c:if test="${login_info.admin_yn == 'N' || login_info.member_id == null }">
               <a class="dropdown-item" href="${pageContext.request.contextPath}/qna/list">1:1문의</a>
               </c:if>
             </div>

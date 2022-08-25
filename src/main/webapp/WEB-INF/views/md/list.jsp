@@ -203,7 +203,6 @@
 				</li>
 			</c:if>
 		</ul>
-	<hr>
 	</div>
 	</body>
 <%@ include file="/WEB-INF/views/footerMain.jsp" %>
