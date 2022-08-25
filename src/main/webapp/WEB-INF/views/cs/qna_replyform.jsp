@@ -22,13 +22,13 @@
 <body>
 
 <!-- body 시작 -->
-	<div class="container col-sm-7">
+	<div class="container col-sm-8">
 		<hr>
 		<h3 class="text-center">1:1 맞춤상담</h3>
 		<hr>
 		<form id="write_form">
 				<input type="hidden" id="qa_question_id" name="qa_question_id" value="${detail_dto.qa_question_id}">	
-				<input type="hidden" id="member_id" name="member_id" value="${detail_dto.member_id}">
+				<input type="hidden" id="o_member_id" name="o_member_id" value="${detail_dto.member_id}">
 					<table class="table table-boardered">
 				<!-- 계층형 게시판 -->
 					<input type="hidden" id="originNo" name="originNo" value="${detail_dto.originNo }">
@@ -153,5 +153,4 @@ $(document).ready(function() {
 });//ready
 </script>
 </body>
-<%@ include file="/WEB-INF/views/footerMain.jsp" %>
 </html>

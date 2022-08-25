@@ -98,7 +98,7 @@
 				<form id="write_form">
 					<input type="hidden" id="qa_question_id" name="qa_question_id"
 						value="${detail_dto.qa_question_id}"> <input type="hidden"
-						id="member_id" name="member_id" value="${detail_dto.member_id}">
+						id="o_member_id" name="o_member_id" value="${detail_dto.member_id}">
 					<table class="table table-boardered">
 						<!-- 계층형 게시판 -->
 						<input type="hidden" id="originNo" name="originNo"
