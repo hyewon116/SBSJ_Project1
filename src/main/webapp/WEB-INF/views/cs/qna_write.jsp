@@ -22,7 +22,7 @@
 <body>
 
 <!-- body 시작 -->
-	<div class="container col-sm-8">
+	<div class="container col-sm-7">
 		<hr>
 		<h3 class="text-center">1:1 맞춤상담</h3>
 		<hr>
@@ -142,4 +142,5 @@ $(document).ready(function() {
 });//ready
 </script>
 </body>
+<%@ include file="/WEB-INF/views/footerMain.jsp" %>
 </html>

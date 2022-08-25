@@ -21,7 +21,7 @@
 <body>
 
 <!-- body 시작 -->
-<div class="container col-sm-8">
+<div class="container col-sm-7">
 		<hr>
 	<h3 class="text-center">공 지 사 항</h3>
 	<hr>
@@ -58,7 +58,6 @@
 				<button class="btn btn-warning" onclick="location.href='${pageContext.request.contextPath}/notice/list'">돌아가기</button>
 			</div>
 </div>	
-		<hr>
 	<script type="text/javascript">
 	$(document).ready(function() {
 		$("#write_btn").click(function() {
@@ -96,4 +95,5 @@
 	});//ready
 	</script>
 	</body>
+	<%@ include file="/WEB-INF/views/footerMain.jsp" %>
 </html>
