@@ -11,7 +11,7 @@
 	<!-- CSS 파일 -->	
 	<link  rel="stylesheet" href="${pageContext.request.contextPath}/resources/home/css/home.css">
 	<link  rel="stylesheet" href="${pageContext.request.contextPath}/resources/home/css/headerMain.css">
-	<link  rel="stylesheet" href="${pageContext.request.contextPath}/resources/home/css/homeFooter.css">
+<%-- 	<link  rel="stylesheet" href="${pageContext.request.contextPath}/resources/home/css/homeFooter.css"> --%>
 	
 	<!-- CDN -->
 	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -144,4 +144,5 @@
 	</div>
 
 </body>
+<%@ include file="/WEB-INF/views/footerMain.jsp" %>
 </html>
