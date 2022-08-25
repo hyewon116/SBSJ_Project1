@@ -182,4 +182,5 @@
 	
 		
 	</script>
+	<%@ include file="/WEB-INF/views/footerMain.jsp" %>
 </html>
