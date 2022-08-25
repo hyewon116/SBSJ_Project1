@@ -12,30 +12,11 @@
     padding: 0;
 }
 
-li {
-    list-style: none;
-}
 a {
     color: #333;
     text-decoration: none;
 }
-/* h1, h2, h3, h4, h5, h6 {
-    clip: rect(85px 450px 395px 45px);
-} */
 
-.wrap {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-.l-inner {
-    width: 1200px;
-    margin: 0 auto;
-}
-
-/* ----------------------------------
-    footer
----------------------------------- */
 footer {
     color: #999;
     border-top: 2px solid #c7c7c7;
