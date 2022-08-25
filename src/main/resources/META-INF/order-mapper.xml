@@ -19,16 +19,23 @@
 	</update>
 	
 	<!-- 정기 구독 -->  
+	<update id="subsYnUpdate" parameterType="kr.co.sbsj.order.OrderMainDTO">
+	update member
+	set subs_yn = 'Y'
+	where member_id = #{member_id}
+	</update>
+   
    <insert id="subInsert" parameterType="kr.co.sbsj.order.OrderMainDTO" >
    insert into subscribe (sub_id, member_id, sub_name, sub_price, delivery_id, sub_date)
    values(#{sub_id}, #{member_id}, #{sub_name}, #{sub_price}, #{delivery_id}, now())
    </insert>
-   
+
 	<select id="subList" parameterType="kr.co.sbsj.order.OrderMainDTO" resultType="kr.co.sbsj.order.OrderMainDTO">
 	select sub_id, sub_name, sub_price
 	from subscription 
 	where sub_id = #{sub_id}
 	</select>
+	
 	
 	<!-- 쿠폰 리스트 출력 -->
 	<select id="couponList" parameterType="kr.co.sbsj.md.CouponDTO" resultType="kr.co.sbsj.md.CouponDTO">

@@ -99,4 +99,10 @@ public class OrderDAO {
 		return successCount;
 	}//subInsert
 
+	public int subsYnUpdate(OrderMainDTO dto) {
+		int subsYnCnt = 0;
+		subsYnCnt = sqlSession.delete("OrderMapper.subsYnUpdate", dto);
+		return subsYnCnt;
+	}
+
 }//class

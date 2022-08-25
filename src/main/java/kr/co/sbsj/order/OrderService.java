@@ -86,4 +86,10 @@ public class OrderService {
 		return successCount;
 	}//subInsert
 
+	public int subsYnUpdate(OrderMainDTO dto) {
+		int subsYnCnt = 0;
+		subsYnCnt = dao.subsYnUpdate(dto);
+		return subsYnCnt;
+	}
+
 }//class

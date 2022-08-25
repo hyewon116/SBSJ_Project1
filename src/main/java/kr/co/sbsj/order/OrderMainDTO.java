@@ -29,6 +29,7 @@ public class OrderMainDTO {
 	private String sub_name;
 	private String sub_price;
 	private String sub_date;
+	private String subs_yn;
 	
 	@Override
 	public String toString() {
@@ -199,6 +200,14 @@ public class OrderMainDTO {
 
 	public void setSub_date(String sub_date) {
 		this.sub_date = sub_date;
+	}
+
+	public String getSubs_yn() {
+		return subs_yn;
+	}
+
+	public void setSubs_yn(String subs_yn) {
+		this.subs_yn = subs_yn;
 	}
 	
 
