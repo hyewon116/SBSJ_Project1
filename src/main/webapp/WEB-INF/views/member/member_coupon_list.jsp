@@ -116,7 +116,6 @@
 		</c:forEach>
 		</table>
 		
-		<hr class="my-150">
 		
 							  
 			</section>
@@ -124,6 +123,9 @@
 			
 			</main>			
 		</div><!-- container -->
+<br><br><br><br><br><br>
+
 	</body>
 	
+<%@ include file="/WEB-INF/views/footerMain.jsp" %>		
 </html>

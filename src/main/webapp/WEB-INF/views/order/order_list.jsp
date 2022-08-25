@@ -248,8 +248,6 @@
 			</div>
 <!-- 결제 정보 끝 -->		
 
-<%-- 	<%@ include file="/WEB-INF/views/footer.jsp" %> --%>
-
 <!--  쿠폰 적용 -->
 <script type="text/javascript">
 $(function() {
@@ -471,4 +469,6 @@ $(function() {
 
 
 	</body>
+	
+<%@ include file="/WEB-INF/views/footerMain.jsp" %>	
 </html>

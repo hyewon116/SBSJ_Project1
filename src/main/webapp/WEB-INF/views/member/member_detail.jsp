@@ -80,6 +80,7 @@
 	
 	
 	<body>
+<%-- <%@ include file="/WEB-INF/views/footerMain.jsp" %>		 --%>
 	<!-- header -->
 		<jsp:include page="/WEB-INF/views/headerMain.jsp"></jsp:include>
 		<br>

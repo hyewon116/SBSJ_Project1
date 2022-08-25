@@ -150,6 +150,9 @@
 			
 		</div><!-- container -->
 	</body>
+
+<%@ include file="/WEB-INF/views/footerMain.jsp" %>	
+	
 	<script type="text/javascript">
 		$(document).ready(function() {
 			/* 비밀번호 일치여부 확인 */
@@ -181,5 +184,4 @@
 			});//click
 		});//ready
 	</script>
-	
 </html>

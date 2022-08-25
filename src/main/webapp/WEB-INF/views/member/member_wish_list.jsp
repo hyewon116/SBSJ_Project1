@@ -165,6 +165,8 @@
 			
 			</main>			
 		</div><!-- container -->
+<%@ include file="/WEB-INF/views/footerMain.jsp" %>		
+		
 	</body>
 	
 		<script type="text/javascript">

@@ -32,6 +32,7 @@
 		<div class="col-3"></div>       
 	</div>
 </div>
-
+<br><br><br><br><br><br><br><br><br><br><br>
 </body>
+<%@ include file="/WEB-INF/views/footerMain.jsp" %>
 </html>
