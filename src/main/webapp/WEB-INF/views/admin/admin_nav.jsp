@@ -136,7 +136,7 @@ $(document).ready(function() {
 						<span class="nav_menu2_name">오늘의 총 매출</span>
 						<a href="#" data-clicklog-type="/click_side_menu_2206" data-log-type="click" data-log-id="2206" data-log-version="1" data-has-log-group="menu" data-log-payload="{&quot;pageName&quot; : &quot;my_navigation&quot;, &quot;eventName&quot;: &quot;rocketmoney_count&quot;, &quot;currentPage&quot;: &quot;&quot;}" class="nav_menu2_data">
 							<span class="i18n-wrapper">
-								<span id="total_amt_today" type="number" class="data_big" id="coupayMoneyBalance"></span>
+								<span id="total_amt_today" type="number" class="data_big" id="coupayMoneyBalance">0</span>
 								<span class="data_small">원</span>
 							</span>
 						</a>
