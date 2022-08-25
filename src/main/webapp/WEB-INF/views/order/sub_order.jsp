@@ -18,20 +18,24 @@
 		th {
 		background: rgba(231,231,231,0.4)
 		}
+		 #total-table {
+            position: relative;
+            width: 500px;
+            float:right;
+        }		
 		</style>
 	</head>
 	<body>
 	<%@ include file="/WEB-INF/views/headerMain.jsp" %>
 
 <!-- 타이틀 -->	
-	<div class="container col-sm-8">
+	<div class="container col-sm-7">
 		<hr>
-		<h3> 주문  / 결제 </h3>
+		<h3 style="text-align:center;"> 정기 구독 결제 </h3>
 		<hr>
-		
 	</div>	
 <!-- 상품 정보 시작 -->		
-		<div class="container col-sm-8">
+		<div class="container col-sm-7">
 <!-- 		<div class="border rounded p-3 mb-3"></div>
  -->		<table class="table table-hover">
 				<col class="col-1">
@@ -77,7 +81,7 @@
 <br><br>
 
 <!-- 구매자 정보 시작 -->	
-			<div class="container col-sm-8">	
+			<div class="container col-sm-7">	
 				<h4>구매자 정보</h4>
 				<table class="table table-hover">
 						<tr>
@@ -97,7 +101,7 @@
 <br><br>
 
 <!-- 받는 사람 정보 시작 -->		
-		<div class="container col-sm-8">
+		<div class="container col-sm-7">
 			<h4>받는 사람정보</h4> <hr>
 				<div class="col-8" >
 				
@@ -148,17 +152,16 @@
 <br><br>
 
 <!-- 결제 정보 시작 -->
- <div class="container col-sm-8">
+ <div class="container col-sm-7">
 		
-			<div class="col-8">
-				<table class="table table-hover">
+			<table class="table table-hover" id="total-table">
 					<tr>
-						<th width="40%"> <h5>총 결제 금액</h5> </th>
+						<th width="45%"> <h5>총 결제 금액</h5> </th>
 						<td class="text-right"><span id="sub_price">${sub_price}</span>원</td>
 					</tr>
 					<tr>
 						<td colspan="2" class="text-center">
-							<button id="kakao_btn" class="btn btn-warning btn-lg"> 카카오페이 </button>
+							<button id="kakao_btn" class="btn btn-warning btn-lg" >카카오페이<img src="${pageContext.request.contextPath}/resources/img/kakaopay_btn.png" style="height:20px;"></button>
 						</td>
 					</tr>
 				</table>
@@ -166,7 +169,6 @@
 		</div>
 <!-- 결제 정보 끝 -->		
 
-<%-- 	<%@ include file="/WEB-INF/views/footer.jsp" %> --%>
 
 <!-- # 카카오페이 -->
 <script type="text/javascript">
@@ -345,6 +347,9 @@
      }
 </script>
 
+<br><br><br><br><br><br>
 
 	</body>
+<%@ include file="/WEB-INF/views/footerMain.jsp" %>	
+	
 </html>
