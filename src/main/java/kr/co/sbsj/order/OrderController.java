@@ -129,12 +129,19 @@ public class OrderController {
 	}//sub_order
 	
 	@RequestMapping( value = "/sub_insert", method = RequestMethod.POST )
-	public void sub_insert( OrderMainDTO dto, HttpSession session, PrintWriter out ) {
-		dto.setMember_id( ( (MemberDTO) session.getAttribute("login_info") ).getMember_id() );
+	public void sub_insert( OrderMainDTO dto, HttpSession session, PrintWriter out, MemberDTO memberdto ) {
+			dto.setMember_id( ( (MemberDTO) session.getAttribute("login_info") ).getMember_id() );
 			int successCount = 0;
 			successCount = service.subInsert( dto );
 			out.print(successCount);
 			out.close();
+			
+			memberdto.setMember_id( ( (MemberDTO) session.getAttribute("login_info") ).getMember_id() );
+			int subsYnCnt = 0;
+			subsYnCnt = service.subsYnUpdate(dto);
+			out.print(subsYnCnt);
+			out.close();
+			
 	}//sub_insert
 	
 
