@@ -135,7 +135,7 @@
 					, function(data, status) {
 						if(data >= 1){
 							alert("배송지 주소를 삭제 하였습니다.");
-							location.href="${pageContext.request.contextPath}/delivery/form";
+							location.href="${pageContext.request.contextPath}/delivery/form?arr_cart_id=" + arr_cart_id;
 						} else {
 							alert("배송지 주소 삭제를 실패 하였습니다.");
 						}
@@ -187,7 +187,7 @@
 					, function(data, status) {
 						if(data >= 1){
 							alert("주소를 성공적으로 등록 하였습니다.");
-							location.href="${pageContext.request.contextPath}/delivery/form";
+							location.href="${pageContext.request.contextPath}/delivery/form?arr_cart_id=" + arr_cart_id;
 						} else if(data <= 0){
 							alert("주소 등록을 실패 하였습니다.");
 						} else {
