@@ -357,7 +357,7 @@ th {
 				alert("선택된 계정이 없습니다.");
 			}
 			else{
-				var chk = confirm("정말 계정을 활성화 하시겠습니까?");
+				var chk = confirm("정말 계정을 비활성화 하시겠습니까?");
 					
 					if(chk == true) {
 				
@@ -371,18 +371,18 @@ th {
 							},
 							success : function(jdata){
 								if(jdata = 1) {
-									alert("계정 활성화 성공");
+									alert("계정 비활성화 성공");
 									location.href = "${pageContext.request.contextPath}/admin/admin_member_list";
 								}
 								else {
-									alert("계정 활성화 실패");
+									alert("계정 비활성화 실패");
 								}
 							}
 						});
 						
 						
 					} else {
-						alert("계정 활성화를 취소하셨습니다.")
+						alert("계정 비활성화를 취소하셨습니다.")
 					}
 				
 			}//else
@@ -437,5 +437,4 @@ th {
 		}//onAccount
 		
 	</script>
-	<%@ include file="/WEB-INF/views/footerMain.jsp" %>
 </html>

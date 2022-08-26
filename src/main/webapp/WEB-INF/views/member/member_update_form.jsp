@@ -231,8 +231,7 @@
 				<!-- section 끝---------------------------------------------------------------------------- -->
 			</main>
 			
-		</div><!-- container -->
-<%@ include file="/WEB-INF/views/footerMain.jsp" %>		
+		</div><!-- container -->	
 		
 	</body>
 	<script type="text/javascript">
