@@ -10,7 +10,7 @@ public class Naver_MemberDTO {
 	private String join_naver;
 	
 	public String toString() {
-		return name + " : " + nickname + " : " + email + " : " + mobile + " : " + birthyear + " : " + join_naver;
+		return "이름 : " +name + " : " + "닉네임 : " + nickname + " : " + "이메일 : " + email + " : " + "휴대폰 번호 : " +  mobile + " : " + "생일 : " + birthyear + " : " + join_naver;
 	}
 
 	public String getName() {

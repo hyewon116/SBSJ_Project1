@@ -72,42 +72,60 @@ public class LoginController {
 	}//logout
 	
 	
-//  로그인 페이지 따로 만들경우 사용 예정	
-//	@RequestMapping( value = "/login_form", method = RequestMethod.GET )
-//	public String  loginForm() {
-//		return "/login/login_form";//jsp file name
-//	}//loginForm
-	
-	
 	/*<============== Naver 로그인  시작 ==============> */
 	
-
+	
+	
+	/*<============== 2. 네이버 로그인 연동 결과 Callback 정보 ==============> */
 	String apiURL;
 	@RequestMapping( value = "/naver_callback", method = RequestMethod.GET )
 	public String  callbackNaver(HttpServletRequest request, Naver_MemberDTO dto, PrintWriter out, HttpSession session ) throws UnsupportedEncodingException {
 		//여기서 받고
+		System.out.println("============== 2. 네이버 로그인 연동 결과 Callback 정보 ==============");
 		String clientId = "hM6sBK_JUV8WoxnMmHzF";//애플리케이션 클라이언트 아이디값";
 		String clientSecret = "XJ0Bm86Wgx";//애플리케이션 클라이언트 시크릿값";
-		String code = request.getParameter("code");
-		String state = request.getParameter("state");
-		String redirectURI = URLEncoder.encode("http://localhost:8081/sbsj/login_naver/naver_success", "UTF-8");//자신의 CallBack URL";
+		String code = request.getParameter("code");//네이버 로그인과 정보 제공 동의 과정 완료 후 받은 code 값
+		String state = request.getParameter("state");//네이버 로그인과 정보 제공 동의 과정 완료 후 받은 state 값
+		String redirectURI = URLEncoder.encode("http://localhost:8081/sbsj/login/naver_callback", "UTF-8");//자신의 CallBack URL";
+		System.out.println("Login 후 네이버에서 받은 code값 : " + code);
+		System.out.println("Login 후 네이버에서 받은 state 값 : " + state);
+		System.out.println("");
+		
+		
+		
+		
+	/*<============== 3. 접근 토큰 발급 요청 ==============> */	
+		//client_id값과 client_secret값 그리고 위 code, state값을 합하여 access_token을 발급 받기위한 apiURL을 생성
+		System.out.println("============== 3. 접근 토큰 발급 요청 ==============");
 		apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
 		apiURL += "client_id=" + clientId;
 		apiURL += "&client_secret=" + clientSecret;
 		apiURL += "&redirect_uri=" + redirectURI;
 		apiURL += "&code=" + code;
 		apiURL += "&state=" + state;
+		
+		
 		String access_token = "";
 		String refresh_token = "";
-		System.out.println("apiURL="+apiURL);
-		System.out.println("===========<애플리케이션 클라이언트와 시크릿 값을 apiURL에 담아 네이버로 보냄>===========");
+		System.out.println("");
+		System.out.println("client_id값과 client_secret값 그리고 위 code, state값을 합하여 access_token을 발급 받기위한 apiURL을 생성");
+		System.out.println("");
+		System.out.println("생성된 apiURL의 값은 : "+apiURL);
+		System.out.println("apiURL로 네이버에 접속");
+		System.out.println("");
+		System.out.println("");
+		
+		// 네이버와 apiURL을 통해서 연결 후 access_token, refresh_token, token_type, expires_in 를 받아 그 중 access_token만 token 변수에 저장
+	
 		try {
 			URL url = new URL(apiURL);
 			HttpURLConnection con = (HttpURLConnection)url.openConnection();
+			// apiURL 연결
 			con.setRequestMethod("GET");
 			int responseCode = con.getResponseCode();
 			BufferedReader br;
-			System.out.println("responseCode="+responseCode);
+			System.out.println("네이버로 부터 받응 응답 코드인 responseCode는 : "+responseCode);
+			System.out.println("응답 코드 200이 정상");
 			if(responseCode==200) { // 정상 호출
 				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
 			} else {  // 에러 발생
@@ -120,30 +138,55 @@ public class LoginController {
 			}
 			br.close();
 			if(responseCode==200) {
-				JSONParser parser = new JSONParser();// 
-				JSONObject jsonObject = (JSONObject) parser.parse(res.toString());
-				System.out.println("===========<네이버에서 응답으로 access_token을 줌>===========");
+				System.out.println("");
+				System.out.println("");
+				System.out.println(" 네이버와 통신 후  access_token, refresh_token, token_type, expires_in정보를 받아서 res 변수에 넣음 ");
+				System.out.println("");
+				System.out.println("");
+				System.out.println("**************** res의 원래 모습 (String) ****************");
+				System.out.println(res.toString());
+				System.out.println("******************************************************");
+				System.out.println("");
+				System.out.println("");
+				JSONObject jsonObject = new JSONObject(); // JSONObject를 사용하여 JSON객체를 생성 하기위해 로드
+				JSONParser parser = new JSONParser(); // String 객체(Json문자열)를 JSON Object로 변환 하기위해 로드
+				jsonObject = (JSONObject) parser.parse(res.toString()); //String 객체(Json문자열)를 JSON Object형태("key", "value")로 변환(Parse)하여 JSON객체에  저장 
+			
+				System.out.println("JSONParser를 이용하여 JSONObject에 JSON 객체 저장");
+				System.out.println("access_token 값만을 token 변수에 저장");
 				
-				System.out.println("jsonObject.access_token="+jsonObject.get("access_token")); 
-				//토큰을 쪼개서 사용하려고 json parser, parse 사용함
-
-				String token = jsonObject.get("access_token").toString();
-				String header = "Bearer " + token;
-
+				String token = jsonObject.get("access_token").toString();// res의 정보 중 access_token의 값만을 token변수에 저장
+				System.out.println("token의 값은 : " + token);
+				
+				System.out.println("");
+				System.out.println("");
+				
+				
+	/*<============== 4. 접근 토큰을 이용하여 프로필 API 호출하기 ==============> */
+				System.out.println("============== 4. 접근 토큰을 이용하여 프로필 API 호출하기 ==============");
+				System.out.println("");
+				String header = "Bearer " + token; // token
 				apiURL = "https://openapi.naver.com/v1/nid/me";
 
 				Map<String, String> requestHeaders = new HashMap<String, String>();
 				requestHeaders.put("Authorization", header);
-				String responseBody = get(apiURL,requestHeaders);
-
-				System.out.println("===========<네이버에 access_token을 주고 네이버 프로필을 내용을 받음>===========");
+				
+				String responseBody = get(apiURL,requestHeaders); // 네이버에 access_token을 주고 네이버 프로필을 받아서 responseBody에 저장
+				
+				
+				System.out.println("Naver에 access_token을 주고 return 받은 data String");
 				System.out.println(responseBody);
-				JSONObject jsonObject2 = (JSONObject) parser.parse(responseBody);
-				System.out.println("*****************************************************");
-
-				System.out.println("===========<네이버에서 받은 프로필 내용을 하나씩 쪼갬>===========");
+				JSONObject jsonObject2 = (JSONObject) parser.parse(responseBody); //String 객체(Json문자열)를 JSON Object형태("key", "value")로 변환(Parse)하여 JSON객체에  저장
+				System.out.println("");
+				System.out.println("");
+				System.out.println("JSONParser를 이용하여 JSONObject에 JSON 객체 저장");
+				System.out.println("response 값만을 따로 저장");
+				System.out.println("");
+				System.out.println("response의 값");
 				System.out.println(jsonObject2.get("response"));
-				JSONObject jsonObject3 = (JSONObject) jsonObject2.get("response");
+				JSONObject jsonObject3 = (JSONObject) jsonObject2.get("response"); //responseBody의 정보 중 response의 값만을 저장
+				System.out.println("");
+				System.out.println("");
 //				System.out.println("이름 : " + jsonObject3.get("name"));
 //				System.out.println("닉네임 : " + jsonObject3.get("nickname"));
 //				System.out.println("이메일 : " + jsonObject3.get("email"));
@@ -152,6 +195,7 @@ public class LoginController {
 //				System.out.println("**************");
 				
 				
+				System.out.println("DTO에 프로필 정보를 항목별로 넣는다.");
 				//네이버에서 받은 프로팰 내용을 Naver_MemberDTO dto에 담음
 				dto.setName( (String) jsonObject3.get("name") );
 				dto.setNickname( (String) jsonObject3.get("nickname") );
@@ -160,9 +204,16 @@ public class LoginController {
 				// 010-1234-6789 -> 01012346789의 형태로 변환하여 저장, 차후 전화번호 중복체크를 위해 '-' 삭제
 				dto.setBirthyear((String) jsonObject3.get("birthyear"));
 				dto.setJoin_naver("Y");
+				System.out.println("");
+				System.out.println("");
 				System.out.println("Naver_MemberDTO에 담긴 내용들");
 				logger.info(dto.toString());
-				
+				System.out.println("");
+				System.out.println("");
+				System.out.println("-------------------Naver_Login 끝-------------------");
+				System.out.println("");
+				System.out.println("");
+				System.out.println("");
 				String age = dto.getBirthyear(); // 접속한 접속자의 나이가 20세 미만의 경우 return 페이지로 이동
 				System.out.println("나이가 몇인가요? : " + age);
 				if ( Integer.parseInt(age) > 2003 ) {

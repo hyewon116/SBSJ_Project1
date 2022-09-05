@@ -69,22 +69,41 @@
 						</div>
 					
 						<!-- 네이버 코드의 시작 -->
+						
+						<!-- ============== 1. 네이버 로그인 연동 URL 생성하기  ============== -->
 						<div class="naver">
 							<%
-							    String clientId = "hM6sBK_JUV8WoxnMmHzF";//애플리케이션 클라이언트 아이디값";
-							    String redirectURI = URLEncoder.encode("http://localhost:8081/sbsj/login/naver_callback", "UTF-8");//CallBack URL";
+							    String clientId = "hM6sBK_JUV8WoxnMmHzF";
+								//NaverDevelopers에서 발급 받은 애플리케이션 클라이언트 아이디값";
+								
+							    String redirectURI = URLEncoder.encode("http://localhost:8081/sbsj/login/naver_callback", "UTF-8");
+							    //NaverDevelopers에 설정해 놓은 CallBack URL";
+							    
 							    SecureRandom random = new SecureRandom();
+							    //Random  함수생성
+							   
 							    String state = new BigInteger(130, random).toString();
+							    //무한한 수를 표기하기 위해 BigInteger 사용하여 랜덤 숫자 생성
 							    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
 							    apiURL += "&client_id=" + clientId;
 							    apiURL += "&redirect_uri=" + redirectURI;
 							    apiURL += "&state=" + state;
 							    session.setAttribute("state", state);
+							    /* 
+							    apiURL의 구성
+								https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=[_____]&redirect_uri=[_____]&state=[_____]
+								state는 SecureRandom에서 생성된 숫자
+								*/
 							%>
 								<a href="<%=apiURL%>"><img id="loginBtn" src=${pageContext.request.contextPath}/resources/login/img/naver_login_btn.png/></a>
-		
+								<!-- a태그를 이용하여 버튼 클릭시에 해당 apiURL로 접속  -->
+								
 						</div>
 						<!-- 네이버 코드의 끝 -->
+	
+	
+	
+	
 	
 						<!-- 카카오 코드의 시작 -->
 		
@@ -106,5 +125,3 @@
 	</body>
 	<%@ include file="/WEB-INF/views/footerMain.jsp" %>
 </html>
-
-
