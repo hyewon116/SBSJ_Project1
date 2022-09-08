@@ -39,9 +39,24 @@
 <h2> 📼 시연 영상 </h2>
 https://www.youtube.com/watch?v=IeXZuWqRbac
 
+<br><br>
+
 <h2> 💻 개발 환경 </h2>
 <table>
-<tr> 
+ <tr> 
  <th> Back-end </th>
  <td> spring MVC, maven, java, eclipse, mybatis </td>
- </table>
+ </tr>
+ <tr> 
+ <th> Front-end </th>
+ <td> HTML5, CSS3, javascript, jQuery, jsp, json, Gson, JSTL </td>
+ </tr>
+ <tr>
+ <th> Server </th>
+ <td> Apache Tomcat, MySQL, JDBC </td>
+ </tr>
+ <tr>
+ <th> 협업 tool </th>
+ <td> Figma, GitHub, ERD, Notion, Sourcetree, Google Sheets </td>
+ </tr>
+</table>
