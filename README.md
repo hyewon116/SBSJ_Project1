@@ -36,10 +36,16 @@
 
 <br><br>
 
-<h2> 📼 시연 영상 </h2>
+<h2> 🎥 시연 영상 </h2>
 https://www.youtube.com/watch?v=IeXZuWqRbac
 
 <br><br>
+
+<h2> 📃 최종발표 자료(PPT) </h2>
+https://spot-belt-aac.notion.site/54026d25d0cf49e98fa6583182b05e61
+
+<br><br>
+
 
 <h2> 💻 개발 환경 </h2>
 <table>
