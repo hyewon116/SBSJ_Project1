@@ -42,7 +42,7 @@ https://www.youtube.com/watch?v=IeXZuWqRbac
 <br><br>
 
 <h2> 📃 최종발표 자료(PPT) </h2>
-https://spot-belt-aac.notion.site/54026d25d0cf49e98fa6583182b05e61
+https://spot-belt-aac.notion.site/54026d25d0cf49e98fa6583182b05e61 <br>
 - 간트차트, 유스케이스, 메뉴구조도, ERD, 시퀀스 다이어그램, 코드 리뷰 등 정리
 <br><br>
 
